@@ -4,9 +4,7 @@ myApp.controller('HeaderController', ['UserService', '$mdDialog', '$location', f
     self.userService = UserService;
     self.userObject = UserService.userObject;
 
-    self.loginModal = function() {
-        UserService.loginModal();
-      }
+   
       
 
       
