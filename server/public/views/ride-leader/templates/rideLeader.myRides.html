@@ -2,21 +2,25 @@
 
 <div>
     <div>
-        <h2>My Leading rides</h2>
-        
+        <div layout="row" layout-align="space-between center">
+            <h2>My Leading rides</h2>
+            <md-button class="create-ride-button" ng-click="vm.createNewRide()">+ Create Ride</md-button>
+        </div>
+        <br><br>
         <ul layout="column">
             <li layout="row" layout-align="space-around center" style="font-weight:bold;">
                 <span>Ride Name</span>Ride Date/Time
                 <span></span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.myLeadRides.list" ng-if="!ride.past_ride" layout="row" layout-align="space-between center">
+                {{ride.status}}
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>
-                    <md-button style="border: 1px solid black;" ng-click="vm.cancelRide()">Cancel Ride</md-button>
-                    <md-button style="border: 1px solid black;" ng-click="vm.checkRidersIn()">Check-In Riders</md-button>
-                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                    <md-button class="border" ng-click="vm.cancelRide()">Cancel Ride</md-button>
+                    <md-button class="border" ng-click="vm.checkRidersIn()">Check-In Riders</md-button>
+                    <md-button class="border" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
                 </span>
             </li>
         </ul>
@@ -31,11 +35,11 @@
                 <span></span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.rides.list" ng-if="!ride.past_ride" layout="row" layout-align="space-between center">
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>
-                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">More Details</md-button>
+                    <md-button class="border" ng-click="vm.rideDetailReveal(ride)">More Details</md-button>
                 </span>
             </li>
         </ul>
@@ -50,12 +54,12 @@
                 <span>Distance Ridden</span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.rides.list" ng-if="ride.past_ride" layout="row" layout-align="space-between center">
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>{{ride.actualDistance}}</span>
                 <span>
-                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                    <md-button class="border" ng-click="vm.rideDetailRevealPast(ride)">Details Button</md-button>
                 </span>
             </li>
         </ul>
