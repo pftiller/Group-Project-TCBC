@@ -1,0 +1,27 @@
+<header ng-include="'/views/user/partials/header.html'"></header>
+<table>
+    <thead>
+      <tr>
+        <th>
+            Date &amp; Time
+        </th>
+        <th>
+            Ride
+        </th>
+        <th>
+            Category
+        </th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="ride in vm.rides.list">
+        <td>
+        </td>
+        <td>{{ride.date}}</td>
+        <td>{{ride.name}}</td>
+        <td>{{ride.category}}</td>
+      </tr>
+    </tbody>
+  </table>      
+
+
+  

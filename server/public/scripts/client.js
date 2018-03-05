@@ -19,8 +19,8 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       // }
     })
     .when('/home', {
-      templateUrl: '/views/user/templates/home.html',
-      controller: 'LoginController as vm',
+      templateUrl: '/views/shared/home.html',
+      controller: 'HomeController as vm',
     })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',
@@ -51,4 +51,5 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .otherwise({
       template: '<h1>404</h1>'
     });
+    
 }]);
