@@ -31,7 +31,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
     };
 
     self.registerUser = function () {
-      if (self.user.username === '' || self.user.password === '') {
+      if (self.user.member_id === '' || self.user.password === '') {
         self.message = "Choose a username and password!";
       } else {
         console.log('sending to server...', self.user);
