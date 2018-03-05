@@ -8,6 +8,16 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   .when('/', {
       redirectTo: 'home'
     })
+    .when('/my-rides', {
+      templateUrl: '/views/templates/member.myRides.html',
+      controller: 'MemberMyRidesController as vm',
+      //resolve when users fleshed out more
+      // resolve: {
+      //   getuser : function(UserService){
+      //     return UserService.getuser();
+      //   }
+      // }
+    })
     .when('/home', {
       templateUrl: '/views/user/templates/home.html',
       controller: 'LoginController as vm',
