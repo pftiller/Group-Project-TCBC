@@ -44,6 +44,10 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         }
       }
     })
+    .when('/login', {
+      templateUrl: '/views/shared/login.html',
+      controller: 'LoginController as vm',
+    })
     .otherwise({
       template: '<h1>404</h1>'
     });
