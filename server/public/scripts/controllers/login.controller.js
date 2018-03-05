@@ -1,48 +1,58 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', function($http, $location, UserService) {
-    console.log('LoginController created');
-    var self = this;
-    self.user = {
-      member_id: '',
-      password: ''
-    };
-    self.message = '';
+myApp.controller('LoginController', ['$http', '$location', '$mdDialog', 'UserService', function ($http, $location, UserService, $mdDialog) {
+      console.log('LoginController created');
+      var self = this;
+      self.user = {
+        member_id: '',
+        password: ''
+      };
+      self.message = '';
 
-    self.login = function () {
-      if (self.user.member_id === '' || self.user.password === '') {
-        self.message = "Enter your username and password!";
-      } else {
-        console.log('sending to server...', self.user);
-        $http.post('/api/user/login', self.user).then(
-          function (response) {
-            if (response.status == 200) {
-              console.log('success: ', response.data);
-              // location works with SPA (ng-route)
-              $location.path('/user');
-            } else {
+      self.login = function () {
+        if (self.user.member_id === '' || self.user.password === '') {
+          self.message = "Enter your username and password!";
+        } else {
+          console.log('sending to server...', self.user);
+          $http.post('/api/user/login', self.user).then(
+            function (response) {
+              if (response.status == 200) {
+                console.log('success: ', response.data);
+                // location works with SPA (ng-route)
+                $location.path('/home');
+                $mdDialog.hide();
+              } else {
+                console.log('failure error: ', response);
+                self.message = "Incorrect credentials. Please try again.";
+              }
+            },
+            function (response) {
               console.log('failure error: ', response);
               self.message = "Incorrect credentials. Please try again.";
-            }
-          },
-          function (response) {
-            console.log('failure error: ', response);
-            self.message = "Incorrect credentials. Please try again.";
-          });
-      }
-    };
-                  /* Not in use for now */
-    // self.registerUser = function () {
-    //   if (self.user.member_id === '' || self.user.password === '') {
-    //     self.message = "Choose a username and password!";
-    //   } else {
-    //     console.log('sending to server...', self.user);
-    //     $http.post('/api/user/register', self.user).then(function (response) {
-    //       console.log('success');
-    //       $location.path('/user');
-    //     },
-    //       function (response) {
-    //         console.log('error');
-    //         self.message = "Something went wrong. Please try again."
-    //       });
-    //   }
-    // }
-}]);
+            });
+        }
+      };
+
+
+      self.cancel = function () {
+        $mdDialog.cancel();
+      };
+
+
+        /* Not in use for now */
+        // self.registerUser = function () {
+        //   if (self.user.member_id === '' || self.user.password === '') {
+        //     self.message = "Choose a username and password!";
+        //   } else {
+        //     console.log('sending to server...', self.user);
+        //     $http.post('/api/user/register', self.user).then(function (response) {
+        //       console.log('success');
+        //       $location.path('/user');
+        //     },
+        //       function (response) {
+        //         console.log('error');
+        //         self.message = "Something went wrong. Please try again."
+        //       });
+        //   }
+        // }
+
+
+      }]);

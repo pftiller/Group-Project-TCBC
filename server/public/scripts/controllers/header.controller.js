@@ -1,4 +1,4 @@
-myApp.controller('HeaderController', ['UserService', '$mdDialog', function(UserService, $mdDialog) {
+myApp.controller('HeaderController', ['UserService', '$mdDialog', '$location', function(UserService, $mdDialog, $location) {
     console.log('HeaderController created');
     var self = this;
     self.userService = UserService;
@@ -7,11 +7,13 @@ myApp.controller('HeaderController', ['UserService', '$mdDialog', function(UserS
 
     self.loginModal = function(ev) {
         $mdDialog.show({
-            controller: LoginController,
+            controller: 'LoginController',
             controllerAs: 'vm',
             templateUrl: '../views/shared/login.html',
             parent: angular.element(document.body),
             clickOutsideToClose: true
         })
     }
+
+
   }]);
