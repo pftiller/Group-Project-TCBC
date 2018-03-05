@@ -1,5 +1,9 @@
-<div class="instructions">
-    <div class="container">
-        <h1 class="lead">Solo Project</h1>
-    </div>
-</div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+          <a ng-href='/#!/home'><span><img src="#" alt="Logo"></span>
+        <span flex></span>
+        <md-button ng-if='vm.userObject' ng-click="vm.userService.logout()">Log Out</md-button>
+        <md-button ng-if='!vm.userObject' ng-click="vm.loginModal(login)">Log In</md-button>
+   </div>
+</md-toolbar>
+<div ng-if='vm.userObject' ng-include="'/views/user/partials/nav.html'"></div>

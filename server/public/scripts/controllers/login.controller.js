@@ -8,15 +8,16 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
     self.message = '';
 
     self.login = function () {
-      if (self.user.username === '' || self.user.password === '') {
+      if (self.user.member_id === '' || self.user.password === '') {
         self.message = "Enter your username and password!";
       } else {
         console.log('sending to server...', self.user);
         $http.post('/api/user/login', self.user).then(
           function (response) {
             if (response.status == 200) {
-              console.log('success: ', response.data);
-              // location works with SPA (ng-route)
+              console.log('success: on login ', response.data);
+              // location works with SPA (ng-route)g
+              
               $location.path('/user');
             } else {
               console.log('failure error: ', response);
@@ -29,20 +30,20 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
           });
       }
     };
-
-    self.registerUser = function () {
-      if (self.user.member_id === '' || self.user.password === '') {
-        self.message = "Choose a username and password!";
-      } else {
-        console.log('sending to server...', self.user);
-        $http.post('/api/user/register', self.user).then(function (response) {
-          console.log('success');
-          $location.path('/home');
-        },
-          function (response) {
-            console.log('error');
-            self.message = "Something went wrong. Please try again."
-          });
-      }
-    }
+                  /* Not in use for now */
+    // self.registerUser = function () {
+    //   if (self.user.member_id === '' || self.user.password === '') {
+    //     self.message = "Choose a username and password!";
+    //   } else {
+    //     console.log('sending to server...', self.user);
+    //     $http.post('/api/user/register', self.user).then(function (response) {
+    //       console.log('success');
+    //       $location.path('/user');
+    //     },
+    //       function (response) {
+    //         console.log('error');
+    //         self.message = "Something went wrong. Please try again."
+    //       });
+    //   }
+    // }
 }]);
