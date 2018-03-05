@@ -89,3 +89,16 @@ li a:hover {
 .ride-detail-stuff{
   padding: 10px;
 }
+
+/* Home */
+
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+}
+
+th {
+  height: 50px;
+}
