@@ -29,7 +29,6 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
           console.log('success: on login ', response.data);
 
           // location works with SPA (ng-route)g
-          self.close(); 
           $location.path('/home');
         } else {
           console.log('failure error: ', response);
