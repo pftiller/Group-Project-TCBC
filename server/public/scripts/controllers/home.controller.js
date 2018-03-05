@@ -4,6 +4,17 @@ myApp.controller('HomeController', ['RideDetailService', function(RideDetailServ
 
     self.rides = RideDetailService.rides;
 
+
+
+
+
+  
+
+
+
+
+
+
   }]);
   
 

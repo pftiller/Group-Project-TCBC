@@ -2,6 +2,28 @@
 
 <div>
     <div>
+        <h2>My Leading rides</h2>
+        
+        <ul layout="column">
+            <li layout="row" layout-align="space-around center" style="font-weight:bold;">
+                <span>Ride Name</span>Ride Date/Time
+                <span></span>
+                <span>Ride Details</span>
+            </li>
+            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+                <span>{{ride.rides_name}}</span>
+                <span>{{ride.rides_date}}</span>
+                <span>
+                    <md-button style="border: 1px solid black;" ng-click="vm.cancelRide()">Cancel Ride</md-button>
+                    <md-button style="border: 1px solid black;" ng-click="vm.checkRidersIn()">Check-In Riders</md-button>
+                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <div>
         <h2>My upcoming rides</h2>
         <ul layout="column">
             <li layout="row" layout-align="space-around center" style="font-weight:bold;">
@@ -10,10 +32,10 @@
                 <span>Ride Details</span>
             </li>
             <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
-                <span>{{ride.name}}</span>
-                <span>{{ride.date}}</span>
+                <span>{{ride.rides_name}}</span>
+                <span>{{ride.rides_date}}</span>
                 <span>
-                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">More Details</md-button>
                 </span>
             </li>
         </ul>
@@ -29,8 +51,8 @@
                 <span>Ride Details</span>
             </li>
             <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
-                <span>{{ride.name}}</span>
-                <span>{{ride.date}}</span>
+                <span>{{ride.rides_name}}</span>
+                <span>{{ride.rides_date}}</span>
                 <span>{{ride.actualDistance}}</span>
                 <span>
                     <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>

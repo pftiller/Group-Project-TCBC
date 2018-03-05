@@ -1,46 +1,43 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
-  // USERS 
-  // .when('/', {
-  //     redirectTo: 'home'
-  //   })
     .when('/my-rides', {
       templateUrl: '/views/user/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
-      //resolve when users fleshed out more
-      // resolve: {
-      //   getuser : function(UserService){
-      //     return UserService.getuser();
-      //   }
-      // }
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
     })
     .when('/ride-leader/my-rides', {
       templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
       controller: 'RideLeaderController as vm',
-      //resolve when users fleshed out more
-      // resolve: {
-      //   getuser : function(UserService){
-      //     return UserService.getuser();
-      //   }
-      // }
-    })
-    .when('/home', {
-      templateUrl: '/views/shared/home.html',
-      controller: 'HomeController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
     })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',
       controller: 'LoginController as vm'
     })
+    .when('/', {
+      redirectTo: 'home'
+    })
+    .when('/home', {
+      templateUrl: '/views/shared/home.html',
+      controller: 'HomeController as vm',
+    })
     .when('/user', {
       templateUrl: '/views/user/templates/user.html',
       controller: 'UserController as vm',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
@@ -49,7 +46,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       templateUrl: '/views/user/templates/info.html',
       controller: 'InfoController as vm',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
@@ -60,6 +57,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     })
     .otherwise({
       template: '<h1>404</h1>'
-    });
-    
+    })
+
+
 }]);

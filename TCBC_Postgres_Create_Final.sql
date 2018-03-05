@@ -86,7 +86,7 @@ CREATE TABLE "member_info" (
   OIDS=FALSE
 );
 
-
+ALTER TABLE "public"."rides" ADD COLUMN "ride_location" text;
 
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("role") REFERENCES "user_roles"("id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("member_id") REFERENCES "member_info"("member_id");

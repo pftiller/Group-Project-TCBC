@@ -5,11 +5,10 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
 
   self.getuser = function(){
     console.log('UserService -- getuser');
-    $http.get('/api/user').then(function(response) {
+    return $http.get('/api/user').then(function(response) {
         if(response.data.member_id) {
             // user has a curret session on the server
             console.log('user service: ', response.data);
-            
             self.userObject.member_id = response.data.member_id;
             console.log('UserService -- getuser -- User Data: ', self.userObject.member_id);
         } else {
@@ -21,7 +20,27 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       console.log('UserService -- getuser -- failure: ', response);
       $location.path("/login");
     });
-  },
+  }
+
+  self.login = function(user){
+    return  $http.post('/api/user/login', user).then(
+        function (response) {
+          if (response.status == 200) {
+            console.log('success: on login ', response.data);
+
+            // location works with SPA (ng-route)g
+            $location.path('/home');
+          } else {
+            console.log('failure error: ', response);
+            self.message = "Incorrect credentials. Please try again.";
+          }
+        },
+        function (response) {
+          console.log('failure error: ', response);
+          self.message = "Incorrect credentials. Please try again.";
+        });
+  }
+
 
   self.logout = function() {
     console.log('UserService -- logout');
@@ -30,4 +49,9 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       $location.path("/home");
     });
   }
+        
+  
+
+
+
 }]);
