@@ -29,7 +29,9 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
         const self = this;
         self.rides = RideDetailService.rides;
         self.ride = item;
-
+        self.user = {
+            loggedIn: false
+        };
         self.hide = function () {
             $mdDialog.hide();
         };
