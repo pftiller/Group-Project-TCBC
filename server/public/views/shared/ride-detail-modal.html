@@ -9,18 +9,22 @@
             <h2>Location</h2>
             <p>{{vm.ride.ride_location}}</p>
             <h2>GPS Link</h2>
-            <p><a ng-href="{{vm.ride.gps}}">{{vm.ride.url}}</a></p>
+            <p>
+                <a ng-href="{{vm.ride.gps}}">{{vm.ride.url}}</a>
+            </p>
         </div>
         <div class="ride-detail-stuff">
             <h2>Description</h2>
             <p>{{vm.ride.description}}</p>
             <h2>Distances</h2>
             <select ng-if="vm.user.loggedIn">
-                    <option ng-repeat="distance in vm.ride.distances">
-                        {{distance}}
-                    </option>
-                </select>
-            <p ng-if="!vm.user.loggedIn"><span ng-repeat="distance in vm.ride.distances">{{distance}} </span></p>
+                <option ng-repeat="distance in vm.ride.distances">
+                    {{distance}}
+                </option>
+            </select>
+            <p ng-if="!vm.user.loggedIn">
+                <span ng-repeat="distance in vm.ride.distances">{{distance}} </span>
+            </p>
             <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
         </div>
     </div>

@@ -2,10 +2,6 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$
     console.log('RideLeaderController created');
     let self = this;
 
-    // self.distances = {
-    //     selected,
-    //     actual,
-    // }
     self.rideDetailReveal = function (ride) {
         RideDetailService.myRideDetailModal(ride);
     }
@@ -13,7 +9,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$
     self.rideDetailRevealPast = function (ride) {
         RideDetailService.myRideDetailModal(ride);
     }
-    
+
     self.cancelRide = function () {
         alert('CANCELED')
     }
@@ -21,6 +17,12 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$
     self.checkRidersIn = function () {
 
     }
+
+    self.createNewRide = function () {
+        RideDetailService.createNewRide();
+    }
+
     self.rides = RideDetailService.rides;
+    self.myLeadRides = RideDetailService.myLeadRides;
 
 }]);

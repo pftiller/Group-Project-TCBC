@@ -4,7 +4,7 @@
     <div>
         <div layout="row" layout-align="space-between center">
             <h2>My Leading rides</h2>
-            <md-button class="">+ Create Ride</md-button>
+            <md-button class="create-ride-button" ng-click="vm.createNewRide()">+ Create Ride</md-button>
         </div>
         <br><br>
         <ul layout="column">
@@ -13,7 +13,8 @@
                 <span></span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.myLeadRides.list" ng-if="!ride.past_ride" layout="row" layout-align="space-between center">
+                {{ride.status}}
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>
@@ -34,7 +35,7 @@
                 <span></span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.rides.list" ng-if="!ride.past_ride" layout="row" layout-align="space-between center">
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>
@@ -53,7 +54,7 @@
                 <span>Distance Ridden</span>
                 <span>Ride Details</span>
             </li>
-            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+            <li ng-repeat="ride in vm.rides.list" ng-if="ride.past_ride" layout="row" layout-align="space-between center">
                 <span>{{ride.rides_name}}</span>
                 <span>{{ride.rides_date}}</span>
                 <span>{{ride.actualDistance}}</span>
