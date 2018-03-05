@@ -4,7 +4,8 @@ var myApp = angular.module('myApp', ['ngRoute']);
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
-    .when('/', {
+  // USERS 
+  .when('/', {
       redirectTo: 'home'
     })
     .when('/home', {
@@ -12,11 +13,11 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       controller: 'LoginController as vm',
     })
     .when('/register', {
-      templateUrl: '/views/templates/register.html',
+      templateUrl: '/views/user/templates/register.html',
       controller: 'LoginController as vm'
     })
     .when('/user', {
-      templateUrl: '/views/templates/user.html',
+      templateUrl: '/views/user/templates/user.html',
       controller: 'UserController as vm',
       resolve: {
         getuser : function(UserService){
@@ -25,7 +26,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       }
     })
     .when('/info', {
-      templateUrl: '/views/templates/info.html',
+      templateUrl: '/views/user/templates/info.html',
       controller: 'InfoController as vm',
       resolve: {
         getuser : function(UserService){
