@@ -9,11 +9,10 @@ myApp.controller('HeaderController', ['UserService', '$mdDialog', function(UserS
       $mdDialog.show({
           controller: LoginController,
           controllerAs: 'vm',
-          templateUrl: '../views/shared/login.html',
+          templateUrl: '..views/shared/login.html',
           parent: angular.element(document.body),
           targetEvent: ev,
           clickOutsideToClose: true,
-
       })
 
   }

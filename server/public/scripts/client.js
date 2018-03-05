@@ -20,7 +20,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     })
     .when('/home', {
       templateUrl: '/views/user/templates/home.html',
-      controller: 'LoginController as vm',
+      controller: 'HomeController as vm',
     })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',
@@ -43,6 +43,10 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
           return UserService.getuser();
         }
       }
+    })
+    .when('/login', {
+      templateUrl: '/views/shared/login.html',
+      controller: 'LoginController as vm',
     })
     .otherwise({
       template: '<h1>404</h1>'

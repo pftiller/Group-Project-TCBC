@@ -2,7 +2,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
     console.log('LoginController created');
     var self = this;
     self.user = {
-      username: '',
+      member_id: '',
       password: ''
     };
     self.message = '';
