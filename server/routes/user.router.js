@@ -21,16 +21,19 @@ router.get('/', (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
-  const username = req.body.username;
+  const member_id = req.body.member_id;
   const password = encryptLib.encryptPassword(req.body.password);
+  
+  
 
   var saveUser = {
-    username: req.body.username,
+    member_id: req.body.member_id,
     password: encryptLib.encryptPassword(req.body.password)
   };
+  const role = 1;
   console.log('new user:', saveUser);
-  pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id',
-    [saveUser.username, saveUser.password], (err, result) => {
+  pool.query('INSERT INTO users (member_id, password, role) VALUES ($1, $2, $3) RETURNING id',
+    [saveUser.member_id, saveUser.password, role], (err, result) => {
       if (err) {
         console.log("Error inserting data: ", err);
         res.sendStatus(500);
