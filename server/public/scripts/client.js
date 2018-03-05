@@ -18,6 +18,16 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       //   }
       // }
     })
+    .when('/ride-leader/my-rides', {
+      templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
+      controller: 'RideLeaderController as vm',
+      //resolve when users fleshed out more
+      // resolve: {
+      //   getuser : function(UserService){
+      //     return UserService.getuser();
+      //   }
+      // }
+    })
     .when('/home', {
       templateUrl: '/views/shared/home.html',
       controller: 'HomeController as vm',
