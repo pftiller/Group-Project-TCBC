@@ -22,8 +22,8 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
-    .when('/profile/my-profile.html', {
-      templateUrl: '/views/profile/my-profile.html',
+    .when('/profile/my-profile', {
+      templateUrl: '/views/profile/templates/my-profile.html',
       controller: 'MyProfileController as vm',
       resolve: {
         getuser: function (UserService) {
