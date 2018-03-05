@@ -46,6 +46,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     console.log('UserService -- logout');
     $http.get('/api/user/logout').then(function(response) {
       console.log('UserService -- logout -- logged out');
+      self.userObject = {};
       $location.path("/home");
     });
   }

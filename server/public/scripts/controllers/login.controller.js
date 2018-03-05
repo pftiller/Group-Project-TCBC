@@ -6,6 +6,9 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         password: ''
       };
       self.message = '';
+      self.user = UserService.userObject;
+
+      
 
     self.login = function () {
       if (self.user.member_id === '' || self.user.password === '') {
@@ -16,6 +19,16 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
           
       }
     }
+    self.logout = function () {
+      UserService.logout(self.user, function (response) {
+          if (response.status == 200) {
+              $location.path('/home');
+          } else {
+              self.message = "Error occured. Please try again.";
+          }
+      });
+    }
+
         /* Not in use for now */
         // self.registerUser = function () {
         //   if (self.user.member_id === '' || self.user.password === '') {
