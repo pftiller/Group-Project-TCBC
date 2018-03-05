@@ -10,7 +10,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
     self.login = function () {
       if (self.user.member_id === '' || self.user.password === '') {
         self.message = "Enter your username and password!";
-      } else {
+      }else{
         console.log('sending to server...', self.user);
         UserService.login(self.user).then(
           (response)=>{
@@ -22,9 +22,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
               $mdDialog.hide();
             }
           }
-
-        );
-          
+        );   
       }
     }
         self.loginModal = function (ev) {
