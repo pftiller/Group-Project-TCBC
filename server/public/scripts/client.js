@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -10,6 +10,12 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .when('/my-rides', {
       templateUrl: '/views/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
+      //resolve when users fleshed out more
+      // resolve: {
+      //   getuser : function(UserService){
+      //     return UserService.getuser();
+      //   }
+      // }
     })
     .when('/home', {
       templateUrl: '/views/templates/home.html',
