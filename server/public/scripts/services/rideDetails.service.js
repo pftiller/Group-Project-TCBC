@@ -21,7 +21,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
-            templateUrl: '../views/partials/ride-detail-modal.html',
+            templateUrl: '../views/shared/ride-detail-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
