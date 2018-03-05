@@ -5,16 +5,13 @@ myApp.controller('HeaderController', ['UserService', '$mdDialog', function(UserS
     self.userObject = UserService.userObject;
 
 
-    self.loginModal = function() {
-      $mdDialog.show({
-          controller: LoginController,
-          controllerAs: 'vm',
-          templateUrl: '..views/shared/login.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose: true,
-      })
-
-  }
-
+    self.loginModal = function(ev) {
+        $mdDialog.show({
+            controller: LoginController,
+            controllerAs: 'vm',
+            templateUrl: '../views/shared/login.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true
+        })
+    }
   }]);
