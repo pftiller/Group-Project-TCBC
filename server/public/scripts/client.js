@@ -1,22 +1,33 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
-    .when('/', {
+  // USERS 
+  .when('/', {
       redirectTo: 'home'
     })
+    .when('/my-rides', {
+      templateUrl: '/views/templates/member.myRides.html',
+      controller: 'MemberMyRidesController as vm',
+      //resolve when users fleshed out more
+      // resolve: {
+      //   getuser : function(UserService){
+      //     return UserService.getuser();
+      //   }
+      // }
+    })
     .when('/home', {
-      templateUrl: '/views/templates/home.html',
+      templateUrl: '/views/user/templates/home.html',
       controller: 'LoginController as vm',
     })
     .when('/register', {
-      templateUrl: '/views/templates/register.html',
+      templateUrl: '/views/user/templates/register.html',
       controller: 'LoginController as vm'
     })
     .when('/user', {
-      templateUrl: '/views/templates/user.html',
+      templateUrl: '/views/user/templates/user.html',
       controller: 'UserController as vm',
       resolve: {
         getuser : function(UserService){
@@ -25,7 +36,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       }
     })
     .when('/info', {
-      templateUrl: '/views/templates/info.html',
+      templateUrl: '/views/user/templates/info.html',
       controller: 'InfoController as vm',
       resolve: {
         getuser : function(UserService){
