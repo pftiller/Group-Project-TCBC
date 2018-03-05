@@ -5,6 +5,7 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     self.rideDetailReveal = function(ride){
         RideDetailService.loadWelcomeModal(ride);
     }
+    
     self.rides = RideDetailService.rides;
 
   }]);
