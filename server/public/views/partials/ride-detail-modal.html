@@ -21,7 +21,7 @@
                     </option>
                 </select>
             <p ng-if="!vm.user.loggedIn"><span ng-repeat="distance in vm.ride.distancesAvailable">{{distance}} </span></p>
-            <md-button>Sign Up for ride!</md-button>
+            <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
         </div>
     </div>
 </div>

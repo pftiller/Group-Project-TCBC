@@ -41,6 +41,15 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.user = {
             loggedIn: false
         };
+
+        self.rideSignUp = function(ride){
+            if (self.user.loggedIn === true) {
+                console.log('SIGN ME UP FOR ',ride.name);
+            } else{
+                alert('Must log in to sign up for a ride!')
+            }
+        }
+
         self.hide = function () {
             $mdDialog.hide();
         };
