@@ -22,6 +22,15 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
+    .when('/profile/my-profile.html', {
+      templateUrl: '/views/profile/my-profile.html',
+      controller: 'MyProfileController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',
       controller: 'LoginController as vm'
@@ -51,6 +60,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
+    
     .when('/login', {
       templateUrl: '/views/shared/login.html',
       controller: 'LoginController as vm',
