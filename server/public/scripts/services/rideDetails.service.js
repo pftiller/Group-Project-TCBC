@@ -1,15 +1,67 @@
-myApp.service('RideDetailService', ['$http', '$location', function($http, $location){
+myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location , $mdDialog) {
     console.log('RideDetailService Loaded');
     let self = this;
-
     self.rides = {
-        list: [
-            ride1 = {name: 'Ride Name', date: 'Ride Date/Time', category: 'Ride Category', description: 'Description poijoisgoisgoisgoisjdgjojg',
-            leader: 'Ride Leader', distancePicked: 'Distance picked', actualDistance: 'Distance Ridden', gps: 'Gps Link'},
-            ride2 = {name: 'Ride2 Name', date: 'Ride2 Date/Time', category: 'Ride2 Category', description: 'Description2 poijoisgoisgoisgoisjdgjojg',
-            leader: 'Ride2 Leader', distancePicked: 'Distance2 picked', actualDistance: 'Distance2 Ridden', gps: 'Gps Link2'}
-        ]
+        list: []
+    }
+
+    self.getRideDetails = function () {
+        return $http.get('/rideDetails')
+            .then((response) => {
+                console.log(response.data);
+                self.rides.list = response.data.details;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    self.getRideDetails();
+
+    self.loadWelcomeModal = function (ride, ev) {
+        $mdDialog.show({
+            controller: RideDetailController,
+            controllerAs: 'vm',
+            templateUrl: '../views/partials/ride-detail-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            resolve: {
+                item: function () {
+                    return ride;
+                }
+            }
+        })
+
+    }
+
+    function RideDetailController($mdDialog, item , RideDetailService) {
+        const self = this;
+        self.rides = RideDetailService.rides;
+        self.ride = item;
+        self.user = {
+            loggedIn: false
         };
-        
-  }]);
-  
+        self.hide = function () {
+            $mdDialog.hide();
+        };
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+    }
+}]);
