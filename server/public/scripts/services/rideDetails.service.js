@@ -6,7 +6,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
 
     self.getRideDetails = function () {
-        return $http.get('/rideDetails')
+        return $http.get('/rides/details')
             .then((response) => {
                 console.log(response.data);
                 self.rides.list = response.data.details;
@@ -39,12 +39,13 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.rides = RideDetailService.rides;
         self.ride = item;
         self.user = {
-            loggedIn: false
+            loggedIn: true
         };
 
         self.rideSignUp = function(ride){
             if (self.user.loggedIn === true) {
                 console.log('SIGN ME UP FOR ',ride.name);
+                RideDetailService.signUpPost(ride);
             } else{
                 alert('Must log in to sign up for a ride!')
             }
@@ -72,5 +73,16 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             });
             // $mdDialog.hide(answer);
         };
+    }
+    self.signUpPost = function (ride) {
+        console.log('Signing up for ride ', ride);
+        return $http.post('/rides', ride)
+            .then((response)=>{
+                console.log('post ride signup ', response);
+            })
+            .catch((err)=>{
+                console.log('err on post ride sign up ', err);
+                
+            })
     }
 }]);
