@@ -11,22 +11,20 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .when('/my-rides', {
       templateUrl: '/views/user/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
-      //resolve when users fleshed out more
-      // resolve: {
-      //   getuser : function(UserService){
-      //     return UserService.getuser();
-      //   }
-      // }
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/ride-leader/my-rides', {
       templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
       controller: 'RideLeaderController as vm',
-      //resolve when users fleshed out more
-      // resolve: {
-      //   getuser : function(UserService){
-      //     return UserService.getuser();
-      //   }
-      // }
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/home', {
       templateUrl: '/views/shared/home.html',

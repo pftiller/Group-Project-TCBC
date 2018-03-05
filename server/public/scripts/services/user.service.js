@@ -5,11 +5,11 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
 
   self.getuser = function(){
     console.log('UserService -- getuser');
-    $http.get('/api/user').then(function(response) {
+    return $http.get('/api/user').then(function(response) {
         if(response.data.member_id) {
             // user has a curret session on the server
             console.log('user service: ', response.data);
-            
+
             self.userObject.member_id = response.data.member_id;
             console.log('UserService -- getuser -- User Data: ', self.userObject.member_id);
         } else {
