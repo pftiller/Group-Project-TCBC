@@ -9,7 +9,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       redirectTo: 'home'
     })
     .when('/my-rides', {
-      templateUrl: '/views/templates/member.myRides.html',
+      templateUrl: '/views/user/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
       //resolve when users fleshed out more
       // resolve: {
