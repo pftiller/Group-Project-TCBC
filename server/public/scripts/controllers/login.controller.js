@@ -12,8 +12,8 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         self.message = "Enter your username and password!";
       } else {
         console.log('sending to server...', self.user);
-        UserService.login(self.user);
-        
+        UserService.login(self.user).then($mdDialog.hide());
+          
       }
     }
         /* Not in use for now */

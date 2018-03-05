@@ -23,22 +23,22 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   }
 
   self.login = function(user){
-    $http.post('/api/user/login', user).then(
-      function (response) {
-        if (response.status == 200) {
-          console.log('success: on login ', response.data);
+    return  $http.post('/api/user/login', user).then(
+        function (response) {
+          if (response.status == 200) {
+            console.log('success: on login ', response.data);
 
-          // location works with SPA (ng-route)g
-          $location.path('/home');
-        } else {
+            // location works with SPA (ng-route)g
+            $location.path('/home');
+          } else {
+            console.log('failure error: ', response);
+            self.message = "Incorrect credentials. Please try again.";
+          }
+        },
+        function (response) {
           console.log('failure error: ', response);
           self.message = "Incorrect credentials. Please try again.";
-        }
-      },
-      function (response) {
-        console.log('failure error: ', response);
-        self.message = "Incorrect credentials. Please try again.";
-      });
+        });
   }
 
 
