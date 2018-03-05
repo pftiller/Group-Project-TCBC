@@ -6,18 +6,20 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
   self.getuser = function(){
     console.log('UserService -- getuser');
     $http.get('/api/user').then(function(response) {
-        if(response.data.username) {
+        if(response.data.member_id) {
             // user has a curret session on the server
+            console.log('user service: ', response.data);
+            
             self.userObject.userName = response.data.username;
             console.log('UserService -- getuser -- User Data: ', self.userObject.userName);
         } else {
             console.log('UserService -- getuser -- failure');
             // user has no session, bounce them back to the login page
-            $location.path("/home");
+            $location.path("/login");
         }
     },function(response){
       console.log('UserService -- getuser -- failure: ', response);
-      $location.path("/home");
+      $location.path("/login");
     });
   },
 
