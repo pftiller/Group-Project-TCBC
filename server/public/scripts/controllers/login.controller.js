@@ -15,6 +15,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
         UserService.login(self.user);
         
       }
+    }
         /* Not in use for now */
         // self.registerUser = function () {
         //   if (self.user.member_id === '' || self.user.password === '') {

@@ -27,9 +27,10 @@ myApp.service('UserService', ['$http', '$location', '$mdDialog', function($http,
       function (response) {
         if (response.status == 200) {
           console.log('success: on login ', response.data);
+
           // location works with SPA (ng-route)g
-          
-          $location.path('/user');
+          self.close(); 
+          $location.path('/home');
         } else {
           console.log('failure error: ', response);
           self.message = "Incorrect credentials. Please try again.";
@@ -50,24 +51,7 @@ myApp.service('UserService', ['$http', '$location', '$mdDialog', function($http,
     });
   }
         
-  self.loginModal = function (ev) {
-    $mdDialog.show({
-    parent: angular.element(document.body),
-      targetEvent: ev,
-      templateUrl: '../views/shared/login.html',
-      controller: 'LoginController',
-      controllerAs: 'vm',
-      clickOutsideToClose: true,
-   });
- }
-self.cancel = function() {
-  $mdDialog.cancel();
-}
-
-self.close = function(reason) { 
-  $mdDialog.hide();
-}
-
+  
 
 
 
