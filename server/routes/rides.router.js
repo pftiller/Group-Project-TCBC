@@ -9,6 +9,7 @@ list = {
             rides_date: '02-02-2018',
             rides_category: 'A',
             description: 'Description poijoisgoisgoisgoisjdgjojg',
+            ride_location: '123 E Berry ST, St. Paul, MN',
             ride_leader: 'Paul Tiller',
             distances: ['40', '30', '20'],
             selected_distance: '30',
@@ -22,6 +23,7 @@ list = {
             rides_category: 'B',
             description: 'Description poijoisgoisgoisgoisjdgjojg',
             ride_leader: 'Lukas Nord',
+            ride_location: '123 E North ST, Minneapolis, MN',
             distances: ['15', '25', '66'],
             selected_distance: '15',
             actualDistance: '66',
@@ -36,6 +38,7 @@ list = {
             ride_leader: 'Patrick Connelly',
             distances: ['40', '80', '120'],
             selected_distance: '120',
+            ride_location: '123 W Chester ST, Duluth, MN',
             actualDistance: '40',
             url: 'Gps Link',
             completed: false
@@ -48,6 +51,7 @@ list = {
             ride_leader: 'Lukas Nord',
             distances: ['20', '50', '100'],
             selected_distance: '20',
+            ride_location: '123 S Mouth ST, Rochester, MN',
             actualDistance: '50',
             url: 'Gps Link2',
             completed: true

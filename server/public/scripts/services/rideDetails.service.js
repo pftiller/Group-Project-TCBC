@@ -192,6 +192,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
+        self.submitRide = function (ride) {
+            console.log('new ride', ride);
+            self.hide();
+            alert('Ride submitted for approval, check back later!');
+        
+        }
 
         self.hide = function () {
             $mdDialog.hide();
