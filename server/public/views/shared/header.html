@@ -6,4 +6,4 @@
         <md-button ng-if='!vm.user.member_id' ng-click="vm.loginModal()">Log In</md-button>
    </div>
 </md-toolbar>
-<div ng-if='vm.user.member_id' ng-include="'/views/user/partials/nav.html'"></div>
+<div ng-if="showNav"> ng-include="'/views/user/partials/nav.html'"></div>
