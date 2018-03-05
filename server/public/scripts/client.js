@@ -19,7 +19,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       // }
     })
     .when('/home', {
-      templateUrl: '/views/user/templates/home.html',
+      templateUrl: '/views/shared/home.html',
       controller: 'HomeController as vm',
     })
     .when('/register', {
