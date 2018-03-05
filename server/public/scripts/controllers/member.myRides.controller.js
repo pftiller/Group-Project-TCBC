@@ -3,7 +3,7 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     let self = this;
 
     self.rideDetailReveal = function(ride){
-        RideDetailService.loadWelcomeModal(ride);
+        RideDetailService.myRideDetailModal(ride);
     }
     
     self.rides = RideDetailService.rides;

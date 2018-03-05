@@ -102,3 +102,6 @@ table {
 th {
   height: 50px;
 }
+.border{
+  border: 1px solid black;
+}

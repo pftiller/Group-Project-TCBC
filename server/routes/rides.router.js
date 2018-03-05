@@ -11,6 +11,7 @@ list = {
             description: 'Description poijoisgoisgoisgoisjdgjojg',
             ride_leader: 'Ride Leader',
             distances: ['40', '30', '20'],
+            selected_distance: '30',
             url: 'Gps Link',
             completed: false
         },
@@ -21,6 +22,7 @@ list = {
             description: 'Description2 poijoisgoisgoisgoisjdgjojg',
             ride_leader: 'Ride2 Leader',
             distances: ['20', '50', '100'],
+            selected_distance: '20',
             actualDistance: '50',
             url: 'Gps Link2',
             completed: true
