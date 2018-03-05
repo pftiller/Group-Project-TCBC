@@ -1,4 +1,4 @@
-myApp.service('UserService', ['$http', '$location', function($http, $location){
+myApp.service('UserService', ['$http', '$location', '$mdDialog', function($http, $location, $mdDialog){
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
@@ -28,4 +28,26 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       $location.path("/home");
     });
   }
+        
+  self.loginModal = function (ev) {
+    $mdDialog.show({
+    parent: angular.element(document.body),
+      targetEvent: ev,
+      templateUrl: '../views/shared/login.html',
+      controller: 'LoginController',
+      controllerAs: 'vm',
+      clickOutsideToClose: true,
+   });
+ }
+self.cancel = function() {
+  $mdDialog.cancel();
+}
+
+self.close = function(reason) { 
+  $mdDialog.hide();
+}
+
+
+
+
 }]);

@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', '$mdDialog', 'UserService', function ($http, $location, UserService, $mdDialog) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', function ($http, $location, UserService) {
       console.log('LoginController created');
       var self = this;
       self.user = {
@@ -18,7 +18,6 @@ myApp.controller('LoginController', ['$http', '$location', '$mdDialog', 'UserSer
                 console.log('success: ', response.data);
                 // location works with SPA (ng-route)
                 $location.path('/home');
-                $mdDialog.hide();
               } else {
                 console.log('failure error: ', response);
                 self.message = "Incorrect credentials. Please try again.";
@@ -31,12 +30,9 @@ myApp.controller('LoginController', ['$http', '$location', '$mdDialog', 'UserSer
         }
       };
 
-
-      self.cancel = function () {
-        $mdDialog.cancel();
-      };
-
-
+      self.cancel = function() {
+        UserService.cancel();
+      }
         /* Not in use for now */
         // self.registerUser = function () {
         //   if (self.user.member_id === '' || self.user.password === '') {
