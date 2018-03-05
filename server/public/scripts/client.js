@@ -19,7 +19,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       // }
     })
     .when('/home', {
-      templateUrl: '/views/user/templates/home.html',
+      templateUrl: '/views/user/templates/user.html',
       controller: 'LoginController as vm',
     })
     .when('/register', {
