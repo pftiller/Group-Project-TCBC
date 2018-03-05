@@ -7,6 +7,10 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     .when('/', {
       redirectTo: 'home'
     })
+    .when('/my-rides', {
+      templateUrl: '/views/templates/member.myRides.html',
+      controller: 'MemberMyRidesController as vm',
+    })
     .when('/home', {
       templateUrl: '/views/templates/home.html',
       controller: 'LoginController as vm',
