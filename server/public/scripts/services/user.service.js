@@ -1,4 +1,4 @@
-myApp.service('UserService', ['$http', '$location', function($http, $location){
+myApp.service('UserService', ['$http', '$location', '$mdDialog', function($http, $location, $mdDialog){
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
@@ -27,9 +27,10 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       function (response) {
         if (response.status == 200) {
           console.log('success: on login ', response.data);
+
           // location works with SPA (ng-route)g
-          
-          $location.path('/user');
+          self.close(); 
+          $location.path('/home');
         } else {
           console.log('failure error: ', response);
           self.message = "Incorrect credentials. Please try again.";
@@ -49,4 +50,9 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
       $location.path("/home");
     });
   }
+        
+  
+
+
+
 }]);

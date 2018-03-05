@@ -33,8 +33,8 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       getuser : function(UserService){
           return UserService.getuser();
         }
-      }
-      })
+    }
+  })
   .when('/my-rides', {
     templateUrl: '/views/user/templates/member.myRides.html',
     controller: 'MemberMyRidesController as vm',
