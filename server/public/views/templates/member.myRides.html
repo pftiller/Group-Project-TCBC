@@ -1,17 +1,39 @@
 <div>
     <div>
-        My upcoming rides
-        <ul>
-            <li ng-repeat="ride in vm.rides.list">
-                {{ride.name}}
+        <h2>My upcoming rides</h2>
+        <ul layout="column">
+            <li layout="row" layout-align="space-around center" style="font-weight:bold;">
+                <span>Ride Name</span>Ride Date/Time
+                <span></span>
+                <span>Ride Details</span>
+            </li>
+            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+                <span>{{ride.name}}</span>
                 <span>{{ride.date}}</span>
-                <span><md-button>Details Button</md-button></span>
+                <span>
+                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                </span>
             </li>
         </ul>
     </div>
     <br>
     <br>
     <div>
-        My past rides
+        <h2>My past rides</h2>
+        <ul layout="column">
+            <li layout="row" layout-align="space-between center" style="font-weight:bold;">
+                <span>Ride Name</span>Ride Date/Time
+                <span>Distance Ridden</span>
+                <span>Ride Details</span>
+            </li>
+            <li ng-repeat="ride in vm.rides.list" layout="row" layout-align="space-between center">
+                <span>{{ride.name}}</span>
+                <span>{{ride.date}}</span>
+                <span>{{ride.actualDistance}}</span>
+                <span>
+                    <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+                </span>
+            </li>
+        </ul>
     </div>
 </div>
