@@ -2,9 +2,8 @@
     <div class="md-toolbar-tools">
           <span><img src="#" alt="Logo"></span>
         <span flex></span>
-        <md-button>
-          Login
-        </md-button>
+        <md-button ng-if='vm.userObject' ng-click="vm.login()">Log Out</md-button>
+        <md-button ng-if='!vm.userObject' ng-click="vm.login()">Log In</md-button>
    </div>
 </md-toolbar>
-<div ng-include="'/views/user/partials/nav.html'"></div>
+<div ng-if='vm.userObject' ng-include="'/views/user/partials/nav.html'"></div>
