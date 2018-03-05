@@ -1,0 +1,22 @@
+<div class="ride-detail-modal" layout="column">
+    <header ng-include="'/views/user/partials/ride-detail-header.html'"></header>
+    <div layout="row" layout-align="space-between strech">
+        <div class="ride-detail-stuff">
+            <h2>Ride Category</h2>
+            <p>{{vm.ride.category}}</p>
+            <h2>Ride Leader</h2>
+            <p>{{vm.ride.leader}}</p>
+            <h2>Ride Location</h2>
+            <p>{{vm.ride.category}}</p>
+            <h2>Ride GPS Link</h2>
+            <p>{{vm.ride.gps}}</p>
+        </div>
+        <div class="ride-detail-stuff">
+            <h2>Ride Description</h2>
+            <p>{{vm.ride.description}}</p>
+            <h2>Ride Distances</h2>
+            <p>{{vm.ride.distancePicked}}</p>
+            <md-button>Sign Up for ride!</md-button>
+        </div>
+    </div>
+</div>

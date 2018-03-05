@@ -78,3 +78,14 @@ li a:hover {
   text-decoration: underline;
   color: #eee;
 }
+
+.ride-detail-modal{
+  min-width: 600px;
+  max-height: 600px;
+}
+.lead{
+  text-align: center;
+}
+.ride-detail-stuff{
+  padding: 10px;
+}
