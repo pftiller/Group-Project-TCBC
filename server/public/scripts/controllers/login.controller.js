@@ -15,7 +15,8 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
         $http.post('/api/user/login', self.user).then(
           function (response) {
             if (response.status == 200) {
-              console.log('success: ', response.data);
+              console.log('success on log in: ', response.data);
+
               // location works with SPA (ng-route)
               $location.path('/user');
             } else {

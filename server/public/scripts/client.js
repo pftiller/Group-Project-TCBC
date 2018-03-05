@@ -5,9 +5,9 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   console.log('myApp -- config')
   $routeProvider
   // USERS 
-  .when('/', {
-      redirectTo: 'home'
-    })
+  // .when('/', {
+  //     redirectTo: 'home'
+  //   })
     .when('/my-rides', {
       templateUrl: '/views/user/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
@@ -19,7 +19,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       // }
     })
     .when('/home', {
-      templateUrl: '/views/user/templates/user.html',
+      templateUrl: '/views/user/templates/home.html',
       controller: 'LoginController as vm',
     })
     .when('/register', {
