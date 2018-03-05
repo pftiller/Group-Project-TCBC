@@ -9,7 +9,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
       redirectTo: 'home'
     })
     .when('/home', {
-      templateUrl: '/views/templates/home.html',
+      templateUrl: '/views/user/templates/home.html',
       controller: 'LoginController as vm',
     })
     .when('/register', {
