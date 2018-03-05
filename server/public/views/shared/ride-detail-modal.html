@@ -1,5 +1,5 @@
 <div class="ride-detail-modal" layout="column">
-    <header ng-include="'/views/user/partials/ride-detail-header.html'"></header>
+    <header ng-include="'/views/shared/ride-detail-header.html'"></header>
     <div layout="row" layout-align="space-between strech">
         <div class="ride-detail-stuff">
             <h2>Category</h2>
@@ -9,7 +9,7 @@
             <h2>Location</h2>
             <p>{{vm.ride.category}}</p>
             <h2>GPS Link</h2>
-            <p>{{vm.ride.gps}}</p>
+            <p><a ng-href="{{vm.ride.gps}}">{{vm.ride.gps}}</a></p>
         </div>
         <div class="ride-detail-stuff">
             <h2>Description</h2>
@@ -21,7 +21,7 @@
                     </option>
                 </select>
             <p ng-if="!vm.user.loggedIn"><span ng-repeat="distance in vm.ride.distancesAvailable">{{distance}} </span></p>
-            <md-button>Sign Up for ride!</md-button>
+            <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
         </div>
     </div>
 </div>

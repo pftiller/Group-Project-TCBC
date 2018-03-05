@@ -7,31 +7,13 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
       };
       self.message = '';
 
-      self.login = function () {
-        if (self.user.member_id === '' || self.user.password === '') {
-          self.message = "Enter your username and password!";
-        } else {
-          console.log('sending to server...', self.user);
-          $http.post('/api/user/login', self.user).then(
-            function (response) {
-              if (response.status == 200) {
-                console.log('success: ', response.data);
-                // location works with SPA (ng-route)
-                $location.path('/home');
-              } else {
-                console.log('failure error: ', response);
-                self.message = "Incorrect credentials. Please try again.";
-              }
-            },
-            function (response) {
-              console.log('failure error: ', response);
-              self.message = "Incorrect credentials. Please try again.";
-            });
-        }
-      };
-
-      self.cancel = function() {
-        UserService.cancel();
+    self.login = function () {
+      if (self.user.member_id === '' || self.user.password === '') {
+        self.message = "Enter your username and password!";
+      } else {
+        console.log('sending to server...', self.user);
+        UserService.login(self.user);
+        
       }
         /* Not in use for now */
         // self.registerUser = function () {
