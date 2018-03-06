@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
