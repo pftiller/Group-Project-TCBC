@@ -51,6 +51,24 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
+    .when('/manage-members', {
+      templateUrl: '/views/admin/templates/manage-members.html',
+      controller: 'AdminController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/manage-rides', {
+      templateUrl: '/views/admin/templates/manage-rides.html',
+      controller: 'AdminController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',
       controller: 'LoginController as vm'
