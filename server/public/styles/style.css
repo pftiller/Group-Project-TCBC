@@ -127,3 +127,26 @@ th {
 /* body{
   background-color: #c5c5c5;
 } */
+
+.mobile-button{
+  font-size: xx-large;
+  height: 7vh;
+  width: 30vh;
+  margin: 1px;
+}
+
+.mobile-table-head{
+  font-size: x-large;
+}
+
+.mobile-middle-buttons{
+  min-height: 8vh;
+}
+.mobile-rider-checkbox{
+  /* min-height: 100px;
+  min-width: 100px; */
+}
+.mobile-rider-cell{
+  text-align: center;
+  font-size: x-large;
+}
