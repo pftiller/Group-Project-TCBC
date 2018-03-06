@@ -26,7 +26,8 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     return  $http.post('/api/user/login', user).then(
         function (response) {
           if (response.status == 200) {
-            // location works with SPA (ng-route)g
+            self.userObject.member_id = response.data.member_id;
+            self.userObject.member_id = response.data.first_name;
             return response;
             
           } else {
@@ -46,6 +47,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     console.log('UserService -- logout');
     $http.get('/api/user/logout').then(function(response) {
       console.log('UserService -- logout -- logged out');
+      self.userObject = {};
       $location.path("/home");
     });
   }

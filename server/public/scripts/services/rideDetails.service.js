@@ -4,10 +4,16 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.rides = {
         list: []
     }
+    self.categories = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
 
+
+    // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     self.checkRidesForLeader = function (rides) {
         console.log('rides ', rides);
         rides.forEach((ride) => {
@@ -16,9 +22,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             }
         });
     }
-
     self.getRideDetails = function () {
-        return $http.get('/rides/details')
+        return $http.get('/rides/public/details')
             .then((response) => {
                 console.log(response.data);
                 self.rides.list = response.data.details;
@@ -27,6 +32,17 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
             .catch((err) => {
                 console.log(err);
+            })
+    }
+    self.getRideDetails();
+    
+    self.getRideCategories = function () {
+        return $http.get('/rides/public/categories')
+            .then((response) => {
+                return response.data;
+            })
+            .catch((err) => {
+                console.log('error getting categories: ',err);
             })
     }
 
@@ -200,7 +216,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             console.log('new ride', ride);
             self.hide();
             alert('Ride submitted for approval, check back later!');
-            $http.post('/rides/submitRide', ride)
+            $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
                     console.log('response post ride ', response);
                 })

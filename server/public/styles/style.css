@@ -72,7 +72,15 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
+/* Header */
+.md-toolbar-tools {
+  height: 100px;
+  max-height:100px;
+}
+.logo {
+  width: 100px;
+  height:auto;
+}
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   text-decoration: underline;
@@ -91,7 +99,20 @@ li a:hover {
 }
 
 /* Home */
-
+.arrow_drop_up:after {
+  font-family: 'Material Icons';
+  content: "\E5C7";
+}
+.md-block { 
+ display: inline-block;
+}
+.search-icon {
+  display: inline-block;
+} 
+.arrow_drop_down:after {
+  font-family: 'Material Icons';
+  content: "\E5C5";
+}
 
 table {
   border-collapse: collapse;
