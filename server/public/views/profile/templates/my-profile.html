@@ -1,4 +1,47 @@
 <header ng-include="'/views/shared/header.html'"></header>
 
-
+<div class="profileContainer">
+    <div layout="column" class="profileLayout" layout-align="center center">
+        <md-content class="profileInfo">
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Member number:</label>
+                <label ng-disabled="true">{{user.memberNumber}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Name:</label>
+                <label ng-disabled="true">{{user.name}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Address:</label>
+                <label ng-disabled="true">{{user.address}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>City:</label>
+                <label ng-disabled="true">{{user.city}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>State:</label>
+                <label ng-disabled="true">{{user.state}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Zip:</label>
+                <label ng-disabled="true">{{user.zip}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Phone Number:</label>
+                <label ng-disabled="true">{{user.phoneNumber}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Email:</label>
+                <label ng-disabled="true">{{user.email}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLabel">
+                <label>Membership expires:</label>
+                <label ng-disabled="true">{{user.memberExpiration}}</label>
+            </div>
+            <div ng-init="myVar = 'https://www.w3schools.com'">
+                <a ng-href="{{myVar}}">Update contact information</a>
+            </div>
+        </md-content>
+    </div>
 </div>

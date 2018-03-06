@@ -1,0 +1,23 @@
+.profileContainer {
+    padding: 0;
+}
+
+.profileLayout {
+    margin-top: 20px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+}
+
+.profileInfo {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 300px;
+    background-color: rgba(158, 158, 158, 0.26);
+    /* justify-content: space-around; */
+}
+
+.profileLabel {
+    /* display: flex; */
+    margin-bottom: 10px;
+}
