@@ -4,45 +4,64 @@
 <div class="profileContainer">
     <div layout="column" class="profileLayout" layout-align="center center">
         <md-content class="profileInfo">
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Member number:</label>
-                <label ng-disabled="true">{{user.memberNumber}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Member number:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">1546</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Name:</label>
-                <label ng-disabled="true">{{user.name}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Name:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">Darren Rector</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Address:</label>
-                <label ng-disabled="true">{{user.address}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Address:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">5445 Boone Avenue North</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>City:</label>
-                <label ng-disabled="true">{{user.city}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    City:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">Maple Grove</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>State:</label>
-                <label ng-disabled="true">{{user.state}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    State:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">MN</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Zip:</label>
-                <label ng-disabled="true">{{user.zip}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Zip:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">55428</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Phone Number:</label>
-                <label ng-disabled="true">{{user.phoneNumber}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Phone Number:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">320-309-0976</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Email:</label>
-                <label ng-disabled="true">{{user.email}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Email:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">darren@prime.com</label>
             </div>
-            <div layout-gt-sm="row" class="profileLabel">
-                <label>Membership expires:</label>
-                <label ng-disabled="true">{{user.memberExpiration}}</label>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Membership expiration:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">August 20, 2019</label>
             </div>
-            <div ng-init="myVar = 'https://www.w3schools.com'">
-                <a ng-href="{{myVar}}">Update contact information</a>
+            <div layout-gt-sm="row" class="profileLink">
+                <a ng-href="https://www.w3schools.com">Update contact information</a>
             </div>
-        </md-content>
     </div>
+    </md-content>
+</div>
 </div>
