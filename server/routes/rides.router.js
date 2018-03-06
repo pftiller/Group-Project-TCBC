@@ -82,22 +82,33 @@ categories = {
     ]
 }
 
-router.get('/details', isAuthenticated, (req, res) => {
+router.get('/public/details', isAuthenticated, (req, res) => {
 
     res.send(list);
 });
 
-router.get('/categories', (req, res) => {
-    res.send(categories);
+
+
+
+            /* Fetch All Categories */
+
+router.get('/public/categories', (req, res) => {
+    //res.send(categories);
+    const CategoryQuery = `SELECT * FROM categories`;
+    pool.query(CategoryQuery)
+        .then((result)=>{
+            res.send(result.rows);
+        })
+        .catch((err)=>{
+            console.log('Error getting categories');
+            res.sendStatus(500);
+        })
 });
 
 
-router.post('/', isAuthenticated, (req, res) => {
-    console.log('user ', req.user.member_id);
-    console.log('req.body ', req.body);
-})
+            /* RideLeader Submit Ride for Approval */
 
-router.post('/submitRide', isAuthenticated, (req, res) => {
+router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     console.log('user ', req.user);
     console.log('req.body ', req.body);
     const query = 'INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';

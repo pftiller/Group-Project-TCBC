@@ -7,6 +7,18 @@ myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log
   self.simulateQuery = false;
   self.isDisabled = false;
 
+
+  // fetch categories on page load
+  self.loadCategories = function(){
+    RideDetailService.getRideCategories()
+      .then((response)=>{
+        self.categories.list = response;
+      })
+  }
+  self.loadCategories();
+  
+  
+  
   // Ride Name Search
 self.querySearch = function(query) {
       var results = query ? self.categories.list.ride_names.filter(createFilterFor(query)) : self.categories.list.ride_names,
