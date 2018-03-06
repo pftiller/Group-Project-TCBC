@@ -41,7 +41,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', funct
         }
       }
     })
-    .when('/profile/my-profile', {
+    .when('/my-profile', {
       templateUrl: '/views/profile/templates/my-profile.html',
       controller: 'MyProfileController as vm',
       activetab: 'my-profile',
