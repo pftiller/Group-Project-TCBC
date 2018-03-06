@@ -4,10 +4,17 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.rides = {
         list: []
     }
+    self.categories = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
 
+
+    // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
+        //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
         console.log('rides ', rides);
         rides.forEach((ride) => {
@@ -18,7 +25,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
 
     self.getRideDetails = function () {
-        return $http.get('/rides/details')
+        return $http.get('/rides/public/details')
             .then((response) => {
                 console.log(response.data);
                 self.rides.list = response.data.details;
@@ -29,8 +36,21 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log(err);
             })
     }
+    self.getRideDetails();
+    
+    self.getRideCategories = function () {
+        return $http.get('/rides/public/categories')
+            .then((response) => {
+                return response.data;
+            })
+            .catch((err) => {
+                console.log('error getting categories: ',err);
+            })
+    }
 
-    self.getRideDetails().then((data) => {self.checkRidesForLeader(data)});
+    self.getRideDetails().then((data) => {
+        self.checkRidesForLeader(data)
+    });
 
     self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
@@ -88,6 +108,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             // $mdDialog.hide(answer);
         };
     }
+    
     self.signUpPost = function (ride) {
         console.log('Signing up for ride ', ride);
         return $http.post('/rides', ride)
@@ -180,7 +201,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         //     })
     }
 
-    self.createNewRide = function(ev){
+    self.createNewRide = function (ev) {
         $mdDialog.show({
             controller: CreateNewRideController,
             controllerAs: 'vm',
@@ -190,8 +211,21 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
         })
     }
+
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
+        self.submitRide = function (ride) {
+            console.log('new ride', ride);
+            self.hide();
+            alert('Ride submitted for approval, check back later!');
+            $http.post('/rides/rideLeader/submitRide', ride)
+                .then((response) => {
+                    console.log('response post ride ', response);
+                })
+                .catch((err) => {
+                    console.log('err post ride ', err);
+                });
+        }
 
         self.hide = function () {
             $mdDialog.hide();
