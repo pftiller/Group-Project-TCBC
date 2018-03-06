@@ -18,7 +18,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
 
     self.getRideDetails = function () {
-        return $http.get('/rides/details')
+        return $http.get('/rides/public/details')
             .then((response) => {
                 console.log(response.data);
                 self.rides.list = response.data.details;
