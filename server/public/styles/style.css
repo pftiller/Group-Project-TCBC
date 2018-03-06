@@ -74,8 +74,11 @@ li a {
 }
 /* Header */
 .md-toolbar-tools {
-  height: 100px;
-  max-height:100px;
+  height: 125px;
+  max-height:125px;
+}
+md-toolbar {
+  background-color:#fff;
 }
 .logo {
   width: 100px;
