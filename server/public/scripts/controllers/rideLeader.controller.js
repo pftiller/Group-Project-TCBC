@@ -15,7 +15,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$
     }
 
     self.checkRidersIn = function () {
-
+        alert('Check in riders')
     }
 
     self.createNewRide = function () {

@@ -103,14 +103,27 @@ th {
   height: 50px;
 }
 .border{
-  border: 1px solid black;
+  border: 1px solid #a1a1a1;
 }
 .ride-button{
-  box-shadow: 1px 1px black;
+  /* background-color: #cfcfcf; */
+  border-radius: 10%;
+  box-shadow: 1px 1px #a1a1a1;
 }
 .ride-button:hover{
-  box-shadow: 2px 2px black;
+  box-shadow: 2px 2px #a1a1a1;
 }
 .ride-button:active{
-  box-shadow: 0px 0px black;
+  box-shadow: 0px 0px #a1a1a1;
 }
+.my-rides-items{
+  border: 1px solid #c5c5c5;
+  background-color: gainsboro;
+  margin-bottom: 5px;
+}
+.create-ride-button{
+
+}
+/* body{
+  background-color: #c5c5c5;
+} */
