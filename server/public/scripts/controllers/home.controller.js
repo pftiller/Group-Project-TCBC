@@ -50,11 +50,7 @@ self.querySearch = function(query) {
     RideDetailService.loadWelcomeModal(ride);
   }
 
-  // Category Dropdown Filter
-  self.categoryFilter = {};
-
 // Clear Filters
-
   self.clearFilters = function () {
     self.query.date = '';
     self.query.name = '';
