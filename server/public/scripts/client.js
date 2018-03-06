@@ -4,6 +4,21 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
+    .when('/', {
+      redirectTo: 'home'
+    })
+    .when('/register', {
+      templateUrl: '/views/user/templates/register.html',
+      controller: 'LoginController as vm'
+    })
+    .when('/home', {
+      templateUrl: '/views/shared/home.html',
+      controller: 'HomeController as vm',
+    })
+    .when('/login', {
+      templateUrl: '/views/shared/login.html',
+      controller: 'LoginController as vm',
+    })
     .when('/my-rides', {
       templateUrl: '/views/user/templates/member.myRides.html',
       controller: 'MemberMyRidesController as vm',
@@ -13,9 +28,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
-    .when('/ride-leader/my-rides', {
-      templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
-      controller: 'RideLeaderController as vm',
+    .when('/check-in/:rideId', {
+      templateUrl: '/views/ride-leader/templates/check-in-view.html',
+      controller: 'CheckInController as vm',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
@@ -30,17 +45,6 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
           return UserService.getuser();
         }
       }
-    })
-    .when('/register', {
-      templateUrl: '/views/user/templates/register.html',
-      controller: 'LoginController as vm'
-    })
-    .when('/', {
-      redirectTo: 'home'
-    })
-    .when('/home', {
-      templateUrl: '/views/shared/home.html',
-      controller: 'HomeController as vm',
     })
     .when('/user', {
       templateUrl: '/views/user/templates/user.html',
@@ -60,10 +64,14 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
-    
-    .when('/login', {
-      templateUrl: '/views/shared/login.html',
-      controller: 'LoginController as vm',
+    .when('/ride-leader/my-rides', {
+      templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
+      controller: 'RideLeaderController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
     })
     .otherwise({
       template: '<h1>404</h1>'
