@@ -1,7 +1,8 @@
-myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', function (RideDetailService, UserService, CheckInService, $mdDialog, $location) {
+myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', '$routeParams', function (RideDetailService, UserService, CheckInService, $mdDialog, $location, $routeParams) {
     console.log('CheckInController created');
     let self = this;
-
+    let rideId = $routeParams.rideId;
+    
     self.rideDetailReveal = function (ride) {
         RideDetailService.myRideDetailModal(ride);
     }
@@ -27,4 +28,9 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     }
 
     self.riders = CheckInService.riders;
+
+    self.markRideComplete = function(rideId){
+        CheckInService.markRideComplete(rideId);
+    }
+    
 }]);

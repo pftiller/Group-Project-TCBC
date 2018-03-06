@@ -28,7 +28,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
-    .when('/check-in', {
+    .when('/check-in/:rideId', {
       templateUrl: '/views/ride-leader/templates/check-in-view.html',
       controller: 'CheckInController as vm',
       resolve: {

@@ -1,11 +1,11 @@
 <header>
     <div class="instructions" layout="row" layout-align="space-between center">
-        <h1>Ride Name</h1>
+        <h1 style="font-size:-webkit-xxx-large;">Ride Name</h1>
         <md-button class="mobile-button">Close</md-button>
     </div>
 </header>
 <div class="md-toolbar-tools mobile-middle-buttons">
-    <md-button class="mobile-button">Ride Complete!</md-button>
+    <md-button class="mobile-button" ng-click="vm.markRideComplete()">Ride Complete!</md-button>
     <md-button class="mobile-button">+ Add Rider</md-button>
 </div>
 
@@ -22,8 +22,8 @@
             <tr ng-repeat="rider in vm.riders.list">
                 <td class="mobile-rider-cell">{{rider.member_id}}</td>
                 <td class="mobile-rider-cell">{{rider.member_name}}</td>
-                <td layout="column" layout-align="center center">
-                    <md-checkbox class="mobile-rider-checkbox" aria-label="check-in-status" ng-checked="{{rider.checked_in}}">
+                <td class="mobile-rider-checkbox" layout="column" layout-align="center center">
+                    <md-checkbox  aria-label="check-in-status" ng-checked="{{rider.checked_in}}">
                     </md-checkbox>
                 </td>
             </tr>

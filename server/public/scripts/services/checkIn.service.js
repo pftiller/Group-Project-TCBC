@@ -23,4 +23,15 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
     }
 
 
+    self.markRideComplete = function(ride){
+        console.log('mark ride complete ', ride);
+        
+        // $http.put('/rides/ride-leader/ride', ride)
+        //     .then((response)=>{
+        //         console.log('do something with response');
+        //     })
+        //     .catch((err)=>{
+        //         console.log('ERR');
+        //     })
+    }
 }]);

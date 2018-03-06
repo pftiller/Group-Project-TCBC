@@ -21,8 +21,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     self.rides = RideDetailService.rides;
     self.myLeadRides = RideDetailService.myLeadRides;
 
-    self.checkRidersIn = function () {
-        
+    self.checkRidersIn = function () {  
         $location.path('/check-in')
     }
 
