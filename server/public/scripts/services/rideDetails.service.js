@@ -119,9 +119,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-<<<<<<< HEAD
-    
-=======
 
     self.currentRide = function (rides) {
         rides.forEach(ride => {
@@ -251,6 +248,5 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             // $mdDialog.hide(answer);
         };
     }
->>>>>>> dev
 
 }]);

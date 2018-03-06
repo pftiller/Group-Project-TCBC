@@ -44,7 +44,9 @@ self.querySearch = function(query) {
 // Clear Filters
 
   self.clearFilters = function () {
-    query = {};
+    self.query.date = '';
+    self.query.name = '';
+    self.query.category = '';
   }
 
   // Table Sorting 
