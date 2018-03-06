@@ -14,6 +14,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
+        //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
         console.log('rides ', rides);
         rides.forEach((ride) => {
@@ -22,6 +23,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             }
         });
     }
+
     self.getRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
