@@ -1,0 +1,28 @@
+.profileContainer {
+    padding: 0;
+}
+
+.profileLayout {
+    margin-top: 20px;
+}
+
+.profileInfo {
+    border: 1px solid #000;
+    padding: 20px;
+    width: 30%;
+    background-color: rgba(158, 158, 158, 0.26);
+    font-size: 20px;
+}
+
+.profileLabel {
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.profileLink {
+    text-align: center;
+}
+
+.profileUserDataLabel {
+    margin-left: 10px;
+}

@@ -1,4 +1,4 @@
-myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$mdDialog', function (RideDetailService, UserService, $mdDialog) {
+myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', function (RideDetailService, UserService, CheckInService, $mdDialog, $location) {
     console.log('RideLeaderController created');
     let self = this;
 
@@ -14,15 +14,15 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', '$
         alert('CANCELED')
     }
 
-    self.checkRidersIn = function () {
-        alert('Check in riders')
-    }
-
     self.createNewRide = function () {
         RideDetailService.createNewRide();
     }
 
     self.rides = RideDetailService.rides;
     self.myLeadRides = RideDetailService.myLeadRides;
+
+    self.checkRidersIn = function (ride) {  
+        $location.path(`/check-in/${ride.id}`)
+    }
 
 }]);

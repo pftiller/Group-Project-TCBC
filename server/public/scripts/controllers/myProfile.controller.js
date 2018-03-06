@@ -1,8 +1,13 @@
 myApp.controller('MyProfileController', ['UserService', function(UserService) {
     console.log('MyProfileController created');
-    var self = this;
+    let self = this;
     self.userService = UserService;
     self.userObject = UserService.userObject;
+    self.viewProfile = UserService.viewProfile;
+
+    self.viewProfile = function(userData) {
+      self.UserService.viewProfile = userData;
+    }
   }]);
   
 

@@ -6,6 +6,7 @@ const ridePackager = require('../modules/ridePackager.module');
 list = {
     details: [
         ride1 = {
+            id: 1,
             rides_name: 'Cycle through the lakes',
             rides_date: '02-02-2018',
             rides_category: 'A',
@@ -19,6 +20,7 @@ list = {
             completed: false
         },
         ride3 = {
+            id: 2,
             rides_name: 'Fun ride around',
             rides_date: '01-17-2018',
             rides_category: 'B',
@@ -32,6 +34,7 @@ list = {
             completed: false
         },
         ride4 = {
+            id: 3,
             rides_name: 'Hard cycle up mountain',
             rides_date: '04-11-2018',
             rides_category: 'C',
@@ -45,6 +48,7 @@ list = {
             completed: false
         },
         ride2 = {
+            id: 4,
             rides_name: 'Ride2 Name',
             rides_date: '03-03-2018',
             rides_category: 'MB-A',
@@ -109,23 +113,27 @@ router.get('/public/details',  (req, res) => {
 
 
 
+<<<<<<< HEAD
             /* GET All Categories */
 
+=======
+            /* Fetch All Categories */
+>>>>>>> 93026c107c33f89c319cf8ace7aaa3ad4e41060e
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
     const CategoryQuery = `SELECT * FROM categories`;
     pool.query(CategoryQuery)
-        .then((result)=>{
+        .then((result) => {
             res.send(result.rows);
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log('Error getting categories');
             res.sendStatus(500);
         })
 });
 
 
-            /* RideLeader Submit Ride for Approval */
+/* RideLeader Submit Ride for Approval */
 
 router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     console.log('user ', req.user);
@@ -142,6 +150,45 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
         });
 
 });
+
+router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
+    const queryText = `
+    SELECT * FROM rides
+    WHERE id = $1`;
+    pool.query(queryText, [req.params.rideId])
+        .then((response)=>{
+            console.log('get current ride info ', response.rows);
+            res.send(response.rows);
+        })
+        .catch((err)=>{
+            console.log('get current ride err ', err);
+        });
+    // res.send(list);
+});
+
+
+
+// Ride Leader Mark Ride as Complete
+router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
+    console.log('user ', req.params.rideId);
+    console.log('req ', req.body);
+    const queryText = `
+    UPDATE rides
+    SET completed = $1
+    WHERE id = $2`;
+    pool.query(queryText, [true, req.params.rideId])
+        .then((result) => {
+            console.log('result update ', result);
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making update completed query:', err);
+            res.sendStatus(500);
+        });
+
+});
+
 
 
 
