@@ -44,7 +44,7 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', funct
     .when('/my-profile', {
       templateUrl: '/views/profile/templates/my-profile.html',
       controller: 'MyProfileController as vm',
-      activetab: 'my-profile',
+      // activetab: 'my-profile',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
