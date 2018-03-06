@@ -16,16 +16,9 @@
         <div class="ride-detail-stuff">
             <h2>Description</h2>
             <p>{{vm.ride.description}}</p>
-            <h2>Distances</h2>
-            <select ng-if="vm.user.loggedIn">
-                <option ng-repeat="distance in vm.ride.distances">
-                    {{distance}}
-                </option>
-            </select>
-            <p ng-if="!vm.user.loggedIn">
-                <span ng-repeat="distance in vm.ride.distances">{{distance}} </span>
-            </p>
-            <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
+            <h2>Distance</h2>
+            <p>{{vm.ride.actualDistance}}</p>
+            <md-button ng-if="!vm.ride.past_ride" ng-click="vm.rideUnregister(vm.ride)">Unregister for this ride</md-button>
         </div>
     </div>
 </div>
