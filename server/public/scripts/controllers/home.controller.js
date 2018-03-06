@@ -34,9 +34,9 @@ self.querySearch = function(query) {
     }
 
 // Ride Details
-  self.rideDetailReveal = function (ride) {
-    RideDetailService.loadWelcomeModal(ride);
-  }
+self.rideDetailReveal = function (ride) {
+  RideDetailService.myRideDetailModal(ride);
+}
 
 // Clear Filters
   self.clearFilters = function () {

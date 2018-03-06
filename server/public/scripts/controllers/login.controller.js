@@ -38,7 +38,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
             self.message = "Incorrect Member ID or Password"
           }else if(response.status == 200){
             console.log('response.status: ', response.status);
-            $location.path('/ride-leader/my-rides');
+            $location.path('/home');
             $mdDialog.hide();
             self.showNav = false;
           }
