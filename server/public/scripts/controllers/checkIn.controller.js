@@ -2,7 +2,7 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     console.log('CheckInController created');
     let self = this;
     let rideId = $routeParams.rideId;
-    
+
     self.ride = CheckInService.ride;
 
     self.riders = CheckInService.riders;
@@ -10,7 +10,13 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     self.markRideComplete = function () {
         CheckInService.markRideComplete(rideId)
             .then(() => {
-                $location.path('/ride-leader/my-rides');
+                return $location.path('/ride-leader/my-rides');
+            })
+            .catch((err)=>{
+                alert('Error marking ride complete! ', err);
+            })
+            .finally(() => {
+                alert('Ride Complete! All riders will receive their mileage automatically.')
             });
     }
 
@@ -20,4 +26,14 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
         CheckInService.currentRide(rideId);
     };
     self.currentRide(rideId);
+
+    self.addRider = function(){
+        let answer = confirm('Is the rider a TCBC member?');
+        if (answer) {
+            CheckInService.addMemberToRide();
+        } else{
+            CheckInService.addGuestToRide();
+        };
+    }
+
 }]);

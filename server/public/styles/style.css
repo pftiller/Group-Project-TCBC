@@ -181,3 +181,14 @@ th {
   background-color: #f3f3f3;
 
 }
+.material-icons.md-48 { font-size: 48px; }
+
+.guest-register-modal{
+  font-size: x-large;
+  width: 15vh;
+  padding: 25px;
+}
+.add-guest-button{
+  height: 10vh;
+  font-size: x-large;
+}

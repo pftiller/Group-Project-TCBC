@@ -67,6 +67,7 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
 
 });
 
+    //Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
     const queryText = `
     SELECT * FROM rides
@@ -104,7 +105,23 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
         });
 
 });
+    //Add Guest rider to db
+router.post(`/rideLeader/addGuest`, isAuthenticated, (req, res) => {
+    console.log('req.body ', req.body);
+    const query = `
+    INSERT INTO users (first_name, last_name, phone_1, email, role) 
+    VALUES ($1, $2, $3, $4, $5)`;
+    pool.query(query, [req.body.first_name, req.body.last_name, req.body.phone_1, req.body.email, 4])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making insert query:', err);
+            res.sendStatus(500);
+        });
 
+});
 
 
 
