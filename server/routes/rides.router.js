@@ -64,6 +64,10 @@ router.get('/details', isAuthenticated, (req, res) => {
     res.send(list);
 });
 
+
+
+
+
 router.post('/', isAuthenticated, (req, res)=>{
 console.log('user ', req.user.member_id);
 console.log('req.body ', req.body);
