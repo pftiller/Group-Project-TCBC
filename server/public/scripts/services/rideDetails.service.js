@@ -4,6 +4,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.rides = {
         list: []
     }
+    self.categories = {
+        list: []
+    }
 
     self.getRideDetails = function () {
         return $http.get('/rides/details')
@@ -16,6 +19,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
     self.getRideDetails();
+    
+    self.getRideCategories = function () {
+        return $http.get('/rides/categories')
+            .then((response) => {
+                console.log(response.data);
+                self.categories.list = response.data.options;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    self.getRideCategories();
 
     self.loadWelcomeModal = function (ride, ev) {
         $mdDialog.show({
@@ -85,4 +100,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 
             })
     }
+
+    
+
 }]);

@@ -7,7 +7,6 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
       };
       self.message = '';
       self.user = UserService.userObject;
-      self.showNav = false;
 
       
 
@@ -48,7 +47,6 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
       );
         
     }
-  }
 
         /* Not in use for now */
         // self.registerUser = function () {

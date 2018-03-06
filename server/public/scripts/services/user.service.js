@@ -26,7 +26,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     return  $http.post('/api/user/login', user).then(
         function (response) {
           if (response.status == 200) {
-            // location works with SPA (ng-route)g
+            self.userObject.member_id = response.data.member_id;
             return response;
             
           } else {

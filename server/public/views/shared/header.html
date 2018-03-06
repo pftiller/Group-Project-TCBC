@@ -1,9 +1,15 @@
 <md-toolbar ng-controller="LoginController as vm">
     <div class="md-toolbar-tools">
           <a ng-href='/#!/home'><span><img src="#" alt="Logo"></span>
+        <span ng-if='vm.user.member_id'>{{vm.user.first_name}}</span>
+        <span ng-if='vm.user.member_id'>{{vm.miles}}</span>
         <span flex></span>
         <md-button ng-if='vm.user.member_id' ng-click="vm.logout()">Log Out</md-button>
-        <md-button ng-if='!vm.user.member_id' ng-click="vm.loginModal()">Log In</md-button>
+        <md-button ng-if='!vm.user.member_id'ng-click="vm.loginModal()">Log In</md-button>
    </div>
 </md-toolbar>
-<div ng-if="showNav"> ng-include="'/views/user/partials/nav.html'"></div>
+<div ng-if="vm.user.member_id" ng-include="'/views/user/partials/nav.html'"></div>
+
+
+
+

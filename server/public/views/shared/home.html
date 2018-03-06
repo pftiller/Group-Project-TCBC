@@ -1,27 +1,107 @@
 <header ng-include="'/views/shared/header.html'"></header>
-<table>
-    <thead>
-      <tr>
-        <th>
-            Date &amp; Time
-        </th>
-        <th>
-            Ride
-        </th>
-        <th>
-            Category
-        </th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="ride in vm.rides.list">
-        <td>
-        </td>
-        <td>{{ride.date}}</td>
-        <td>{{ride.name}}</td>
-        <td>{{ride.category}}</td>
-      </tr>
-    </tbody>
-  </table>      
+
+<div layout="row" layout-xs="column" layout-wrap>
+  <div flex="66">
+      <div layout="row" layout-margin>
+        <div flex>
+          <md-content layout-padding ng-cloak>
+          <!-- <md-datepicker ng-model="vm.date" md-placeholder="Date" md-is-open="vm.isOpen"></md-datepicker>  -->
+
+              <md-datepicker ng-model="dateFrom"
+                             md-placeholder="From Date"
+                             is-open="dateFromOpened"
+                             ng-click="dateFromOpened = true"
+                             filter-by="rides.rides_date"
+                             filter-type="dateFrom"
+                             ng-change="filter()"></md-datepicker>
+
+              <md-datepicker ng-model="dateTo"
+                             md-placeholder="To Date"
+                             is-open="dateToOpened"
+                             ng-click="dateToOpened = true"
+                             filter-by="rides.rides_date"
+                             filter-type="dateTo"
+                             ng-change="filter()"></md-datepicker>
+ 
+
+
+        </md-content>
+      </div>
+      <div flex>
+          <md-content class="md-padding">
+              <form>
+                <md-autocomplete ng-disabled="vm.isDisabled" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="ride in vm.rides.list | filter:vm.searchText"
+                md-item-text="ride.rides_name" md-min-length="0" placeholder="Search for Rides">
+                  <md-item-template>
+                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{ride.rides_name}}</span>
+                  </md-item-template>
+                  <md-not-found>
+                    No matches found
+                  </md-not-found>
+                </md-autocomplete>
+              </form>
+            </md-content>
+      </div>
+      <div flex>
+          <md-select ng-model="categoryFilter">
+              <md-option ng-repeat="category in vm.categories.list"  value="{{category}}">
+            {{category}}
+          </md-option>
+        </md-select>
+      </div>
+      <div flex>
+        <md-button class="md-raised" ng-click="vm.clearFilters()">Clear Filters</md-button>
+      </div>
+    </div>
+    <table ng-init="vm.getTime()">
+      <thead>
+        <tr>
+          <th ng-click="vm.changeSorting('rides_date')" sortable="date">
+            <span>Date</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_date')"></md-icon>
+          </th>
+          <th ng-click="vm.changeSorting('rides_name')">
+            <span>Name</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_name')"></md-icon>
+          </th>
+          <th ng-click="vm.changeSorting('rides_category')">
+            <span>Category</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_category')"></md-icon>
+          </th>
+          <th>
+            <span>Details</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: vm.categoryFilter | filter: vm.searchText | filter: vm.date">
+          <!-- <td>{{ride.rides_date}}</td> -->
+          <td ng-bind="{{ride.rides_date}} | date:'MM/dd/yyyy'"></td>
+          <td>{{ride.rides_name}}</td>
+          <td>{{ride.rides_category}}</td>
+          <td>
+            <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div flex="33">
+    <h2>Category Key</h2>
+    <vm ng-repeat="category in vm.categories.list">
+      <li>{{category}}</li>
+    </vm>
+  </div>
+</div>
+
 
 
   
+
+
+
+
+
+
+
+ 
