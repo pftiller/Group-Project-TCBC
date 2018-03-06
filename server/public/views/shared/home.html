@@ -1,27 +1,72 @@
 <header ng-include="'/views/shared/header.html'"></header>
-<table>
-    <thead>
-      <tr>
-        <th>
-            Date &amp; Time
-        </th>
-        <th>
-            Ride
-        </th>
-        <th>
-            Category
-        </th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="ride in vm.rides.list">
-        <td>
-        </td>
-        <td>{{ride.date}}</td>
-        <td>{{ride.name}}</td>
-        <td>{{ride.category}}</td>
-      </tr>
-    </tbody>
-  </table>      
 
+<div layout="row" layout-xs="column" layout-wrap>
+  <div flex="66">
+    <div layout="row" layout-margin>
+      <div flex>
+        <md-content layout-padding>
+          <div layout-gt-xs="row">
+            <div flex-gt-xs>
+              <md-datepicker ng-model="vm.query.date" md-placeholder="Date"></md-datepicker>
+            </div>
+          </div>
+        </md-content>
+      </div>
+      <div flex>
+          <i class="material-icons search-icon">search</i>
+          <md-input-container>
+              <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for Ride">
+          </md-input-container>
+      </div>
+      <div flex>
+        <md-select ng-model="vm.query.category">
+          <md-option ng-repeat="category in vm.categories.list" value="{{category}}">
+            {{category}}
+          </md-option>
+        </md-select>
+      </div>
+      <div flex>
+        <md-button class="md-raised" ng-click="vm.clearFilters()">Clear Filters</md-button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th ng-click="vm.changeSorting('rides_date')">
+            <span>Date</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_date')"></md-icon>
+          </th>
+          <th ng-click="vm.changeSorting('rides_name')">
+            <span>Name</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_name')"></md-icon>
+          </th>
+          <th ng-click="vm.changeSorting('rides_category')">
+            <span>Category</span>
+            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_category')"></md-icon>
+          </th>
+          <th>
+            <span>Details</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: { rides_date: vm.query.date, rides_name: vm.query.name, rides_category: vm.query.category}">
+          <td>{{ride.rides_date}}</td>
+          <td>{{ride.rides_name}}</td>
+          <td>{{ride.rides_category}}</td>
+          <td>
+            <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div flex="33">
+    <h2>Category Key</h2>
+    <ul ng-repeat="category in vm.categories.list">
+      <li>{{category.type}}</li>
+      <li>{{category.name}}</li>
 
-  
+    </ul>
+  </div>
+</div>

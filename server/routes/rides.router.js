@@ -94,8 +94,7 @@ router.get('/public/details', isAuthenticated, (req, res) => {
 
 
 
-/* Fetch All Categories */
-
+            /* Fetch All Categories */
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
     const CategoryQuery = `SELECT * FROM categories`;
