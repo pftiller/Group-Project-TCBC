@@ -27,6 +27,7 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
         function (response) {
           if (response.status == 200) {
             self.userObject.member_id = response.data.member_id;
+            self.userObject.member_id = response.data.first_name;
             return response;
             
           } else {
