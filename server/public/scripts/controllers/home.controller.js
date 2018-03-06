@@ -1,14 +1,14 @@
 myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log', function (RideDetailService, $timeout, $q, $log) {
   console.log('HomeController created');
   let self = this;
-  self.rides = RideDetailService.rides;
-  self.categories = RideDetailService.categories;
+  self.rides = {};
+  self.categories = {};
   self.isOpen = false;
   self.simulateQuery = false;
   self.isDisabled = false;
 
 
-  // fetch categories on page load
+  // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
       .then((response)=>{
@@ -16,6 +16,41 @@ myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log
       })
   }
   self.loadCategories();
+  
+  //GET all rides for display
+  self.getAllRides = function(){
+    RideDetailService.getRideDetails()
+      .then((response)=>{
+        self.rides.list = response;
+      })
+  }
+  self.getAllRides();
+  
+  // Ride Name Search
+self.querySearch = function(query) {
+      var results = query ? self.categories.list.ride_names.filter(createFilterFor(query)) : self.categories.list.ride_names,
+        deferred;
+      if (!query) {
+        return;
+      }
+      if (self.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function() {
+          deferred.resolve(results);
+        }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    self.searchTextChange = function(text) {
+      console.log('Search text changed');
+    }
+
+   self.selectedItemChange = function(item) {
+      console.log('Selected item changed');
+    }
 
 // Ride Details
 self.rideDetailReveal = function (ride) {

@@ -1,4 +1,66 @@
 <header ng-include="'/views/shared/header.html'"></header>
 
-
+<div class="profileContainer">
+    <div layout="column" class="profileLayout" layout-align="center center">
+        <md-content class="profileInfo" >
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Member number:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.memberNumber}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Name:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.name}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Address:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.address}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    City:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.city}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    State:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.state}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Zip:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.zip}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Phone Number:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.phoneNumber}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Email:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.email}}</label>
+            </div>
+            <div layout-gt-sm="row">
+                <label class="profileLabel">
+                    Membership expiration:
+                </label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.membershipExpires}}</label>
+            </div>
+            <div layout-gt-sm="row" class="profileLink">
+                <a ng-href="https://www.w3schools.com">Update contact information</a>
+            </div>
+    </div>
+    </md-content>
+</div>
 </div>
