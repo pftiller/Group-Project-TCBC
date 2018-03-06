@@ -3,34 +3,21 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     let self = this;
     let rideId = $routeParams.rideId;
     
-    self.rideDetailReveal = function (ride) {
-        RideDetailService.myRideDetailModal(ride);
-    }
-
-    self.rideDetailRevealPast = function (ride) {
-        RideDetailService.myRideDetailModal(ride);
-    }
-
-    self.cancelRide = function () {
-        alert('CANCELED')
-    }
-
-    self.createNewRide = function () {
-        RideDetailService.createNewRide();
-    }
-
-    self.rides = RideDetailService.rides;
-    self.myLeadRides = RideDetailService.myLeadRides;
-
-    self.checkRidersIn = function () {
-        
-        $location.path('/check-in')
-    }
+    self.ride = CheckInService.ride;
 
     self.riders = CheckInService.riders;
 
-    self.markRideComplete = function(rideId){
-        CheckInService.markRideComplete(rideId);
+    self.markRideComplete = function () {
+        CheckInService.markRideComplete(rideId)
+            .then(() => {
+                $location.path('/ride-leader/my-rides');
+            });
     }
-    
+
+    CheckInService.getRidersForCurrentRide(rideId);
+
+    self.currentRide = function (rideId) {
+        CheckInService.currentRide(rideId);
+    };
+    self.currentRide(rideId);
 }]);
