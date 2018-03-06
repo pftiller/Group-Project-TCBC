@@ -5,27 +5,13 @@
       <div layout="row" layout-margin>
         <div flex>
           <md-content layout-padding ng-cloak>
-          <!-- <md-datepicker ng-model="vm.date" md-placeholder="Date" md-is-open="vm.isOpen"></md-datepicker>  -->
-
               <md-datepicker ng-model="dateFrom"
-                             md-placeholder="From Date"
-                             is-open="dateFromOpened"
-                             ng-click="dateFromOpened = true"
-                             filter-by="rides.rides_date"
-                             filter-type="dateFrom"
-                             ng-change="filter()"></md-datepicker>
+                             md-placeholder="Date"
+                             md-is-open="vm.isOpen"
+                             ng-click="vm.isOpen = true"></md-datepicker>
+          
 
-              <md-datepicker ng-model="dateTo"
-                             md-placeholder="To Date"
-                             is-open="dateToOpened"
-                             ng-click="dateToOpened = true"
-                             filter-by="rides.rides_date"
-                             filter-type="dateTo"
-                             ng-change="filter()"></md-datepicker>
- 
-
-
-        </md-content>
+            </md-content>
       </div>
       <div flex>
           <md-content class="md-padding">
@@ -53,7 +39,7 @@
         <md-button class="md-raised" ng-click="vm.clearFilters()">Clear Filters</md-button>
       </div>
     </div>
-    <table ng-init="vm.getTime()">
+    <table>
       <thead>
         <tr>
           <th ng-click="vm.changeSorting('rides_date')" sortable="date">
@@ -74,9 +60,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: vm.categoryFilter | filter: vm.searchText | filter: vm.date">
-          <!-- <td>{{ride.rides_date}}</td> -->
-          <td ng-bind="{{ride.rides_date}} | date:'MM/dd/yyyy'"></td>
+        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: {ride_category: categoryFilter, rides_name: vm.searchText, rides_date:dateFrom}">
+          <td>{{ride.rides_date}}</td>
           <td>{{ride.rides_name}}</td>
           <td>{{ride.rides_category}}</td>
           <td>
@@ -88,9 +73,9 @@
   </div>
   <div flex="33">
     <h2>Category Key</h2>
-    <vm ng-repeat="category in vm.categories.list">
+    <ul ng-repeat="category in vm.categories.list">
       <li>{{category}}</li>
-    </vm>
+    </ul>
   </div>
 </div>
 
