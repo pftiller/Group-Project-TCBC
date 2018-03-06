@@ -24,11 +24,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
     self.getRideDetails = function () {
         return $http.get('/rides/public/details')
-            .then((response) => {
-                console.log(response.data);
-                self.rides.list = response.data.details;
-                self.currentRide(response.data.details);
-                return response.data.details;
+                .then((response) => { 
+                return response.data;
             })
             .catch((err) => {
                 console.log(err);

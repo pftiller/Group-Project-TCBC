@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const isAuthenticated = require('../modules/isAuthenticated');
 const pool = require('../modules/pool');
-
+const ridePackager = require('../modules/ridePackager.module');
 list = {
     details: [
         ride1 = {
@@ -82,15 +82,34 @@ categories = {
     ]
 }
 
-router.get('/public/details', isAuthenticated, (req, res) => {
 
-    res.send(list);
+        /* GET all rides*/ 
+        
+router.get('/public/details',  (req, res) => {
+    
+    
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
+    FROM rides 
+    JOIN rides_distances on rides.id = rides_distances.ride_id
+    JOIN users on rides.ride_leader = users.id
+    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;`
+
+    pool.query(allRidesQuery)
+        .then((result)=>{
+          let formattedRides = ridePackager(result.rows);
+          res.send(formattedRides);
+        })
+        .catch((err)=>{
+            console.log('error getting all rides');
+            
+        })
+
 });
 
 
 
 
-            /* Fetch All Categories */
+            /* GET All Categories */
 
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
