@@ -10,6 +10,8 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
             // user has a curret session on the server
             console.log('user service: ', response.data);
             self.userObject.member_id = response.data.member_id;
+            self.userObject.first_name = response.data.first_name;
+            self.userObject.role = response.data.role;
             console.log('UserService -- getuser -- User Data: ', self.userObject.member_id);
         } else {
             console.log('UserService -- getuser -- failure');
@@ -27,7 +29,8 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
         function (response) {
           if (response.status == 200) {
             self.userObject.member_id = response.data.member_id;
-            self.userObject.member_id = response.data.first_name;
+            self.userObject.first_name = response.data.first_name;
+            self.userObject.role = response.data.role;
             return response;
             
           } else {

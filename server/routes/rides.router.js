@@ -2,99 +2,39 @@ const express = require('express');
 const router = express.Router();
 const isAuthenticated = require('../modules/isAuthenticated');
 const pool = require('../modules/pool');
-
-list = {
-    details: [
-        ride1 = {
-            id: 1,
-            rides_name: 'Cycle through the lakes',
-            rides_date: '02-02-2018',
-            rides_category: 'A',
-            description: 'Description poijoisgoisgoisgoisjdgjojg',
-            ride_location: '123 E Berry ST, St. Paul, MN',
-            ride_leader: 'Paul Tiller',
-            distances: ['40', '30', '20'],
-            selected_distance: '30',
-            actualDistance: '40',
-            url: 'Gps Link',
-            completed: false
-        },
-        ride3 = {
-            id: 2,
-            rides_name: 'Fun ride around',
-            rides_date: '01-17-2018',
-            rides_category: 'B',
-            description: 'Description poijoisgoisgoisgoisjdgjojg',
-            ride_leader: 'Lukas Nord',
-            ride_location: '123 E North ST, Minneapolis, MN',
-            distances: ['15', '25', '66'],
-            selected_distance: '15',
-            actualDistance: '66',
-            url: 'Gps Link',
-            completed: false
-        },
-        ride4 = {
-            id: 3,
-            rides_name: 'Hard cycle up mountain',
-            rides_date: '04-11-2018',
-            rides_category: 'C',
-            description: 'Description poijoisgoisgoisgoisjdgjojg',
-            ride_leader: 'Patrick Connelly',
-            distances: ['40', '80', '120'],
-            selected_distance: '120',
-            ride_location: '123 W Chester ST, Duluth, MN',
-            actualDistance: '40',
-            url: 'Gps Link',
-            completed: false
-        },
-        ride2 = {
-            id: 4,
-            rides_name: 'Ride2 Name',
-            rides_date: '03-03-2018',
-            rides_category: 'MB-A',
-            description: 'Description2 poijoisgoisgoisgoisjdgjojg',
-            ride_leader: 'Lukas Nord',
-            distances: ['20', '50', '100'],
-            selected_distance: '20',
-            ride_location: '123 S Mouth ST, Rochester, MN',
-            actualDistance: '50',
-            url: 'Gps Link2',
-            completed: true
-        }
-    ]
-};
+const ridePackager = require('../modules/ridePackager.module');
 
 
-categories = {
-    options: [
-        'A – Very Strenuous',
-        'A/B – Strenuous',
-        'B – Brisk',
-        'B/C – Moderate',
-        'C – Relaxed',
-        'MB-A – Members Only',
-        'MB-AB – Member Only',
-        'MB-B – Members Only',
-        'MB-C – Members Only',
-        'N-A – Night',
-        'N-A/B – Night',
-        'N-B – Night',
-        'N-B/C – Night',
-        'N-C – Night',
-        'O – Outreach',
-        'S – Special'
-    ]
-}
 
-router.get('/public/details', isAuthenticated, (req, res) => {
+        /* GET all rides*/ 
+        
+router.get('/public/details',  (req, res) => {
+    
+    
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
+    FROM rides 
+    JOIN rides_distances on rides.id = rides_distances.ride_id
+    JOIN users on rides.ride_leader = users.id
+    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;`
 
-    res.send(list);
+    pool.query(allRidesQuery)
+        .then((result)=>{
+          let formattedRides = ridePackager(result.rows);
+          res.send(formattedRides);
+        })
+        .catch((err)=>{
+            console.log('error getting all rides');
+            
+        })
+
 });
 
 
 
 
-            /* Fetch All Categories */
+        
+
+            /* GET All Categories */
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
     const CategoryQuery = `SELECT * FROM categories`;

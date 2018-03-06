@@ -1,7 +1,7 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
@@ -45,6 +45,24 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', funct
       templateUrl: '/views/profile/templates/my-profile.html',
       controller: 'MyProfileController as vm',
       // activetab: 'my-profile',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/manage-members', {
+      templateUrl: '/views/admin/templates/manage-members.html',
+      controller: 'AdminController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/manage-rides', {
+      templateUrl: '/views/admin/templates/manage-rides.html',
+      controller: 'AdminController as vm',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();

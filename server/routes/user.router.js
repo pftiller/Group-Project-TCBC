@@ -31,7 +31,7 @@ router.post('/register', (req, res, next) => {
     password: encryptLib.encryptPassword(req.body.password)
   };
   const role = 1;
-  console.log('new user:', saveUser);
+  //console.log('new user:', saveUser);
   pool.query('INSERT INTO users (member_id, password, role) VALUES ($1, $2, $3) RETURNING id',
     [saveUser.member_id, saveUser.password, role], (err, result) => {
       if (err) {
