@@ -2,60 +2,60 @@
 
 <div class="profileContainer">
     <div layout="column" class="profileLayout" layout-align="center center">
-        <md-content class="profileInfo">
+        <md-content class="profileInfo" >
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Member number:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">1546</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.memberNumber}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Name:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">Darren Rector</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.name}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Address:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">5445 Boone Avenue North</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.address}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     City:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">Maple Grove</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.city}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     State:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">MN</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.state}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Zip:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">55428</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.zip}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Phone Number:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">320-309-0976</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.phoneNumber}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Email:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">darren@prime.com</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.email}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Membership expiration:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">August 20, 2019</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.membershipExpires}}</label>
             </div>
             <div layout-gt-sm="row" class="profileLink">
                 <a ng-href="https://www.w3schools.com">Update contact information</a>
