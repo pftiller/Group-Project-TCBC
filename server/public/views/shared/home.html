@@ -5,7 +5,7 @@
       <div layout="row" layout-margin>
         <div flex>
           <md-content layout-padding ng-cloak>
-              <md-datepicker ng-model="dateFrom"
+              <md-datepicker ng-model="query.date"
                              md-placeholder="Date"
                              md-is-open="vm.isOpen"
                              ng-click="vm.isOpen = true"></md-datepicker>
@@ -14,22 +14,14 @@
             </md-content>
       </div>
       <div flex>
-          <md-content class="md-padding">
-              <form>
-                <md-autocomplete ng-disabled="vm.isDisabled" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="ride in vm.rides.list | filter:vm.searchText"
-                md-item-text="ride.rides_name" md-min-length="0" placeholder="Search for Rides">
-                  <md-item-template>
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{ride.rides_name}}</span>
-                  </md-item-template>
-                  <md-not-found>
-                    No matches found
-                  </md-not-found>
-                </md-autocomplete>
-              </form>
-            </md-content>
+          <md-content>
+          <md-input-container class="md-block">
+              <input ng-model="query.name" placeholder="Search for Ride">
+            </md-input-container>
+          </md-content>   
       </div>
       <div flex>
-          <md-select ng-model="categoryFilter">
+          <md-select ng-model="query.category">
               <md-option ng-repeat="category in vm.categories.list"  value="{{category}}">
             {{category}}
           </md-option>
@@ -60,7 +52,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: {ride_category: categoryFilter, rides_name: vm.searchText, rides_date:dateFrom}">
+        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter:query">
           <td>{{ride.rides_date}}</td>
           <td>{{ride.rides_name}}</td>
           <td>{{ride.rides_category}}</td>
