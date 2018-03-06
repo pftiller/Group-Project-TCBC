@@ -1,10 +1,18 @@
 # Name of Project
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Twin Cities Bicycle Club
 
 ## Built With
 
-List technologies and frameworks here
+HTML/CSS
+AngularJS
+Express.js
+Node.js
+Passport
+Angular-UI
+FullCalendar
+Moment.js
+PostgreSQL
 
 ## Getting Started
 
