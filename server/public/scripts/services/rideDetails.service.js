@@ -4,6 +4,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.rides = {
         list: []
     }
+    self.categories = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
@@ -16,7 +20,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             }
         });
     }
-
     self.getRideDetails = function () {
         return $http.get('/rides/details')
             .then((response) => {
@@ -29,8 +32,23 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log(err);
             })
     }
+    self.getRideDetails();
+    
+    self.getRideCategories = function () {
+        return $http.get('/rides/categories')
+            .then((response) => {
+                console.log(response.data);
+                self.categories.list = response.data.options;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    self.getRideCategories();
 
-    self.getRideDetails().then((data) => {self.checkRidesForLeader(data)});
+    self.getRideDetails().then((data) => {
+        self.checkRidesForLeader(data)
+    });
 
     self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
@@ -88,6 +106,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             // $mdDialog.hide(answer);
         };
     }
+    
     self.signUpPost = function (ride) {
         console.log('Signing up for ride ', ride);
         return $http.post('/rides', ride)
@@ -180,7 +199,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         //     })
     }
 
-    self.createNewRide = function(ev){
+    self.createNewRide = function (ev) {
         $mdDialog.show({
             controller: CreateNewRideController,
             controllerAs: 'vm',
@@ -190,13 +209,20 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
         })
     }
+
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.submitRide = function (ride) {
             console.log('new ride', ride);
             self.hide();
             alert('Ride submitted for approval, check back later!');
-        
+            $http.post('/rides/submitRide', ride)
+                .then((response) => {
+                    console.log('response post ride ', response);
+                })
+                .catch((err) => {
+                    console.log('err post ride ', err);
+                });
         }
 
         self.hide = function () {
