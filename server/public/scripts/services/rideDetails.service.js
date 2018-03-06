@@ -4,6 +4,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.rides = {
         list: []
     }
+    self.categories = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
@@ -16,7 +20,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             }
         });
     }
-
     self.getRideDetails = function () {
         return $http.get('/rides/details')
             .then((response) => {
@@ -29,6 +32,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log(err);
             })
     }
+    self.getRideDetails();
+    
+    self.getRideCategories = function () {
+        return $http.get('/rides/categories')
+            .then((response) => {
+                console.log(response.data);
+                self.categories.list = response.data.options;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    self.getRideCategories();
 
     self.getRideDetails().then((data) => {
         self.checkRidesForLeader(data)
