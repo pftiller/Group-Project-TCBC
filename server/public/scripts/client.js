@@ -1,49 +1,73 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
+    .when('/my-rides', {
+      templateUrl: '/views/user/templates/member.myRides.html',
+      controller: 'MemberMyRidesController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/ride-leader/my-rides', {
+      templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
+      controller: 'RideLeaderController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/profile/my-profile', {
+      templateUrl: '/views/profile/templates/my-profile.html',
+      controller: 'MyProfileController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/register', {
+      templateUrl: '/views/user/templates/register.html',
+      controller: 'LoginController as vm'
+    })
     .when('/', {
       redirectTo: 'home'
     })
-    .when('/my-rides', {
-      templateUrl: '/views/templates/member.myRides.html',
-      controller: 'MemberMyRidesController as vm',
-      //resolve when users fleshed out more
-      // resolve: {
-      //   getuser : function(UserService){
-      //     return UserService.getuser();
-      //   }
-      // }
-    })
     .when('/home', {
-      templateUrl: '/views/templates/home.html',
-      controller: 'LoginController as vm',
-    })
-    .when('/register', {
-      templateUrl: '/views/templates/register.html',
-      controller: 'LoginController as vm'
+      templateUrl: '/views/shared/home.html',
+      controller: 'HomeController as vm',
     })
     .when('/user', {
-      templateUrl: '/views/templates/user.html',
+      templateUrl: '/views/user/templates/user.html',
       controller: 'UserController as vm',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
     })
     .when('/info', {
-      templateUrl: '/views/templates/info.html',
+      templateUrl: '/views/user/templates/info.html',
       controller: 'InfoController as vm',
       resolve: {
-        getuser : function(UserService){
+        getuser: function (UserService) {
           return UserService.getuser();
         }
       }
     })
+    
+    .when('/login', {
+      templateUrl: '/views/shared/login.html',
+      controller: 'LoginController as vm',
+    })
     .otherwise({
       template: '<h1>404</h1>'
-    });
+    })
+
+
 }]);

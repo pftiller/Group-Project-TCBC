@@ -1,0 +1,52 @@
+<div class="ride-detail-modal" layout="column">
+    <header>
+        <div class="instructions">
+        </div>
+    </header>
+    <div layout="row" layout-align="space-between strech">
+        <div class="ride-detail-stuff">
+            <md-input-container>
+                <label for="ride-name-input">Ride Name</label>
+                <input name="ride-name-input" ng-model="vm.newRide.rides_name" />
+            </md-input-container>
+            <md-input-container>
+                <label for="ride-date-input">Ride date</label>
+                <input type="datetime-local" name="ride-date-input" ng-model="vm.newRide.rides_date" />
+            </md-input-container>
+            <md-input-container>
+                <label for="category-input">Category</label>
+                <!-- Categories by drop down -->
+                <input name="category-input" ng-model="vm.newRide.rides_category" />
+            </md-input-container>
+            <!-- <md-input-container>
+                <label for="ride-leader-input">Ride Leader</label> -->
+            <!-- autofilled based on user -->
+            <!-- <input name="ride-leader-input"  ng-model="vm.newRide.ride_leader"/>
+            </md-input-container> -->
+            <md-input-container>
+                <label for="location-input">Location</label>
+                <input name="location-input" ng-model="vm.newRide.ride_location" />
+            </md-input-container>
+            <md-input-container>
+                <label for="gps-link-input">GPS Link</label>
+                <input name="gps-link-input" ng-model="vm.newRide.url" />
+            </md-input-container>
+            <md-input-container>
+                <label for="distance-input">Distances</label>
+                <!-- Use chips for distances -->
+                <input name="distance-input" type="number" ng-model="vm.newRide.distances" />
+            </md-input-container>
+        </div>
+        <div class="ride-detail-stuff" flex="40" layout="column" layout-align="center space-between">
+            <md-input-container>
+                    <!-- style="margin-left:27px;" -->
+                <label for="description-input">Description</label>
+                <textarea name="description-input" ng-model="vm.newRide.description" rows="5" style="height:100px;"></textarea>
+            </md-input-container>
+            <div>
+                    <!-- style="margin-right:59px;" -->
+                <md-button ng-click="vm.submitRide(vm.newRide)"> Submit ride for approval</md-button>
+            </div>
+        </div>
+    </div>
+</div>
