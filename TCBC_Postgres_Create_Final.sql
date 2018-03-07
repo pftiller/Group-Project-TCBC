@@ -3,7 +3,7 @@ CREATE TABLE "users" (
   "password" varchar(255) NOT NULL,
   "first_name" varchar(50) NOT NULL,
   "last_name" varchar(50) NOT NULL,
-  "phone_1" int NOT NULL,
+  "phone_1" varchar(12) NOT NULL,
   "email" varchar(50),
   "role" int NOT NULL,
   "member_id" int NOT NULL,
