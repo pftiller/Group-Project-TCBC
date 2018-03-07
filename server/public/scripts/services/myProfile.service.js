@@ -7,11 +7,11 @@ myApp.service('MyProfileService', ['$http', '$location', function ($http, $locat
     self.viewProfile = function() {
         return $http.get('/member/viewProfile')
             .then(function (response) {
-                console.log("back from dB",response);
+                // console.log("back from dB",response);
                 return response.data;
             })
             .catch(function (response) {
-                console.log('error on get request');
+                // console.log('error on get request');
             });
     } //end getting table data
 }]);
