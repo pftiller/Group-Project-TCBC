@@ -20,6 +20,11 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.getAllRides = function(){
     RideDetailService.getAllRideDetails()
       .then((response)=>{
+        // self.rides.list.foreach(ride=>{
+        //     if (ride.cancelled) {
+        //       rid
+        //     }
+        // })
         self.rides.list = response;
       })
   }

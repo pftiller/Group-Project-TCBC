@@ -9,6 +9,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
   self.message = '';
   self.user = UserService.userObject;
 
+  
     
     self.login = function () {
       if (self.user.member_id === '' || self.user.password === '') {

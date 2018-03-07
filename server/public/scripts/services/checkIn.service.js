@@ -5,22 +5,7 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
         current: {}
     };
     self.riders = {
-        list: [{
-                member_id: 123,
-                member_name: 'Patrick',
-                checked_in: false
-            },
-            {
-                member_id: 152,
-                member_name: 'Darren',
-                checked_in: true
-            },
-            {
-                member_id: 124,
-                member_name: 'Lukas',
-                checked_in: false
-            },
-        ]
+        list: []
     }
 
     self.currentRide = function (rideId) {
@@ -37,17 +22,17 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
 
     self.getRidersForCurrentRide = function (rideId) {
         console.log('Ride to get users for ', rideId);
-
         //Get all riders signed up for the ride at this ride ID
-            //need some joins and such to find members tied to this ride
-
-        // return $http.get(`/rides/rideLeader/signedUpRiders/${rideId}`)
-        //     .then((response) => {
-        //         console.log('Riders for this ride found!', response);
-        //     })
-        //     .catch((err) => {
-        //         console.log('ERR getting riders on this ride ', err);
-        //     })
+        //need some joins and such to find members tied to this ride
+        return $http.get(`/rides/rideLeader/signedUpRiders/${rideId}`)
+            .then((response) => {
+                console.log('Riders for this ride found!', response.data);
+                self.riders.list = response.data;
+                return response.data;
+            })
+            .catch((err) => {
+                console.log('ERR getting riders on this ride ', err);
+            })
     }
 
     //when Ride Complete button clicked runs this funciton on current ride
@@ -57,29 +42,42 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
         return $http.put(`/rides/rideLeader/complete/${rideId}`)
             .then((response) => {
                 console.log('Ride marked complete!', response);
+                return response.data;
             })
             .catch((err) => {
                 console.log('ERR updating ride to complete ', err);
             })
     }
+    
+    self.toggleCheckedIn = function (rider) {
+        rider.checked_in = !rider.checked_in;
+        console.log('rider check ', rider.checked_in);
+        return $http.put(`/rides/rideLeader/toggleCheckIn`, rider)
+            .then((response) => {
+                console.log('toggle user check in ', response);
+            })
+            .catch((err) => {
+                console.log('err from toggle check in put ', err);
+            });
+    }
 
     //Add rider 
-    self.addMemberToRide = function(){
+    self.addMemberToRide = function () {
         console.log('ADD RIDER ');
-        
+
     }
-    self.addGuestToRide = function(){
+    self.addGuestToRide = function () {
         console.log('ADD GUEST');
         self.guestRegisterModal();
     }
 
-    self.addGuestRider = function(guest){
+    self.addGuestRider = function (guest) {
         console.log('ADD GUEST TO THIS RIDE ');
         return $http.post(`/rides/rideLeader/addGuest`, guest)
-            .then((response)=>{
+            .then((response) => {
                 console.log('add guest to ride response ', response);
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log('err adding guest to ride', err);
             })
     }
@@ -99,34 +97,34 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
     function GuestRegisterController($mdDialog, CheckInService, $routeParams) {
         const self = this;
         let rideId = $routeParams.rideId
-        self.addGuestRider = function(){
+        self.addGuestRider = function () {
             console.log('guest ', self.newGuest);
             CheckInService.addGuestRider(self.newGuest)
-                // .then(()=>{
-                //     self.hide();
-                // })
+            // .then(()=>{
+            //     self.hide();
+            // })
         }
         self.hide = function () {
-                $mdDialog.hide();
-            };
+            $mdDialog.hide();
+        };
 
-            self.cancel = function () {
-                $mdDialog.cancel();
-            };
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
 
-            self.success = function (answer) {
-                // console.log('answer', answer);
-                swal(answer, '', {
-                    className: "success-alert",
-                });
-                // $mdDialog.hide(answer);
-            };
-            self.error = function (answer) {
-                // console.log('answer', answer);
-                swal(answer, '', 'error', {
-                    className: "error-alert",
-                });
-                // $mdDialog.hide(answer);
-            };
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
     }
 }]);

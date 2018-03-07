@@ -13,8 +13,6 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     self.rides = RideDetailService.rides;
     self.myRides = RideDetailService.myRides;
 
-    RideDetailService.getMyRideDetails();
-
   }]);
   
 
