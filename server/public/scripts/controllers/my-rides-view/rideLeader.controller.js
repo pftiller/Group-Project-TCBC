@@ -13,7 +13,8 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
         RideDetailService.myRideDetailModal(ride);
     }
 
-    self.cancelRide = function () {
+    self.cancelRide = function (ride) {
+        RideDetailService.cancelThisRide(ride);
         alert('CANCELED')
     }
 
@@ -26,16 +27,8 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     self.myLeadRides = RideDetailService.myLeadRides;
 
     self.checkRidersIn = function (ride) {
-        $location.path(`/check-in/${ride.id}`)
+        $location.path(`/check-in/${ride.ride_id}`)
     }
-
-    RideDetailService.getAllRideDetails()
-        .then((data) => {
-            RideDetailService.checkRidesForLeader(data, self.user_id);
-        });
-
-
-    RideDetailService.getMyRideDetails();
 
     RideDetailService.getRideCategories();
 

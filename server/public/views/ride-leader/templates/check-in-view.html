@@ -6,7 +6,8 @@
 </header>
 <div class="md-toolbar-tools mobile-middle-buttons">
     <md-button class="mobile-button" ng-click="vm.markRideComplete()">Ride Complete!</md-button>
-    <md-button class="mobile-button" ng-click="vm.addRider()"><i class="material-icons md-48">person_add</i> Add Rider</md-button>
+    <md-button class="mobile-button" ng-click="vm.addRider()">
+        <i class="material-icons md-48">person_add</i> Add Rider</md-button>
 </div>
 
 <div>
@@ -21,9 +22,9 @@
         <tbody>
             <tr ng-repeat="rider in vm.riders.list">
                 <td class="mobile-rider-cell">{{rider.member_id}}</td>
-                <td class="mobile-rider-cell">{{rider.member_name}}</td>
+                <td class="mobile-rider-cell">{{rider.first_name}} {{rider.last_name}}</td>
                 <td class="mobile-rider-checkbox" layout="column" layout-align="center center">
-                    <md-checkbox  aria-label="check-in-status" ng-checked="{{rider.checked_in}}">
+                    <md-checkbox aria-label="check-in-status" ng-checked="rider.checked_in" ng-click="vm.toggleCheckedIn(rider)">
                     </md-checkbox>
                 </td>
             </tr>
