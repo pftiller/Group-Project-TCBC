@@ -12,6 +12,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         self.userObject.member_id = response.data.member_id;
         self.userObject.first_name = response.data.first_name;
         self.userObject.role = response.data.role;
+        self.userObject.user_id = response.data.id
         return self.userObject;
       } else {
         console.log('UserService -- getuser -- failure');

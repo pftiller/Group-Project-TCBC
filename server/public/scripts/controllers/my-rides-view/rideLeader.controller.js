@@ -2,6 +2,9 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     console.log('RideLeaderController created');
     let self = this;
 
+    self.userObject = UserService.userObject;
+    self.user_id = self.userObject.user_id;
+
     self.rideDetailReveal = function (ride) {
         RideDetailService.myRideDetailModal(ride);
     }
@@ -19,14 +22,21 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     }
 
     self.rides = RideDetailService.rides;
+    self.myRides = RideDetailService.myRides;
     self.myLeadRides = RideDetailService.myLeadRides;
 
-    self.checkRidersIn = function (ride) {  
+    self.checkRidersIn = function (ride) {
         $location.path(`/check-in/${ride.id}`)
     }
-    
+
+    RideDetailService.getAllRideDetails()
+        .then((data) => {
+            RideDetailService.checkRidesForLeader(data, self.user_id);
+        });
+
+
     RideDetailService.getMyRideDetails();
-    
+
     RideDetailService.getRideCategories();
 
 }]);
