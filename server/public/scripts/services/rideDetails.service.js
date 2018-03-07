@@ -39,7 +39,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log(err);
             })
     }
-    
+
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
@@ -98,9 +98,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 // let thenum = self.selectedDistance.match(/\d+/)[0];
                 console.log('distance ', self.selectedDistance);
                 ride.selected_distance = self.selectedDistance;
-                RideDetailService.signUpPost(ride);
-            } else {
-                alert('Must log in to sign up for a ride!')
+                RideDetailService.signUpPost(ride)
+                    .then(() => {
+                        self.hide();
+                    });;
             }
         }
 
@@ -132,7 +133,13 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         console.log('Signing up for ride ', ride);
         return $http.post('/rides/signUp', ride)
             .then((response) => {
-                console.log('post ride signup ', response);
+                if (response.data == "Must be logged in to add items!") {
+                    console.log(response);
+                    alert('Must log in to sign up for rides!')
+                } else {
+                    return response;
+                    console.log('post ride signup ', response);
+                }
             })
             .catch((err) => {
                 console.log('err on post ride sign up ', err);
@@ -177,7 +184,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         };
 
         self.rideUnregister = function (item) {
-            RideDetailService.rideUnregister(item);
+            RideDetailService.rideUnregister(item)
+                .then(() => {
+                    self.hide();
+                });
         };
 
         self.hide = function () {
@@ -207,6 +217,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         console.log('unregister for ride ', ride);
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
+                self.getMyRideDetails();
                 console.log('unregister ', response);
             })
             .catch((err) => {

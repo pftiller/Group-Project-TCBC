@@ -12,15 +12,15 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         self.userObject.member_id = response.data.member_id;
         self.userObject.first_name = response.data.first_name;
         self.userObject.role = response.data.role;
-        console.log('UserService -- getuser -- User Data: ', self.userObject.member_id);
+        console.log('UserService -- getuser -- User Data: ', self.userObject);
       } else {
         console.log('UserService -- getuser -- failure');
         // user has no session, bounce them back to the login page
-        $location.path("/login");
+        $location.path("/home");
       }
     }, function (response) {
       console.log('UserService -- getuser -- failure: ', response);
-      $location.path("/login");
+      $location.path("/home");
     });
   }
 

@@ -27,8 +27,6 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/rides', ridesRouter);
 
-
-
 const PORT = process.env.PORT || 5000;
 
 /** Listen * */

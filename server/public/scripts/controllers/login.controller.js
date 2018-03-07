@@ -1,6 +1,7 @@
 myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function ($http, $location, UserService, $mdDialog) {
   console.log('LoginController created');
   var self = this;
+  self.showNav = UserService.showNav;
   self.user = {
     member_id: '',
     password: ''
@@ -8,7 +9,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
   self.message = '';
   self.user = UserService.userObject;
 
-
+  UserService.getuser();
 
   self.login = function () {
     if (self.user.member_id === '' || self.user.password === '') {
@@ -22,24 +23,38 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
           } else if (response.status == 200) {
             console.log('response.status: ', response.status);
             UserService.getuser();
-            // $location.path('/ride-leader/my-rides');
             $mdDialog.hide();
-            self.showNav = true;
+            
           }
         }
       );
     }
   }
-
   self.logout = function () {
-    UserService.logout(self.user)
+
+    UserService.logout()
       .then(()=>{
         console.log('logged out');
-        self.showNav = false;
-        location.reload();
-      })
-  }
+        self.showNav.state = false;
+        self.user.first_name = '';
+        console.log('state', UserService.showNav.state);
+        $location.path('/home')
+      });
 
+    // UserService.logout(self.user).then(
+    //   (response)=>{
+    //     if(response.status == 401){
+    //       self.message = "Incorrect Member ID or Password"
+    //     }else if(response.status == 200){
+    //       console.log('response.status: ', response.status);
+    //       $location.path('/home');
+    //       $mdDialog.hide();
+    //       
+    //     }
+    //   }
+
+
+  }
   /* Not in use for now */
   // self.registerUser = function () {
   //   if (self.user.member_id === '' || self.user.password === '') {
