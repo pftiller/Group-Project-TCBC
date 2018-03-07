@@ -8,6 +8,7 @@ myApp.controller('MyProfileController', ['UserService', function(UserService) {
     self.viewProfile = function() {
       self.UserService.viewProfile();
     }
+    self.viewProfile();
   }]);
   
 

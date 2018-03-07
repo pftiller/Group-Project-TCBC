@@ -7,7 +7,7 @@ myApp.service('myProfileService', ['$http', '$location', function ($http, $locat
 
     // getting user profile for user my profile view from member_info table in database
     self.viewProfile = function () {
-        return $http.get('/viewProfile')
+        return $http.get('/member/viewProfile')
             .then(function (response) {
                 console.log(response);
                 self.viewProfile.list = response.data;
