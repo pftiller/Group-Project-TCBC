@@ -117,10 +117,10 @@ li a:hover {
   content: "\E5C5";
 }
 
-table {
+.home-table {
   border-collapse: collapse;
-  width: 80%;
-  margin: auto;
+  width: 70%;
+  margin: 0 auto;
 }
 
 th {

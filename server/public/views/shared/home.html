@@ -1,22 +1,15 @@
 <header ng-include="'/views/shared/header.html'"></header>
-
-<div layout="row" layout-xs="column" layout-wrap>
-  <div flex="66">
-    <div layout="row" layout-margin>
+<md-content layout="column">\
+    <md-card>
+        <div layout="row" layout-wrap>
       <div flex>
-        <md-content layout-padding>
-          <div layout-gt-xs="row">
-            <div flex-gt-xs>
+       
               <md-input-container>
                 <input class="form-control" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
                   start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
               </md-input-container>
-            </div>
-          </div>
-        </md-content>
       </div>
       <div flex>
-        <i class="material-icons search-icon">search</i>
         <md-input-container>
           <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for Ride">
         </md-input-container>
@@ -32,7 +25,8 @@
         <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
       </div>
     </div>
-    <table>
+</md-card>
+    <table class="home-table">
       <thead>
         <tr>
           <th ng-click="vm.changeSorting('rides_date')">
@@ -64,7 +58,7 @@
       </tbody>
     </table>
   </div>
-  <div flex="33">
+  <div>
     <h2>Category Key</h2>
     <ul ng-repeat="category in vm.categories.list">
       <li>{{category.type}}</li>
@@ -72,4 +66,4 @@
 
     </ul>
   </div>
-</div>
+</md-content>
