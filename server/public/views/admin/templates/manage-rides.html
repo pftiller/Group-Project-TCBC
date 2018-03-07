@@ -1,8 +1,5 @@
 <header ng-include="'/views/shared/header.html'"></header>
 <md-content>
-        <div flex layout="row" layout-align="space-around center">
-          <p>Manage Rides test</p>
-        </div>
 <div>
     <div>
         <div layout="row" layout-align="space-between center">
@@ -15,15 +12,15 @@
             <li layout="row" layout-align="space-around center" style="font-weight:bold;">
                 <span flex>Ride Name</span>
                 <span flex>Ride Date/Time</span>
-                <span flex>Ride Details</span>
+                
             </li>
             <li ng-repeat="ride in vm.pendingApprovals.list" class="my-rides-items" layout="row" layout-align="space-between center">
                 {{ride.status}}
                 <span flex>{{ride.rides_name}}</span>
-                <span flex>{{ride.rides_date}}</span>
+                <span flex>{{ride.rides_date | date: 'medium' : '-0600'}}</span>
                 <span flex layout="row" layout-align="center center">
-                    <md-button class="border ride-button" flex ng-click="vm.approveRide(ride)">Approve Ride</md-button>
-                    <md-button class="border ride-button" flex ng-click="vm.rideDetailReveal(ride)">Details</md-button>
+                    <md-button class="border ride-button" ng-click="vm.approveRide(ride.ride_id)">Approve Ride</md-button>
+                    <md-button class="border ride-button"  ng-click="vm.rideDetailReveal(ride)">Details</md-button>
                 </span>
             </li>
         </ul>

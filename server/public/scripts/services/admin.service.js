@@ -12,13 +12,20 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                     return response.data;
                 })
                 .catch((err)=>{
-                    console.log('Error getting rides pending approval: ', err);
-                    
+                    console.log('Error getting rides pending approval: ', err);   
                 })
-
-
     }
 
-
+    self.approveRide = function(rideId){
+        return $http.put(`/rides/admin/approveRide/${rideId}`)
+                .then((response)=>{
+                    console.log('ride approved: ', response);
+                    return response;
+                })
+                .catch((err)=>{
+                    console.log('ride approval failed: ', err);
+                    
+                })
+    }
 
 }]);

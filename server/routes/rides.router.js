@@ -45,9 +45,25 @@ router.get('/admin/pendingApprovedRides', isAuthenticated,  (req, res) => {
 });
 
 
+/* Approve a ride */
 
+router.put('/admin/approveRide/:rideId', isAuthenticated, (req, res) =>{
+    console.log('ride ID in off Params: ', req.params.rideId)
+    const rideIsApproved = true;
+    const approveRideQuery = `UPDATE rides
+    SET approved = $1
+    WHERE id = $2`;
 
-
+    pool.query(approveRideQuery, [rideIsApproved,req.params.rideId])
+        .then((result)=>{
+            console.log('result of ride approval: ', result.rows);
+            res.sendStatus(202);
+        })
+        .catch((err)=>{
+            console.log('failed to approve ride: ', err);
+            res.sendStatus(500);
+        })
+})
 
 
 
@@ -202,7 +218,7 @@ router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
 
 // Ride Leader Mark Ride as Complete
 router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
-    console.log('user ', req.params.rideId);
+    console.log('ride id ', req.params.rideId);
     console.log('req ', req.body);
     const queryText = `
     UPDATE rides
