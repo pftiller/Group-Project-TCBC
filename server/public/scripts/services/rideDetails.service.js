@@ -16,13 +16,16 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
-
+    
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
-    self.checkRidesForLeader = function (rides) {
+    self.checkRidesForLeader = function (rides, user) {
         console.log('rides ', rides);
+        console.log('lead user', user);
         rides.forEach((ride) => {
-            if (ride.ride_leader == 2) {
+            if (ride.ride_leader == user) {
+                console.log('ride', ride);
+                
                 self.myLeadRides.list.push(ride);
             }
         });
@@ -219,7 +222,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         console.log('unregister for ride ', ride);
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
-                self.getMyRideDetails();
+                self.getMyRideDetails()
+                    .then((data) => {
+                        self.checkRidesForLeader(data)
+                    });
                 console.log('unregister ', response);
             })
             .catch((err) => {
@@ -246,8 +252,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             console.log('new ride', ride);
             self.hide();
             alert('Ride submitted for approval, check back later!');
+
             $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
+                    RideDetailService.getMyRideDetails();
+                    // RideDetailService.signUpPost(ride);
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {
