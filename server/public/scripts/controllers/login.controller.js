@@ -33,20 +33,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
       
       UserService.logout();
       self.showNav = false;
-      
-      // UserService.logout(self.user).then(
-      //   (response)=>{
-      //     if(response.status == 401){
-      //       self.message = "Incorrect Member ID or Password"
-      //     }else if(response.status == 200){
-      //       console.log('response.status: ', response.status);
-      //       $location.path('/home');
-      //       $mdDialog.hide();
-      //       
-      //     }
-      //   }
-
-        
+      $location.path('/home');  
     }
 
         
