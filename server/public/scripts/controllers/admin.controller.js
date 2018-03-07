@@ -1,5 +1,21 @@
-myApp.controller('AdminController', [, function () {
+myApp.controller('AdminController', [ function () {
     console.log('AdminController created');
-    var self = this;
+    const self = this;
+    
+
+
+
+    self.getRidesPendingApproval = function(){
+        
+
+
+
+
+    }
+
+
+
+
+
 
 }]);
