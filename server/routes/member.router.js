@@ -8,7 +8,6 @@ const router = express.Router();
 router.get('/viewProfile', isAuthenticated, function (req, res) {
   console.log('in viewProfile event');
   console.log('this is the user', req.user);
-  
   const queryText =
     `SELECT 
       member_id, 
