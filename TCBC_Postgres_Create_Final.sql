@@ -19,7 +19,7 @@ CREATE TABLE "rides" (
   "rides_name" varchar(50) NOT NULL,
   "rides_category" varchar(25) NOT NULL,
   "rides_date" DATE NOT NULL,
-  "description" varchar(100) NOT NULL,
+  "description" text NOT NULL,
   "ride_leader" int NOT NULL,
   "url" varchar(255) NOT NULL,
   "approved" BOOLEAN NOT NULL,
