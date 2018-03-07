@@ -41,7 +41,7 @@
                   </thead>
                   <tbody md-body>
                     <tr md-row ng-repeat="ride in vm.rides.list | orderBy:filter | filter: { rides_date: vm.query.date, rides_name: vm.query.name, rides_category: vm.query.category}">
-                      <td md-cell>{{ride.rides_date}}</td>
+                      <td md-cell>{{ride.rides_date | date : 'short'}}</td>
                       <td md-cell>{{ride.rides_name}}</td>
                       <td md-cell>{{ride.rides_category}}</td>
                       <td md-cell>
