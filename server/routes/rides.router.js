@@ -7,10 +7,8 @@ const ridePackager = require('../modules/ridePackager.module');
 
 
         /* GET all rides*/ 
-        
 router.get('/public/details',  (req, res) => {
-    
-    
+
     const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
@@ -23,16 +21,9 @@ router.get('/public/details',  (req, res) => {
           res.send(formattedRides);
         })
         .catch((err)=>{
-            console.log('error getting all rides');
-            
+            console.log('error getting all rides');  
         })
-
 });
-
-
-
-
-        
 
             /* GET All Categories */
 router.get('/public/categories', (req, res) => {
