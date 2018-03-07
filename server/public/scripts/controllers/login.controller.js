@@ -29,35 +29,17 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         );   
       }
     }
-    self.logout = function () {
-      
-      UserService.logout();
-      self.showNav = false;
-      $location.path('/home');  
-    }
+    
 
   self.logout = function () {
 
     UserService.logout()
       .then(()=>{
-        console.log('logged out');
-        self.showNav.state = false;
-        self.user.first_name = '';
-        console.log('state', UserService.showNav.state);
-        $location.path('/home')
+        
+        $location.path('/landing')
       });
 
-    // UserService.logout(self.user).then(
-    //   (response)=>{
-    //     if(response.status == 401){
-    //       self.message = "Incorrect Member ID or Password"
-    //     }else if(response.status == 200){
-    //       console.log('response.status: ', response.status);
-    //       $location.path('/home');
-    //       $mdDialog.hide();
-    //       
-    //     }
-    //   }
+    
 
 
   }
