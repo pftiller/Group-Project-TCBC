@@ -6,14 +6,15 @@ const ridePackager = require('../modules/ridePackager.module');
 
 
 
-        /* GET all rides*/ 
+        /* GET all Approved rides*/ 
 router.get('/public/details',  (req, res) => {
 
-    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader,rides.approved,rides.completed,rides.cancelled, users.first_name, users.last_name,users.phone_1,users.email
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
     JOIN users on rides.ride_leader = users.id
-    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;`
+    WHERE approved = true
+    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email`;
 
     pool.query(allRidesQuery)
         .then((result) => {
@@ -103,20 +104,53 @@ router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
 /* RideLeader Submit Ride for Approval */
 
 router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
-    console.log('user ', req.user);
-    console.log('req.body ', req.body);
-    const query = 'INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';
-    pool.query(query, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
+    // console.log('user ', req.user);
+    // console.log('req.body ', req.body);
+    const query = `
+    INSERT INTO rides (rides_name, ride_category, rides_date, description, ride_leader, url, ride_location) 
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING id;`;
+    pool.query(query, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
-            res.sendStatus(201);
+            // console.log('resulting post id', result.rows);
+            console.log('resulting post id', result.rows[0].id);
+            let ride_id = result.rows[0].id;
+            const newQuery = `
+            INSERT INTO rides_distances (ride_id, distance) 
+            VALUES ($1, $2)
+            RETURNING id;`
+            pool.query(newQuery, [ride_id, req.body.distances])
+                .then((result) => {
+                    // res.sendStatus(201);
+                    console.log('resulting post id', result.rows[0].id);
+                    let distance = result.rows[0].id;
+                    const newerQuery = `
+                    INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+                    VALUES ($1, $2, $3);`;
+                    pool.query(newerQuery, [ride_id, req.user.id, distance])
+                        .then((result) => {
+                            res.sendStatus(201);
+                        })
+                        // error handling
+                        .catch((err) => {
+                            console.log('error making insert query:', err);
+                            res.sendStatus(500);
+                        });
+                })
+                .catch((err) => {
+                    console.log('error making insert rides_distances query:', err);
+                    res.sendStatus(500);
+                });
         })
         // error handling
         .catch((err) => {
-            console.log('error making insert query:', err);
+            console.log('error making insert rides query:', err);
             res.sendStatus(500);
         });
 
 });
+
+
 
 //Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {

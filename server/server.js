@@ -8,6 +8,7 @@ const sessionConfig = require('./modules/session-middleware');
 // Route includes
 const userRouter = require('./routes/user.router');
 const ridesRouter = require('./routes/rides.router');
+const memberRouter = require('./routes/member.router');
 
 // Serve static files
 app.use(express.static('server/public'));
@@ -26,6 +27,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/rides', ridesRouter);
+app.use('/member', memberRouter);
 
 const PORT = process.env.PORT || 5000;
 

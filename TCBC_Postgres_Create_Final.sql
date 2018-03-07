@@ -3,7 +3,7 @@ CREATE TABLE "users" (
   "password" varchar(255) NOT NULL,
   "first_name" varchar(50) NOT NULL,
   "last_name" varchar(50) NOT NULL,
-  "phone_1" int NOT NULL,
+  "phone_1" varchar(12) NOT NULL,
   "email" varchar(50),
   "role" int NOT NULL,
   "member_id" int NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE "rides" (
   "rides_name" varchar(50) NOT NULL,
   "rides_category" varchar(25) NOT NULL,
   "rides_date" DATE NOT NULL,
-  "description" varchar(100) NOT NULL,
+  "description" text NOT NULL,
   "ride_leader" int NOT NULL,
   "url" varchar(255) NOT NULL,
   "approved" BOOLEAN NOT NULL,
@@ -49,6 +49,7 @@ CREATE TABLE "rides_users" (
   "actual_distance" int NOT NULL,
   "selected_distance" int NOT NULL,
   "checked_in" BOOLEAN NOT NULL,
+  "waiver_signed" BOOLEAN,
   CONSTRAINT rides_users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -175,7 +176,6 @@ FROM rides
 JOIN rides_distances on rides.id = rides_distances.ride_id
 JOIN users on rides.ride_leader = users.id
 GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;
-
 
 
 
