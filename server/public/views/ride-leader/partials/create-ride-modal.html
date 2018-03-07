@@ -13,16 +13,14 @@
                 <label for="ride-date-input">Ride date</label>
                 <input type="datetime-local" name="ride-date-input" ng-model="vm.newRide.rides_date" />
             </md-input-container>
-            <md-input-container>
-                <label for="category-input">Category</label>
-                <!-- Categories by drop down -->
-                <input name="category-input" ng-model="vm.newRide.rides_category" />
-            </md-input-container>
-            <!-- <md-input-container>
-                <label for="ride-leader-input">Ride Leader</label> -->
-            <!-- autofilled based on user -->
-            <!-- <input name="ride-leader-input"  ng-model="vm.newRide.ride_leader"/>
-            </md-input-container> -->
+                <md-input-container>
+                    <label>Category</label>
+                    <md-select ng-model="vm.newRide.ride_category">
+                        <md-option ng-repeat="category in vm.categories.list" ng-value="category.id">
+                            {{category.type}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
             <md-input-container>
                 <label for="location-input">Location</label>
                 <input name="location-input" ng-model="vm.newRide.ride_location" />
@@ -39,12 +37,12 @@
         </div>
         <div class="ride-detail-stuff" flex="40" layout="column" layout-align="center space-between">
             <md-input-container>
-                    <!-- style="margin-left:27px;" -->
+                <!-- style="margin-left:27px;" -->
                 <label for="description-input">Description</label>
                 <textarea name="description-input" ng-model="vm.newRide.description" rows="5" style="height:100px;"></textarea>
             </md-input-container>
             <div>
-                    <!-- style="margin-right:59px;" -->
+                <!-- style="margin-right:59px;" -->
                 <md-button ng-click="vm.submitRide(vm.newRide)"> Submit ride for approval</md-button>
             </div>
         </div>

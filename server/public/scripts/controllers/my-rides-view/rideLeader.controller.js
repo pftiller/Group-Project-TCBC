@@ -26,6 +26,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     }
     
     RideDetailService.getMyRideDetails();
-
+    
+    RideDetailService.getRideCategories();
 
 }]);
