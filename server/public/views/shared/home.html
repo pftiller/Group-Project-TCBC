@@ -1,48 +1,32 @@
 <header ng-include="'/views/landing/landing.header.partial.html'"></header>
-
 <md-content layout="row" flex>
-
-
-
-
   <div flex layout="row" layout-sm="column" layout-xs="column" layout-margin>
     <md-content class="home-rides-table" layout="row" flex-gt-sm="80" layout-align="space-around" layout-wrap>
       <div flex-xs="33"  class="filter" flex-gt-sm="25">
-
-
         <md-input-container>
           <input class="filter" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
             start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
         </md-input-container>
-
       </div>
       <div flex-xs="33"  class="filter" flex-gt-sm="25">
-
         <md-input-container>
           <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for a ride">
         </md-input-container>
       </div>
       <div flex-xs="33" class="filter" flex-gt-sm="25">
-
         <md-select  aria-label="category-select" ng-model="vm.query.category" placeholder="Select a category">
           <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
             {{category}}
           </md-option>
         </md-select>
       </div>
-
       <div flex-xs="50"  class="filter" flex-gt-sm="25">
         <div layout="row" layout-align="center center">
           <div class="md-block">
             <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
           </div>
-
         </div>
       </div>
-
-
-
-
       <md-content layout="column" flex="100">
         <div layout="row" flex class="md-padding">
             <md-table-container style="width:100%;">
@@ -67,36 +51,18 @@
                   </tbody>
                 </table>
               </md-table-container>
-
-
         </div>
       </md-content>
-
     </md-content>
     <md-content layout="row" flex-gt-sm="20" layout-align="space-around" layout-wrap>
-
-
-
-
-
-
       <md-content layout="column" flex="100" class="md-whiteframe-3dp">
-
         <h2>Category Key</h2>
         <ul ng-repeat="category in vm.categories.list">
           <li>{{category.type}}</li>
           <li>{{category.name}}</li>
-
         </ul>
       </md-content>
-
     </md-content>
-
-
-
-
-
-
   </div>
 </md-content>
 
