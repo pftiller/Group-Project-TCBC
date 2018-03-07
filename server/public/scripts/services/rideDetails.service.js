@@ -55,6 +55,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
+                console.log('cats', response.data);
+                self.categories.list = response.data;
                 return response.data;
             })
             .catch((err) => {
@@ -239,6 +241,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
+        self.categories = RideDetailService.categories;
         self.submitRide = function (ride) {
             console.log('new ride', ride);
             self.hide();
