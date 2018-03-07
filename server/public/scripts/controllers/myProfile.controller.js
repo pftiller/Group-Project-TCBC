@@ -5,7 +5,7 @@ myApp.controller('MyProfileController', ['MyProfileService', function (MyProfile
 
     self.viewProfile = function(){
       MyProfileService.viewProfile().then((res)=>{
-        // console.log('back from database with the stuff', res);
+        // console.log('back from database', res);
         self.viewProfile = res[0];
       })
     }
