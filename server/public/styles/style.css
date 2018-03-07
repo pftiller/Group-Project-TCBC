@@ -77,9 +77,6 @@ li a {
   height: 125px;
   max-height:125px;
 }
-md-toolbar {
-  background-color:#fff;
-}
 .logo {
   width: 100px;
   height:auto;
@@ -102,27 +99,14 @@ li a:hover {
 }
 
 /* Home */
-.arrow_drop_up:after {
-  font-family: 'Material Icons';
-  content: "\E5C7";
-}
+
+
 .md-block { 
  display: inline-block;
 }
 .search-icon {
   display: inline-block;
 } 
-.arrow_drop_down:after {
-  font-family: 'Material Icons';
-  content: "\E5C5";
-}
-
-table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: auto;
-}
-
 th {
   height: 50px;
 }
