@@ -2,60 +2,60 @@
 
 <div class="profileContainer">
     <div layout="column" class="profileLayout" layout-align="center center">
-        <md-content class="profileInfo" >
+        <md-content class="profileInfo">
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Member number:
+                    Member id:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.memberNumber}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.member_id}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Name:
+                    First name:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.name}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.first_name}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Address:
+                    Last name:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.address}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.last_name}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     City:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.city}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.city}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     State:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.state}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.state}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Zip:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.zip}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.zip}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Phone Number:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.phoneNumber}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.phone_1}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Email:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.email}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.email}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
                     Membership expiration:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.membershipExpires}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.membership_expiration | date:'MM-dd-yyyy'}}</label>
             </div>
             <div layout-gt-sm="row" class="profileLink">
                 <a ng-href="https://www.w3schools.com">Update contact information</a>

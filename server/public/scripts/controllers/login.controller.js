@@ -23,11 +23,11 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
                 UserService.getuser().then((response)=>{
                   console.log('after login, user data: ', response);
                   self.user = response;
+                  console.log('self.user after login: ', self.user);
+                  
                   $location.path('/home');
                 })
-              
               $mdDialog.hide();
-              self.showNav = true;
             }
           }
         );   
