@@ -1,18 +1,19 @@
-myApp.controller('AdminController', ['AdminService', function (AdminService) {
+myApp.controller('AdminController', ['AdminService','RideDetailService', function (AdminService, RideDetailService) {
     console.log('AdminController created');
-    const self = this;
+    let self = this;
+    self.pendingApprovals = {};
     
-
-
-
-    self.getRidesPendingApproval = function(){
-        
-
-
-
-
+    self.loadRidesForApproval = function(){
+        AdminService.getPendingApprovedRides().then((response)=>{
+            console.log('Controller, got the rides pending approval: ', response);
+            self.pendingApprovals.list = response;
+        })
     }
+    self.loadRidesForApproval();
 
+    self.rideDetailReveal = function(ride){
+        RideDetailService.myRideDetailModal(ride);
+    }
 
 
 
