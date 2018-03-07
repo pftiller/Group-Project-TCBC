@@ -1,4 +1,4 @@
-<header ng-include="'/views/shared/header.html'"></header>
+<header ng-include="'/views/landing/landing.header.partial.html'"></header>
 
 <div layout="row" layout-xs="column" layout-wrap>
   <div flex="66">
@@ -7,10 +7,7 @@
         <md-content layout-padding>
           <div layout-gt-xs="row">
             <div flex-gt-xs>
-              <md-input-container>
-                <input class="form-control" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
-                  start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
-              </md-input-container>
+              <input type="date" ng-model="vm.query.date" />
             </div>
           </div>
         </md-content>
