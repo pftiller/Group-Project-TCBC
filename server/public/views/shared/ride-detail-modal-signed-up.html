@@ -3,21 +3,23 @@
     <div layout="row" layout-align="space-between strech">
         <div class="ride-detail-stuff">
             <h2>Category</h2>
-            <p>{{vm.ride.rides_category.type}}  {{vm.ride.rides_category.name}}</p>
+            <!-- need to grab category info -->
+            <p>{{vm.ride.ride_category}}  {{vm.ride.rides_category.name}}</p>
             <h2>Ride Leader</h2>
+            <!-- need to grab ride leader info -->
             <p>{{vm.ride.ride_leader}}</p>
             <h2>Location</h2>
             <p>{{vm.ride.ride_location}}</p>
             <h2>GPS Link</h2>
             <p>
-                <a ng-href="{{vm.ride.gps}}">{{vm.ride.url}}</a>
+                <a ng-href="{{vm.ride.url}}">{{vm.ride.url}}</a>
             </p>
         </div>
         <div class="ride-detail-stuff">
             <h2>Description</h2>
             <p>{{vm.ride.description}}</p>
             <h2>Distance</h2>
-            <p>{{vm.ride.actualDistance}}</p>
+            <p>{{vm.ride.selected_distance}}</p>
             <md-button ng-if="!vm.ride.past_ride" ng-click="vm.rideUnregister(vm.ride)">Remove me from this ride</md-button>
         </div>
     </div>
