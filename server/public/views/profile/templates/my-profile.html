@@ -2,24 +2,24 @@
 
 <div class="profileContainer">
     <div layout="column" class="profileLayout" layout-align="center center">
-        <md-content class="profileInfo" >
+        <md-content class="profileInfo">
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Member number:
+                    Member id:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.memberNumber}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.member_id}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Name:
+                    First name:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.name}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.first_name}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
-                    Address:
+                    Last name:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.address}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.last_name}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
@@ -43,7 +43,7 @@
                 <label class="profileLabel">
                     Phone Number:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.phoneNumber}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.phone_1}}</label>
             </div>
             <div layout-gt-sm="row">
                 <label class="profileLabel">
@@ -55,7 +55,7 @@
                 <label class="profileLabel">
                     Membership expiration:
                 </label>
-                <label class="profileUserDataLabel" ng-disabled="true">{{user.membershipExpires}}</label>
+                <label class="profileUserDataLabel" ng-disabled="true">{{user.membership_expiration}}</label>
             </div>
             <div layout-gt-sm="row" class="profileLink">
                 <a ng-href="https://www.w3schools.com">Update contact information</a>
