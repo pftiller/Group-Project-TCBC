@@ -6,12 +6,11 @@ CREATE TABLE "users" (
   "phone_1" varchar(12) NOT NULL,
   "email" varchar(50),
   "role" int NOT NULL,
-  "member_id" int NOT NULL,
+  "member_id" int,
   CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-
 
 
 CREATE TABLE "rides" (
