@@ -39,31 +39,4 @@ self.rideDetailReveal = function (ride) {
 self.clearFilters = function () {
     self.query = {};
 }
-
-
-  // // Table Sorting 
-  // self.sort = {
-  //   active: '',
-  //   descending: undefined
-  // }
-
-  // self.changeSorting = function (column) {
-  //   var sort = self.sort;
-  //   if (sort.active == column) {
-  //     console.log(sort.active);
-  //     sort.descending = !sort.descending;
-  //   } else {
-  //     sort.active = column;
-  //     sort.descending = false;
-  //   }
-  // };
-
-  // self.getIcon = function (column) {
-  //   var sort = self.sort;
-  //   if (sort.active == column) {
-  //     return sort.descending ?
-  //       'arrow_drop_down' :
-  //       'arrow_drop_up';
-  //   }
-  // }
 }]);
