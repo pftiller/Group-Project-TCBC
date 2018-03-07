@@ -5,7 +5,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
-      redirectTo: 'home'
+      redirectTo: '/home'
     })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',

@@ -5,11 +5,15 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     self.rideDetailReveal = function(ride){
         RideDetailService.myRideDetailModal(ride);
     }
+
     self.rideDetailRevealPast = function(ride){
         RideDetailService.myRideDetailModal(ride);
     }
     
     self.rides = RideDetailService.rides;
+    self.myRides = RideDetailService.myRides;
+
+    RideDetailService.getMyRideDetails();
 
   }]);
   
