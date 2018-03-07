@@ -5,7 +5,7 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.categories = {};
   self.isDisabled = false;
   self.minDateString = moment().format('LL');
-
+  self.query = {};
   
   // GET categories on page load
   self.loadCategories = function(){
@@ -37,9 +37,7 @@ self.rideDetailReveal = function (ride) {
 
 // Clear Filters
 self.clearFilters = function () {
-  self.query.name = null;
-  self.query.category = null;
-  self.selectedDate = null;
+    self.query = {};
 }
 
 
