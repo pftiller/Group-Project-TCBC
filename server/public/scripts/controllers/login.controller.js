@@ -20,7 +20,11 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
             if(response.status == 401){
               self.message = "Incorrect Member ID or Password"
             }else if(response.status == 200){
-              console.log('response.status: ', response.status);
+                UserService.getuser().then((response)=>{
+                  console.log('after login, user data: ', response);
+                  self.user = response;
+                  $location.path('/home');
+                })
               
               $mdDialog.hide();
               self.showNav = true;
@@ -29,36 +33,12 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         );   
       }
     }
-    
-
   self.logout = function () {
-
     UserService.logout()
       .then(()=>{
-        
         $location.path('/landing')
       });
-
-    
-
-
   }
-  /* Not in use for now */
-  // self.registerUser = function () {
-  //   if (self.user.member_id === '' || self.user.password === '') {
-  //     self.message = "Choose a username and password!";
-  //   } else {
-  //     console.log('sending to server...', self.user);
-  //     $http.post('/api/user/register', self.user).then(function (response) {
-  //       console.log('success');
-  //       $location.path('/user');
-  //     },
-  //       function (response) {
-  //         console.log('error');
-  //         self.message = "Something went wrong. Please try again."
-  //       });
-  //   }
-  // }
   self.loginModal = function (ev) {
     $mdDialog.show({
       parent: angular.element(document.body),
