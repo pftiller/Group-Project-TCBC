@@ -25,9 +25,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
                   self.user = response;
                   $location.path('/home');
                 })
-              
               $mdDialog.hide();
-              self.showNav = true;
             }
           }
         );   

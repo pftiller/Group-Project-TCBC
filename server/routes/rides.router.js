@@ -6,14 +6,15 @@ const ridePackager = require('../modules/ridePackager.module');
 
 
 
-        /* GET all rides*/ 
+        /* GET all Approved rides*/ 
 router.get('/public/details',  (req, res) => {
 
-    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader,rides.approved,rides.completed,rides.cancelled, users.first_name, users.last_name,users.phone_1,users.email
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
     JOIN users on rides.ride_leader = users.id
-    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;`
+    WHERE approved = true
+    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email`;
 
     pool.query(allRidesQuery)
         .then((result) => {
@@ -105,8 +106,8 @@ router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
 router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     console.log('user ', req.user);
     console.log('req.body ', req.body);
-    const query = 'INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';
-    pool.query(query, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
+    const query = 'INSERT INTO rides (rides_name, ride_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    pool.query(query, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
             res.sendStatus(201);
         })
