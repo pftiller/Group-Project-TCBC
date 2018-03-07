@@ -24,5 +24,8 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     self.checkRidersIn = function (ride) {  
         $location.path(`/check-in/${ride.id}`)
     }
+    
+    RideDetailService.getMyRideDetails();
+
 
 }]);

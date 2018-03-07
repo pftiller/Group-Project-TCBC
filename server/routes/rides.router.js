@@ -16,16 +16,35 @@ router.get('/public/details',  (req, res) => {
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;`
 
     pool.query(allRidesQuery)
-        .then((result)=>{
-          let formattedRides = ridePackager(result.rows);
-          res.send(formattedRides);
+        .then((result) => {
+            let formattedRides = ridePackager(result.rows);
+            res.send(formattedRides);
         })
-        .catch((err)=>{
-            console.log('error getting all rides');  
+        .catch((err) => {
+            console.log('error getting all rides');
+
         })
 });
 
-            /* GET All Categories */
+//get my rides only
+//need to specify columns to get
+router.get('/member/rideDetails', (req, res) => {
+    const allRidesQuery = `SELECT * FROM rides
+    JOIN rides_users on rides_users.ride_id = rides.id
+    WHERE user_id = $1;`
+    pool.query(allRidesQuery, [req.user.id])
+        .then((result) => {
+            console.log('rides ', result.rows);
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('error getting all rides');
+
+        })
+
+});
+
+/* GET All Categories */
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
     const CategoryQuery = `SELECT * FROM categories`;
@@ -39,6 +58,47 @@ router.get('/public/categories', (req, res) => {
         })
 });
 
+//ride post to sign up
+//add validation if user has already signed up?
+//primary key was finickey
+router.post('/signUp', isAuthenticated, (req, res) => {
+    console.log('user ', req.user);
+    console.log('req.body ', req.body);
+    const query = `
+    INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+    VALUES ($1, $2, $3)`;
+    pool.query(query, [req.body.ride_id, req.user.id, req.body.selected_distance])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making insert query:', err);
+            res.sendStatus(500);
+        });
+});
+
+
+// unregsiter member for ride
+//delete rides_users row where userid and ride id are equal
+router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
+    console.log('user ', req.user);
+    console.log('ride_id ', req.params.ride_id);
+    const queryText = `
+    DELETE FROM rides_users
+    WHERE ride_id = $1
+    AND user_id = $2`;
+    pool.query(queryText, [req.params.ride_id, req.user.id])
+        .then((result) => {
+            console.log('delete rides_users ', result);
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making update completed query:', err);
+            res.sendStatus(500);
+        });
+});
 
 /* RideLeader Submit Ride for Approval */
 
@@ -58,17 +118,17 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
 
 });
 
-    //Ride leader get info for check in view
+//Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
     const queryText = `
     SELECT * FROM rides
     WHERE id = $1`;
     pool.query(queryText, [req.params.rideId])
-        .then((response)=>{
+        .then((response) => {
             console.log('get current ride info ', response.rows);
             res.send(response.rows);
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log('get current ride err ', err);
         });
     // res.send(list);
@@ -94,9 +154,8 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
             console.log('error making update completed query:', err);
             res.sendStatus(500);
         });
-
 });
-    //Add Guest rider to db
+//Add Guest rider to db
 router.post(`/rideLeader/addGuest`, isAuthenticated, (req, res) => {
     console.log('req.body ', req.body);
     const query = `

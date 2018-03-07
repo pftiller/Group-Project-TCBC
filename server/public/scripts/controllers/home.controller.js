@@ -1,13 +1,12 @@
-myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log', function (RideDetailService, $timeout, $q, $log) {
+myApp.controller('HomeController', ['RideDetailService', function (RideDetailService) {
   console.log('HomeController created');
   let self = this;
   self.rides = {};
   self.categories = {};
-  self.isOpen = false;
-  self.simulateQuery = false;
   self.isDisabled = false;
+  self.minDateString = moment().format('LL');
 
-
+  
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
@@ -19,7 +18,7 @@ myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log
   
   //GET all rides for display
   self.getAllRides = function(){
-    RideDetailService.getRideDetails()
+    RideDetailService.getAllRideDetails()
       .then((response)=>{
         self.rides.list = response;
       })
@@ -28,15 +27,16 @@ myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log
   
 // Ride Details
 self.rideDetailReveal = function (ride) {
-  RideDetailService.myRideDetailModal(ride);
+  RideDetailService.rideDetailModal(ride);
 }
 
 // Clear Filters
-  self.clearFilters = function () {
-    self.query.date = '';
-    self.query.name = '';
-    self.query.category = '';
-  }
+self.clearFilters = function () {
+  self.query.name = '';
+  self.query.category = '';
+  self.selectedDate = '';
+}
+
 
   // Table Sorting 
   self.sort = {
