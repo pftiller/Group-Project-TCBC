@@ -6,11 +6,12 @@
                 <p ng-show='vm.user.first_name'>{{vm.user.first_name}}</p>
                 <p ng-show='!vm.user.first_name'>{{vm.miles}}</p>
                 <span flex></span>
-                <md-button ng-show='vm.user.first_name' ng-click="vm.logout()">Log Out</md-button>
-                <md-button ng-show='!vm.user.first_name' ng-click="vm.loginModal()">Log In</md-button>
+                <md-button ng-if='vm.showNav' ng-click="vm.logout()">Log Out</md-button>
+                <md-button ng-if='!vm.showNav' ng-click="vm.loginModal()">Log In</md-button>
         </div>
         <div class="nav" ng-show="vm.user.first_name">
-                        <div ng-if="vm.user.role === 2" ng-include="'./views/user/partials/nav.html'"></div>
-                        <div ng-if="vm.user.role === 1" ng-include="'./views/admin/partials/nav.html'"></div>
+                        <div ng-if="vm.user.role === 1 || vm.user.role === 2" ng-include="'./views/user/partials/nav.html'"></div>
+
+                        <div ng-if="vm.user.role === 3" ng-include="'./views/admin/partials/nav.html'"></div>
                 </div>
 </md-toolbar>

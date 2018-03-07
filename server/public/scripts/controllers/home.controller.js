@@ -26,32 +26,6 @@ myApp.controller('HomeController', ['RideDetailService', '$timeout', '$q', '$log
   }
   self.getAllRides();
   
-  // Ride Name Search
-self.querySearch = function(query) {
-      var results = query ? self.categories.list.ride_names.filter(createFilterFor(query)) : self.categories.list.ride_names,
-        deferred;
-      if (!query) {
-        return;
-      }
-      if (self.simulateQuery) {
-        deferred = $q.defer();
-        $timeout(function() {
-          deferred.resolve(results);
-        }, Math.random() * 1000, false);
-        return deferred.promise;
-      } else {
-        return results;
-      }
-    }
-
-    self.searchTextChange = function(text) {
-      console.log('Search text changed');
-    }
-
-   self.selectedItemChange = function(item) {
-      console.log('Selected item changed');
-    }
-
 // Ride Details
 self.rideDetailReveal = function (ride) {
   RideDetailService.myRideDetailModal(ride);
