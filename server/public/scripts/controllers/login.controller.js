@@ -35,8 +35,8 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
       self.showNav = false;
       $location.path('/home');  
     }
-  
-    self.logout = function () {
+
+  self.logout = function () {
 
     UserService.logout()
       .then(()=>{

@@ -7,7 +7,10 @@
         <md-content layout-padding>
           <div layout-gt-xs="row">
             <div flex-gt-xs>
-              <input type="date" ng-model="vm.query.date" />
+              <md-input-container>
+                <input class="form-control" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
+                  start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
+              </md-input-container>
             </div>
           </div>
         </md-content>
