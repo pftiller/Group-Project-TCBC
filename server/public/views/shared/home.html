@@ -1,75 +1,68 @@
-<header ng-include="'/views/shared/header.html'"></header>
-
-<div layout="row" layout-xs="column" layout-wrap>
-  <div flex="66">
-    <div layout="row" layout-margin>
-      <div flex>
-        <md-content layout-padding>
-          <div layout-gt-xs="row">
-            <div flex-gt-xs>
-              <md-input-container>
-                <input class="form-control" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
-                  start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
-              </md-input-container>
-            </div>
-          </div>
-        </md-content>
-      </div>
-      <div flex>
-        <i class="material-icons search-icon">search</i>
+<header ng-include="'/views/landing/landing.header.partial.html'"></header>
+<md-content layout="row" flex>
+  <div flex layout="row" layout-sm="column" layout-xs="column" layout-margin>
+    <md-content class="home-rides-table" layout="row" flex-gt-sm="80" layout-align="space-around" layout-wrap>
+      <div flex-xs="33"  class="filter" flex-gt-sm="25">
         <md-input-container>
-          <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for Ride">
+          <input class="filter" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
+            start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
         </md-input-container>
       </div>
-      <div flex>
-        <md-select aria-label="category-select" ng-model="vm.query.category">
+      <div flex-xs="33"  class="filter" flex-gt-sm="25">
+        <md-input-container>
+          <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for a ride">
+        </md-input-container>
+      </div>
+      <div flex-xs="33" class="filter" flex-gt-sm="25">
+        <md-select  aria-label="category-select" ng-model="vm.query.category" placeholder="Select a category">
           <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
             {{category}}
           </md-option>
         </md-select>
       </div>
-      <div flex>
-        <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
+      <div flex-xs="50"  class="filter" flex-gt-sm="25">
+        <div layout="row" layout-align="center center">
+          <div class="md-block">
+            <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
+          </div>
+        </div>
       </div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th ng-click="vm.changeSorting('rides_date')">
-            <span>Date</span>
-            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_date')"></md-icon>
-          </th>
-          <th ng-click="vm.changeSorting('rides_name')">
-            <span>Name</span>
-            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_name')"></md-icon>
-          </th>
-          <th ng-click="vm.changeSorting('rides_category')">
-            <span>Category</span>
-            <md-icon md-font-icon="material-icons" ng-class="vm.getIcon('rides_category')"></md-icon>
-          </th>
-          <th>
-            <span>Details</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="ride in vm.rides.list | orderBy:vm.sort.column:vm.sort.descending | filter: { rides_date: vm.query.date, rides_name: vm.query.name, rides_category: vm.query.category}">
-          <td>{{ride.rides_date | date : 'short'}}</td>
-          <td>{{ride.rides_name}}</td>
-          <td>{{ride.rides_category}}</td>
-          <td>
-            <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)" aria-label="details-button">Details Button</md-button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <md-content layout="column" flex="100">
+        <div layout="row" flex class="md-padding">
+            <md-table-container style="width:100%;">
+                <table md-table>
+                  <thead md-head md-order="filter">
+                    <tr md-row>
+                      <th md-column><span>Date</span></th>
+                      <th md-column md-order-by="price" md-numeric><span>Name</span></th>
+                      <th md-column><span>Category</span></th>
+                      <th md-column md-order-by="price" md-numeric><span>Details</span></th>
+                    </tr>
+                  </thead>
+                  <tbody md-body>
+                    <tr md-row ng-repeat="ride in vm.rides.list | orderBy:filter | filter: { rides_date: vm.query.date, rides_name: vm.query.name, rides_category: vm.query.category}">
+                      <td md-cell>{{ride.rides_date}}</td>
+                      <td md-cell>{{ride.rides_name}}</td>
+                      <td md-cell>{{ride.rides_category}}</td>
+                      <td md-cell>
+                          <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)" aria-label="details-button">Details Button</md-button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </md-table-container>
+        </div>
+      </md-content>
+    </md-content>
+    <md-content layout="row" flex-gt-sm="20" layout-align="space-around" layout-wrap>
+      <md-content layout="column" flex="100" class="md-whiteframe-3dp">
+        <h2>Category Key</h2>
+        <ul ng-repeat="category in vm.categories.list">
+          <li>{{category.type}}</li>
+          <li>{{category.name}}</li>
+        </ul>
+      </md-content>
+    </md-content>
   </div>
-  <div flex="33">
-    <h2>Category Key</h2>
-    <ul ng-repeat="category in vm.categories.list">
-      <li>{{category.type}}</li>
-      <li>{{category.name}}</li>
+</md-content>
 
-    </ul>
-  </div>
-</div>

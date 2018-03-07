@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'moment-picker']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'moment-picker', 'md.data.table']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -19,6 +19,11 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
     .when('/home', {
       templateUrl: '/views/shared/home.html',
       controller: 'HomeController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getuser();
+        }
+      }
     })
     .when('/login', {
       templateUrl: '/views/shared/login.html',
