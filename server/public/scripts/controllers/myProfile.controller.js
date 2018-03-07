@@ -6,7 +6,7 @@ myApp.controller('MyProfileController', ['UserService', function(UserService) {
     self.viewProfile = UserService.viewProfile;
 
     self.viewProfile = function() {
-      self.UserService.viewProfile = userData;
+      self.UserService.viewProfile();
     }
   }]);
   
