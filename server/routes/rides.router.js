@@ -6,7 +6,7 @@ const ridePackager = require('../modules/ridePackager.module');
 
 
 
-        /* GET all rides*/ 
+        /* GET all Approved rides*/ 
 router.get('/public/details',  (req, res) => {
 
     const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader,rides.approved,rides.completed,rides.cancelled, users.first_name, users.last_name,users.phone_1,users.email
