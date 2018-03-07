@@ -16,14 +16,14 @@
       <div flex-xs="33"  flex-gt-sm="25">
         <md-select  aria-label="category-select" ng-model="vm.query.category" placeholder="Select a category">
           <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
-            {{category}}
+            {{category.type}} - {{category.name}}
           </md-option>
         </md-select>
       </div>
       <div flex-xs="50"  flex-gt-sm="25">
         <div layout="row" layout-align="center center">
           <div class="md-block">
-            <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
+            <button class="md-raised md-primary md-button md-ink-ripple" ng-click="vm.clearFilters()" type="button" aria-label="clear-filters">Clear Filters</button>
           </div>
         </div>
       </div>

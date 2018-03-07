@@ -2,25 +2,25 @@
 <md-content layout="row" flex>
   <div flex layout="row" layout-sm="column" layout-xs="column" layout-margin>
     <md-content class="home-rides-table" layout="row" flex-gt-sm="80" layout-align="space-around" layout-wrap>
-      <div flex-xs="33"  class="filter" flex-gt-sm="25">
+      <div flex-xs="33"  flex-gt-sm="25">
         <md-input-container>
-          <input class="filter" placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
+          <input placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL"
             start-view="month" min-date="vm.minDateString" ng-model="vm.query.date">
         </md-input-container>
       </div>
-      <div flex-xs="33"  class="filter" flex-gt-sm="25">
+      <div flex-xs="33"  flex-gt-sm="25">
         <md-input-container>
           <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for a ride">
         </md-input-container>
       </div>
-      <div flex-xs="33" class="filter" flex-gt-sm="25">
+      <div flex-xs="33" flex-gt-sm="25">
         <md-select  aria-label="category-select" ng-model="vm.query.category" placeholder="Select a category">
           <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
-            {{category}}
+              {{category.type}} - {{category.name}}
           </md-option>
         </md-select>
       </div>
-      <div flex-xs="50"  class="filter" flex-gt-sm="25">
+      <div flex-xs="50"  flex-gt-sm="25">
         <div layout="row" layout-align="center center">
           <div class="md-block">
             <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
