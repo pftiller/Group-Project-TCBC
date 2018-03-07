@@ -106,8 +106,8 @@ router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
 router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     console.log('user ', req.user);
     console.log('req.body ', req.body);
-    const query = 'INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';
-    pool.query(query, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
+    const query = 'INSERT INTO rides (rides_name, ride_category, rides_date, description, ride_leader, url, ride_location) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    pool.query(query, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
             res.sendStatus(201);
         })
