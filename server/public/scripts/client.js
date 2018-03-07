@@ -1,11 +1,11 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'moment-picker']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
-      redirectTo: 'home'
+      redirectTo: '/home'
     })
     .when('/register', {
       templateUrl: '/views/user/templates/register.html',

@@ -7,26 +7,26 @@
         <md-content layout-padding>
           <div layout-gt-xs="row">
             <div flex-gt-xs>
-              <md-datepicker ng-model="vm.query.date" md-placeholder="Date"></md-datepicker>
+              <input type="date" ng-model="vm.query.date" />
             </div>
           </div>
         </md-content>
       </div>
       <div flex>
-          <i class="material-icons search-icon">search</i>
-          <md-input-container>
-              <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for Ride">
-          </md-input-container>
+        <i class="material-icons search-icon">search</i>
+        <md-input-container>
+          <input type="text" class="search" ng-model="vm.query.name" placeholder="Search for Ride">
+        </md-input-container>
       </div>
-      <!-- <div flex>
-        <md-select ng-model="vm.query.category">
-          <md-option ng-repeat="category in vm.categories.list" value="{{category}}">
+      <div flex>
+        <md-select aria-label="category-select" ng-model="vm.query.category">
+          <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
             {{category}}
           </md-option>
         </md-select>
-      </div> -->
+      </div>
       <div flex>
-        <md-button class="md-raised" ng-click="vm.clearFilters()">Clear Filters</md-button>
+        <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
       </div>
     </div>
     <table>
@@ -55,7 +55,7 @@
           <td>{{ride.rides_name}}</td>
           <td>{{ride.rides_category}}</td>
           <td>
-            <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)">Details Button</md-button>
+            <md-button style="border: 1px solid black;" ng-click="vm.rideDetailReveal(ride)" aria-label="details-button">Details Button</md-button>
           </td>
         </tr>
       </tbody>

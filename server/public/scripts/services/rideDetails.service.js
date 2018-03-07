@@ -8,44 +8,61 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
+    self.myRides = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
 
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
-        //for sure jsut used that for testing, thanks for making a note so we dont forget
+    //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
         console.log('rides ', rides);
         rides.forEach((ride) => {
-            if (ride.ride_leader == 'Lukas Nord') {
+            if (ride.ride_leader == 2) {
                 self.myLeadRides.list.push(ride);
             }
         });
     }
 
-    self.getRideDetails = function () {
-        return $http.get('/rides/public/details')
-                .then((response) => { 
+    self.getMyRideDetails = function () {
+        return $http.get('/rides/member/rideDetails')
+            .then((response) => {
+                console.log('my ride results ', response.data);
+                self.myRides.list = response.data;
                 return response.data;
             })
             .catch((err) => {
                 console.log(err);
             })
     }
-    self.getRideDetails();
-    
+
+    self.getAllRideDetails = function () {
+        return $http.get('/rides/public/details')
+            .then((response) => {
+                self.rides.list = response.data;
+                return response.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+    self.getAllRideDetails();
+
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
                 return response.data;
             })
             .catch((err) => {
-                console.log('error getting categories: ',err);
+                console.log('error getting categories: ', err);
             })
     }
 
-    self.getRideDetails().then((data) => {
+    self.getAllRideDetails().then((data) => {
         self.checkRidesForLeader(data)
     });
 
@@ -72,13 +89,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.user = {
             loggedIn: true
         };
+        self.selectedDistance;
 
+        //if not signed in alert to sign in or register, else sign up for ride
         self.rideSignUp = function (ride) {
             if (self.user.loggedIn === true) {
-                console.log('SIGN ME UP FOR ', ride.name);
-                RideDetailService.signUpPost(ride);
-            } else {
-                alert('Must log in to sign up for a ride!')
+                console.log('SIGN ME UP FOR ', ride.rides_name);
+                // let thenum = self.selectedDistance.match(/\d+/)[0];
+                console.log('distance ', self.selectedDistance);
+                ride.selected_distance = self.selectedDistance;
+                RideDetailService.signUpPost(ride)
+                    .then(() => {
+                        self.hide();
+                    });;
             }
         }
 
@@ -105,12 +128,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             // $mdDialog.hide(answer);
         };
     }
-    
+
     self.signUpPost = function (ride) {
         console.log('Signing up for ride ', ride);
-        return $http.post('/rides', ride)
+        return $http.post('/rides/signUp', ride)
             .then((response) => {
-                console.log('post ride signup ', response);
+                if (response.data == "Must be logged in to add items!") {
+                    console.log(response);
+                    alert('Must log in to sign up for rides!')
+                } else {
+                    return response;
+                    console.log('post ride signup ', response);
+                }
             })
             .catch((err) => {
                 console.log('err on post ride sign up ', err);
@@ -154,14 +183,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             loggedIn: true
         };
 
-        self.rideSignUp = function (ride) {
-            if (self.user.loggedIn === true) {
-                console.log('SIGN ME UP FOR ', ride.name);
-                RideDetailService.signUpPost(ride);
-            } else {
-                alert('Must log in to sign up for a ride!')
-            }
-        }
+        self.rideUnregister = function (item) {
+            RideDetailService.rideUnregister(item)
+                .then(() => {
+                    self.hide();
+                });
+        };
 
         self.hide = function () {
             $mdDialog.hide();
@@ -188,14 +215,15 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
     self.rideUnregister = function (ride) {
         console.log('unregister for ride ', ride);
-        // return $http.post('/rides', ride)
-        //     .then((response) => {
-        //         console.log('unregister ', response);
-        //     })
-        //     .catch((err) => {
-        //         console.log('err on post ride sign up ', err);
+        return $http.delete(`/rides/unregister/${ride.ride_id}`)
+            .then((response) => {
+                self.getMyRideDetails();
+                console.log('unregister ', response);
+            })
+            .catch((err) => {
+                console.log('err on post ride sign up ', err);
 
-        //     })
+            })
     }
 
     self.createNewRide = function (ev) {
