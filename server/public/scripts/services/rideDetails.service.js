@@ -1,4 +1,3 @@
-
 myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
     console.log('RideDetailService Loaded');
     let self = this;
@@ -21,13 +20,13 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         total: {}
     }
 
-    self.getMileageForMember = function(){
+    self.getMileageForMember = function () {
         return $http.get('/rides/member/mileage')
-            .then((response)=>{
+            .then((response) => {
                 console.log('get mileage response ', response.data);
                 self.myMileage.total = response.data;
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log('get mileage err ', err);
             })
     }
@@ -67,11 +66,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             });
     }
 
-
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
-                self.myRides.list = [];  
+                self.myRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
@@ -90,7 +88,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                // console.log('all rides ', response.data);
+                console.log('all rides ', response.data);
                 self.rides.list = response.data;
                 return response.data;
             })
@@ -130,20 +128,17 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         })
     }
 
-    function RideDetailController($mdDialog, item, RideDetailService) {
+    function RideDetailController($mdDialog, item, RideDetailService, UserService) {
         const self = this;
         self.rides = RideDetailService.rides;
         self.ride = item;
-        self.user = {
-            loggedIn: true
-        };
-        self.selectedDistance;
+        self.user = UserService.userObject;
 
         //if not signed in alert to sign in or register, else sign up for ride
         self.rideSignUp = function (ride) {
-            if (self.user.loggedIn === true) {
+            if (self.user.member_id) {
                 console.log('SIGN ME UP FOR ', ride.rides_name);
-                // let thenum = self.selectedDistance.match(/\d+/)[0];
+                self.selectedDistance;
                 console.log('distance ', self.selectedDistance);
                 ride.selected_distance = self.selectedDistance;
                 RideDetailService.signUpPost(ride)
@@ -185,8 +180,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     console.log(response);
                     alert('Must log in to sign up for rides!')
                 } else {
-                    return response;
                     console.log('post ride signup ', response);
+                    return response;
                 }
             })
             .catch((err) => {
@@ -198,13 +193,26 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
     self.currentRide = function (rides) {
         rides.forEach(ride => {
-            if (ride.rides_date > '02-03-2018') {
+            if (ride.rides_date > '2018-03-03T06:00:00.000Z') {
                 //will check against todays date with real data
                 ride.past_ride = false;
             } else {
                 ride.past_ride = true;
             }
         })
+    }
+
+    self.initMyRideDetailModal = function (ride) {
+        console.log('ride ', ride);
+        return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
+            .then((response) => {
+                console.log('response modal', response.data[0]);
+                self.myRideDetailModal(response.data[0])
+                return response.data;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     self.myRideDetailModal = function (ride, ev) {
@@ -336,8 +344,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getRideCategories();
     self.getAllRideDetails();
     self.getMyRideDetails()
-    .then((data) => {
-        self.checkRidesForLeader(data);
-    });
+        .then((data) => {
+            self.checkRidesForLeader(data);
+        });
 
 }]);

@@ -45,6 +45,28 @@ router.get('/admin/pendingApprovedRides', isAuthenticated, (req, res) => {
 });
 
 
+
+
+router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) => {
+    const allRidesQuery = `
+    SELECT *
+    FROM rides
+    JOIN rides_users ON rides.id = rides_users.ride_id
+    JOIN users ON users.id = rides_users.user_id
+    JOIN rides_distances ON rides_users.selected_distance = rides_distances.id
+    JOIN categories ON categories.id = rides.ride_category
+    WHERE rides.id = $1;`
+    pool.query(allRidesQuery, [req.params.rideId])
+        .then((result) => {
+            console.log('rides ', result.rows);
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('error getting all my rides', err);
+
+        })
+});
+
 /* Approve a ride */
 
 router.put('/admin/approveRide/:rideId', isAuthenticated, (req, res) => {
