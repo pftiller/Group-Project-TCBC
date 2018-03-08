@@ -14,11 +14,12 @@
     <md-button class="md-raised md-primary">Submit</md-button>
   </md-input-container>
 </div>
-<div class="grid table table-hover" layout="horizontal" layout-align="center center" ng-cloak class="md-inline-form">
-  <table class="manageMemberTable">
+<div layout="horizontal" layout-align="center center">
+  <table id="manageMemberTable">
     <thead>
       <tr>
-        <th>Name(Member ID)</th>
+        <th>Name
+          <br>(Member ID)</th>
         <th>Role</th>
         <th>Rides</th>
         <th>Change Password</th>
@@ -26,21 +27,56 @@
     </thead>
     <tbody>
       <tr>
-        <td>Darren Rector 13579</td>
-        <!-- <td>{{members.first_name}}{{members.last_name}}{{member.member_id}}</td> -->
+        <td>Darren Rector
+          <br>13579</td>
+        <!-- <td>{{members.first_name}}{{members.last_name}}<br>{{member.member_id}}</td> -->
         <td>Admin</td>
         <td>
-          <md-button class="md-raised md-primary">View</md-button>
+          <md-button class="md-raised md-button">View</md-button>
         </td>
         <td>
-          <md-button class="md-raised md-primary">Change Password</md-button>
+          <md-button class="md-raised md-button">Change Password</md-button>
+        </td>
+      </tr>
+      <tr>
+        <td>Patrick Connelly
+          <br>14279</td>
+        <td>Admin</td>
+        <td>
+          <md-button class="md-raised md-button">View</md-button>
+        </td>
+        <td>
+          <md-button class="md-raised md-button">Change Password</md-button>
+        </td>
+      </tr>
+      <tr>
+        <td>Lukas Nord
+          <br>18779</td>
+        <td>Admin</td>
+        <td>
+          <md-button class="md-raised md-button">View</md-button>
+        </td>
+        <td>
+          <md-button class="md-raised md-button">Change Password</md-button>
+        </td>
+      </tr>
+      <tr>
+        <td>Paul Tiller
+          <br>1</td>
+        <td>Admin</td>
+        <td>
+          <md-button class="md-raised md-button">View</md-button>
+        </td>
+        <td>
+          <md-button class="md-raised md-button">Change Password</md-button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-<!-- <div>
-    <label>
-      <i class="material-icons">add_circle_outline</i>Upload Member Information - CSV File</label>
-
-  </div> -->
+<div class="csvUpload" layout-align="center center">
+  <label>
+    <i class="material-icons">add_circle_outline</i>
+    Upload Member Information - CSV File
+  </label>
+</div>
