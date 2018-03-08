@@ -21,7 +21,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
-        console.log('rides ', rides);
+        // console.log('rides ', rides);
         // console.log('lead user', user);
         self.myLeadRides.list = [];
         rides.forEach((ride) => {
@@ -74,7 +74,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                console.log('all rides ', response.data);
+                // console.log('all rides ', response.data);
                 self.rides.list = response.data;
                 return response.data;
             })
@@ -86,7 +86,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
-                console.log('cats', response.data);
                 self.categories.list = response.data;
                 return response.data;
             })
