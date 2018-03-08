@@ -16,7 +16,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         return self.userObject;
       } else {
         console.log('UserService -- getuser -- failure');
-        // user has no session, bounce them back to the login page
+        // user has no session, bounce them back to the landing page
         $location.path("/landing");
       }
     }, function (response) {
@@ -24,6 +24,65 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
       $location.path("/landing");
     });
   }
+
+  self.getRideLeader = function(){
+    console.log('UserService -- getRideLeader');
+    return $http.get('/api/user').then(function (response) {
+      if (response.data.member_id) {
+        // user has a curret session on the server
+        self.userObject = response.data;
+          if(response.data.role >= 2){
+            return self.userObject
+          }else{
+            console.log('permission failed, not a ride leader or admin');
+            $location.path('/home');
+          }
+      } else {
+        console.log('UserService -- getRideLeader -- failure');
+        // user has no session, bounce them back to the landing page
+        $location.path("/landing");
+      }
+    }, function (response) {
+      console.log('UserService -- getRideLeader -- failure: ', response);
+      $location.path("/landing");
+    });
+
+  }
+
+
+  self.getRideAdmin = function(){
+    console.log('UserService -- getRideAdmin');
+    return $http.get('/api/user').then(function (response) {
+      if (response.data.member_id) {
+        // user has a curret session on the server
+        self.userObject = response.data;
+          if(response.data.role === 3){
+            return self.userObject
+          }else{
+            console.log('permission failed, not a ride Admin');
+            $location.path('/home');
+          }
+      } else {
+        console.log('UserService -- getRideAdmin -- failure');
+        // user has no session, bounce them back to the landing page
+        $location.path("/landing");
+      }
+    }, function (response) {
+      console.log('UserService -- getRideAdmin -- failure: ', response);
+      $location.path("/landing");
+    });
+
+  }
+
+
+
+
+
+
+
+
+
+
 
   self.login = function (user) {
     return $http.post('/api/user/login', user).then(

@@ -36,4 +36,8 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
         };
     }
 
+    self.toggleCheckedIn = function(rider){
+        CheckInService.toggleCheckedIn(rider);
+    }
+
 }]);

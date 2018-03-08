@@ -14,9 +14,9 @@ router.get('/public/details',  (req, res) => {
     JOIN users on rides.ride_leader = users.id
     WHERE approved = true
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email`;
-
     pool.query(allRidesQuery)
         .then((result) => {
+            console.log('get rides ', result.rows);
             let formattedRides = ridePackager(result.rows);
             res.send(formattedRides);
         })
@@ -79,7 +79,25 @@ router.get('/member/rideDetails', isAuthenticated, (req, res) => {
             res.send(result.rows);
         })
         .catch((err) => {
-            console.log('error getting all rides');
+            console.log('error getting all my rides', err);
+
+        })
+
+});
+
+// get riders for check in view
+router.get(`/rideLeader/signedUpRiders/:rideId`, (req, res) => {
+    const queryText = `
+    SELECT * FROM users
+    JOIN rides_users on rides_users.user_id = users.id
+    WHERE rides_users.ride_id = $1;`
+    pool.query(queryText, [req.params.rideId])
+        .then((result) => {
+            console.log('user infos ', result.rows);
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('error getting users for ride check in', err);
 
         })
 
@@ -214,19 +232,57 @@ router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
     // res.send(list);
 });
 
+// Ride Leader Mark Ride as cancelled
+router.put('/rideLeader/cancelRide/:rideId', isAuthenticated, (req, res) => {
+    console.log('ride id to cancel ', req.params.rideId);
+    const queryText = `
+    UPDATE rides
+    SET cancelled = $1
+    WHERE id = $2`;
+    pool.query(queryText, [true, req.params.rideId])
+        .then((result) => {
+            console.log('result update cancel ride ', result);
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making update cancel query:', err);
+            res.sendStatus(500);
+        });
+});
 
+
+// Ride Leader Mark Ride as cancelled
+router.put('/rideLeader/toggleCheckIn', isAuthenticated, (req, res) => {
+    console.log('ride id to cancel ', req.params.rideId);
+    console.log('req.body ', req.body);
+    const queryText = `
+    UPDATE rides_users
+    SET checked_in = $1
+    WHERE user_id = $2
+    AND ride_id = $3;`;
+    pool.query(queryText, [req.body.checked_in, req.body.user_id, req.body.ride_id])
+        .then((result) => {
+            console.log('result update check in user ', result);
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making update check in user:', err);
+            res.sendStatus(500);
+        });
+});
 
 // Ride Leader Mark Ride as Complete
 router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
-    console.log('ride id ', req.params.rideId);
-    console.log('req ', req.body);
+    console.log('ride id to mark complete ', req.params.rideId);
     const queryText = `
     UPDATE rides
     SET completed = $1
     WHERE id = $2`;
     pool.query(queryText, [true, req.params.rideId])
         .then((result) => {
-            console.log('result update ', result);
+            console.log('result update comeplete ride ', result);
             res.sendStatus(201);
         })
         // error handling

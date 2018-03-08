@@ -1,16 +1,46 @@
 <header ng-include="'/views/shared/header.html'"></header>
 
-<md-content>
 
-  <div flex layout="row" layout-align="space-around center">
-    <md-input-container class="md-block" flex-gt-sm>
-      <label>Member Name</label>
-      <!-- <input ng-model="user.firstName"> -->
-    </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-      <label></label>
-      <!-- <input ng-model="theMax"> -->
-    </md-input-container>
-  </div>
+<div flex layout="row" layout-align="center center">
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Member Name</label>
+    <input ng-model="user.first_name">
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Member ID</label>
+    <input ng-model="theMax">
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <md-button class="md-raised md-primary">Submit</md-button>
+  </md-input-container>
+</div>
+<div class="grid table table-hover" layout="horizontal" layout-align="center center" ng-cloak class="md-inline-form">
+  <table class="manageMemberTable">
+    <thead>
+      <tr>
+        <th>Name(Member ID)</th>
+        <th>Role</th>
+        <th>Rides</th>
+        <th>Change Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Darren Rector 13579</td>
+        <!-- <td>{{members.first_name}}{{members.last_name}}{{member.member_id}}</td> -->
+        <td>Admin</td>
+        <td>
+          <md-button class="md-raised md-primary">View</md-button>
+        </td>
+        <td>
+          <md-button class="md-raised md-primary">Change Password</md-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <div>
+    <label>
+      <i class="material-icons">add_circle_outline</i>Upload Member Information - CSV File</label>
 
-</md-content>
+  </div> -->

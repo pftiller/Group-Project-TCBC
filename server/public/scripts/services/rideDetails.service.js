@@ -16,26 +16,54 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
-    
+
+
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
-    self.checkRidesForLeader = function (rides, user) {
+    self.checkRidesForLeader = function (rides) {
         console.log('rides ', rides);
-        console.log('lead user', user);
+        // console.log('lead user', user);
+        self.myLeadRides.list = [];
         rides.forEach((ride) => {
-            if (ride.ride_leader == user) {
-                console.log('ride', ride);
-                
-                self.myLeadRides.list.push(ride);
+            if (ride.ride_leader == ride.user_id) {
+                // console.log('ride', ride);
+                if (!ride.cancelled) {
+                    self.myLeadRides.list.push(ride);
+                } else {
+                    // console.log('this ride is cancelled', ride);
+                }
             }
         });
     }
 
+    self.cancelThisRide = function (ride) {
+        console.log('ride to cancel ', ride);
+        return $http.put(`/rides/rideLeader/cancelRide/${ride.ride_id}`)
+            .then((response) => {
+                self.getMyRideDetails()
+                    .then((data) => {
+                        self.checkRidesForLeader(data)
+                    });
+                console.log('cancel ride put response ', response);
+            })
+            .catch((err) => {
+                console.log('cancel ride put err ', err);
+            });
+    }
+
+
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
+                self.myRides.list = [];
                 console.log('my ride results ', response.data);
-                self.myRides.list = response.data;
+                response.data.forEach(ride => {
+                    if (!ride.cancelled) {
+                        self.myRides.list.push(ride)
+                    } else {
+                        // console.log('this ride is cancelled', ride);
+                    }
+                })
                 return response.data;
             })
             .catch((err) => {
@@ -46,6 +74,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
+                console.log('all rides ', response.data);
                 self.rides.list = response.data;
                 return response.data;
             })
@@ -53,7 +82,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log(err);
             })
     }
-    self.getAllRideDetails();
 
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
@@ -67,9 +95,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    self.getAllRideDetails().then((data) => {
-        self.checkRidesForLeader(data)
-    });
+    // self.getAllRideDetails().then((data) => {
+    //     self.checkRidesForLeader(data)
+    // });
 
     self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
@@ -248,6 +276,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.categories = RideDetailService.categories;
+
         self.submitRide = function (ride) {
             console.log('new ride', ride);
             self.hide();
@@ -255,8 +284,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
             $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
-                    RideDetailService.getMyRideDetails();
-                    // RideDetailService.signUpPost(ride);
+                    RideDetailService.getMyRideDetails()
+                        .then((data) => {
+                            RideDetailService.checkRidesForLeader(data);
+                        });
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {
@@ -287,5 +318,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             // $mdDialog.hide(answer);
         };
     }
+    self.getRideCategories();
+    self.getAllRideDetails();
+    self.getMyRideDetails()
+    .then((data) => {
+        self.checkRidesForLeader(data);
+    });
 
 }]);
