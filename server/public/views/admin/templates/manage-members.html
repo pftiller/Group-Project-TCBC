@@ -28,41 +28,12 @@
       <tr>
         <td>Darren Rector
           <br>13579</td>
-        <!-- <td>{{members.first_name}}{{members.last_name}}<br>{{member.member_id}}</td> -->
-        <td>Admin</td>
+        <!-- <td>{{vm.members.first_name}}{{vm.members.last_name}}<br>{{vm.member.member_id}}</td> -->
         <td>
-          <md-button class="md-raised md-button">View</md-button>
+          <md-select ng-model="someModel" placeholder="Select Role">
+            <md-option ng-value="opt" ng-repeat="opt in neighborhoods2">{{ opt }}</md-option>
+          </md-select>
         </td>
-        <td>
-          <md-button class="md-raised md-button">Change Password</md-button>
-        </td>
-      </tr>
-      <tr>
-        <td>Patrick Connelly
-          <br>14279</td>
-        <td>Admin</td>
-        <td>
-          <md-button class="md-raised md-button">View</md-button>
-        </td>
-        <td>
-          <md-button class="md-raised md-button">Change Password</md-button>
-        </td>
-      </tr>
-      <tr>
-        <td>Lukas Nord
-          <br>18779</td>
-        <td>Admin</td>
-        <td>
-          <md-button class="md-raised md-button">View</md-button>
-        </td>
-        <td>
-          <md-button class="md-raised md-button">Change Password</md-button>
-        </td>
-      </tr>
-      <tr>
-        <td>Paul Tiller
-          <br>1</td>
-        <td>Admin</td>
         <td>
           <md-button class="md-raised md-button">View</md-button>
         </td>
@@ -75,7 +46,9 @@
 </div>
 <div class="csvUpload" layout-align="center center">
   <label>
-    <i class="material-icons">add_circle_outline</i>
+    <md-button class="md-icon-button plusButton" aria-label="More">
+      <md-icon md-svg-icon="images/add_circle.svg"></md-icon>
+    </md-button>
     Upload Member Information - CSV File
   </label>
 </div>
