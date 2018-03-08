@@ -6,8 +6,8 @@ const ridePackager = require('../modules/ridePackager.module');
 
 
 
-        /* GET all Approved rides not authenticated*/ 
-router.get('/public/details',  (req, res) => {
+/* GET all Approved rides not authenticated*/
+router.get('/public/details', (req, res) => {
     const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader,rides.approved,rides.completed,rides.cancelled, users.first_name, users.last_name,users.phone_1,users.email
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
@@ -26,7 +26,7 @@ router.get('/public/details',  (req, res) => {
 });
 
 /* GET all Non-Approved rides */
-router.get('/admin/pendingApprovedRides', isAuthenticated,  (req, res) => {
+router.get('/admin/pendingApprovedRides', isAuthenticated, (req, res) => {
     const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader,rides.approved,rides.completed,rides.cancelled, users.first_name, users.last_name,users.phone_1,users.email
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
@@ -47,19 +47,19 @@ router.get('/admin/pendingApprovedRides', isAuthenticated,  (req, res) => {
 
 /* Approve a ride */
 
-router.put('/admin/approveRide/:rideId', isAuthenticated, (req, res) =>{
+router.put('/admin/approveRide/:rideId', isAuthenticated, (req, res) => {
     console.log('ride ID in off Params: ', req.params.rideId)
     const rideIsApproved = true;
     const approveRideQuery = `UPDATE rides
     SET approved = $1
     WHERE id = $2`;
 
-    pool.query(approveRideQuery, [rideIsApproved,req.params.rideId])
-        .then((result)=>{
+    pool.query(approveRideQuery, [rideIsApproved, req.params.rideId])
+        .then((result) => {
             console.log('result of ride approval: ', result.rows);
             res.sendStatus(202);
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log('failed to approve ride: ', err);
             res.sendStatus(500);
         })
@@ -252,7 +252,7 @@ router.put('/rideLeader/cancelRide/:rideId', isAuthenticated, (req, res) => {
 });
 
 
-// Ride Leader Mark Ride as cancelled
+// Ride Leader Mark toggle member check in
 router.put('/rideLeader/toggleCheckIn', isAuthenticated, (req, res) => {
     console.log('ride id to cancel ', req.params.rideId);
     console.log('req.body ', req.body);
@@ -291,6 +291,30 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
+// /rideLeader/complete/updateMiles
+// Ride Leader Mark Ride as Complete, then update member mileages
+router.put('/rideLeader/complete/updateMiles/:rideId', isAuthenticated, (req, res) => {
+    console.log('ride id to mark complete ', req.params.rideId);
+    const queryText = `
+    UPDATE rides_users
+    SET actual_distance = s.distance
+    FROM rides_distances AS s
+    WHERE rides_users.selected_distance = s.id
+    AND rides_users.ride_id = $1
+    AND checked_in = true;`;
+    pool.query(queryText, [req.params.rideId])
+        .then((result) => {
+            console.log('result update comeplete ride ', result);
+            res.sendStatus(201);
+        })
+        // error handling
+        .catch((err) => {
+            console.log('error making update completed query:', err);
+            res.sendStatus(500);
+        });
+});
+
 //Add Guest rider to db
 router.post(`/rideLeader/addGuest`, isAuthenticated, (req, res) => {
     console.log('req.body ', req.body);
