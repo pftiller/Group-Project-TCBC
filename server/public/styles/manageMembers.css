@@ -44,8 +44,8 @@
   }
 
   .csvUpload i {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
-    display: inline-flex;
-    vertical-align: middle;
+    /* display: inline-flex; */
+    /* vertical-align: middle; */
   }
