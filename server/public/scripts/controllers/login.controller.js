@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function ($http, $location, UserService, $mdDialog) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideDetailService', '$mdDialog', function ($http, $location, UserService, RideDetailService, $mdDialog) {
   console.log('LoginController created');
   var self = this;
   self.showNav = UserService.showNav;
@@ -9,7 +9,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
   self.message = '';
   self.user = UserService.userObject;
 
-  
+  self.myMileage = RideDetailService.myMileage;
     
     self.login = function () {
       if (self.user.member_id === '' || self.user.password === '') {

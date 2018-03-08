@@ -1,3 +1,4 @@
+
 myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
     console.log('RideDetailService Loaded');
     let self = this;
@@ -16,6 +17,21 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
+    self.myMileage = {
+        total: {}
+    }
+
+    self.getMileageForMember = function(){
+        return $http.get('/rides/member/mileage')
+            .then((response)=>{
+                console.log('get mileage response ', response.data);
+                self.myMileage.total = response.data;
+            })
+            .catch((err)=>{
+                console.log('get mileage err ', err);
+            })
+    }
+    self.getMileageForMember();
 
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
@@ -55,7 +71,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
-                self.myRides.list = [];
+                self.myRides.list = [];  
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
