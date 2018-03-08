@@ -95,10 +95,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    // self.getAllRideDetails().then((data) => {
-    //     self.checkRidesForLeader(data)
-    // });
-
     self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
             controller: RideDetailController,
@@ -197,6 +193,23 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             controller: MyRideDetailsController,
             controllerAs: 'vm',
             templateUrl: '../views/shared/ride-detail-modal-signed-up.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            resolve: {
+                item: function () {
+                    return ride;
+                }
+            }
+        })
+    }
+
+
+    self.adminEditRideDetailModal = function (ride, ev) {
+        $mdDialog.show({
+            controller: EditRideDetailsController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/editRide-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -324,5 +337,59 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     .then((data) => {
         self.checkRidesForLeader(data);
     });
+
+
+
+
+
+
+
+    function EditRideDetailsController($mdDialog,item, RideDetailService) {
+        const self = this;
+        self.categories = RideDetailService.categories;
+        self.rideToEdit = item;
+        self.rideToEdit.rides_date = new Date(item.rides_date);
+        self.submitRide = function (ride) {
+            console.log('new ride', ride);
+            self.hide();
+            alert('Ride submitted for approval, check back later!');
+
+            $http.post('/rides/rideLeader/submitRide', ride)
+                .then((response) => {
+                    RideDetailService.getMyRideDetails()
+                        .then((data) => {
+                            RideDetailService.checkRidesForLeader(data);
+                        });
+                    console.log('response post ride ', response);
+                })
+                .catch((err) => {
+                    console.log('err post ride ', err);
+                });
+        }
+
+        self.hide = function () {
+            $mdDialog.hide();
+        };
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+    }
+
 
 }]);
