@@ -59,7 +59,7 @@
                 </li>
                 <li ng-repeat="ride in vm.myRides.list" flex ng-if="ride.past_ride" class="my-rides-items" layout="row" layout-align="space-between center">
                     <span flex>{{ride.rides_name}}</span>
-                    <span flex>{{ride.rides_date}}</span>
+                    <span flex>{{ride.rides_date | date : 'short'}}</span>
                     <span flex>{{ride.actualDistance}}</span>
                     <span flex>
                         <md-button class="border ride-button" flex ng-click="vm.rideDetailRevealPast(ride)">Details</md-button>

@@ -65,7 +65,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log('cancel ride put err ', err);
             });
     }
+    var timeStamp = new Date();
+    timeStamp = timeStamp.toUTCString();
 
+    console.log('Date.now()', timeStamp);
+    
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
@@ -73,6 +77,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
+                        let date = new Date(ride.rides_date)
+                        console.log('date ', date.toUTCString());
+                        if (date.toUTCString() >  timeStamp) {
+                            //will check against todays date with real data
+                            ride.past_ride = false;
+                        } else {
+                            ride.past_ride = true;
+                        }
                         self.myRides.list.push(ride)
                     } else {
                         // console.log('this ride is cancelled', ride);
@@ -238,6 +250,15 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.user = {
             loggedIn: true
         };
+
+        let date = new Date(self.ride.rides_date)
+        console.log('date ', date.toUTCString());
+        if (date.toUTCString() >  timeStamp) {
+            //will check against todays date with real data
+            self.ride.past_ride = false;
+        } else {
+            self.ride.past_ride = true;
+        }
 
         self.rideUnregister = function (item) {
             RideDetailService.rideUnregister(item)
