@@ -82,7 +82,24 @@ router.get('/member/rideDetails', isAuthenticated, (req, res) => {
             console.log('error getting all my rides', err);
 
         })
+});
 
+
+//get my mileage
+router.get('/member/mileage', isAuthenticated, (req, res) => {
+    const queryText = `
+    SELECT SUM( actual_distance ) 
+    FROM rides_users
+    JOIN users ON rides_users.user_id = users.id
+    WHERE rides_users.user_id = $1;`
+    pool.query(queryText, [req.user.id])
+        .then((result) => {
+            console.log('user mileage ', result.rows);
+            res.send(result.rows[0]);
+        })
+        .catch((err) => {
+            console.log('error getting user mileage', err);
+        })
 });
 
 // get riders for check in view
