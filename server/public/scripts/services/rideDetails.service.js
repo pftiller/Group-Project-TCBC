@@ -55,6 +55,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
+                self.myRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
