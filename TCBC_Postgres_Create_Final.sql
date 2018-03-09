@@ -17,12 +17,12 @@ CREATE TABLE "rides" (
   "id" serial NOT NULL,
   "rides_name" varchar(50) NOT NULL,
   "rides_category" varchar(25) NOT NULL,
-  "rides_date" DATE NOT NULL,
+  "rides_date" TIMESTAMP NOT NULL,
   "description" text NOT NULL,
   "ride_leader" int NOT NULL,
-  "url" varchar(255) NOT NULL,
-  "approved" BOOLEAN NOT NULL,
-  "completed" BOOLEAN NOT NULL,
+  "url" varchar(255),
+  "approved" BOOLEAN NOT NULL DEFAULT 'false',
+  "completed" BOOLEAN NOT NULL DEFAULT 'false',
   "cancelled" BOOLEAN NOT NULL DEFAULT 'false',
   CONSTRAINT rides_pk PRIMARY KEY ("id")
 ) WITH (
