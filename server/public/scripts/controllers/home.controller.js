@@ -28,7 +28,7 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
         self.rides.list = response;
       })
   }
-  self.getAllRides();
+  // self.getAllRides();
   
 // Ride Details
 self.rideDetailReveal = function (id) {
@@ -39,4 +39,11 @@ self.rideDetailReveal = function (id) {
 self.clearFilters = function () {
   self.filter = {};
 }
+
+
+let init = function () {
+  self.getAllRides();
+};
+init();
+
 }]);

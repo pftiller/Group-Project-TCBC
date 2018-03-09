@@ -128,31 +128,21 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                // console.log('all rides ', response.data);
+                console.log('all rides ', response.data);
+                console.log('here is timeStamp from getAllRides', timeStamp);
                 for(let i = 0; i < response.data.length; i ++) {
-                     let dateOfRide = response.data[i].rides_date;
-                    let str = dateOfRide.toString();
-                     let momentDate = moment(str);
-                      var dateComponent = momentDate.format('MM/DD/YYYY');
-                        var timeComponent = momentDate.format('hh:mm A');
-                    console.log(dateComponent);
-                console.log(timeComponent);
+                    let dateOfRide = new Date(response.data[i].rides_date)
+                    if (dateOfRide > timeStamp) {
+                        let momentDate = moment(response.data[i].rides_date);
+                        response.data[i].date = momentDate.format('MM/DD/YYYY');
+                        response.data[i].time = momentDate.format('hh:mm A');
+                        self.rides.list.push(response.data[i]);
+                    } 
                 }
-              
-               
-                // var date = moment(str);
-                // var dateComponent = date.utc().format('YYYY-MM-DD');
-                // var timeComponent = date.utc().format('HH:mm:ss');
-               
-
-                // for(let i = 0; i < response.data.length; i ++) {
-                //     let ride_date = moment(response.data[i].date);
-                //     response.data[i].local_time = ride_date.utc().format("HH:mm a");
-                //     response.data[i].local_date = ride_date.utc().format("MM/DD/YYYY");
-                // }
-                console.log('new response ', response.data);
                 self.rides.list = response.data;
-                return response.data;
+                console.log('this is new all rides', self.rides.list);
+                return self.rides.list;
+                // return response.data;
             })
             .catch((err) => {
                 // console.log(err);

@@ -27,15 +27,15 @@
                 </div>
             </div>
             <div ng-hide="true">
-                {{(filteredItems = (vm.rides.list | filter:{ local_date: vm.filter.date, rides_name: vm.filter.query, rides_category: vm.filter.category}))}}
+                {{(filteredItems = (vm.rides.list | filter:{ date: vm.filter.date, rides_name: vm.filter.query, rides_category: vm.filter.category}))}}
             </div>
             <md-content layout="column" flex="100" class="md-padding">
                 <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
             data: filteredItems,
             'table-row-id-key': 'ride_id',
             'column-keys': [
-                'local_date',
-                'local_time',
+                'date',
+                'time',
                 'rides_name',
                 'type',
                 'details'
