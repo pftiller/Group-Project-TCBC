@@ -4,6 +4,9 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     self.getUserRoles = {
         list:[]
     };
+    self.riderInfo = {
+        list:[]
+    };
     
     self.getPendingApprovedRides = function(){
         return $http.get('/rides/admin/pendingApprovedRides')
@@ -40,5 +43,15 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             console.log('getting user roles failed:', err);
         })
     }
-
+    self.findRider = function() {
+        return $http.get('/member/findRider')
+        .then((response)=>{
+            console.log(response);
+            self.riderInfo.list = response;
+            return response;
+        })
+        .catch((err)=>{
+            console.log('getting role failed:', err);
+        })
+    }
 }]);
