@@ -35,7 +35,6 @@ CREATE TABLE "rides" (
 CREATE TABLE "user_roles" (
   "id" serial NOT NULL,
   "role" varchar(25) NOT NULL,
-  "clearance" int NOT NULL,
   CONSTRAINT user_roles_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -120,7 +119,11 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(15, 'O', 'Outreac
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special') RETURNING "id", "type", "name";
 
 
-
+ -- ROLE DATA --
+INSERT INTO "public"."user_roles"("id", "role") VALUES(1, 'Member') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(2, 'Ride Leader') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(3, 'Ride Admin') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(4, 'Guest') RETURNING "id", "role";
 
 
 
