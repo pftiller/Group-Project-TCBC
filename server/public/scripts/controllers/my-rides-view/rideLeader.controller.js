@@ -6,11 +6,11 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     self.user_id = self.userObject.user_id;
 
     self.rideDetailReveal = function (ride) {
-        RideDetailService.myRideDetailModal(ride);
+        RideDetailService.initMyRideDetailModal(ride);
     }
 
     self.rideDetailRevealPast = function (ride) {
-        RideDetailService.myRideDetailModal(ride);
+        RideDetailService.initMyRideDetailModal(ride);
     }
 
     self.cancelRide = function (ride) {

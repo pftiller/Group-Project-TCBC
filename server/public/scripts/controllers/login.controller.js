@@ -58,6 +58,8 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
     $mdDialog.hide();
   }
 
+  RideDetailService.getMileageForMember();
+
 
 }]);
 
