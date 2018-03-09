@@ -21,6 +21,11 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
             })
     }
 
+    self.closeCheckIn = function () {
+        $location.path('/ride-leader/my-rides');
+    }
+
+
     self.getRidersForCurrentRide = function (rideId) {
         console.log('Ride to get users for ', rideId);
         //Get all riders signed up for the ride at this ride ID
@@ -114,6 +119,7 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
     function MemberRegisterController($mdDialog, CheckInService, $routeParams) {
         const self = this;
         let rideId = $routeParams.rideId
+        
         self.addMemberRider = function (member) {
             
         };

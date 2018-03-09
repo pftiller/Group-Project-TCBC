@@ -40,4 +40,8 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
         CheckInService.toggleCheckedIn(rider);
     }
 
+    self.closeCheckIn = function () {
+        CheckInService.closeCheckIn();
+    }
+
 }]);

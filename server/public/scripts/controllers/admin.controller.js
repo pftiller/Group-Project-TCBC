@@ -27,17 +27,7 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
             console.log('failure to approve ride: ', err);
             
         })
-
-    // self.approveRide = function (rideId) {
-    //     console.log('ride to be approved: ', rideId);
-    //     AdminService.approveRide(rideId).then((response) => {
-    //             console.log('service back after successully approving ride: ', response);
-    //             self.loadRidesForApproval();
-    //         })
-    //         .catch((err) => {
-    //             console.log('failure to approve ride: ', err);
-    //         })
-    // }
+    }
 
     self.getRoles = function () {
         console.log('in get roles');

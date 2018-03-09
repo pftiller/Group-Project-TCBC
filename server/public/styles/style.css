@@ -179,7 +179,7 @@ th {
 .create-ride-input{
   /* background-color: #cfcfcf; */
   /* border-radius: 10%; */
-  box-shadow: inset 0px 1px 1px 1px #a1a1a1;
+  /* box-shadow: inset 0px 1px 1px 1px #a1a1a1; */
 }
 .ride-details-description{
   max-width: 40vh;
