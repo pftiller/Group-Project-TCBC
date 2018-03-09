@@ -110,7 +110,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    self.rideDetailModal = function (ride, ev) {
+    self.rideDetailModal = function (id, ev) {
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -120,12 +120,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    return ride;
+                    for (var i=0; i < self.rides.list.length; i++) {
+                        if (self.rides.list[i].ride_id === id) {
+                            let ride = self.rides.list[i];
+                            return ride;
+                        }
+                    }
+                   
                 }
+                
             }
         })
     }
-
     function RideDetailController($mdDialog, item, RideDetailService) {
         const self = this;
         self.rides = RideDetailService.rides;
@@ -312,21 +318,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             
             console.log('new ride', ride);
             self.hide();
+            swal("Ride has been Submitted for Approval",'', "success");
 
-            //Swap for a Sweet Alert
-            alert('Ride submitted for approval, check back later!');
-
-            // $http.post('/rides/rideLeader/submitRide', ride)
-            //     .then((response) => {
-            //         RideDetailService.getMyRideDetails()
-            //             .then((data) => {
-            //                 RideDetailService.checkRidesForLeader(data);
-            //             });
-            //         console.log('response post ride ', response);
-            //     })
-            //     .catch((err) => {
-            //         console.log('err post ride ', err);
-            //     });
+            $http.post('/rides/rideLeader/submitRide', ride)
+                .then((response) => {
+                    RideDetailService.getMyRideDetails()
+                        .then((data) => {
+                            RideDetailService.checkRidesForLeader(data);
+                        });
+                    console.log('response post ride ', response);
+                })
+                .catch((err) => {
+                    console.log('err post ride ', err);
+                });
         }
 
         self.hide = function () {

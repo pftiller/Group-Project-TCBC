@@ -4,16 +4,11 @@
 <head>
     <title>Group Project TCBC</title>
     <!-- Style Sheets -->
-    <link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
-    <link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/themes/material-ui.min.css" rel="stylesheet">
-    <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/myProfile.css">
     <link rel="stylesheet" href="styles/manageMembers.css">
-
     <link rel="stylesheet" href="vendors/angular-material.min.css">
-
 
     <!-- Angular -->
     <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
@@ -40,24 +35,29 @@
     <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
     <script type="text/javascript" src="scripts/controllers/admin.controller.js"></script>
+    <script type="text/javascript" src="scripts/directives/button.directives.js"></script>
     <script type="text/javascript" src="scripts/services/user.service.js"></script>
     <script type="text/javascript" src="scripts/services/rideDetails.service.js"></script>
     <script type="text/javascript" src="scripts/services/checkIn.service.js"></script>
     <script type="text/javascript" src="scripts/services/myProfile.service.js"></script>
     <script type="text/javascript" src="scripts/services/admin.service.js"></script>
+    
+    <!-- md-data-table files & dependencies -->
+    <script type="text/javascript" src="/vendors/angular-material/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="/vendors/lodash/lodash.min.js"></script>
+    <link rel="stylesheet" href="/vendors/md-data-table/md-data-table-style.css">
+    <script type="text/javascript" src="/vendors/md-data-table/md-data-table-templates.js"></script>
+    <script type="text/javascript" src="/vendors/md-data-table/md-data-table.js"></script>
+    <script type="text/javascript" src="/vendors/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="/vendors/md-data-table/angular-sanitize.min.js"></script>
 
-
-    <!-- Angular Material tables -->
-    <link rel="stylesheet" href="vendors/md-data-table.min.css">
-    <script type="text/javascript" src="vendors/md-data-table.min.js"></script>
-
-
-    <!-- Date Picker -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
-    <script src="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
-
-    <!-- ngTable -->
-    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <!-- Moment JS -->
+    <script type="text/javascript" src="/vendors/moment/moment-with-locales.js"></script>
+    
+    <!-- Angular Moment Date Picker -->
+    <link rel="stylesheet" href="/vendors/angular-moment-picker/angular-moment-picker.min.css">
+    <script type="text/javascript" src="/vendors/angular-moment-picker/angular-moment-picker.min.js"></script>
+  
 </head>
 
 <body ng-app="myApp">
