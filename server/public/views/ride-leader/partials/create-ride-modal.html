@@ -29,11 +29,11 @@
                 <label for="gps-link-input">GPS Link</label>
                 <input name="gps-link-input" ng-model="vm.newRide.url" />
             </md-input-container>
-            <md-input-container>
-                <label for="distance-input">Distances</label>
-                <!-- Use chips for distances -->
-                <input name="distance-input" type="number" ng-model="vm.newRide.distances" />
-            </md-input-container>
+            <md-content>
+                <label>Add a Distance and Press Enter:</label>
+                <md-chips ng-model="vm.newRide.distances" placeholder="Add a Distance and Press Enter" md-max-chips="7"></md-chips>
+            </md-content>
+            
         </div>
         <div class="ride-detail-stuff" flex="40" layout="column" layout-align="center space-between">
             <md-input-container>

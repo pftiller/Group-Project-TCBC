@@ -304,23 +304,29 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.categories = RideDetailService.categories;
+        
+        self.newRide = {};
+        self.newRide.distances = [];
 
         self.submitRide = function (ride) {
+            
             console.log('new ride', ride);
             self.hide();
+
+            //Swap for a Sweet Alert
             alert('Ride submitted for approval, check back later!');
 
-            $http.post('/rides/rideLeader/submitRide', ride)
-                .then((response) => {
-                    RideDetailService.getMyRideDetails()
-                        .then((data) => {
-                            RideDetailService.checkRidesForLeader(data);
-                        });
-                    console.log('response post ride ', response);
-                })
-                .catch((err) => {
-                    console.log('err post ride ', err);
-                });
+            // $http.post('/rides/rideLeader/submitRide', ride)
+            //     .then((response) => {
+            //         RideDetailService.getMyRideDetails()
+            //             .then((data) => {
+            //                 RideDetailService.checkRidesForLeader(data);
+            //             });
+            //         console.log('response post ride ', response);
+            //     })
+            //     .catch((err) => {
+            //         console.log('err post ride ', err);
+            //     });
         }
 
         self.hide = function () {
