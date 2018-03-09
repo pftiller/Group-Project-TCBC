@@ -8,11 +8,11 @@ const ridePackager = require('../modules/ridePackager.module');
 
 /* GET all Approved rides not authenticated*/
 router.get('/public/details', (req, res) => {
-    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.ride_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.rides_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
     JOIN users on rides.ride_leader = users.id
-    JOIN categories on rides.ride_category = categories.id
+    JOIN categories on rides.rides_category = categories.id
     WHERE approved = true
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(allRidesQuery)
@@ -55,7 +55,7 @@ router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) =
     JOIN rides_users ON rides.id = rides_users.ride_id
     JOIN users ON users.id = rides_users.user_id
     JOIN rides_distances ON rides_users.selected_distance = rides_distances.id
-    JOIN categories ON categories.id = rides.ride_category
+    JOIN categories ON categories.id = rides.rides_category
     WHERE rides.id = $1;`
     pool.query(allRidesQuery, [req.params.rideId])
         .then((result) => {
@@ -263,10 +263,10 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     // console.log('user ', req.user);
     // console.log('req.body ', req.body);
     const query = `
-    INSERT INTO rides (rides_name, ride_category, rides_date, description, ride_leader, url, ride_location) 
+    INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) 
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING id;`;
-    pool.query(query, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
+    pool.query(query, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
             // console.log('resulting post id', result.rows);
             console.log('resulting post id', result.rows[0].id);
