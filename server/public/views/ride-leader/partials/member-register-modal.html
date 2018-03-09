@@ -1,0 +1,17 @@
+<header>
+    <div class="instructions"></div>
+</header>
+<div class="ride-detail-modal" layout="column" layout-align="center center">
+    <div layout="row" layout-align="space-between center">
+        <md-input-container>
+            <label for="name-input">Search by name</label>
+            <input name="name-input" ng-model="vm.searchMemberParams.name" />
+        </md-input-container>
+        <md-input-container>
+            <label for="id-input">Search by member ID</label>
+            <input name="id-input" ng-model="vm.searchMemberParams.id" />
+        </md-input-container>
+    </div>
+    <md-button type="submit" class="add-guest-button" ng-click="vm.searchForMember(vm.searchMemberParams)">Search For Member</md-button>
+</div>
+</div>

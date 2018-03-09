@@ -1,0 +1,51 @@
+#manageMemberTable {
+    font-family: 'Arimo', sans-serif;
+    width: 90%;
+    text-align: center;
+    border: 2px solid #000;
+    border-collapse: collapse;
+    background-color: rgb(152, 181, 206);
+    color: #000;
+    margin-top: 20px;
+  }
+  
+  #manageMemberTable td,
+  #manageMemberTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #manageMemberTable td {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  #manageMemberTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #manageMemberTable th {
+    padding: 20px;
+    /* padding-bottom: 12px; */
+    /* text-align: left; */
+    background-color: rgb(38, 126, 226);
+    color: white;
+    text-align: center;
+    height: 20px;
+    font-size: 20px;
+    text-shadow: 2px 2px 6px #000;
+  
+  }
+
+  .csvUpload {
+    margin: 20px 0px 0px 5%;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .csvUpload i {
+    font-size: 30px;
+    font-weight: 700;
+    /* display: inline-flex; */
+    /* vertical-align: middle; */
+  }

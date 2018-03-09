@@ -1,45 +1,69 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Group Project TCBC</title>
-        <!-- Style Sheets -->
-        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">  
-        <link rel="stylesheet" href="styles/style.css">
-        <!-- Angular --> 
-        <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
 
-        <!--Angular Material -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-      
-        <!-- Angular Material Library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<head>
+    <title>Group Project TCBC</title>
+    <!-- Style Sheets -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/myProfile.css">
+    <link rel="stylesheet" href="styles/manageMembers.css">
+    <link rel="stylesheet" href="vendors/angular-material.min.css">
 
+    <!-- Angular -->
+    <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
 
-        <!-- Angular UI Calendar jquery, moment, and angular have to get included before fullcalendar -->
-        <link rel="stylesheet" href="vendors/angular-UI/fullcalendar.css"/>
-        
-        <script type="text/javascript" src="vendors/angular-UI/jquery.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-UI/moment.min.js"></script>
-        
-        <script type="text/javascript" src="vendors/angular-UI/calendar.js"></script>
-        <script type="text/javascript" src="vendors/angular-UI/fullcalendar.min.js"></script>
-        <script type="text/javascript" src="vendors/angular-UI/gcal.js"></script>
+    <!--Angular Material -->
+    <script src="vendors/angular-animate.min.js"></script>
+    <script src="vendors/angular-aria.min.js"></script>
+    <script src="vendors/angular-messages.min.js"></script>
 
-        <!-- Application -->
-        <script type="text/javascript" src="scripts/client.js"></script>
-        <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
-        <script type="text/javascript" src="scripts/services/user.service.js"></script>
-    </head>
+    <!-- Angular Material Library -->
+    <script src="vendors/angular-material.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Application -->
+    <script type="text/javascript" src="scripts/client.js"></script>
+    <script type="text/javascript" src="scripts/controllers/nav.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/home.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/myProfile.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/my-rides-view/member.myRides.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/my-rides-view/rideLeader.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/checkIn.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
+    <script type="text/javascript" src="scripts/controllers/admin.controller.js"></script>
+    <script type="text/javascript" src="scripts/directives/button.directives.js"></script>
+    <script type="text/javascript" src="scripts/services/user.service.js"></script>
+    <script type="text/javascript" src="scripts/services/rideDetails.service.js"></script>
+    <script type="text/javascript" src="scripts/services/checkIn.service.js"></script>
+    <script type="text/javascript" src="scripts/services/myProfile.service.js"></script>
+    <script type="text/javascript" src="scripts/services/admin.service.js"></script>
+    
+    <!-- md-data-table files & dependencies -->
+    <script type="text/javascript" src="/vendors/angular-material/angular-material-icons.min.js"></script>
+    <script type="text/javascript" src="/vendors/lodash/lodash.min.js"></script>
+    <link rel="stylesheet" href="/vendors/md-data-table/md-data-table-style.css">
+    <script type="text/javascript" src="/vendors/md-data-table/md-data-table-templates.js"></script>
+    <script type="text/javascript" src="/vendors/md-data-table/md-data-table.js"></script>
+    <script type="text/javascript" src="/vendors/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="/vendors/md-data-table/angular-sanitize.min.js"></script>
 
-    <body ng-app="myApp">
-      <header ng-include="'/views/partials/header.html'"></header>
+    <!-- Moment JS -->
+    <script type="text/javascript" src="/vendors/moment/moment-with-locales.js"></script>
+    
+    <!-- Angular Moment Date Picker -->
+    <link rel="stylesheet" href="/vendors/angular-moment-picker/angular-moment-picker.min.css">
+    <script type="text/javascript" src="/vendors/angular-moment-picker/angular-moment-picker.min.js"></script>
+  
+</head>
 
-      <main ng-view></main>
+<body ng-app="myApp">
 
-    </body>
+    <main ng-view></main>
+
+</body>
+
 </html>
