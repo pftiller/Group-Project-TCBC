@@ -160,7 +160,18 @@ th {
   border-right: 3px solid black;
   border-collapse: collapse;
 }
-
+.mobile-member-cell{
+  text-align: center;
+  font-size: xx-large;
+  border-right: 3px solid black;
+  border-collapse: collapse;
+}
+.mobile-input{
+  width: 15vh;
+}
+.mobile-input-container{
+  font-size: x-large;
+}
 .mobile-rider-cell, .mobile-rider-checkbox{
   background-color: #f3f3f3;
 

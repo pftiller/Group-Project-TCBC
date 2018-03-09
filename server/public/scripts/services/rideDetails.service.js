@@ -372,10 +372,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.submitRide = function (ride) {
             // console.log('new ride', ride);
             self.hide();
-            swal("Ride has been Submitted for Approval",'', "success");
 
             $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
+                    swal("Ride has been Submitted for Approval",'', "success");
                     RideDetailService.getMyRideDetails()
                         .then((data) => {
                             RideDetailService.checkRidesForLeader(self.myRides.list);
