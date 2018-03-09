@@ -35,7 +35,6 @@ CREATE TABLE "rides" (
 CREATE TABLE "user_roles" (
   "id" serial NOT NULL,
   "role" varchar(25) NOT NULL,
-  "clearance" int NOT NULL,
   CONSTRAINT user_roles_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
