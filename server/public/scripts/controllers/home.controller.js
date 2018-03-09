@@ -5,7 +5,7 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.categories = {};
   self.isDisabled = false;
   self.minDateString = moment().format('LL');
-  self.query = {};
+  self.filter = {};
   
   // GET categories on page load
   self.loadCategories = function(){
@@ -31,12 +31,12 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.getAllRides();
   
 // Ride Details
-self.rideDetailReveal = function (ride) {
-  RideDetailService.rideDetailModal(ride);
+self.rideDetailReveal = function (id) {
+  RideDetailService.rideDetailModal(id);
 }
 
 // Clear Filters
 self.clearFilters = function () {
-    self.query = {};
+  self.filter = {};
 }
 }]);
