@@ -76,7 +76,7 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
     //Add rider 
     self.addMemberToRide = function () {
         console.log('ADD RIDER ');
-
+        self.memberRegisterModal();
     }
     self.addGuestToRide = function () {
         console.log('ADD GUEST');
@@ -94,6 +94,46 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
             })
     }
 
+    self.memberRegisterModal = function(ride, ev) {
+        $mdDialog.show({
+            controller: MemberRegisterController,
+            controllerAs: 'vm',
+            templateUrl: '../views/ride-leader/partials/member-register-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
+    }
+
+    function MemberRegisterController($mdDialog, CheckInService, $routeParams) {
+        const self = this;
+        let rideId = $routeParams.rideId
+        self.addMemberRider = function (member) {
+            
+        };
+        self.searchForMember = function (member) {
+            console.log('member ', member);
+        }
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+    }
 
     self.guestRegisterModal = function (ride, ev) {
         $mdDialog.show({

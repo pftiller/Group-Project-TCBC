@@ -30,7 +30,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 console.log('get mileage err ', err);
             })
     }
-    self.getMileageForMember();
 
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
@@ -157,7 +156,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     .then(() => {
                         self.hide();
                     });;
-            }
+                } else {
+                    alert('Please log in or become a member to sign up for this ride.')
+                }
         }
 
         self.hide = function () {
