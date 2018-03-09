@@ -12,6 +12,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
+    self.myPastRides = {
+        list: []
+    }
+
     self.myLeadRides = {
         list: []
     }
@@ -27,7 +31,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 self.myMileage.total = response.data;
             })
             .catch((err) => {
-                console.log('get mileage err ', err);
+                // console.log('get mileage err ', err);
+                swal('Error getting mileage for member', '', 'error');
             })
     }
 
@@ -35,7 +40,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
-        // console.log('rides ', rides);
+        console.log('lead rides check ', rides);
         // console.log('lead user', user);
         self.myLeadRides.list = [];
         rides.forEach((ride) => {
@@ -47,7 +52,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     // console.log('this ride is cancelled', ride);
                 }
             }
-        });
+        })
+        console.log('lead rides ', self.myLeadRides);
+        
     }
 
     self.cancelThisRide = function (ride) {
@@ -56,35 +63,56 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             .then((response) => {
                 self.getMyRideDetails()
                     .then((data) => {
-                        self.checkRidesForLeader(data)
+                        self.checkRidesForLeader(self.myRides.list)
                     });
                 console.log('cancel ride put response ', response);
             })
             .catch((err) => {
-                console.log('cancel ride put err ', err);
+                swal('Error cancelling ride, please try again later.', '', 'error');
+                // console.log('cancel ride put err ', err);
             });
     }
-    var timeStamp = new Date();
-    timeStamp = timeStamp.toUTCString();
+   
+    var timeStamp = Date.now();
+    // timeStamp = timeStamp.toUTCString();
 
     console.log('Date.now()', timeStamp);
     
+
+    // date.toUTCString();
+    function checkRideDate(rideDate, ride) {
+        if (rideDate > timeStamp) {
+            console.log('date new');
+            //will check against todays date with real data
+            self.myRides.list.push(ride)
+            // self.ride.past_ride = false;
+        } else {
+            console.log('date old');
+            // self.ride.past_ride = true;
+            self.myPastRides.list.push(ride);
+        }
+    }
+
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
                 self.myRides.list = [];
+                self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
+                        // let date = new Date(ride.rides_date)
+                        // console.log('date ', date.toUTCString());
+                        // if (date.toUTCString() >  timeStamp) {
+                        //     //will check against todays date with real data
+                        //     ride.past_ride = false;
+                        // } else {
+                        //     ride.past_ride = true;
+                        // }
                         let date = new Date(ride.rides_date)
-                        console.log('date ', date.toUTCString());
-                        if (date.toUTCString() >  timeStamp) {
-                            //will check against todays date with real data
-                            ride.past_ride = false;
-                        } else {
-                            ride.past_ride = true;
-                        }
-                        self.myRides.list.push(ride)
+                        // console.log('date ', date);
+                        checkRideDate(date, ride);
+                        // console.log('old rides ', self.myPastRides);
                     } else {
                         // console.log('this ride is cancelled', ride);
                     }
@@ -92,7 +120,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 return response.data;
             })
             .catch((err) => {
-                console.log(err);
+                swal('Error getting member ride details, please try again later.', '', 'error');
+                // console.log(err);
             })
     }
 
@@ -104,7 +133,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 return response.data;
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
+                swal('Error getting all ride details, please try again later.', '', 'error');
             })
     }
 
@@ -115,7 +145,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 return response.data;
             })
             .catch((err) => {
-                console.log('error getting categories: ', err);
+                swal('Error getting ride categories, please try again later.', '', 'error');
+                // console.log('error getting categories: ', err);
             })
     }
 
@@ -153,7 +184,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                         self.hide();
                     });;
                 } else {
-                    alert('Please log in or become a member to sign up for this ride.')
+                    swal('Please log in or become a member to sign up for this ride.', '', 'error');
+                    // alert('Please log in or become a member to sign up for this ride.')
                 }
         }
 
@@ -187,15 +219,15 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             .then((response) => {
                 if (response.data == "Must be logged in to add items!") {
                     console.log(response);
-                    alert('Must log in to sign up for rides!')
+                    swal('Must log in to sign up for rides!', '', 'error');
                 } else {
                     console.log('post ride signup ', response);
                     return response;
                 }
             })
             .catch((err) => {
-                console.log('err on post ride sign up ', err);
-
+                swal('Error signing up for ride, please try again later.', '', 'error');
+                // console.log('err on post ride sign up ', err);
             })
     }
 
@@ -204,9 +236,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         rides.forEach(ride => {
             if (ride.rides_date > '2018-03-03T06:00:00.000Z') {
                 //will check against todays date with real data
-                ride.past_ride = false;
+                // ride.past_ride = false;
             } else {
-                ride.past_ride = true;
+                self.myPastRides.list.push(ride);
+                // ride.past_ride = true;
             }
         })
     }
@@ -220,7 +253,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 return response.data;
             })
             .catch((err) => {
-                console.log(err);
+                swal('Error loading ride details, please try again later.', '', 'error');
+                // console.log(err);
             })
     }
 
@@ -264,15 +298,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.user = {
             loggedIn: true
         };
-
-        let date = new Date(self.ride.rides_date)
-        console.log('date ', date.toUTCString());
-        if (date.toUTCString() >  timeStamp) {
-            //will check against todays date with real data
-            self.ride.past_ride = false;
-        } else {
-            self.ride.past_ride = true;
-        }
+    
 
         self.rideUnregister = function (item) {
             RideDetailService.rideUnregister(item)
@@ -305,17 +331,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         };
     }
     self.rideUnregister = function (ride) {
-        console.log('unregister for ride ', ride);
+        // console.log('unregister for ride ', ride);
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
                 self.getMyRideDetails()
                     .then((data) => {
-                        self.checkRidesForLeader(data)
+                        self.checkRidesForLeader(self.myRides.list)
                     });
                 console.log('unregister ', response);
             })
             .catch((err) => {
-                console.log('err on post ride sign up ', err);
+                swal('Error removing member from ride sign up, please try again later.', '', 'error');
+                // console.log('err on post ride sign up ', err);
 
             })
     }
@@ -336,7 +363,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.categories = RideDetailService.categories;
 
         self.submitRide = function (ride) {
-            console.log('new ride', ride);
+            // console.log('new ride', ride);
             self.hide();
             alert('Ride submitted for approval, check back later!');
 
@@ -344,12 +371,13 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 .then((response) => {
                     RideDetailService.getMyRideDetails()
                         .then((data) => {
-                            RideDetailService.checkRidesForLeader(data);
+                            RideDetailService.checkRidesForLeader(self.myRides.list);
                         });
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {
-                    console.log('err post ride ', err);
+                    swal('Error submitting new ride, please try again later.', '', 'error');
+                    // console.log('err post ride ', err);
                 });
         }
 
@@ -378,10 +406,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
     self.getRideCategories();
     self.getAllRideDetails();
-    self.getMyRideDetails()
-        .then((data) => {
-            self.checkRidesForLeader(data);
-        });
+    // self.getMyRideDetails()
+    //     .then((data) => {            
+    //         self.checkRidesForLeader(self.myRides.list);
+    //     });
 
 
 
@@ -395,7 +423,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.rideToEdit = item;
         self.rideToEdit.rides_date = new Date(item.rides_date);
         self.submitRide = function (ride) {
-            console.log('new ride', ride);
+            // console.log('new ride', ride);
             self.hide();
             alert('Ride submitted for approval, check back later!');
 
@@ -403,7 +431,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 .then((response) => {
                     RideDetailService.getMyRideDetails()
                         .then((data) => {
-                            RideDetailService.checkRidesForLeader(data);
+                            RideDetailService.checkRidesForLeader(self.myRides.list);
                         });
                     console.log('response post ride ', response);
                 })
