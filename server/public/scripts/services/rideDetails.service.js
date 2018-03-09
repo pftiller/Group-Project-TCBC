@@ -82,12 +82,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     // date.toUTCString();
     function checkRideDate(rideDate, ride) {
         if (rideDate > timeStamp) {
-            // console.log('date new');
+            console.log('date new');
             //will check against todays date with real data
             self.myRides.list.push(ride)
             // self.ride.past_ride = false;
         } else {
-            // console.log('date old');
+            console.log('date old');
             // self.ride.past_ride = true;
             self.myPastRides.list.push(ride);
         }
