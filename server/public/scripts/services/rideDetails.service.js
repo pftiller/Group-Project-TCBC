@@ -90,7 +90,23 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                // console.log('all rides ', response.data);
+                console.log('all rides ', response.data);
+
+                for(let i = 0; i < response.data.length; i ++) {
+                    var testDateUtc = moment.utc("2015-01-30 10:00:00");
+var localDate = moment(testDateUtc).local();
+
+
+var s = localDate.format("YYYY-MM-DD HH:mm:ss");
+var d = localDate.toDate();
+                    // let date = moment(response.data[i].rides_date);
+                    let formattedDate = moment.utc(response.data[i].rides_date).local().format("MM/DD/YYYY");
+                    response.data[i].date = formattedDate;
+                    // let time = moment(response.data[i].rides_date);
+                    let formattedTime = moment.utc(response.data[i].rides_date).local().format('HH:mm a')
+                    response.data[i].time = formattedTime;
+                }
+                console.log('new response ', response.data);
                 self.rides.list = response.data;
                 return response.data;
             })
