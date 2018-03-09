@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'moment-picker', 'md.data.table']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'moment-picker', 'mdDataTable', 'ngSanitize']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -11,10 +11,6 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       templateUrl: '/views/landing/landing.html',
       controller: 'HomeController as vm'
 
-    })
-    .when('/register', {
-      templateUrl: '/views/user/templates/register.html',
-      controller: 'LoginController as vm'
     })
     .when('/home', {
       templateUrl: '/views/shared/home.html',
@@ -41,13 +37,18 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
     .when('/check-in/:rideId', {
       templateUrl: '/views/ride-leader/templates/check-in-view.html',
       controller: 'CheckInController as vm',
+      resolve: {
+        getuser: function (UserService) {
+          return UserService.getRideLeader();
+        }
+      }
     })
     .when('/ride-leader/my-rides', {
       templateUrl: '/views/ride-leader/templates/rideLeader.myRides.html',
       controller: 'RideLeaderController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getuser();
+          return UserService.getRideLeader();
         }
       }
     })
@@ -66,7 +67,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'AdminController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getuser();
+          return UserService.getRideAdmin();
         }
       }
     })
@@ -75,7 +76,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'AdminController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getuser();
+          return UserService.getRideAdmin();
         }
       }
     })

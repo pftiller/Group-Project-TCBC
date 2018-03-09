@@ -1,4 +1,4 @@
-myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
+myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailService', function ($http, $location, $mdDialog, RideDetailService) {
     console.log('CheckInService Loaded');
     let self = this;
     self.ride = {
@@ -42,13 +42,25 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', function ($h
         return $http.put(`/rides/rideLeader/complete/${rideId}`)
             .then((response) => {
                 console.log('Ride marked complete!', response);
+                self.updateRiderMileage(rideId);
                 return response.data;
             })
             .catch((err) => {
                 console.log('ERR updating ride to complete ', err);
             })
     }
-    
+
+    self.updateRiderMileage = function (rideId) {
+        return $http.put(`/rides/rideLeader/complete/updateMiles/${rideId}`)
+            .then((response) => {
+                console.log('Ride marked complete!', response);
+                return response.data;
+            })
+            .catch((err) => {
+                console.log('ERR updating ride to complete ', err);
+            })
+    }
+
     self.toggleCheckedIn = function (rider) {
         rider.checked_in = !rider.checked_in;
         console.log('rider check ', rider.checked_in);

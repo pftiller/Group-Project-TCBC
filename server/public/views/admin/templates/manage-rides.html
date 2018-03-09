@@ -1,6 +1,5 @@
 <header ng-include="'/views/shared/header.html'"></header>
 <md-content>
-<div>
     <div>
         <div layout="row" layout-align="space-between center">
             <h2>Rides Pending Approval</h2>
@@ -10,8 +9,7 @@
         <ul layout="column">
             <li layout="row" layout-align="space-around center" style="font-weight:bold;">
                 <span flex>Ride Name</span>
-                <span flex>Ride Date/Time</span>
-                
+                <span flex>Ride Date/Time</span>   
             </li>
             <li ng-repeat="ride in vm.pendingApprovals.list" class="my-rides-items" layout="row" layout-align="space-between center">
                 {{ride.status}}
@@ -19,35 +17,9 @@
                 <span flex>{{ride.rides_date | date: 'medium' : '-0600'}}</span>
                 <span flex layout="row" layout-align="center center">
                     <md-button class="border ride-button" ng-click="vm.approveRide(ride.ride_id)">Approve Ride</md-button>
-                    <md-button class="border ride-button"  ng-click="vm.rideDetailReveal(ride)">Details</md-button>
+                    <md-button class="border ride-button"  ng-click="vm.rideDetailReveal(ride)">Edit/Details</md-button>
                 </span>
             </li>
         </ul>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div>
-        <h2>Manage Rides</h2>
-        <!-- <div layout="row" layout-align="space-around stretch"> -->
-            <ul layout="column">
-                <li layout="row" flex layout-align="space-between center" style="font-weight:bold;">
-                    <span flex>Ride Name</span>
-                    <span flex>Ride Date/Time</span>
-                    <span flex>Ride Details</span>
-                </li>
-                <li ng-repeat="ride in vm.myRides.list" flex ng-if="ride.past_ride" class="my-rides-items" layout="row" layout-align="space-between center">
-                    <span flex>{{ride.rides_name}}</span>
-                    <span flex>{{ride.rides_date}}</span>
-                    <span flex>{{ride.actualDistance}}</span>
-                    <span flex>
-                        <md-button class="border ride-button" flex ng-click="vm.rideDetailRevealPast(ride)">Details</md-button>
-                    </span>
-                </li>
-            </ul>
-        <!-- </div> -->
-    </div>
-</div>
-  
-      </md-content>
+</md-content>

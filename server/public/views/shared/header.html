@@ -3,8 +3,10 @@
                 <a ng-href='/#!/home'>
                         <img src="/assets/img/tcbc-logo.png" class="logo" alt="Logo">
                 </a>
-                <p ng-show='vm.user.first_name'>{{vm.user.first_name}}</p>
-                <p ng-show='!vm.user.first_name'>{{vm.miles}}</p>
+                <span layout="column" layout-align="center start">
+                <p style="margin:0;"ng-show='vm.user.first_name'>{{vm.user.first_name}}</p>
+                <p style="margin:0;"ng-show='vm.user.first_name'>Total Mileage: {{vm.myMileage.total.sum}}!</p>
+                </span>
                 <span flex></span>
                 <md-button ng-click="vm.logout()">Log Out</md-button>    
         </div>

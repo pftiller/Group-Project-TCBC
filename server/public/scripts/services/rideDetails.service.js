@@ -1,3 +1,4 @@
+
 myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
     console.log('RideDetailService Loaded');
     let self = this;
@@ -16,12 +17,27 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         list: []
     }
 
+    self.myMileage = {
+        total: {}
+    }
+
+    self.getMileageForMember = function(){
+        return $http.get('/rides/member/mileage')
+            .then((response)=>{
+                console.log('get mileage response ', response.data);
+                self.myMileage.total = response.data;
+            })
+            .catch((err)=>{
+                console.log('get mileage err ', err);
+            })
+    }
+    self.getMileageForMember();
 
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
     self.checkRidesForLeader = function (rides) {
-        console.log('rides ', rides);
+        // console.log('rides ', rides);
         // console.log('lead user', user);
         self.myLeadRides.list = [];
         rides.forEach((ride) => {
@@ -55,7 +71,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
-                self.myRides.list = [];
+                self.myRides.list = [];  
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     if (!ride.cancelled) {
@@ -74,7 +90,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                console.log('all rides ', response.data);
+                // console.log('all rides ', response.data);
                 self.rides.list = response.data;
                 return response.data;
             })
@@ -86,7 +102,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
-                console.log('cats', response.data);
                 self.categories.list = response.data;
                 return response.data;
             })
@@ -95,11 +110,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    // self.getAllRideDetails().then((data) => {
-    //     self.checkRidesForLeader(data)
-    // });
-
-    self.rideDetailModal = function (ride, ev) {
+    self.rideDetailModal = function (id, ev) {
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -109,12 +120,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    return ride;
+                    for (var i=0; i < self.rides.list.length; i++) {
+                        if (self.rides.list[i].ride_id === id) {
+                            let ride = self.rides.list[i];
+                            return ride;
+                        }
+                    }
+                   
                 }
+                
             }
         })
     }
-
     function RideDetailController($mdDialog, item, RideDetailService) {
         const self = this;
         self.rides = RideDetailService.rides;
@@ -197,6 +214,23 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             controller: MyRideDetailsController,
             controllerAs: 'vm',
             templateUrl: '../views/shared/ride-detail-modal-signed-up.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            resolve: {
+                item: function () {
+                    return ride;
+                }
+            }
+        })
+    }
+
+
+    self.adminEditRideDetailModal = function (ride, ev) {
+        $mdDialog.show({
+            controller: EditRideDetailsController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/editRide-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
@@ -324,5 +358,59 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     .then((data) => {
         self.checkRidesForLeader(data);
     });
+
+
+
+
+
+
+
+    function EditRideDetailsController($mdDialog,item, RideDetailService) {
+        const self = this;
+        self.categories = RideDetailService.categories;
+        self.rideToEdit = item;
+        self.rideToEdit.rides_date = new Date(item.rides_date);
+        self.submitRide = function (ride) {
+            console.log('new ride', ride);
+            self.hide();
+            alert('Ride submitted for approval, check back later!');
+
+            $http.post('/rides/rideLeader/submitRide', ride)
+                .then((response) => {
+                    RideDetailService.getMyRideDetails()
+                        .then((data) => {
+                            RideDetailService.checkRidesForLeader(data);
+                        });
+                    console.log('response post ride ', response);
+                })
+                .catch((err) => {
+                    console.log('err post ride ', err);
+                });
+        }
+
+        self.hide = function () {
+            $mdDialog.hide();
+        };
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+    }
+
 
 }]);
