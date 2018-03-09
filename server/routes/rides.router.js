@@ -338,12 +338,13 @@ router.put('/rideLeader/complete/updateMiles/:rideId', isAuthenticated, (req, re
     console.log('ride id to mark complete ', req.params.rideId);
     const queryText = `
     UPDATE rides_users
-    SET actual_distance = s.distance
-    FROM rides_distances AS s
-    WHERE rides_users.selected_distance = s.id
-    AND rides_users.ride_id = $1
+    SET actual_distance = rides_distances.distance
+    FROM rides_distances 
+    WHERE rides_users.selected_distance = rides_distances.id
+    AND rides.rides_leader = $1
+    AND rides_users.ride_id = $2
     AND checked_in = true;`;
-    pool.query(queryText, [req.params.rideId])
+    pool.query(queryText, [req.user.id, req.params.rideId])
         .then((result) => {
             console.log('result update comeplete ride ', result);
             res.sendStatus(201);
