@@ -2,12 +2,16 @@
 
 <div flex layout="row" layout-align="center center">
   <md-input-container class="md-block" flex-gt-sm>
-    <label>Member Name</label>
-    <input ng-model="user.first_name">
+    <label>First Name</label>
+    <input ng-model="vm.user.first_name">
+  </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Last Name</label>
+    <input ng-model="vm.user.last_name">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Member ID</label>
-    <input ng-model="theMax">
+    <input ng-model="vm.user.member_id">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
     <md-button class="md-raised md-primary">Submit</md-button>
@@ -17,8 +21,10 @@
   <table id="manageMemberTable">
     <thead>
       <tr>
-        <th>Name
-          <br>(Member ID)</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Member ID</th>
+        <th>Current Role</th>
         <th>Role</th>
         <th>Rides</th>
         <th>Change Password</th>
@@ -26,12 +32,13 @@
     </thead>
     <tbody>
       <tr>
-        <td>Darren Rector
-          <br>13579</td>
-        <!-- <td>{{vm.members.first_name}}{{vm.members.last_name}}<br>{{vm.member.member_id}}</td> -->
+        <td>Darren</td>
+        <td>Rector</td>
+        <td>Member ID</td>
+        <td>Ride Leader</td>
         <td>
-          <md-select ng-model="someModel" placeholder="Select Role">
-            <md-option ng-value="opt" ng-repeat="opt in neighborhoods2">{{ opt }}</md-option>
+          <md-select placeholder="Select Role" ng-model="vm.userRole">
+            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
           </md-select>
         </td>
         <td>
