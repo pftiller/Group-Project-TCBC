@@ -314,7 +314,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.submitRide = function (ride) {
             console.log('new ride', ride);
             self.hide();
-            alert('Ride submitted for approval, check back later!');
+            swal("Ride has been Submitted for Approval",'', "success");
 
             $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
