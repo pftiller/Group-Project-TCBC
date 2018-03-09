@@ -12,12 +12,15 @@ myApp.controller('AdminController', ['AdminService','RideDetailService', functio
     self.loadRidesForApproval();
 
     self.rideDetailReveal = function(ride){
-        RideDetailService.myRideDetailModal(ride);
+        console.log('ride to edit: ', ride);
+        
+        RideDetailService.adminEditRideDetailModal(ride);
     }
     self.approveRide = function(rideId){
         console.log('ride to be approved: ', rideId);
         AdminService.approveRide(rideId).then((response)=>{
             console.log('service back after successully approving ride: ', response);
+            swal("Ride has been Approved",'', "success");
             self.loadRidesForApproval();
         })
         .catch((err)=>{
