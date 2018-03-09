@@ -7,11 +7,11 @@
         <div class="ride-detail-stuff">
             <md-input-container>
                 <label for="ride-name-input">Ride Name</label>
-                <input name="ride-name-input" ng-model="vm.newRide.rides_name" />
+                <input class="create-ride-input" name="ride-name-input" ng-model="vm.newRide.rides_name" />
             </md-input-container>
             <md-input-container>
                 <label for="ride-date-input">Ride date</label>
-                <input type="datetime-local" name="ride-date-input" ng-model="vm.newRide.rides_date" />
+                <input class="create-ride-input" type="datetime-local" name="ride-date-input" ng-model="vm.newRide.rides_date" />
             </md-input-container>
                 <md-input-container>
                     <label>Category</label>
@@ -23,16 +23,16 @@
                 </md-input-container>
             <md-input-container>
                 <label for="location-input">Location</label>
-                <input name="location-input" ng-model="vm.newRide.ride_location" />
+                <input class="create-ride-input" name="location-input" ng-model="vm.newRide.ride_location" />
             </md-input-container>
             <md-input-container>
                 <label for="gps-link-input">GPS Link</label>
-                <input name="gps-link-input" ng-model="vm.newRide.url" />
+                <input class="create-ride-input" name="gps-link-input" ng-model="vm.newRide.url" />
             </md-input-container>
             <md-input-container>
                 <label for="distance-input">Distances</label>
                 <!-- Use chips for distances -->
-                <input name="distance-input" type="number" ng-model="vm.newRide.distances" />
+                <input class="create-ride-input" name="distance-input" type="number" ng-model="vm.newRide.distances" />
             </md-input-container>
         </div>
         <div class="ride-detail-stuff" flex="40" layout="column" layout-align="center space-between">

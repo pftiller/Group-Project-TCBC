@@ -3,31 +3,33 @@
     <div layout="row" layout-align="space-between strech">
         <div class="ride-detail-stuff">
             <h2>Category</h2>
-            <p>{{vm.ride.rides_category}}</p>
+            <p>{{vm.ride.ride_category}}</p>
             <h2>Ride Leader</h2>
             <p>{{vm.ride.ride_leader}}</p>
             <h2>Location</h2>
             <p>{{vm.ride.ride_location}}</p>
             <h2>GPS Link</h2>
             <p>
-                <a ng-href="{{vm.ride.gps}}">{{vm.ride.url}}</a>
+                <a ng-href="{{vm.ride.url}}">{{vm.ride.url}}</a>
             </p>
         </div>
         <div class="ride-detail-stuff">
             <h2>Description</h2>
-            <p>{{vm.ride.description}}</p>
-            <h2>Distances</h2>
+            <p class="ride-details-description">{{vm.ride.description}}</p>
+
+            <h2>Distances Offered</h2>
             <!-- {{vm.ride.distanceSelction.ride_distance}} -->
-            <select ng-if="vm.user.loggedIn" ng-model="vm.selectedDistance" >
+            <select ng-if="vm.user.member_id" ng-model="vm.selectedDistance" >
                 <!-- distance selection not selction -->
                 <option ng-repeat="distance in vm.ride.distanceSelction" ng-value="distance.ride_id">
                     {{distance.ride_distance}}
                 </option>
             </select>
-            <p ng-if="!vm.user.loggedIn">
-                <span ng-repeat="distance in vm.ride.distances">{{distance}} </span>
-            </p>
-            <md-button ng-click="vm.rideSignUp(vm.ride, vm.ride.distanceSelction)">Sign Up for ride!</md-button>
+            <span ng-if="!vm.user.member_id">
+                <p ng-repeat="distance in vm.ride.distanceSelction">{{distance.ride_distance}} </p>
+            </span>
+            <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
+
         </div>
     </div>
 </div>
