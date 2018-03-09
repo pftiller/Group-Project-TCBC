@@ -56,7 +56,7 @@ router.get('/findRider', isAuthenticated, function (req, res) {
     WHERE member_id = $1
     OR first_name = $2
     OR last_name = $3`;
-  pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
+  pool.query(queryText, [req.user.member_id, req.user.first_name, req.user.last_name])
     .then((result) => {
       console.log('query results:', result.rows);
       res.send(result.rows);
