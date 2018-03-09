@@ -110,7 +110,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    self.rideDetailModal = function (ride, ev) {
+    self.rideDetailModal = function (id, ev) {
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -120,12 +120,18 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    return ride;
+                    for (var i=0; i < self.rides.list.length; i++) {
+                        if (self.rides.list[i].ride_id === id) {
+                            let ride = self.rides.list[i];
+                            return ride;
+                        }
+                    }
+                   
                 }
+                
             }
         })
     }
-
     function RideDetailController($mdDialog, item, RideDetailService) {
         const self = this;
         self.rides = RideDetailService.rides;
