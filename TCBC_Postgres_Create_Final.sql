@@ -118,17 +118,6 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(15, 'O', 'Outreac
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special') RETURNING "id", "type", "name";
 
 
-
-
-
-
-
-
-
-
-
-
-
 											-- Foreign Key Restraints --
 
 
@@ -142,10 +131,6 @@ ALTER TABLE "rides_distances" ADD CONSTRAINT "rides_distances_fk0" FOREIGN KEY (
 ALTER TABLE "public"."rides"
   ADD COLUMN "ride_category" integer,
   ADD FOREIGN KEY ("ride_category") REFERENCES "public"."categories"("id");
-
-
-
-
 
 
 															-- TEST DATA --

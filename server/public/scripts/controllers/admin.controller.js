@@ -11,23 +11,23 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
     }
     self.loadRidesForApproval();
 
-    self.rideDetailReveal = function(ride){
+    self.rideDetailReveal = function (ride) {
         console.log('ride to edit: ', ride);
-        
+
         RideDetailService.adminEditRideDetailModal(ride);
     }
-    self.approveRide = function(rideId){
+    self.approveRide = function (rideId) {
         console.log('ride to be approved: ', rideId);
-        AdminService.approveRide(rideId).then((response)=>{
-            console.log('service back after successully approving ride: ', response);
-            swal("Ride has been Approved",'', "success");
-            self.loadRidesForApproval();
-        })
-        .catch((err)=>{
-            console.log('failure to approve ride: ', err);
-            
-        })
+        AdminService.approveRide(rideId).then((response) => {
+                console.log('service back after successully approving ride: ', response);
+                swal("Ride has been Approved", '', "success");
+                self.loadRidesForApproval();
+            })
+            .catch((err) => {
+                console.log('failure to approve ride: ', err);
 
+            })
+    }
     // self.approveRide = function (rideId) {
     //     console.log('ride to be approved: ', rideId);
     //     AdminService.approveRide(rideId).then((response) => {
