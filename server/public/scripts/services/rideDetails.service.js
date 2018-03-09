@@ -128,22 +128,28 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                console.log('all rides ', response.data);
-
+                // console.log('all rides ', response.data);
                 for(let i = 0; i < response.data.length; i ++) {
-                    var testDateUtc = moment.utc("2015-01-30 10:00:00");
-var localDate = moment(testDateUtc).local();
-
-
-var s = localDate.format("YYYY-MM-DD HH:mm:ss");
-var d = localDate.toDate();
-                    // let date = moment(response.data[i].rides_date);
-                    let formattedDate = moment.utc(response.data[i].rides_date).local().format("MM/DD/YYYY");
-                    response.data[i].date = formattedDate;
-                    // let time = moment(response.data[i].rides_date);
-                    let formattedTime = moment.utc(response.data[i].rides_date).local().format('HH:mm a')
-                    response.data[i].time = formattedTime;
+                     let dateOfRide = response.data[i].rides_date;
+                    let str = dateOfRide.toString();
+                     let momentDate = moment(str);
+                      var dateComponent = momentDate.format('MM/DD/YYYY');
+                        var timeComponent = momentDate.format('hh:mm A');
+                    console.log(dateComponent);
+                console.log(timeComponent);
                 }
+              
+               
+                // var date = moment(str);
+                // var dateComponent = date.utc().format('YYYY-MM-DD');
+                // var timeComponent = date.utc().format('HH:mm:ss');
+               
+
+                // for(let i = 0; i < response.data.length; i ++) {
+                //     let ride_date = moment(response.data[i].date);
+                //     response.data[i].local_time = ride_date.utc().format("HH:mm a");
+                //     response.data[i].local_date = ride_date.utc().format("MM/DD/YYYY");
+                // }
                 console.log('new response ', response.data);
                 self.rides.list = response.data;
                 return response.data;
