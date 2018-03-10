@@ -146,12 +146,8 @@ ALTER TABLE "rides_users" ADD CONSTRAINT "rides_users_fk1" FOREIGN KEY ("user_id
 ALTER TABLE "rides_users" ADD CONSTRAINT "rides_users_fk2" FOREIGN KEY ("selected_distance") REFERENCES "rides_distances"("id");
 ALTER TABLE "rides_distances" ADD CONSTRAINT "rides_distances_fk0" FOREIGN KEY ("ride_id") REFERENCES "rides"("id");
 ALTER TABLE "public"."rides"
-  ADD COLUMN "ride_category" integer,
-  ADD FOREIGN KEY ("ride_category") REFERENCES "public"."categories"("id");
-
-
-
-
+  ADD COLUMN "rides_category" integer,
+  ADD FOREIGN KEY ("rides_category") REFERENCES "public"."categories"("id");
 
 
 															-- TEST DATA --
@@ -169,7 +165,7 @@ rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_locatio
 FROM rides
 JOIN rides_distances on rides.id = rides_distances.ride_id
 JOIN users on rides.ride_leader = users.id
-JOIN categories on rides.ride_category = categories.id
+JOIN categories on rides.rides_category = categories.id
 GROUP BY rides.id;
 
 
