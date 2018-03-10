@@ -43,8 +43,11 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     });
 });
 
-router.get('/findRider', isAuthenticated, function (req, res) {
+router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
   console.log('in find rider router');
+  console.log(req.body);
+  console.log(req.params); 
+  console.log('req.params for rider search ', req.params.member_id);
   const queryText =
     `SELECT 
     first_name,
@@ -55,17 +58,40 @@ router.get('/findRider', isAuthenticated, function (req, res) {
     users
     WHERE member_id = $1
     OR first_name = $2
-    OR last_name = $3`;
-  pool.query(queryText, [req.user.member_id, req.user.first_name, req.user.last_name])
+    OR last_name = $3;`
+  pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
     .then((result) => {
-      console.log('query results:', result.rows);
+      console.log('query results for rider search:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('error making query:', err);
+      console.log('error making member search query:', err);
       res.sendStatus(500);
     });
 });
 
+// router.get('/findRider', isAuthenticated, function (req, res) {
+//   console.log('in find rider router');
+//   const queryText =
+//     `SELECT 
+//     first_name,
+//     last_name,
+//     member_id,
+//     role
+//     FROM
+//     users
+//     WHERE member_id = $1
+//     OR first_name = $2
+//     OR last_name = $3`;
+//   pool.query(queryText, [req.user.member_id, req.user.first_name, req.user.last_name])
+//     .then((result) => {
+//       console.log('query results:', result.rows);
+//       res.send(result.rows);
+//     })
+//     .catch((err) => {
+//       console.log('error making query:', err);
+//       res.sendStatus(500);
+//     });
+// });
 
 module.exports = router;

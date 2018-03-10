@@ -34,7 +34,6 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
         AdminService.getRoles().then((response) => {
                 console.log('service back with roles:', response);
                 self.getUserRoles = AdminService.getUserRoles;
-                console.log(self.userRole);
             })
             .catch((err) => {
                 console.log('did not get user roles', err);
@@ -42,16 +41,9 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
     }
     self.getRoles();
 
-    // self.rider = {
-    //     first_name = '',
-    //     last_name = '',
-    //     member_id = ''
-    // }
-
     self.findRider = function (rider) {
         console.log('in find rider', rider);
         AdminService.findRider(rider).then((response) => {
-                console.log('service back with rider:', response);
                 self.riderInfo = AdminService.riderInfo;
                 console.log(self.riderInfo);
             })
