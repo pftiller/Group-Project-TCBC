@@ -43,7 +43,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     });
 });
 
-router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
+router.get('/findRider/riderInfo/:member_id/:first_name/:last_name', isAuthenticated, function (req, res) {
   console.log('in find rider router');
   console.log(req.body);
   console.log(req.params); 
@@ -70,13 +70,13 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     });
 });
 
-router.put('/changeRole', isAuthenticated, function (req,res) {
+router.put(`/changeRole/:role/:member_id`, isAuthenticated, function (req,res) {
   console.log('in change role router');
   const queryText =
   `UPDATE users
   set role = $1
   WHERE member_id = $2`
-  pool.query(queryText, [req.params.member_id])
+  pool.query(queryText, [req.params.role, req.params.member_id])
   .then((result)=>{
     console.log('query results for change user role ', result.rows);
     res.send(result.rows);
@@ -85,7 +85,6 @@ router.put('/changeRole', isAuthenticated, function (req,res) {
     console.log('error changing user role:', err);
     res.sendStatus(500);
   })
-  
 })
 
 

@@ -37,6 +37,18 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
+    self.changeRole = function(member_id) {
+        return $http.put(`/member/changeRole/${member_id}`)
+        .then((response)=> {
+            console.log('role response ', response);
+            return response;
+        })
+        .catch((err)=> {
+            console.log('role change failed: ', err);
+            
+        })
+    }
+
     self.getRoles = function () {
         return $http.get('/member/userRole')
             .then((response) => {
@@ -74,4 +86,6 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                 console.log('getting role failed:', err);
             })
     }
+
+    
 }]);
