@@ -72,9 +72,11 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
 
 router.put(`/changeRole/:role/:member_id`, isAuthenticated, function (req,res) {
   console.log('in change role router');
+  console.log('member id to update ', req.params.member_id);
+  console.log('role being used to update ', req.params.role);
   const queryText =
   `UPDATE users
-  set role = $1
+  SET role = $1
   WHERE member_id = $2`
   pool.query(queryText, [req.params.role, req.params.member_id])
   .then((result)=>{
