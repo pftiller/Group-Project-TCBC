@@ -143,8 +143,6 @@ router.get(`/rideLeader/signedUpRiders/:rideId`, (req, res) => {
 
 });
 
-<<<<<<< HEAD
-=======
 
 
 /* GET search for member */
@@ -184,7 +182,6 @@ router.get('/ride-leader/searchMembers/:first_name/:last_name/:member_id', isAut
 //         console.log('error making insert query:', err);
 //         res.sendStatus(500);
 //     });
->>>>>>> dev
 /* GET All Categories */
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
