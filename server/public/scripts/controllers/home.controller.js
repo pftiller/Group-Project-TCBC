@@ -7,6 +7,11 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.minDateString = moment().format('LL');
   self.filter = {};
   
+
+self.value = function() {
+  console.log('here is the value', self.filter.category);
+}
+
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()

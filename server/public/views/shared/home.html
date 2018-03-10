@@ -13,11 +13,19 @@
                 </md-input-container>
             </div>
             <div flex-xs="33" flex-gt-sm="25">
-                <md-select aria-label="category-select" ng-model="vm.filter.category" placeholder="Select a category" class="md-input-has-placeholder">
-                    <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
+                <md-select aria-label="category-select" multiple ng-change="vm.value()" ng-model="vm.filter.type" placeholder="Select a category" class="md-input-has-placeholder" ng-model-options="{trackBy: {{category.type}}'}">
+                    <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="category">
                         {{category.type}}
                     </md-option>
                 </md-select>
+
+                <md-select placeholder="{{ filter.label }}" ng-model="filter.selected" ng-change="filter.setItem(item)">
+                        <md-option class="md-black-primary-default text" ng-repeat="item in filter.items" value="{{item}}">{{ item | titleCase }}</md-option>
+
+
+
+
+
             </div>
             <div flex-xs="50" flex-gt-sm="25">
                 <div layout="row" layout-align="center center">
@@ -27,7 +35,7 @@
                 </div>
             </div>
             <div ng-hide="true">
-                {{(filteredItems = (vm.rides.list | filter:{ date: vm.filter.date, rides_name: vm.filter.query, rides_category: vm.filter.category}))}}
+                {{(filteredItems = (vm.rides.list | filter:{ date: vm.filter.date, rides_name: vm.filter.query, type: vm.filter.type}))}}
             </div>
             <md-content layout="column" flex="100" class="md-padding">
                 <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
