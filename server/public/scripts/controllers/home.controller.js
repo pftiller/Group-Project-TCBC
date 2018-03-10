@@ -7,6 +7,11 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.minDateString = moment().format('LL');
   self.filter = {};
   
+
+self.value = function() {
+  console.log('here is the value', self.filter.category);
+}
+
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
@@ -28,7 +33,7 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
         self.rides.list = response;
       })
   }
-  self.getAllRides();
+  // self.getAllRides();
   
 // Ride Details
 self.rideDetailReveal = function (id) {
@@ -39,4 +44,11 @@ self.rideDetailReveal = function (id) {
 self.clearFilters = function () {
   self.filter = {};
 }
+
+
+let init = function () {
+  self.getAllRides();
+};
+init();
+
 }]);

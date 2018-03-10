@@ -14,7 +14,8 @@ router.get('/public/details', (req, res) => {
     JOIN users on rides.ride_leader = users.id
     JOIN categories on rides.rides_category = categories.id
     WHERE approved = true
-    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
+    GROUP BY rides.id, rides.rides_date, users.first_name, users.last_name, users.phone_1,users.email, categories.type
+    ORDER BY rides.rides_date`;
     pool.query(allRidesQuery)
         .then((result) => {
             console.log('get rides ', result.rows);
