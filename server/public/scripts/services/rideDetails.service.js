@@ -310,7 +310,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.categories = RideDetailService.categories;
-        
         self.newRide = {};
         self.newRide.distances = [];
 
