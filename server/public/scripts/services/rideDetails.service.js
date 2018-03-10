@@ -380,9 +380,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.categories = RideDetailService.categories;
+        self.newRide = {};
+        self.newRide.distances = [];
 
         self.submitRide = function (ride) {
-            // console.log('new ride', ride);
+            
+            console.log('new ride', ride);
             self.hide();
 
             $http.post('/rides/rideLeader/submitRide', ride)
