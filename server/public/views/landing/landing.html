@@ -1,12 +1,12 @@
             <div layout-gt-xs="row" layout-xs="column" layout-align="stretch center">
                 <div layout="row" layout-align="start center">
                     <md-input-container md-no-float md-is-error="false" class="md-block">
-                        <input ng-model="name"
+                        <input ng-model="rides_name"
                                class="md-input"
                                ng-change="allRidesActions.filter()"
-                               id="order"
+                               
                                placeholder="Search by ride name"
-                               filter-by="name"
+                               filter-by="rides_name"
                                filter-type="text"
                                aria-invalid="false">
                     </md-input-container>
@@ -74,7 +74,7 @@
                     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                         <thead>
                         <tr>
-                            <th sortable="name" class="sortable mdl-data-table__cell--non-numeric">
+                            <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
                                 <span>Name</span>
                                 <span class="arrow"></span>
                             </th>
@@ -91,7 +91,7 @@
                                     </md-option>
                                 </md-select>
                             </th> -->
-                            <th  style="text-align: center;" class="sortable" sortable="dateFilter:filteryDate">
+                            <th  style="text-align: center;" class="sortable" sortable="date">
                                 <span>Date</span>
                                 <span class="arrow"></span>
                             </th>
