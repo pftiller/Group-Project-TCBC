@@ -13,11 +13,11 @@
                 </md-input-container>
             </div>
             <div flex-xs="33" flex-gt-sm="25">
-                <md-select aria-label="category-select" ng-model="vm.filter.category" placeholder="Select a category" class="md-input-has-placeholder">
-                    <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
-                        {{category.type}}
-                    </md-option>
-                </md-select>
+                    <md-select aria-label="category-select" ng-model="vm.filter.category" placeholder="Select a category" class="md-input-has-placeholder">
+                            <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
+                                {{category.type}}
+                            </md-option>
+                        </md-select>
             </div>
             <div flex-xs="50" flex-gt-sm="25">
                 <div layout="row" layout-align="center center">
@@ -27,14 +27,15 @@
                 </div>
             </div>
             <div ng-hide="true">
-                {{(filteredItems = (vm.rides.list | filter:{ rides_date: vm.filter.date, rides_name: vm.filter.query, rides_category: vm.filter.category}))}}
+                {{(filteredItems = (vm.rides.list | filter:{ date: vm.filter.date, rides_name: vm.filter.query, type: vm.filter.type}))}}
             </div>
             <md-content layout="column" flex="100" class="md-padding">
                 <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
             data: filteredItems,
             'table-row-id-key': 'ride_id',
             'column-keys': [
-                'rides_date',
+                'date',
+                'time',
                 'rides_name',
                 'type',
                 'details'
@@ -42,6 +43,7 @@
             }">
                     <mdt-header-row>
                         <mdt-column column-definition="Date" column-sort="true" align-rule="left"><span>Date</span></mdt-column>
+                        <mdt-column column-definition="Time" column-sort="true" align-rule="left"><span>Time</span></mdt-column>
                         <mdt-column column-definition="Name" column-sort="true" align-rule="left"><span>Name</span></mdt-column>
                         <mdt-column column-definition="Category" column-sort="true" align-rule="center"><span>Category</span></mdt-column>
                         <mdt-column column-definition="Details" align-rule="center" column-sort="false"><span>Details</span></mdt-column>

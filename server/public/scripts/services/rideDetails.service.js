@@ -129,7 +129,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         return $http.get('/rides/public/details')
             .then((response) => {
                 console.log('all rides ', response.data);
-                self.rides.list = response.data;
+                console.log('here is timeStamp from getAllRides', timeStamp);
+                for(let i = 0; i < response.data.length; i ++) {
+                    let dateOfRide = new Date(response.data[i].rides_date)
+                    if (dateOfRide > timeStamp) {
+                        let momentDate = moment(response.data[i].rides_date);
+                        response.data[i].date = momentDate.format('MM/DD/YYYY');
+                        response.data[i].time = momentDate.format('hh:mm A');
+                        self.rides.list.push(response.data[i]);
+                    } 
+                }
+                // self.rides.list = response.data;
+                // console.log('this is new all rides', self.rides.list);
+                // return self.rides.list;
                 return response.data;
             })
             .catch((err) => {
@@ -368,9 +380,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     function CreateNewRideController($mdDialog, RideDetailService) {
         const self = this;
         self.categories = RideDetailService.categories;
+        self.newRide = {};
+        self.newRide.distances = [];
 
         self.submitRide = function (ride) {
-            // console.log('new ride', ride);
+            
+            console.log('new ride', ride);
             self.hide();
 
             $http.post('/rides/rideLeader/submitRide', ride)
