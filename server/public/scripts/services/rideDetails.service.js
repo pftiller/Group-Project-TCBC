@@ -372,12 +372,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.newRide.distances = [];
 
         self.submitRide = function (ride) {
-<<<<<<< HEAD
             
             console.log('new ride', ride);
-=======
-            // console.log('new ride', ride);
->>>>>>> dev
             self.hide();
 
             $http.post('/rides/rideLeader/submitRide', ride)
