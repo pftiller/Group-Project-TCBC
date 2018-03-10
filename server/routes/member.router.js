@@ -70,28 +70,23 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     });
 });
 
-// router.get('/findRider', isAuthenticated, function (req, res) {
-//   console.log('in find rider router');
-//   const queryText =
-//     `SELECT 
-//     first_name,
-//     last_name,
-//     member_id,
-//     role
-//     FROM
-//     users
-//     WHERE member_id = $1
-//     OR first_name = $2
-//     OR last_name = $3`;
-//   pool.query(queryText, [req.user.member_id, req.user.first_name, req.user.last_name])
-//     .then((result) => {
-//       console.log('query results:', result.rows);
-//       res.send(result.rows);
-//     })
-//     .catch((err) => {
-//       console.log('error making query:', err);
-//       res.sendStatus(500);
-//     });
-// });
+router.put('/changeRole', isAuthenticated, function (req,res) {
+  console.log('in change role router');
+  const queryText =
+  `UPDATE users
+  set role = $1
+  WHERE member_id = $2`
+  pool.query(queryText, [req.params.member_id])
+  .then((result)=>{
+    console.log('query results for change user role ', result.rows);
+    res.send(result.rows);
+  })
+  .catch((err)=> {
+    console.log('error changing user role:', err);
+    res.sendStatus(500);
+  })
+  
+})
+
 
 module.exports = router;
