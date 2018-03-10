@@ -162,7 +162,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    self.rideDetailModal = function (id, ev) {
+    self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -172,18 +172,37 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    for (var i=0; i < self.rides.list.length; i++) {
-                        if (self.rides.list[i].ride_id === id) {
-                            let ride = self.rides.list[i];
-                            return ride;
-                        }
-                    }
-                   
+                    return ride;
                 }
-                
             }
         })
     }
+
+
+
+
+    // self.rideDetailModal = function (id, ev) {
+    //     $mdDialog.show({
+    //         controller: RideDetailController,
+    //         controllerAs: 'vm',
+    //         templateUrl: '../views/shared/ride-detail-modal.html',
+    //         parent: angular.element(document.body),
+    //         targetEvent: ev,
+    //         clickOutsideToClose: true,
+    //         resolve: {
+    //             item: function () {
+    //                 for (var i=0; i < self.rides.list.length; i++) {
+    //                     if (self.rides.list[i].ride_id === id) {
+    //                         let ride = self.rides.list[i];
+    //                         return ride;
+    //                     }
+    //                 }
+                   
+    //             }
+                
+    //         }
+    //     })
+    // }
 
     function RideDetailController($mdDialog, item, RideDetailService, UserService) {
         const self = this;

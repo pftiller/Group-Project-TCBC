@@ -99,6 +99,10 @@
                                 <span>Category</span>
                                 <span class="arrow"></span>
                             </th>
+                            <th>
+                                    <span>Details</span>
+                                   
+                                </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -111,6 +115,8 @@
                             <!-- <td>{{item.statusDisplay}}></td> -->
                             <td>{{ride.date | date:'MM/dd/yyyy'}}</td>
                             <td>{{ride.type}}</td>
+                            <td><md-button class="md-raised md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button></td>
+                            <!-- <td><md-button class="md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button></td> -->
                         </tr>
                         </tbody>
                     </table>

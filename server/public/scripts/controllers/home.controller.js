@@ -14,6 +14,7 @@ $scope.allRides = {
       predicate: 'date',
       direction: 'asc'
     }
+    
 };
 // myAppFactory.getData().then(function (responseData) {
 //     $scope.gridOptions.data = responseData.data;
