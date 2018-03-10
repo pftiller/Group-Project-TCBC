@@ -2,20 +2,35 @@ myApp.controller('HomeController', ['RideDetailService','$scope', 'myAppFactory'
   console.log('HomeController created');
   let self = this;
   self.rides = {};
+  self.test = RideDetailService.rides;
   self.categories = {};
   self.isDisabled = false;
   self.minDateString = moment().format('LL');
   self.filter = {};
   
 
-$scope.allRides = {
+$scope.allRidesOptions = {
     data: [],
     sort: {
       predicate: 'date',
       direction: 'asc'
+    },
+    customFilters: {
+      date: function (items, value, predicate) {
+          return items.filter(function (item) {
+              return value && item[predicate] ? !item[predicate].indexOf(moment(value).format('MM/DD/YYYY')) : true;
+          });
+      }
     }
-    
-};
+  };
+
+$scope.allRidesActions = {
+
+}
+
+self.logDate = function() {
+  console.log($scope.date);
+}
 // myAppFactory.getData().then(function (responseData) {
 //     $scope.gridOptions.data = responseData.data;
 // });
@@ -43,7 +58,7 @@ self.value = function() {
         //     }
         // })
         console.log('here is the response to the controller ', response);
-        $scope.allRides.data = response.data;
+        $scope.allRidesOptions.data = response.data;
         // self.rides.list = response;
 
       })

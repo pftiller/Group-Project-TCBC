@@ -2,7 +2,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     console.log('RideDetailService Loaded');
     let self = this;
     self.rides = {
-        data: []
+        list: []
     }
     self.categories = {
         list: []
@@ -141,7 +141,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 }
                 // self.rides.list = response.data;
                 // console.log('this is new all rides', self.rides.list);
-                // return self.rides.list;
+               self.rides.list = response.data;
                 return response;
             })
             .catch((err) => {
