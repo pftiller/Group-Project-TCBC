@@ -139,10 +139,10 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                         self.rides.list.push(response.data[i]);
                     } 
                 }
-                self.rides.list = response.data;
-                console.log('this is new all rides', self.rides.list);
-                return self.rides.list;
-                // return response.data;
+                // self.rides.list = response.data;
+                // console.log('this is new all rides', self.rides.list);
+                // return self.rides.list;
+                return response.data;
             })
             .catch((err) => {
                 // console.log(err);
