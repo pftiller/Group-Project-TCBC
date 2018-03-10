@@ -43,7 +43,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     });
 });
 
-router.get('/findRider/riderInfo/:member_id/:first_name/:last_name', isAuthenticated, function (req, res) {
+router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
   console.log('in find rider router');
   console.log(req.body);
   console.log(req.params); 

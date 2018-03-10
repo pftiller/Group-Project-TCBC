@@ -64,10 +64,10 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     self.findRider = function (member) {
         console.log('member search for ', self.getMember);
         if (member.first_name == '') {
-            member.first_name = 'first';
+            member.first_name = '';
         }
         if (member.last_name == '') {
-            member.last_name = 'last';
+            member.last_name = '';
         }
         if (member.member_id == '') {
             member.member_id = 0
