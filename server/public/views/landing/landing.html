@@ -91,15 +91,15 @@
                                     </md-option>
                                 </md-select>
                             </th> -->
-                            <th sortable="date" class="sortable">
+                            <th  style="text-align: center;" sortable="date" class="sortable">
                                 <span>Date</span>
                                 <span class="arrow"></span>
                             </th>
-                            <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+                            <th  style="text-align: center;" sortable='type' class="sortable mdl-data-table__cell--non-numeric">
                                 <span>Category</span>
                                 <span class="arrow"></span>
                             </th>
-                            <th>
+                            <th  style="text-align: center;">
                                     <span>Details</span>
                                    
                                 </th>
@@ -109,13 +109,13 @@
                               <tr ng-repeat="ride in filtered" 
       
                               >
-                            <td>
+                            <td style="text-align: left;">
                                 {{ride.rides_name}}
                             </td>
                             <!-- <td>{{item.statusDisplay}}></td> -->
-                            <td>{{ride.date | date:'MM/dd/yyyy'}}</td>
-                            <td>{{ride.type}}</td>
-                            <td><md-button class="md-raised md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button></td>
+                            <td style="text-align: center;">{{ride.date | date:'MM/dd/yyyy'}}</td>
+                            <td style="text-align: center;">{{ride.type}}</td>
+                            <td style="text-align: center;"><md-button class="md-raised md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button></td>
                             <!-- <td><md-button class="md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button></td> -->
                         </tr>
                         </tbody>
