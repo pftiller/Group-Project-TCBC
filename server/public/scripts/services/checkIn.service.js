@@ -16,9 +16,15 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 self.ride.current = response.data[0];
             })
             .catch((err) => {
-                console.log(err);
+                swal('Error getting getting current ride information, please try again later.', '', 'error');
+                // console.log(err);
             })
     }
+
+    self.closeCheckIn = function () {
+        $location.path('/ride-leader/my-rides');
+    }
+
 
     self.getRidersForCurrentRide = function (rideId) {
         console.log('Ride to get users for ', rideId);
@@ -31,7 +37,8 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 return response.data;
             })
             .catch((err) => {
-                console.log('ERR getting riders on this ride ', err);
+                swal('Error getting riders for this ride, please try again later.', '', 'error');
+                // console.log('ERR getting riders on this ride ', err);
             })
     }
 
@@ -46,7 +53,8 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 return response.data;
             })
             .catch((err) => {
-                console.log('ERR updating ride to complete ', err);
+                swal('Error marking ride as complete, please try again later.', '', 'error');
+                // console.log('ERR updating ride to complete ', err);
             })
     }
 
@@ -57,7 +65,8 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 return response.data;
             })
             .catch((err) => {
-                console.log('ERR updating ride to complete ', err);
+                swal('Error updating member mileage, please try again later.', '', 'error');
+                // console.log('ERR updating ride to complete ', err);
             })
     }
 
@@ -69,17 +78,18 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 console.log('toggle user check in ', response);
             })
             .catch((err) => {
-                console.log('err from toggle check in put ', err);
+                swal('Error toggling rider checked in, please try again later.', '', 'error');
+                // console.log('err from toggle check in put ', err);
             });
     }
 
     //Add rider 
     self.addMemberToRide = function () {
-        console.log('ADD RIDER ');
-
+        // console.log('ADD RIDER ');
+        self.memberRegisterModal();
     }
     self.addGuestToRide = function () {
-        console.log('ADD GUEST');
+        // console.log('ADD GUEST');
         self.guestRegisterModal();
     }
 
@@ -90,10 +100,98 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
                 console.log('add guest to ride response ', response);
             })
             .catch((err) => {
-                console.log('err adding guest to ride', err);
+                swal('Error adding guest to ride, please try again later.', '', 'error');
+                // console.log('err adding guest to ride', err);
             })
     }
 
+
+    self.signUpPost = function (ride) {
+        console.log('Signing up member for ride ', ride);
+        return $http.post('/rides/ride-leader/sign-up-member', ride)
+            .then((response) => {
+                console.log('response from member add ', response);
+                return response;
+            })
+            .catch((err) => {
+                swal('Error signing up for ride, please try again later.', '', 'error');
+                // console.log('err on post ride sign up ', err);
+            })
+    }
+
+    self.memberRegisterModal = function (ride, ev) {
+        $mdDialog.show({
+            controller: MemberRegisterController,
+            controllerAs: 'vm',
+            templateUrl: '../views/ride-leader/partials/member-register-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
+    }
+
+    function MemberRegisterController($mdDialog, CheckInService, $routeParams) {
+        const self = this;
+        let rideId = $routeParams.rideId
+        self.searchMembers = {
+            list: []
+        }
+        self.ride = CheckInService.ride;
+        self.searchMemberParams = {
+            first_name: '',
+            last_name: '',
+            member_id: ''
+        }
+        self.addMemberRider = function (member) {
+            self.ride.member = member;
+            CheckInService.signUpPost(self.ride);
+        };
+
+        self.searchForMember = function (member) {
+            console.log('member search for ', self.searchMemberParams);
+            if (member.first_name == '') {
+                member.first_name = 'first';
+            }
+            if (member.last_name == '') {
+                member.last_name = 'last';
+            }
+            if (member.member_id == '') {
+                member.member_id = 0;
+            }
+            return $http.get(`/rides/ride-leader/searchMembers/${member.first_name}/${member.last_name}/${member.member_id}`)
+                .then((response) => {
+                    console.log('search member response ', response);
+                    self.searchMembers.list = response.data;
+                    self.searchMemberParams = {
+                        first_name: '',
+                        last_name: '',
+                        member_id: ''
+                    }
+                })
+                .catch((err) => {
+                    console.log('search member err ', err);
+                })
+        }
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.success = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', {
+                className: "success-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+        self.error = function (answer) {
+            // console.log('answer', answer);
+            swal(answer, '', 'error', {
+                className: "error-alert",
+            });
+            // $mdDialog.hide(answer);
+        };
+    }
 
     self.guestRegisterModal = function (ride, ev) {
         $mdDialog.show({

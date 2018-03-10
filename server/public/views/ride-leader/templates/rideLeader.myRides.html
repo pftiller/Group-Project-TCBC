@@ -47,7 +47,7 @@
     </div>
     <br>
     <br>
-    <div>
+    <div ng-if="vm.myPastRides.list.length > 0">
         <h2>My past rides</h2>
         <!-- <div layout="row" layout-align="space-around stretch"> -->
             <ul layout="column">
@@ -57,9 +57,9 @@
                     <span flex>Distance Ridden</span>
                     <span flex>Ride Details</span>
                 </li>
-                <li ng-repeat="ride in vm.myRides.list" flex ng-if="ride.past_ride" class="my-rides-items" layout="row" layout-align="space-between center">
+                <li ng-repeat="ride in vm.myPastRides.list" flex class="my-rides-items" layout="row" layout-align="space-between center">
                     <span flex>{{ride.rides_name}}</span>
-                    <span flex>{{ride.rides_date}}</span>
+                    <span flex>{{ride.rides_date | date : 'short'}}</span>
                     <span flex>{{ride.actualDistance}}</span>
                     <span flex>
                         <md-button class="border ride-button" flex ng-click="vm.rideDetailRevealPast(ride)">Details</md-button>

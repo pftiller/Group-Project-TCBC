@@ -160,7 +160,18 @@ th {
   border-right: 3px solid black;
   border-collapse: collapse;
 }
-
+.mobile-member-cell{
+  text-align: center;
+  font-size: xx-large;
+  border-right: 3px solid black;
+  border-collapse: collapse;
+}
+.mobile-input{
+  width: 15vh;
+}
+.mobile-input-container{
+  font-size: x-large;
+}
 .mobile-rider-cell, .mobile-rider-checkbox{
   background-color: #f3f3f3;
 
@@ -175,4 +186,13 @@ th {
 .add-guest-button{
   height: 10vh;
   font-size: x-large;
+}
+.create-ride-input{
+  /* background-color: #cfcfcf; */
+  /* border-radius: 10%; */
+  /* box-shadow: inset 0px 1px 1px 1px #a1a1a1; */
+}
+.ride-details-description{
+  max-width: 40vh;
+  word-wrap: break-word;
 }

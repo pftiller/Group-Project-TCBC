@@ -1,11 +1,14 @@
 myApp.service('AdminService', ['$http', '$location', function ($http, $location) {
     console.log('AdminService Loaded');
     let self = this;
+    self.getUserRoles = {
+        list:[]
+    };
+    self.riderInfo = {
+        list:[]
+    };
     
-
-
     self.getPendingApprovedRides = function(){
-
         return $http.get('/rides/admin/pendingApprovedRides')
                 .then((response) => {
                     console.log('Service, rides pending approval came back: ', response.data );
@@ -28,4 +31,27 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                 })
     }
 
+    self.getRoles = function() {
+        return $http.get('/member/userRole')
+        .then((response)=>{
+            console.log('got user roles:', response.data);
+            self.getUserRoles.list = response.data;
+            return response.data;
+            
+        })
+        .catch((err)=>{
+            console.log('getting user roles failed:', err);
+        })
+    }
+    self.findRider = function() {
+        return $http.get('/member/findRider')
+        .then((response)=>{
+            console.log(response);
+            self.riderInfo.list = response;
+            return response;
+        })
+        .catch((err)=>{
+            console.log('getting role failed:', err);
+        })
+    }
 }]);

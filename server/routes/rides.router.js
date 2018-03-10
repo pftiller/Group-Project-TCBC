@@ -8,11 +8,11 @@ const ridePackager = require('../modules/ridePackager.module');
 
 /* GET all Approved rides not authenticated*/
 router.get('/public/details', (req, res) => {
-    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.ride_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
+    const allRidesQuery = `SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.rides_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
     JOIN users on rides.ride_leader = users.id
-    JOIN categories on rides.ride_category = categories.id
+    JOIN categories on rides.rides_category = categories.id
     WHERE approved = true
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(allRidesQuery)
@@ -45,6 +45,28 @@ router.get('/admin/pendingApprovedRides', isAuthenticated, (req, res) => {
         })
 });
 
+
+
+
+router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) => {
+    const allRidesQuery = `
+    SELECT *
+    FROM rides
+    JOIN rides_users ON rides.id = rides_users.ride_id
+    JOIN users ON users.id = rides_users.user_id
+    JOIN rides_distances ON rides_users.selected_distance = rides_distances.id
+    JOIN categories ON categories.id = rides.rides_category
+    WHERE rides.id = $1;`
+    pool.query(allRidesQuery, [req.params.rideId])
+        .then((result) => {
+            console.log('rides ', result.rows);
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('error getting all my rides', err);
+
+        })
+});
 
 /* Approve a ride */
 
@@ -121,6 +143,48 @@ router.get(`/rideLeader/signedUpRiders/:rideId`, (req, res) => {
 
 });
 
+<<<<<<< HEAD
+=======
+
+
+/* GET search for member */
+router.get('/ride-leader/searchMembers/:first_name/:last_name/:member_id', isAuthenticated, (req, res) => {
+    //res.send(categories);
+    console.log('req.body for search ', req.body);
+    console.log('req.params for search ', req.params); +
+    req.params.member_id;
+    console.log('req.params for search ', req.params.member_id);
+    const queryText = `
+    SELECT first_name, last_name, member_id, id 
+    FROM users 
+    WHERE member_id= $1
+    OR first_name=$2
+    OR last_name=$3;`
+    pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('Error getting categories');
+            res.sendStatus(500);
+        })
+});
+
+
+// let distance = req.params.distance;
+// const newerQuery = `
+// INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+// VALUES ($1, $2, $3);`;
+// pool.query(newerQuery, [ride_id, req.user.id, distance])
+//     .then((result) => {
+//         res.sendStatus(201);
+//     })
+//     // error handling
+//     .catch((err) => {
+//         console.log('error making insert query:', err);
+//         res.sendStatus(500);
+//     });
+>>>>>>> dev
 /* GET All Categories */
 router.get('/public/categories', (req, res) => {
     //res.send(categories);
@@ -155,6 +219,25 @@ router.post('/signUp', isAuthenticated, (req, res) => {
         });
 });
 
+
+
+router.post('/ride-leader/sign-up-member', isAuthenticated, (req, res) => {
+        console.log('req.body ', req.body);
+        let ride = req.body.current;
+        let member = req.body.member;
+        const query = `
+        INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+        VALUES ($1, $2, $3)`;
+        pool.query(query, [ride.ride_id, member.id, ride.ride_distance_id[0]])
+            .then((result) => {
+                res.sendStatus(201);
+            })
+            // error handling
+            .catch((err) => {
+                console.log('error making insert query:', err);
+                res.sendStatus(500);
+            });
+    });
 
 // unregsiter member for ride
 //delete rides_users row where userid and ride id are equal
@@ -246,8 +329,13 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
 //Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, (req, res) => {
     const queryText = `
-    SELECT * FROM rides
-    WHERE id = $1`;
+    SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.ride_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
+    FROM rides 
+    JOIN rides_distances on rides.id = rides_distances.ride_id
+    JOIN users on rides.ride_leader = users.id
+    JOIN categories on rides.ride_category = categories.id
+    WHERE rides.id = $1
+    GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(queryText, [req.params.rideId])
         .then((response) => {
             console.log('get current ride info ', response.rows);
@@ -325,12 +413,13 @@ router.put('/rideLeader/complete/updateMiles/:rideId', isAuthenticated, (req, re
     console.log('ride id to mark complete ', req.params.rideId);
     const queryText = `
     UPDATE rides_users
-    SET actual_distance = s.distance
-    FROM rides_distances AS s
-    WHERE rides_users.selected_distance = s.id
-    AND rides_users.ride_id = $1
+    SET actual_distance = rides_distances.distance
+    FROM rides_distances 
+    WHERE rides_users.selected_distance = rides_distances.id
+    AND rides.rides_leader = $1
+    AND rides_users.ride_id = $2
     AND checked_in = true;`;
-    pool.query(queryText, [req.params.rideId])
+    pool.query(queryText, [req.user.id, req.params.rideId])
         .then((result) => {
             console.log('result update comeplete ride ', result);
             res.sendStatus(201);
