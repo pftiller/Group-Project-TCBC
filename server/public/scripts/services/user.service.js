@@ -31,8 +31,13 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
       if (response.data.member_id) {
         // user has a curret session on the server
         self.userObject = response.data;
+<<<<<<< HEAD
+          if(response.data.role === 2 || response.data.role === 3){
+            return self.userObject 
+=======
           if(response.data.role === 2 || response.data.role === 3 ){
             return self.userObject
+>>>>>>> dev
           }else{
             console.log('permission failed, not a ride leader or admin');
             $location.path('/home');
