@@ -1,4 +1,4 @@
-myApp.controller('HomeController', ['RideDetailService', function (RideDetailService) {
+myApp.controller('HomeController', ['RideDetailService','$scope', 'myAppFactory', function (RideDetailService, $scope, myAppFactory) {
   console.log('HomeController created');
   let self = this;
   self.rides = {};
@@ -7,6 +7,17 @@ myApp.controller('HomeController', ['RideDetailService', function (RideDetailSer
   self.minDateString = moment().format('LL');
   self.filter = {};
   
+
+$scope.allRides = {
+    data: [],
+    sort: {
+      predicate: 'date',
+      direction: 'asc'
+    }
+};
+// myAppFactory.getData().then(function (responseData) {
+//     $scope.gridOptions.data = responseData.data;
+// });
 
 self.value = function() {
   console.log('here is the value', self.filter.category);
@@ -30,7 +41,10 @@ self.value = function() {
         //       rid
         //     }
         // })
-        self.rides.list = response;
+        console.log('here is the response to the controller ', response);
+        $scope.allRides.data = response.data;
+        // self.rides.list = response;
+
       })
   }
   // self.getAllRides();
@@ -51,4 +65,14 @@ let init = function () {
 };
 init();
 
-}]);
+}]).factory('myAppFactory', function ($http) {
+  return {
+      getData: function () {
+          return $http({
+              method: 'GET',
+              url: 'https://angular-data-grid.github.io/demo/data.json'
+          });
+      }
+  }
+});
+

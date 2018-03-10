@@ -2,7 +2,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     console.log('RideDetailService Loaded');
     let self = this;
     self.rides = {
-        list: []
+        data: []
     }
     self.categories = {
         list: []
@@ -136,13 +136,13 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                         let momentDate = moment(response.data[i].rides_date);
                         response.data[i].date = momentDate.format('MM/DD/YYYY');
                         response.data[i].time = momentDate.format('hh:mm A');
-                        self.rides.list.push(response.data[i]);
+                        // self.rides.data.push(response.data[i]);
                     } 
                 }
                 // self.rides.list = response.data;
                 // console.log('this is new all rides', self.rides.list);
                 // return self.rides.list;
-                return response.data;
+                return response;
             })
             .catch((err) => {
                 // console.log(err);
