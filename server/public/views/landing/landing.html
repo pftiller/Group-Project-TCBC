@@ -1,7 +1,8 @@
 <header ng-include="'/views/shared/header.html'"></header>
 <md-content  layout="row" layout-wrap >
     <md-content flex-xs="100" flex-sm="100" flex-md="100" flex="75" layout-padding>
-            <div layout-gt-xs="row" layout-xs="column" layout-align="stretch center">
+            <div layout="row" layout-align="stretch center" flex>
+                <div flex-xs="100" flex-sm="100" layout-wrap>
                     <div layout="row" layout-align="center start" layout-padding>
                             <md-input-container  class="md-icon-float">
                               <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
@@ -20,6 +21,8 @@
                                     </md-datepicker>
                               </md-input-container>
                               </div>
+                            </div>
+                            <div flex-xs="100" flex-sm="100" layout-wrap> 
                               <div layout="row" layout-align="start center" layout-padding>
                                     <md-input-container  class="md-icon-float"><md-icon class="material-icons" md-font-icon>&#xE52F;</md-icon>
                                         <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Ride category" ng-change="allRidesActions.filter()">
@@ -29,40 +32,30 @@
                                             </md-select>
                                   </md-input-container>
                                   </div>
-                                  <div layout="row" layout-align="center center" layout-padding>
+                                  <div layout="row" layout-wrap layout-align="center center" layout-padding>
                                         <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
                                             </md-button>
                                       
                                       </div>
                                                           
-
+</div>
                             
-                <!-- <div flex-xs="33" flex-gt-md="25" layout-padding>
-                       
-                        
-                 
-                </div> -->
-                <!-- <div flex-xs="33" flex-gt-md="25" >
-                    <md-datepicker md-hide-icons="calendar" ng-model="date" md-placeholder="Search by ride date" is-open="dateFromOpened" ng-click="dateFromOpened = true"
-                        filter-by="date" filter-type="numeric" ng-change="allRidesActions.filter()">
-                    </md-datepicker>
-                </div> -->
-                <!-- <div flex-xs="33" flex-gt-md="25" >
-                    <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Search by ride category" ng-change="allRidesActions.filter()">
-                        <md-option ng-repeat="category in vm.categories.list track by category.type" value="{{category.type}}">
-                            {{category.type}}
-                        </md-option>
-                    </md-select>
-                </div> -->
-                <div flex-xs="50" flex-gt-md="25">
-                    
-                </div>
-            </div>
-            <div grid-data grid-options="allRidesOptions" grid-actions="allRidesActions" flex="100">
+        </div> 
+    
+<div flex="100">
+            <div grid-data grid-options="allRidesOptions" grid-actions="allRidesActions">
                 <div layout-gt-sm="row" layout-sm="column" layout-align="center">
-                    
+                       
                 </div>
-                <div>
+                <md-card ng-if="filtered.length === 0">
+                        
+                                <md-card-content>
+                                  <p>No results</p>
+                                </md-card-content>
+                               </md-card>
+                    
+
+                <div ng-if="filtered.length > 0">
                     <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                         <thead>
                             <tr>
@@ -94,7 +87,7 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+              
                 <div layout-xs="column" layout="row">
                         <div flex="25" layout="row" layout-align="start center">
                                 <span>{{filtered.length}} total upcoming rides</span>
@@ -112,6 +105,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+           
             </md-content>
             <md-content flex-xs="100" flex-sm="100" flex-md="100" flex="25" layout-margin>
             <md-content layout="column" flex="100" class="md-whiteframe-3dp">

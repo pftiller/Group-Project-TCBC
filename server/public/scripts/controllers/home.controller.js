@@ -25,6 +25,7 @@ $scope.allRidesOptions = {
 $scope.allRidesActions = {
 
 }
+
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
