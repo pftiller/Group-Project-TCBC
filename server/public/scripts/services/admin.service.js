@@ -15,7 +15,7 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     };
 
     self.roleChange = {
-        list: []
+        list: {}
     };
 
     self.getPendingApprovedRides = function () {
@@ -79,8 +79,9 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
-    self.changeRole = function () {
-        return $http.put(`/member/changeRole`)
+    self.changeRole = function (role_name) {
+        console.log(role_name);
+        return $http.put(`/member/changeRole/${role_name}`)
             .then((response) => {
                 console.log('role response ', response);
                 self.roleChange.list = response;

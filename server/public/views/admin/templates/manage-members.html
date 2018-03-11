@@ -25,7 +25,7 @@
         <th>Last Name</th>
         <th>Member ID</th>
         <th>Current Role</th>
-        <th>Role</th>
+        <th>Update Role</th>
         <th>Rides</th>
         <th>Change Password</th>
       </tr>
@@ -35,10 +35,10 @@
         <td>{{member.first_name}}</td>
         <td>{{member.last_name}}</td>
         <td>{{member.member_id}}</td>
-        <td>{{member.role}}</td>
+        <td>{{member.role_name}}</td>
         <td>
           <md-select placeholder="Select Role" ng-model="vm.userRole">
-            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
+            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role_name}}</md-option>
           </md-select>
           <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole)">Submit</md-button>
         </td>
@@ -51,6 +51,7 @@
       </tr>
     </tbody>
   </table>
+  {{vm.riderInfo.list.role}}
 
 </div>
 <div class="csvUpload" layout-align="center center">

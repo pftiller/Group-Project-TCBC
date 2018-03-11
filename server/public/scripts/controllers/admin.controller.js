@@ -55,9 +55,8 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
     }
 
     self.changeRole = function (roles) {
-        console.log('in change role controller', roles);
+        console.log('in change role ', roles);
         AdminService.changeRole(roles).then((response) => {
-                // self.findRider();
                 self.roleChange = AdminService.roleChange;
                 console.log(self.roleChange);
             })
