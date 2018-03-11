@@ -12,7 +12,11 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
         first_name: '',
         last_name: '',
         member_id: ''
-    }
+    };
+
+    self.roleChange = {
+        list: []
+    };
 
     self.getPendingApprovedRides = function () {
         return $http.get('/rides/admin/pendingApprovedRides')
@@ -51,14 +55,14 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     }
     self.findRider = function (member) {
         console.log('member search for ', self.getMember);
-        if (member.first_name == '') {
-            member.first_name = '';
-        }
-        if (member.last_name == '') {
-            member.last_name = '';
-        }
         if (member.member_id == '') {
             member.member_id = 0
+        }
+        if (member.first_name == '') {
+            member.first_name = 'First';
+        }
+        if (member.last_name == '') {
+            member.last_name = 'Last';
         }
         return $http.get(`/member/findRider/riderInfo/${member.first_name}/${member.last_name}/${member.member_id}`)
             .then((response) => {
@@ -75,10 +79,11 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
-    self.changeRole = function (role) {
-        return $http.put(`/member/changeRole/${member_id}`)
+    self.changeRole = function () {
+        return $http.put(`/member/changeRole`)
             .then((response) => {
                 console.log('role response ', response);
+                self.roleChange.list = response;
                 return response;
             })
             .catch((err) => {
