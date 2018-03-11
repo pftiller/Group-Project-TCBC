@@ -6,6 +6,7 @@ myApp.controller('HomeController', ['RideDetailService','$scope', function (Ride
   self.categories = {};
   self.isDisabled = false;
   self.minDate = new Date();
+  self.selection = [];
 
 $scope.allRidesOptions = {
     data: [],
@@ -18,13 +19,29 @@ $scope.allRidesOptions = {
           return items.filter(function (item) {
               return value && item[predicate] ? !item[predicate].indexOf(moment(value).format('MM/DD/YYYY')) : true;
           });
-      }
-    }
+      },
+    type: function (items, value, predicate) {
+      console.log('value in filter:', value);
+      self.valueInFilter = value;
+
+      return items;
+  }
+}
   };
 
 $scope.allRidesActions = {
 
 }
+
+self.toggleSelection = function(category) {
+  var idx = self.selection.indexOf(category);
+  if (idx > -1) {
+    self.selection.splice(idx, 1);
+  }
+  else {
+    self.selection.push(category);
+  }
+};
 
   // GET categories on page load
   self.loadCategories = function(){

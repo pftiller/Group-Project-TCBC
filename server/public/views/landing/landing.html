@@ -25,7 +25,7 @@
                             <div flex-xs="100" flex-sm="100" layout-wrap> 
                               <div layout="row" layout-align="start center" layout-padding>
                                     <md-input-container  class="md-icon-float"><md-icon class="material-icons" md-font-icon>&#xE52F;</md-icon>
-                                        <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Ride category" ng-change="allRidesActions.filter()">
+                                        <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Ride category" ng-change="allRidesActions.refresh();allRidesActions.filter()">
                                                 <md-option ng-repeat="category in vm.categories.list track by category.type" value="{{category.type}}">
                                                     {{category.type}}
                                                 </md-option>
@@ -47,7 +47,7 @@
                 <div layout-gt-sm="row" layout-sm="column" layout-align="center">
                        
                 </div>
-                <md-card ng-if="filtered.length === 0">
+                <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
                         
                                 <md-card-content>
                                   <p>No results</p>
@@ -117,13 +117,49 @@
                 </md-toolbar>
                 <md-content>
                     <md-list flex>
-                        <md-list-item class="md-1-line" ng-repeat="category in vm.categories.list" ng-click="null">
-                            <div class="md-list-item-text" layout="column">
-                                <p>{{category.type}} - {{category.name}}</p>
-                            </div>
-                        </md-list-item>
-                    </md-list>
+                        <!-- <md-list-item class="md-1-line">
+                                <md-checkbox 
+                                ng-repeat="category in vm.categories.list" 
+                                value="{{category.type}}" 
+                                ng-checked="vm.selection.indexOf(category) > -1" 
+                                ng-click="vm.toggleSelection(category)"
+                                ng-model="type"> 
+                               
+                            </md-checkbox>
+                            {{category.type}} - {{category.name}}
+                      </md-list-item> -->
+                                
+                               
+                  
+                            <!-- <md-list-item class="md-2-line" 
+                            filter-by='type'>              -->
+                                   
+                              
+                            
+                            
+                              
+                              <md-list-item class="md-2-line" filter-by='type' ng-model="type"  ng-change="allRidesActions.refresh();allRidesActions.filter()">
+                                    <md-checkbox ng-repeat="category in vm.categories.list track by category.type" 
+                                    value="{{category.type}}">
+                                        {{category.type}} -  {{category.name}}
+                                  
+                              </md-checkbox>
+                             </md-list-item>
+                             </md-list>
+                  </md-checkbox>
                 </md-content>
             </md-content>
         </md-content>
     </div>
+
+
+    <input type='checkbox' ng-model='myFilter' ng-change="gridActions.refresh()"
+    filter-by='myProp' /><label>palin checkbox</label><br /><br />
+<div layout="row" layout-align="start center">
+<md-checkbox ng-model='myFilter'
+            ng-change="gridActions.refresh()"
+            filter-by='myProp'
+            aria-label="My filter">My Checkbox Filter</md-checkbox>
+</div>
+<p style='color: green;'><code>ng-model</code>: myFilter value: '<b>{{ myFilter }}</b>' <-- updates and shows correct value</p>
+<p style='color: green;'><code>customFilters</code>: myFilter value passed to filter: '<b>{{ valueInFilter }}</b>' <-- updates and shows correct value</p>
