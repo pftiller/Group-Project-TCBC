@@ -1,4 +1,4 @@
-myApp.controller('HomeController', ['RideDetailService','$scope', 'myAppFactory', function (RideDetailService, $scope, myAppFactory) {
+myApp.controller('HomeController', ['RideDetailService','$scope', function (RideDetailService, $scope) {
   console.log('HomeController created');
   let self = this;
   self.rides = {};
@@ -6,7 +6,7 @@ myApp.controller('HomeController', ['RideDetailService','$scope', 'myAppFactory'
   self.categories = {};
   self.isDisabled = false;
   self.minDateString = moment().format('LL');
-  self.filter = {};
+  let filter = {};
   
 
 $scope.allRidesOptions = {
@@ -72,7 +72,10 @@ self.rideDetailReveal = function (id) {
 
 // Clear Filters
 self.clearFilters = function () {
-  self.filter = {};
+  date = '';
+  type = '';
+  rides_name ='';
+  filter = {};
 }
 
 
@@ -81,14 +84,4 @@ let init = function () {
 };
 init();
 
-}]).factory('myAppFactory', function ($http) {
-  return {
-      getData: function () {
-          return $http({
-              method: 'GET',
-              url: 'https://angular-data-grid.github.io/demo/data.json'
-          });
-      }
-  }
-});
-
+}])
