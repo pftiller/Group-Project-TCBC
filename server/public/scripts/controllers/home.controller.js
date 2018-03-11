@@ -5,9 +5,7 @@ myApp.controller('HomeController', ['RideDetailService','$scope', function (Ride
   self.test = RideDetailService.rides;
   self.categories = {};
   self.isDisabled = false;
-  self.minDateString = moment().format('LL');
-  let filter = {};
-  
+  self.minDate = new Date();
 
 $scope.allRidesOptions = {
     data: [],
@@ -27,18 +25,6 @@ $scope.allRidesOptions = {
 $scope.allRidesActions = {
 
 }
-
-self.logDate = function() {
-  console.log($scope.date);
-}
-// myAppFactory.getData().then(function (responseData) {
-//     $scope.gridOptions.data = responseData.data;
-// });
-
-self.value = function() {
-  console.log('here is the value', self.filter.category);
-}
-
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
@@ -72,15 +58,15 @@ self.rideDetailReveal = function (id) {
 
 // Clear Filters
 self.clearFilters = function () {
-  date = '';
-  type = '';
-  rides_name ='';
-  filter = {};
+  $scope.date = '';
+  $scope.type = '';
+  $scope.rides_name ='';
 }
 
 
 let init = function () {
   self.getAllRides();
+
 };
 init();
 

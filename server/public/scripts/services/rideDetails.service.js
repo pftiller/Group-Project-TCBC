@@ -23,6 +23,20 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.myMileage = {
         total: {}
     }
+    let timeStamp = Date.now();
+    // timeStamp = timeStamp.toUTCString();
+    
+    self.todaysDate = {
+        date: null
+    }
+
+   self.todaysDate.getDate = function() {
+        this.date = moment(timeStamp).format('MM/DD/YYYY');
+
+   }
+    console.log('Date.now()', timeStamp);
+    console.log('this is todays date', self.todaysDate.date);
+
 
     self.getMileageForMember = function () {
         return $http.get('/rides/member/mileage')
@@ -73,11 +87,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             });
     }
    
-    var timeStamp = Date.now();
-    // timeStamp = timeStamp.toUTCString();
-
-    console.log('Date.now()', timeStamp);
-    
+   
 
     // date.toUTCString();
     function checkRideDate(rideDate, ride) {
