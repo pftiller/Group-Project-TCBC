@@ -25,7 +25,7 @@
         <th>Last Name</th>
         <th>Member ID</th>
         <th>Current Role</th>
-        <th>Role</th>
+        <th>Update Role</th>
         <th>Rides</th>
         <th>Change Password</th>
       </tr>
@@ -35,12 +35,12 @@
         <td>{{member.first_name}}</td>
         <td>{{member.last_name}}</td>
         <td>{{member.member_id}}</td>
-        <td>{{member.role}}</td>
+        <td>{{member.role_name}}</td>
         <td>
           <md-select placeholder="Select Role" ng-model="vm.userRole">
-            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
+            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role_name}}</md-option>
           </md-select>
-          <md-button class="md-raised md-button" ng-click="vm.changeRole(roles)">Submit</md-button>
+          <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member.member_id)">Submit</md-button>
         </td>
         <td>
           <md-button class="md-raised md-button">View</md-button>
@@ -51,6 +51,8 @@
       </tr>
     </tbody>
   </table>
+  {{vm.riderInfo.list.role}}
+
 </div>
 <div class="csvUpload" layout-align="center center">
   <label>
@@ -60,3 +62,41 @@
     Upload Member Information - CSV File
   </label>
 </div>
+<!-- <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
+  data: filteredItems,
+  'table-row-id-key': 'ride_id',
+  'column-keys': [
+      'date',
+      'time',
+      'rides_name',
+      'type',
+      'details'
+  ]
+  }">
+  <mdt-header-row>
+    <mdt-column column-definition="First Name" column-sort="true" align-rule="left">
+      <span>First Name</span>
+    </mdt-column>
+    <mdt-column column-definition="Last Name" column-sort="true" align-rule="left">
+      <span>Last Name</span>
+    </mdt-column>
+    <mdt-column column-definition="Member ID" column-sort="true" align-rule="left">
+      <span>Member ID</span>
+    </mdt-column>
+    <mdt-column column-definition="Current Role" column-sort="true" align-rule="center">
+      <span>Current Role</span>
+    </mdt-column>
+    <mdt-column column-definition="Role" align-rule="center" column-sort="false">
+      <span>Role</span>
+    </mdt-column>
+    <mdt-column column-definition="Rides" align-rule="center" column-sort="false">
+      <span>Rides</span>
+    </mdt-column>
+    <mdt-column column-definition="Change Password" align-rule="center" column-sort="false">
+      <span>Change Password</span>
+    </mdt-column>
+  </mdt-header-row>
+  <mdt-custom-cell column-key="details" html-content="true">
+    <details-btn ng-click="vm.rideDetailReveal(rowId)"></details-btn>
+  </mdt-custom-cell>
+</mdt-table> -->

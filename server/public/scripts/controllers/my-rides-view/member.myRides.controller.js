@@ -7,6 +7,7 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     }
 
     self.rideDetailRevealPast = function(ride){
+        ride.past_ride = true;
         RideDetailService.initMyRideDetailModal(ride);
     }
     
