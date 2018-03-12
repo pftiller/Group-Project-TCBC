@@ -16,7 +16,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
 
     self.cancelRide = function (ride) {
         RideDetailService.cancelThisRide(ride);
-        swal(`Cancelled ride ${ride.rides_name}`, '', 'warning');
+        // swal(`Cancelled ride ${ride.rides_name}`, '', 'warning');
     }
 
     self.createNewRide = function () {
