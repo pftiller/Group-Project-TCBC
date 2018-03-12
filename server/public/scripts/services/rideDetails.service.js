@@ -1,4 +1,4 @@
-myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
+myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminService', function ($http, $location, $mdDialog, AdminService) {
     console.log('RideDetailService Loaded');
     let self = this;
     self.rides = {
@@ -176,6 +176,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     }
 
     self.rideDetailModal = function (ride, ev) {
+        console.log('ride here ', ride);
+        
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -258,7 +260,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 }
             })
             .catch((err) => {
-                swal('Error signing up for ride, please try again later.', '', 'error');
+                swal('You have already signed up for this ride. Please check your rides page', '', 'error');
                 // console.log('err on post ride sign up ', err);
             })
     }
@@ -330,7 +332,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             templateUrl: '../views/admin/templates/editRide-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: true,
+            clickOutsideToClose: false,
             resolve: {
                 item: function () {
                     return ride;
@@ -421,7 +423,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
         self.myRides = RideDetailService.myRides;
         self.submitRide = function (ride) {
-
+            if(!ride.rides_name || !ride.distances || !ride.description || !ride.ride_location || !ride.rides_category || !ride.rides_date){
+                console.log('ride failed to submit: ', ride);
+                
+                swal("All fields, except GPS Link, are required.", '', "warning");
+            }else{
             console.log('new ride', ride);
             self.hide();
 
@@ -438,6 +444,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     swal('Error submitting new ride, please try again later.', '', 'error');
                     // console.log('err post ride ', err);
                 });
+            }
         }
 
         self.hide = function () {
@@ -474,24 +481,25 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
 
 
+            /**  Admin Edit Ride and Approval Modal Controller*/
 
 
-    function EditRideDetailsController($mdDialog, item, RideDetailService) {
+    function EditRideDetailsController($mdDialog, item, RideDetailService, AdminService) {
         const self = this;
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
         self.rideToEdit.rides_date = new Date(item.rides_date);
-        self.submitRide = function (ride) {
+        console.log('rideToEdit: ', self.rideToEdit);
+        
+        self.approveAndSave = function (ride) {
             // console.log('new ride', ride);
             self.hide();
-            alert('Ride submitted for approval, check back later!');
-
-            $http.post('/rides/rideLeader/submitRide', ride)
+            console.log('ride to be submitted: ', ride);
+            
+            $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
-                    RideDetailService.getMyRideDetails()
-                        .then((data) => {
-                            RideDetailService.checkRidesForLeader(self.myRides.list);
-                        });
+                    swal('Successfully Approved', '','success');
+                    AdminService.getPendingApprovedRides();
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {

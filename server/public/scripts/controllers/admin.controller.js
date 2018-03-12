@@ -1,7 +1,7 @@
 myApp.controller('AdminController', ['AdminService', 'RideDetailService', function (AdminService, RideDetailService) {
     console.log('AdminController created');
     let self = this;
-    self.pendingApprovals = {};
+    self.pendingApprovals = AdminService.pendingApprovedRides;
     self.rider = AdminService.rider;
 
     self.loadRidesForApproval = function () {
