@@ -46,7 +46,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         rides.forEach((ride) => {
             if (ride.ride_leader == ride.user_id) {
                 // console.log('ride', ride);
-                if (!ride.cancelled) {
+                if (!ride.cancelled && ride.approved) {
                     self.myLeadRides.list.push(ride);
                 } else {
                     // console.log('this ride is cancelled', ride);
@@ -100,7 +100,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
-                    if (!ride.cancelled) {
+                    if (!ride.cancelled && ride.approved) {
                         // let date = new Date(ride.rides_date)
                         // console.log('date ', date.toUTCString());
                         // if (date.toUTCString() >  timeStamp) {
@@ -369,6 +369,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         const self = this;
         self.categories = RideDetailService.categories;
 
+        self.myRides = RideDetailService.myRides;
         self.submitRide = function (ride) {
             // console.log('new ride', ride);
             self.hide();
