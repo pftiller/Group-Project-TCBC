@@ -85,7 +85,6 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                 console.log('role response ', response);
                 self.roleChange.list = response;
                 return response;
-                self.userRole = '';
             })
             .catch((err) => {
                 console.log('role change failed: ', err);
