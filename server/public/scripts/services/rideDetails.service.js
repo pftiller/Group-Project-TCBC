@@ -72,18 +72,34 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
     self.cancelThisRide = function (ride) {
         console.log('ride to cancel ', ride);
-        return $http.put(`/rides/rideLeader/cancelRide/${ride.ride_id}`)
-            .then((response) => {
-                self.getMyRideDetails()
-                    .then((data) => {
-                        self.checkRidesForLeader(self.myRides.list)
-                    });
-                console.log('cancel ride put response ', response);
+        swal({
+                title: `Do you want to cancel ${ride.rides_name}?`,
+                text: `If you cancel ${ride.rides_name}, you cannot undo this action.`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
             })
-            .catch((err) => {
-                swal('Error cancelling ride, please try again later.', '', 'error');
-                // console.log('cancel ride put err ', err);
+            .then((willDelete) => {
+                if (willDelete) {
+                    return $http.put(`/rides/rideLeader/cancelRide/${ride.ride_id}`)
+                        .then((response) => {
+                            self.getMyRideDetails()
+                                .then((data) => {
+                                    self.checkRidesForLeader(self.myRides.list)
+                                });
+                            swal(`${ride.rides_name} was cancelled! You must submit a new ride for approval to create this ride again.`, {
+                                icon: "success",
+                            });
+                        })
+                        .catch((err) => {
+                            swal('Error cancelling ride, please try again later.', '', 'error');
+                            // console.log('cancel ride put err ', err);
+                        });
+                } else {
+                    swal(`${ride.rides_name} was not cancelled!`);
+                }
             });
+
     }
 
 
@@ -197,7 +213,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     swal('Please select a mileage for this ride before signing up.', '', 'warning');
                 }
             } else {
-                swal('Please log in or become a member to sign up for this ride.', '', 'error');
+                swal('Please log in or become a member to sign up for this ride.', '', 'warning');
                 // alert('Please log in or become a member to sign up for this ride.')
             }
         }
@@ -232,7 +248,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             .then((response) => {
                 if (response.data == "Must be logged in to add items!") {
                     console.log(response);
-                    swal('Must log in to sign up for rides!', '', 'error');
+                    swal('Please log in to sign up for rides.', '', 'warning');
                 } else {
                     console.log('post ride signup ', response);
                     return response;
