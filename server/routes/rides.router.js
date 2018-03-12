@@ -266,7 +266,7 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     console.log('distances: ', req.body.distances);
    
     const saveRideQuery = `
-    INSERT INTO rides (rides_name, ride_category, rides_date, description, ride_leader, url, ride_location) 
+    INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) 
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING id;`;
     pool.query(saveRideQuery, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
