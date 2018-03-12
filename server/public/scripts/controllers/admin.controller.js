@@ -59,11 +59,12 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             })
     }
 
-    self.changeRole = function (roles, member_id) {
-        console.log('in change role ', roles, member_id);
-        AdminService.changeRole(roles, member_id).then((response) => {
+    self.changeRole = function (role_name, member_id) {
+        console.log('in change role ', role_name, member_id);
+        AdminService.changeRole(role_name, member_id).then((response) => {
                 self.roleChange = AdminService.roleChange;
                 console.log(self.roleChange);
+                self.userRole = '';
             })
             .catch((err) => {
                 console.log('did not change role', err);
