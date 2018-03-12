@@ -1,76 +1,133 @@
 <header ng-include="'/views/shared/header.html'"></header>
-<md-content layout="row" flex>
-    <div flex layout="row" layout-sm="column" layout-xs="column" layout-margin>
-        <md-content class="home-rides-table" layout="row" flex-gt-sm="80" layout-align="space-around start" layout-wrap>
-            <div flex-xs="33" flex-gt-sm="25">
-                <md-input-container>
-                    <input placeholder="Select a date" moment-picker="vm.selectedDate" locale="en" today="true" format="LL" start-view="month" min-date="vm.minDateString" ng-model="vm.filter.date">
-                </md-input-container>
+<md-content layout="row" layout-wrap>
+        <md-content flex-xs="100" flex-sm="100" flex-md="100" flex="75" layout-padding>
+            <div layout="row" layout-align="stretch center" flex>
+              
+                    <div layout="row" layout-align="center start" layout-padding>
+                        <md-input-container class="md-icon-float">
+                            <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
+                            <input ng-model="rides_name" ng-change="allRidesActions.filter()" placeholder="Ride name" filter-by="rides_name" filter-type="text"
+                                aria-invalid="false">
+                        </md-input-container>
+                    </div>
+    
+                    <div layout="row" layout-align="start center" layout-padding>
+                        <md-input-container class="md-icon-float">
+                            <md-icon class="material-icons" md-font-icon>&#xE878;</md-icon>
+                            <md-datepicker md-min-date="vm.minDate" md-hide-icons="calendar" style="padding-left:30px; width:200px;" flex="100" ng-model="date"
+                                md-placeholder="Ride date" filter-by="date" ng-change="allRidesActions.filter()">
+                            </md-datepicker>
+                        </md-input-container>
+                    </div>
+                
+                    <div layout="row" layout-align="start center" layout-padding>
+                        <md-input-container class="md-icon-float">
+                            <md-icon class="material-icons" md-font-icon>&#xE52F;</md-icon>
+                            <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Ride category" ng-change="allRidesActions.refresh();allRidesActions.filter()">
+                                <md-option ng-repeat="category in vm.categories.list track by category.type" value="{{category.type}}">
+                                    {{category.type}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-wrap layout-align="center center" layout-padding>
+                        <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
+                        </md-button>
+    
+                    </div>
+    
+    
             </div>
-            <div flex-xs="33" flex-gt-sm="25">
-                <md-input-container>
-                    <input type="text" class="search" ng-model="vm.filter.query" placeholder="Search for a ride">
-                </md-input-container>
-            </div>
-            <div flex-xs="33" flex-gt-sm="25">
-                    <md-select aria-label="category-select" ng-model="vm.filter.category" placeholder="Select a category" class="md-input-has-placeholder">
-                            <md-option aria-label="category-select-options" ng-repeat="category in vm.categories.list" value="{{category}}">
-                                {{category.type}}
-                            </md-option>
-                        </md-select>
-            </div>
-            <div flex-xs="50" flex-gt-sm="25">
-                <div layout="row" layout-align="center center">
-                    <div class="md-block">
-                        <md-button class="md-raised" ng-click="vm.clearFilters()" aria-label="clear-filters">Clear Filters</md-button>
+    
+            <div flex="100">
+                <div grid-data grid-options="allRidesOptions" grid-actions="allRidesActions">
+                    <div layout-gt-sm="row" layout-sm="column" layout-align="center">
+    
+                    </div>
+                    <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
+    
+                        <md-card-content>
+                            <p>No results</p>
+                        </md-card-content>
+                    </md-card>
+    
+    
+                    <div ng-if="filtered.length > 0">
+                        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                        <th style="text-align: center;" class="sortable" sortable="date">
+                                                <span>Date</span>
+                                                <span class="arrow"></span>
+                                            </th>
+                                            <th style="text-align: center;">
+                                                    <span>Time</span>
+                                                    
+                                                </th>
+                                    <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
+                                        <span>Name</span>
+                                        <span class="arrow"></span>
+                                    </th>
+                                  
+                                    <th style="text-align: center;" sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+                                        <span>Category</span>
+                                        <span class="arrow"></span>
+                                    </th>
+                                    <th style="text-align: center;">
+                                        <span>Details</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
+                                        <td style="text-align: center;">{{ride.date | date:'MM/DD/YYYY'}}</td>
+                                        <td style="text-align: center;">{{ride.time}}</td>
+                                    <td style="text-align: left;">{{ride.rides_name}}</td>
+                                   
+                                    <td style="text-align: center;">{{ride.type}}</td>
+                                    <td style="text-align: center;">
+                                        <md-button class="md-raised md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+    
+                        <div layout-xs="column" layout="row">
+                            <div flex="25" layout="row" layout-align="start center">
+                                <span>{{filtered.length}} total upcoming rides</span>
+                            </div>
+                            <div flex="75" layout="row" layout-align-xs="end end" layout-align="end center">
+                                <grid-pagination max-size="5" boundary-links="true" class="pagination" ng-if="paginationOptions.totalItems  > paginationOptions.itemsPerPage"
+                                    total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage" ng-change="reloadGrid()"
+                                    items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+                                <md-input-container flex-offset-gt-xs="5" class="items-per-page">
+                                    <md-select aria-label="Items Per Page" ng-init="paginationOptions.itemsPerPage = '5'" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                                        <md-option ng-value="5">5</md-option>
+                                        <md-option ng-value="10">10</md-option>
+                                        <md-option ng-value="25">25</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div ng-hide="true">
-                {{(filteredItems = (vm.rides.list | filter:{ date: vm.filter.date, rides_name: vm.filter.query, type: vm.filter.type}))}}
-            </div>
-            <md-content layout="column" flex="100" class="md-padding">
-                <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
-            data: filteredItems,
-            'table-row-id-key': 'ride_id',
-            'column-keys': [
-                'date',
-                'time',
-                'rides_name',
-                'type',
-                'details'
-            ]
-            }">
-                    <mdt-header-row>
-                        <mdt-column column-definition="Date" column-sort="true" align-rule="left"><span>Date</span></mdt-column>
-                        <mdt-column column-definition="Time" column-sort="true" align-rule="left"><span>Time</span></mdt-column>
-                        <mdt-column column-definition="Name" column-sort="true" align-rule="left"><span>Name</span></mdt-column>
-                        <mdt-column column-definition="Category" column-sort="true" align-rule="center"><span>Category</span></mdt-column>
-                        <mdt-column column-definition="Details" align-rule="center" column-sort="false"><span>Details</span></mdt-column>
-                    </mdt-header-row>
-                    <mdt-custom-cell column-key="details" html-content="true">
-                        <details-btn ng-click="vm.rideDetailReveal(rowId)"></details-btn>
-                    </mdt-custom-cell>
-                </mdt-table>
-            </md-content>
+    
         </md-content>
-        <md-content layout="row" flex-gt-sm="20" layout-align="space-around" layout-wrap>
-            <md-content layout="column" flex="100" class="md-whiteframe-3dp">
-                <md-toolbar layout="row" class="md-hue-3">
-                    <div class="md-toolbar-tools">
-                        <span>Category Key</span>
-                    </div>
-                </md-toolbar>
-                <md-content>
-                    <md-list flex>
-                        <md-list-item class="md-1-line" ng-repeat="category in vm.categories.list" ng-click="null">
-                            <div class="md-list-item-text" layout="column">
-                                <p>{{category.type}} - {{category.name}}</p>
-                            </div>
-                        </md-list-item>
-                    </md-list>
-                </md-content>
-            </md-content>
-        </md-content>
-    </div>
-</md-content>
+            <md-list>
+                <md-item>
+                    <md-checkbox aria-label="Select All" md-indeterminate="isIndeterminate()" ng-click="toggleAll()" ng-checked="allChecked()">
+                        <span ng-if="isChecked()">Un-</span>Select All
+                    </md-checkbox>
+                </md-item>
+                <md-item filter-by="type" filter-type="select" ng-model="type" ng-change="allRidesActions.refresh();allRidesActions.filter()">
+    
+                    <md-content ng-repeat="item in testCats track by item.type" value="{{item.type}}">
+                        <md-checkbox ng-model="item.selected">
+                            {{ item.type }} - {{item.name}}
+                        </md-checkbox>
+                    </md-content>
+                </md-item>
+            </md-list>
+    
+    
+    </md-content>
