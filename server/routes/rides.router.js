@@ -58,8 +58,8 @@ router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) =
     JOIN rides_distances ON rides_users.selected_distance = rides_distances.id
     JOIN categories ON categories.id = rides.rides_category
     WHERE rides.id = $1
-    AND rides_users.user_id = rides.ride_leader;`
-    pool.query(allRidesQuery, [req.params.rideId])
+    AND rides_users.user_id = $2;`
+    pool.query(allRidesQuery, [req.params.rideId, req.user.id])
         .then((result) => {
             console.log('rides ', result.rows);
             res.send(result.rows);

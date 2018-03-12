@@ -197,9 +197,6 @@ th {
   word-wrap: break-word;
 }
 .cancelled-ride{
-  background-color: hsl(0, 47%, 39%);
-  color: white;
-}
-.cancelled-ride:hover{
-  background-color: red;
+text-decoration: black;
+text-decoration-line: line-through;
 }
