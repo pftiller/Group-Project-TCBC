@@ -57,8 +57,9 @@ router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) =
     JOIN users ON users.id = rides_users.user_id
     JOIN rides_distances ON rides_users.selected_distance = rides_distances.id
     JOIN categories ON categories.id = rides.rides_category
-    WHERE rides.id = $1;`
-    pool.query(allRidesQuery, [req.params.rideId])
+    WHERE rides.id = $1
+    AND rides_users.user_id = $2;`
+    pool.query(allRidesQuery, [req.params.rideId, req.user.id])
         .then((result) => {
             console.log('rides ', result.rows);
             res.send(result.rows);
@@ -391,12 +392,37 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
     console.log('ride id to mark complete ', req.params.rideId);
     const queryText = `
     UPDATE rides
-    SET completed = $1
-    WHERE id = $2`;
-    pool.query(queryText, [true, req.params.rideId])
+    SET completed = true
+    WHERE id = $1
+    AND ride_leader = $2
+    RETURNING id, ride_leader`;
+    pool.query(queryText, [req.params.rideId, req.user.id])
         .then((result) => {
-            console.log('result update comeplete ride ', result);
-            res.sendStatus(201);
+            let updateReturn = result.rows[0]
+            console.log('result update comeplete ride ', updateReturn);
+            console.log('ride id to mark complete ', req.params.rideId);
+            if (updateReturn.ride_leader === req.user.id) {
+                const queryText = `
+                UPDATE rides_users
+                SET actual_distance = rides_distances.distance
+                FROM rides_distances
+                WHERE rides_users.selected_distance = rides_distances.id
+                AND rides_users.ride_id = $1
+                AND checked_in = true;`;
+                pool.query(queryText, [updateReturn.id])
+                    .then((result) => {
+                        console.log('result update comeplete ride ', result);
+                        res.sendStatus(201);
+                    })
+                    // error handling
+                    .catch((err) => {
+                        console.log('error making update completed query:', err);
+                        res.sendStatus(500);
+                    });
+            } else{
+                res.send('User is not the correct ride leader for ride');
+            }
+         
         })
         // error handling
         .catch((err) => {
@@ -405,29 +431,6 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, (req, res) => {
         });
 });
 
-// /rideLeader/complete/updateMiles
-// Ride Leader Mark Ride as Complete, then update member mileages
-router.put('/rideLeader/complete/updateMiles/:rideId', isAuthenticated, (req, res) => {
-    console.log('ride id to mark complete ', req.params.rideId);
-    const queryText = `
-    UPDATE rides_users
-    SET actual_distance = rides_distances.distance
-    FROM rides_distances 
-    WHERE rides_users.selected_distance = rides_distances.id
-    AND rides.rides_leader = $1
-    AND rides_users.ride_id = $2
-    AND checked_in = true;`;
-    pool.query(queryText, [req.user.id, req.params.rideId])
-        .then((result) => {
-            console.log('result update comeplete ride ', result);
-            res.sendStatus(201);
-        })
-        // error handling
-        .catch((err) => {
-            console.log('error making update completed query:', err);
-            res.sendStatus(500);
-        });
-});
 
 //Add Guest rider to db
 router.post(`/rideLeader/addGuest`, isAuthenticated, (req, res) => {

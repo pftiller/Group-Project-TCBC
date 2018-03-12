@@ -49,23 +49,10 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         return $http.put(`/rides/rideLeader/complete/${rideId}`)
             .then((response) => {
                 console.log('Ride marked complete!', response);
-                self.updateRiderMileage(rideId);
                 return response.data;
             })
             .catch((err) => {
                 swal('Error marking ride as complete, please try again later.', '', 'error');
-                // console.log('ERR updating ride to complete ', err);
-            })
-    }
-
-    self.updateRiderMileage = function (rideId) {
-        return $http.put(`/rides/rideLeader/complete/updateMiles/${rideId}`)
-            .then((response) => {
-                console.log('Ride marked complete!', response);
-                return response.data;
-            })
-            .catch((err) => {
-                swal('Error updating member mileage, please try again later.', '', 'error');
                 // console.log('ERR updating ride to complete ', err);
             })
     }

@@ -10,6 +10,7 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     }
 
     self.rideDetailRevealPast = function (ride) {
+        ride.past_ride = true;
         RideDetailService.initMyRideDetailModal(ride);
     }
 
