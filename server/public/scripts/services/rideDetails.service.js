@@ -23,6 +23,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.myMileage = {
         total: {}
     }
+    let timeStamp = Date.now();
+    // timeStamp = timeStamp.toUTCString();
+    
+    self.todaysDate = {
+        date: null
+    }
+
+   self.todaysDate.getDate = function() {
+        this.date = moment(timeStamp).format('MM/DD/YYYY');
+
+   }
+    console.log('Date.now()', timeStamp)
+
 
     self.getMileageForMember = function () {
         return $http.get('/rides/member/mileage')
@@ -73,11 +86,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             });
     }
    
-    var timeStamp = Date.now();
-    // timeStamp = timeStamp.toUTCString();
-
-    console.log('Date.now()', timeStamp);
-    
+   
 
     // date.toUTCString();
     function checkRideDate(rideDate, ride) {
@@ -129,11 +138,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         return $http.get('/rides/public/details')
             .then((response) => {
                 console.log('all rides ', response.data);
-                self.rides.list = response.data;
-                return response.data;
+                for(let i = 0; i < response.data.length; i ++) {
+                    let dateOfRide = new Date(response.data[i].rides_date)
+                    if (dateOfRide > timeStamp) {
+                        let momentDate = moment(response.data[i].rides_date);
+                        response.data[i].date = momentDate.format('MM/DD/YYYY');
+                        response.data[i].time = momentDate.format('hh:mm A');
+                       
+                    } 
+                }            
+               self.rides.list = response.data;
+                return response;
             })
             .catch((err) => {
-                // console.log(err);
                 swal('Error getting all ride details, please try again later.', '', 'error');
             })
     }
@@ -150,7 +167,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             })
     }
 
-    self.rideDetailModal = function (id, ev) {
+    self.rideDetailModal = function (ride, ev) {
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -160,15 +177,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    for (var i=0; i < self.rides.list.length; i++) {
-                        if (self.rides.list[i].ride_id === id) {
-                            let ride = self.rides.list[i];
-                            return ride;
-                        }
-                    }
-                   
+                    return ride;
                 }
-                
             }
         })
     }

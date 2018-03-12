@@ -2,56 +2,89 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     console.log('AdminService Loaded');
     let self = this;
     self.getUserRoles = {
-        list:[]
+        list: []
     };
     self.riderInfo = {
-        list:[]
+        list: []
     };
-    
-    self.getPendingApprovedRides = function(){
+
+    self.getMember = {
+        first_name: '',
+        last_name: '',
+        member_id: ''
+    }
+
+    self.getPendingApprovedRides = function () {
         return $http.get('/rides/admin/pendingApprovedRides')
-                .then((response) => {
-                    console.log('Service, rides pending approval came back: ', response.data );
-                    return response.data;
-                })
-                .catch((err)=>{
-                    console.log('Error getting rides pending approval: ', err);   
-                })
+            .then((response) => {
+                console.log('Service, rides pending approval came back: ', response.data);
+                return response.data;
+            })
+            .catch((err) => {
+                console.log('Error getting rides pending approval: ', err);
+            })
     }
 
-    self.approveRide = function(rideId){
+    self.approveRide = function (rideId) {
         return $http.put(`/rides/admin/approveRide/${rideId}`)
-                .then((response)=>{
-                    console.log('ride approved: ', response);
-                    return response;
-                })
-                .catch((err)=>{
-                    console.log('ride approval failed: ', err);
-                    
-                })
+            .then((response) => {
+                console.log('ride approved: ', response);
+                return response;
+            })
+            .catch((err) => {
+                console.log('ride approval failed: ', err);
+
+            })
     }
 
-    self.getRoles = function() {
+    self.getRoles = function () {
         return $http.get('/member/userRole')
-        .then((response)=>{
-            console.log('got user roles:', response.data);
-            self.getUserRoles.list = response.data;
-            return response.data;
-            
-        })
-        .catch((err)=>{
-            console.log('getting user roles failed:', err);
-        })
+            .then((response) => {
+                console.log('got user roles:', response.data);
+                self.getUserRoles.list = response.data;
+                return response.data;
+
+            })
+            .catch((err) => {
+                console.log('getting user roles failed:', err);
+            })
     }
-    self.findRider = function() {
-        return $http.get('/member/findRider')
-        .then((response)=>{
-            console.log(response);
-            self.riderInfo.list = response;
-            return response;
-        })
-        .catch((err)=>{
-            console.log('getting role failed:', err);
-        })
+    self.findRider = function (member) {
+        console.log('member search for ', self.getMember);
+        if (member.first_name == '') {
+            member.first_name = '';
+        }
+        if (member.last_name == '') {
+            member.last_name = '';
+        }
+        if (member.member_id == '') {
+            member.member_id = 0
+        }
+        return $http.get(`/member/findRider/riderInfo/${member.first_name}/${member.last_name}/${member.member_id}`)
+            .then((response) => {
+                console.log('search member response ', response);
+                self.riderInfo.list = response.data;
+                self.getMember = {
+                    first_name: '',
+                    last_name: '',
+                    member_id: ''
+                }
+            })
+            .catch((err) => {
+                console.log('getting role failed:', err);
+            })
     }
+
+    self.changeRole = function (role) {
+        return $http.put(`/member/changeRole/${member_id}`)
+            .then((response) => {
+                console.log('role response ', response);
+                return response;
+            })
+            .catch((err) => {
+                console.log('role change failed: ', err);
+
+            })
+    }
+
 }]);
