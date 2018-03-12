@@ -473,7 +473,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
 
 
-    function EditRideDetailsController($mdDialog, item, RideDetailService) {
+    function EditRideDetailsController($mdDialog, item, RideDetailService, AdminService) {
         const self = this;
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
@@ -487,7 +487,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 .then((response) => {
                     RideDetailService.getMyRideDetails()
                         .then((data) => {
-                            RideDetailService.checkRidesForLeader(self.myRides.list);
+                            
                         });
                     console.log('response post ride ', response);
                 })
