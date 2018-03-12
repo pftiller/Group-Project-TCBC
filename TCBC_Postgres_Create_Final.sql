@@ -136,7 +136,7 @@ INSERT INTO "public"."user_roles"("id", "role") VALUES(4, 'Guest') RETURNING "id
 
 											-- Foreign Key Restraints --
 
-
+ALTER TABLE "rides_users" ADD UNIQUE ("ride_id", "user_id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("role") REFERENCES "user_roles"("id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("member_id") REFERENCES "member_info"("member_id");
 ALTER TABLE "rides" ADD CONSTRAINT "rides_fk0" FOREIGN KEY ("ride_leader") REFERENCES "users"("id");
