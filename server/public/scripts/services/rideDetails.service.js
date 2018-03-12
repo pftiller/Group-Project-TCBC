@@ -176,6 +176,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     }
 
     self.rideDetailModal = function (ride, ev) {
+        console.log('ride here ', ride);
+        
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
@@ -259,7 +261,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 }
             })
             .catch((err) => {
-                swal('Error signing up for ride, please try again later.', '', 'error');
+                swal('You have already signed up for this ride. Please check your rides page', '', 'error');
                 // console.log('err on post ride sign up ', err);
             })
     }
