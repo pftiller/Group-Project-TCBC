@@ -70,4 +70,15 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             })
         // self.findRider();
     }
+
+    self.submit = function (file) {
+        Upload.upload({
+            url: '/api/user',
+            data: {file: file}
+        }).then(function (response) {
+            console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
+        }, function (resp) {
+            console.log('Error status: ' + response.status);
+        });
+    };
 }]);
