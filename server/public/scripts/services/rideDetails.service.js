@@ -144,7 +144,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                         let momentDate = moment(response.data[i].rides_date);
                         response.data[i].date = momentDate.format('MM/DD/YYYY');
                         response.data[i].time = momentDate.format('hh:mm A');
-                       
                     } 
                 }            
                self.rides.list = response.data;
@@ -158,7 +157,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
+                for(let i = 0; i < response.data.length; i ++){
+                    response.data[i].selected = true;
+                }
                 self.categories.list = response.data;
+                console.log('adding selected property', self.categories.list)
                 return response.data;
             })
             .catch((err) => {
