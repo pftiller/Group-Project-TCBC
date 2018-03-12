@@ -176,6 +176,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     }
 
     self.rideDetailModal = function (ride, ev) {
+        console.log('ride here ', ride);
+        
         $mdDialog.show({
             controller: RideDetailController,
             controllerAs: 'vm',
