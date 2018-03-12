@@ -196,6 +196,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         self.rides = RideDetailService.rides;
         self.ride = item;
         self.user = UserService.userObject;
+        
 
         self.closeModal = function () {
             self.hide();
