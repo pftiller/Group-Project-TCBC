@@ -478,7 +478,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
             /**  Admin Edit Ride and Approval Modal Controller*/
 
-    function EditRideDetailsController($mdDialog,item, RideDetailService, AdminService) {
+
+    function EditRideDetailsController($mdDialog, item, RideDetailService, AdminService) {
         const self = this;
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
