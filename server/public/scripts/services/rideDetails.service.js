@@ -124,6 +124,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
+                    let momentDate = moment(ride.rides_date);
+                    ride.date = momentDate.format('MM/DD/YYYY');
+                    ride.time = momentDate.format('hh:mm A');
                     if (!ride.cancelled && ride.approved) {
                         let date = new Date(ride.rides_date)
                         checkRideDate(date, ride);
@@ -291,7 +294,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         } else {
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
-                    console.log('response modal', response.data[0]);
+                    console.log('response modal', response);
                     let newRide = response.data[0];
                     self.myRideDetailModal(newRide)
                     return response.data;
