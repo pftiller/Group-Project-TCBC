@@ -70,13 +70,15 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     });
 });
 
-router.put(`/changeRole/:role_name`, isAuthenticated, function (req,res) {
+router.put(`/changeRole/:member_id`, isAuthenticated, function (req,res) {
   console.log('in change role router');
+  let memID = req.params.member_id;
+  console.log(req.body.role_name, memID);
   const queryText =
   `UPDATE users
   SET role_name = $1
   WHERE member_id = $2`
-  pool.query(queryText, [req.params.role_name, req.params.member_id])
+  pool.query(queryText, [req.body.role_name, memID])
   .then((result)=>{
     console.log('query results for change user role ', result.rows);
     res.send(201);

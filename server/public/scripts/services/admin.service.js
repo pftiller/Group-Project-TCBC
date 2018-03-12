@@ -8,7 +8,7 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
         list: []
     };
 
-    self.getMember = {
+    self.rider = {
         first_name: '',
         last_name: '',
         member_id: ''
@@ -53,22 +53,21 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                 console.log('getting user roles failed:', err);
             })
     }
-    self.findRider = function (member) {
-        console.log('member search for ', self.getMember);
-        if (member.member_id == '') {
-            member.member_id = 0
+    self.findRider = function (rider) {
+        if (rider.member_id == '') {
+            rider.member_id = 0
         }
-        if (member.first_name == '') {
-            member.first_name = 'First';
+        if (rider.first_name == '') {
+            rider.first_name = 'First';
         }
-        if (member.last_name == '') {
-            member.last_name = 'Last';
+        if (rider.last_name == '') {
+            rider.last_name = 'Last';
         }
-        return $http.get(`/member/findRider/riderInfo/${member.first_name}/${member.last_name}/${member.member_id}`)
+        return $http.get(`/member/findRider/riderInfo/${rider.first_name}/${rider.last_name}/${rider.member_id}`)
             .then((response) => {
                 console.log('search member response ', response);
                 self.riderInfo.list = response.data;
-                self.getMember = {
+                self.rider = {
                     first_name: '',
                     last_name: '',
                     member_id: ''
@@ -79,9 +78,9 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
-    self.changeRole = function (role_name) {
-        console.log(role_name);
-        return $http.put(`/member/changeRole/${role_name}`)
+    self.changeRole = function (role_name, member_id) {
+        console.log('role name', role_name);
+        return $http.put(`/member/changeRole/${member_id}`, role_name)
             .then((response) => {
                 console.log('role response ', response);
                 self.roleChange.list = response;

@@ -2,6 +2,7 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = {};
+    self.rider = AdminService.rider;
 
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {
@@ -47,22 +48,26 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
         AdminService.findRider(rider).then((response) => {
                 self.riderInfo = AdminService.riderInfo;
                 console.log(self.riderInfo);
-                // self.rider = '';
+                self.rider = {
+                    first_name: '',
+                    last_name: '',
+                    member_id: ''
+                }
             })
             .catch((err) => {
                 console.log('did not get rider', err);
             })
     }
 
-    self.changeRole = function (roles) {
-        console.log('in change role ', roles);
-        AdminService.changeRole(roles).then((response) => {
+    self.changeRole = function (roles, member_id) {
+        console.log('in change role ', roles, member_id);
+        AdminService.changeRole(roles, member_id).then((response) => {
                 self.roleChange = AdminService.roleChange;
                 console.log(self.roleChange);
             })
             .catch((err) => {
                 console.log('did not change role', err);
             })
-
+        // self.findRider();
     }
 }]);
