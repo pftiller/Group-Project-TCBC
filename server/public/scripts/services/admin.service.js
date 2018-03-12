@@ -79,6 +79,7 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     }
 
     self.changeRole = function (role_name, member_id) {
+        // console.log('role is ', role);
         console.log('role name', role_name);
         return $http.put(`/member/changeRole/${member_id}`, role_name)
             .then((response) => {
@@ -91,5 +92,6 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
 
             })
     }
+
 
 }]);

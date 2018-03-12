@@ -81,7 +81,7 @@ router.put(`/changeRole/:member_id`, isAuthenticated, function (req,res) {
   pool.query(queryText, [req.body.role_name, memID])
   .then((result)=>{
     console.log('query results for change user role ', result.rows);
-    res.send(201);
+    res.sendStatus(201);
   })
   .catch((err)=> {
     console.log('error changing user role:', err);
