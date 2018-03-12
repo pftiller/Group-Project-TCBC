@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['AdminService', 'RideDetailService', function (AdminService, RideDetailService) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, AdminService, RideDetailService) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
