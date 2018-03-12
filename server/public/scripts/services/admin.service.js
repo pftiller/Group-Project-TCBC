@@ -26,7 +26,7 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     }
 
     self.approveRide = function (rideId) {
-        return $http.put(`/rides/admin/approveRide/${rideId}`)
+        return $http.put(`/rides/admin/approveRide/${rideId}`, )
             .then((response) => {
                 console.log('ride approved: ', response);
                 return response;

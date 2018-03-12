@@ -1,4 +1,4 @@
-myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
+myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminService', function ($http, $location, $mdDialog, AdminService) {
     console.log('RideDetailService Loaded');
     let self = this;
     self.rides = {
@@ -109,7 +109,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
-                    if (!ride.cancelled && ride.completed === true) {
+                    if (!ride.cancelled) {
                         // let date = new Date(ride.rides_date)
                         // console.log('date ', date.toUTCString());
                         // if (date.toUTCString() >  timeStamp) {
@@ -299,7 +299,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             templateUrl: '../views/admin/templates/editRide-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: true,
+            clickOutsideToClose: false,
             resolve: {
                 item: function () {
                     return ride;
@@ -440,25 +440,27 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
 
 
 
+            /**  Admin Edit Ride and Approval Modal Controller*/
 
-
-    function EditRideDetailsController($mdDialog,item, RideDetailService) {
+    function EditRideDetailsController($mdDialog,item, RideDetailService, AdminService) {
         const self = this;
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
         self.rideToEdit.rides_date = new Date(item.rides_date);
-        self.submitRide = function (ride) {
+        console.log('rideToEdit: ', self.rideToEdit);
+        
+        self.approveAndSave = function (ride) {
             // console.log('new ride', ride);
             self.hide();
-            alert('Ride submitted for approval, check back later!');
-
-            $http.post('/rides/rideLeader/submitRide', ride)
+            console.log('ride to be submitted: ', ride);
+            
+            $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
-                    RideDetailService.getMyRideDetails()
-                        .then((data) => {
-                            RideDetailService.checkRidesForLeader(self.myRides.list);
-                        });
-                    console.log('response post ride ', response);
+                    // RideDetailService.getMyRideDetails()
+                    //     .then((data) => {
+                    //         RideDetailService.checkRidesForLeader(self.myRides.list);
+                    //     });
+                    // console.log('response post ride ', response);
                 })
                 .catch((err) => {
                     console.log('err post ride ', err);
