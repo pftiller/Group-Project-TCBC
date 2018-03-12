@@ -31,18 +31,6 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
-    self.approveRide = function (rideId) {
-        return $http.put(`/rides/admin/approveRide/${rideId}`, )
-            .then((response) => {
-                console.log('ride approved: ', response);
-                return response;
-            })
-            .catch((err) => {
-                console.log('ride approval failed: ', err);
-
-            })
-    }
-
     self.getRoles = function () {
         return $http.get('/member/userRole')
             .then((response) => {

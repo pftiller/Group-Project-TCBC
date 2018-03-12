@@ -424,6 +424,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
         self.myRides = RideDetailService.myRides;
         self.submitRide = function (ride) {
+            console.log('');
+            
             if(!ride.rides_name || !ride.distances || !ride.description || !ride.ride_location || !ride.rides_category || !ride.rides_date){
                 console.log('ride failed to submit: ', ride);
                 
@@ -500,7 +502,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
                     swal('Successfully Approved', '','success');
-                    AdminService.getPendingApprovedRides();
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {
