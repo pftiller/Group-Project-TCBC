@@ -17,7 +17,6 @@ router.get('/public/details', (req, res) => {
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(allRidesQuery)
         .then((result) => {
-            console.log('get rides ', result.rows);
             let formattedRides = ridePackager(result.rows);
             res.send(formattedRides);
         })
@@ -268,7 +267,7 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
     INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) 
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING id;`;
-    pool.query(saveRideQuery, [req.body.rides_name, req.body.ride_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
+    pool.query(saveRideQuery, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
             // console.log('resulting post id', result.rows);
             console.log('Ride Insert Complete back with ID', result.rows[0].id);

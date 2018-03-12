@@ -372,7 +372,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         self.newRide.distances = [];
 
         self.submitRide = function (ride) {
-            
+            if(!ride.rides_name || !ride.distances || !ride.description || !ride.ride_location || !ride.rides_category || !ride.rides_date){
+                console.log('ride failed to submit: ', ride);
+                
+                swal("All fields, except GPS Link, are required.", '', "warning");
+            }else{
             console.log('new ride', ride);
             self.hide();
 
@@ -389,6 +393,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                     swal('Error submitting new ride, please try again later.', '', 'error');
                     // console.log('err post ride ', err);
                 });
+            }
         }
 
         self.hide = function () {
