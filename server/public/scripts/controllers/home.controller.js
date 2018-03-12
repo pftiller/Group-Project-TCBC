@@ -70,18 +70,6 @@ $scope.toggleAll = function() {
   });
 };
 
-
-
-// self.toggleSelection = function(category) {
-//   var idx = self.selection.indexOf(category);
-//   if (idx > -1) {
-//     self.selection.splice(idx, 1);
-//   }
-//   else {
-//     self.selection.push(category);
-//   }
-// };
-
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
@@ -100,7 +88,6 @@ $scope.toggleAll = function() {
         //       rid
         //     }
         // })
-        console.log('here is the response to the controller ', response);
         $scope.allRidesOptions.data = response.data;
         // self.rides.list = response;
 

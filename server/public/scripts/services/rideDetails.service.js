@@ -34,8 +34,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         this.date = moment(timeStamp).format('MM/DD/YYYY');
 
    }
-    console.log('Date.now()', timeStamp);
-    console.log('this is todays date', self.todaysDate.date);
+    console.log('Date.now()', timeStamp)
 
 
     self.getMileageForMember = function () {
@@ -139,23 +138,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
         return $http.get('/rides/public/details')
             .then((response) => {
                 console.log('all rides ', response.data);
-                console.log('here is timeStamp from getAllRides', timeStamp);
                 for(let i = 0; i < response.data.length; i ++) {
                     let dateOfRide = new Date(response.data[i].rides_date)
                     if (dateOfRide > timeStamp) {
                         let momentDate = moment(response.data[i].rides_date);
                         response.data[i].date = momentDate.format('MM/DD/YYYY');
                         response.data[i].time = momentDate.format('hh:mm A');
-                        // self.rides.data.push(response.data[i]);
+                       
                     } 
-                }
-                // self.rides.list = response.data;
-                // console.log('this is new all rides', self.rides.list);
+                }            
                self.rides.list = response.data;
                 return response;
             })
             .catch((err) => {
-                // console.log(err);
                 swal('Error getting all ride details, please try again later.', '', 'error');
             })
     }
@@ -187,32 +182,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
             }
         })
     }
-
-
-
-
-    // self.rideDetailModal = function (id, ev) {
-    //     $mdDialog.show({
-    //         controller: RideDetailController,
-    //         controllerAs: 'vm',
-    //         templateUrl: '../views/shared/ride-detail-modal.html',
-    //         parent: angular.element(document.body),
-    //         targetEvent: ev,
-    //         clickOutsideToClose: true,
-    //         resolve: {
-    //             item: function () {
-    //                 for (var i=0; i < self.rides.list.length; i++) {
-    //                     if (self.rides.list[i].ride_id === id) {
-    //                         let ride = self.rides.list[i];
-    //                         return ride;
-    //                     }
-    //                 }
-                   
-    //             }
-                
-    //         }
-    //     })
-    // }
 
     function RideDetailController($mdDialog, item, RideDetailService, UserService) {
         const self = this;
