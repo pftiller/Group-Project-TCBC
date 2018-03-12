@@ -52,11 +52,29 @@
     </tbody>
   </table>
 </div>
-<div class="csvUpload" layout-align="center center">
+<form name="myForm" class="csvUpload" layout-align="center center">
   <label>
-    <md-button class="md-icon-button" aria-label="More">
-      <i class="material-icons md-24">add_circle_outline</i>
-    </md-button>
+    <md-button class="md-icon-button" aria-label="More"
+    type="file" 
+    ngf-select 
+    ng-model="vm.file" 
+    name="file" 
+    ngf-pattern="'.csv'"
+    accept=".csv" 
+    ngf-max-size="20MB"
+    ngf-model-invalid="errorFile"
+    required
+    /><i class="material-icons md-24">add_circle_outline</i>
+  </md-button>
     Upload Member Information - CSV File
-  </label>
+    </label>
+            <i ng-show="myForm.file.$error.maxSize">File too large 
+                {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
+            <img ng-show="myForm.file.$valid" ngf-thumbnail="file"> 
+            <md-button class="md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
+            <br>
+       
+            <md-button class="md-raised md-primary" ng-disabled="!myForm.$valid" 
+                    ng-click="vm.submit(vm.file)">Submit</md-button>
+        </form>
 </div>
