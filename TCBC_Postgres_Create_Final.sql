@@ -1,9 +1,9 @@
 CREATE TABLE "users" (
   "id" serial NOT NULL,
-  "password" varchar(255) NOT NULL,
+  "password" varchar(255),
   "first_name" varchar(50) NOT NULL,
   "last_name" varchar(50) NOT NULL,
-  "phone_1" varchar(12) NOT NULL,
+  "phone_1" varchar(12),
   "email" varchar(50),
   "role" int NOT NULL,
   "member_id" int,
@@ -16,13 +16,14 @@ CREATE TABLE "users" (
 CREATE TABLE "rides" (
   "id" serial NOT NULL,
   "rides_name" varchar(50) NOT NULL,
-  "rides_category" varchar(25) NOT NULL,
-  "rides_date" DATE NOT NULL,
+  "rides_category" int NOT NULL,
+  "rides_date" TIMESTAMP NOT NULL,
   "description" text NOT NULL,
   "ride_leader" int NOT NULL,
+  "ride_location" text NOT NULL,
   "url" varchar(255) NOT NULL,
-  "approved" BOOLEAN NOT NULL,
-  "completed" BOOLEAN NOT NULL,
+  "approved" BOOLEAN NOT NULL DEFAULT 'false',
+  "completed" BOOLEAN NOT NULL DEFAULT 'false',
   "cancelled" BOOLEAN NOT NULL DEFAULT 'false',
   CONSTRAINT rides_pk PRIMARY KEY ("id")
 ) WITH (
@@ -45,10 +46,10 @@ CREATE TABLE "rides_users" (
   "id" serial NOT NULL,
   "ride_id" int NOT NULL,
   "user_id" int NOT NULL,
-  "actual_distance" int NOT NULL,
+  "actual_distance" int NOT NULL DEFAULT 0,
   "selected_distance" int NOT NULL,
-  "checked_in" BOOLEAN NOT NULL,
-  "waiver_signed" BOOLEAN,
+  "checked_in" BOOLEAN NOT NULL DEFAULT 'false',
+  "waiver_signed" BOOLEAN DEFAULT 'false',
   CONSTRAINT rides_users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -69,15 +70,15 @@ CREATE TABLE "rides_distances" (
 
 CREATE TABLE "member_info" (
   "member_id" int NOT NULL,
-  "membership_start" DATE NOT NULL,
-  "membership_expiration" DATE NOT NULL,
-  "first_name" varchar(50) NOT NULL,
-  "middle_name" varchar(50) NOT NULL,
-  "last_name" varchar(50) NOT NULL,
-  "city" varchar(50) NOT NULL,
-  "state" varchar(50) NOT NULL,
-  "zip" varchar(50) NOT NULL,
-  "gender" varchar(10) NOT NULL,
+  "membership_start" DATE ,
+  "membership_expiration" DATE,
+  "first_name" varchar(50) ,
+  "middle_name" varchar(50),
+  "last_name" varchar(50),
+  "city" varchar(50),
+  "state" varchar(50),
+  "zip" varchar(50),
+  "gender" varchar(10),
   "phone_1" varchar(12),
   "phone_2" varchar(12),
   "email" varchar(50),
@@ -118,7 +119,11 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(15, 'O', 'Outreac
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special') RETURNING "id", "type", "name";
 
 
-
+ -- ROLE DATA --
+INSERT INTO "public"."user_roles"("id", "role") VALUES(1, 'Member') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(2, 'Ride Leader') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(3, 'Ride Admin') RETURNING "id", "role";
+INSERT INTO "public"."user_roles"("id", "role") VALUES(4, 'Guest') RETURNING "id", "role";
 
 
 
@@ -131,21 +136,19 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special
 
 											-- Foreign Key Restraints --
 
-
+ALTER TABLE "rides_users" ADD UNIQUE ("ride_id", "user_id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("role") REFERENCES "user_roles"("id");
 ALTER TABLE "users" ADD CONSTRAINT "users_fk1" FOREIGN KEY ("member_id") REFERENCES "member_info"("member_id");
 ALTER TABLE "rides" ADD CONSTRAINT "rides_fk0" FOREIGN KEY ("ride_leader") REFERENCES "users"("id");
+ALTER TABLE "rides" ADD CONSTRAINT "rides_fk1" FOREIGN KEY ("rides_category") REFERENCES "categories"("id");
 ALTER TABLE "rides_users" ADD CONSTRAINT "rides_users_fk0" FOREIGN KEY ("ride_id") REFERENCES "rides"("id");
 ALTER TABLE "rides_users" ADD CONSTRAINT "rides_users_fk1" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "rides_users" ADD CONSTRAINT "rides_users_fk2" FOREIGN KEY ("selected_distance") REFERENCES "rides_distances"("id");
 ALTER TABLE "rides_distances" ADD CONSTRAINT "rides_distances_fk0" FOREIGN KEY ("ride_id") REFERENCES "rides"("id");
 ALTER TABLE "public"."rides"
-  ADD COLUMN "ride_category" integer,
-  ADD FOREIGN KEY ("ride_category") REFERENCES "public"."categories"("id");
-
-
-
-
+  ADD COLUMN "rides_category" integer,
+  ADD FOREIGN KEY ("rides_category") REFERENCES "public"."categories"("id");
+  
 
 
 															-- TEST DATA --
@@ -163,7 +166,7 @@ rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_locatio
 FROM rides
 JOIN rides_distances on rides.id = rides_distances.ride_id
 JOIN users on rides.ride_leader = users.id
-JOIN categories on rides.ride_category = categories.id
+JOIN categories on rides.rides_category = categories.id
 GROUP BY rides.id;
 
 

@@ -1,45 +1,66 @@
 <header ng-include="'/views/shared/header.html'"></header>
 
-<div flex layout="row" layout-align="center center">
+<div layout="row" layout-align="center center" style="min-height: 200px">
   <md-input-container class="md-block" flex-gt-sm>
     <label>First Name</label>
-    <input ng-model="vm.user.first_name">
+    <input ng-model="vm.rider.first_name">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Last Name</label>
-    <input ng-model="vm.user.last_name">
+    <input ng-model="vm.rider.last_name">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Member ID</label>
-    <input ng-model="vm.user.member_id">
+    <input ng-model="vm.rider.member_id">
   </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
-    <md-button class="md-raised md-primary">Submit</md-button>
+    <md-button class="md-raised md-primary" ng-click="vm.findRider(vm.rider)">Submit</md-button>
   </md-input-container>
 </div>
 <div layout="horizontal" layout-align="center center">
-  <table id="manageMemberTable">
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Member ID</th>
-        <th>Current Role</th>
-        <th>Role</th>
-        <th>Rides</th>
-        <th>Change Password</th>
+        <th class="sortable" sortable="date">
+          <span>First Name</span>
+          <span class="arrow"></span>
+        </th>
+        <th style="text-align: center;">
+          <span>Last Name</span>
+
+        </th>
+        <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
+          <span>Member ID</span>
+          <span class="arrow"></span>
+        </th>
+
+        <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+          <span>Current Role</span>
+          <span class="arrow"></span>
+        </th>
+        <th>
+          <span>Update Role</span>
+        </th>
+        <th>
+          <span>Rides</span>
+        </th>
+        <th>
+          <span>Change Password</span>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Darren</td>
-        <td>Rector</td>
-        <td>Member ID</td>
-        <td>Ride Leader</td>
-        <td>
+      <tr ng-repeat="member in vm.riderInfo.list">
+        <!-- <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index"> -->
+        <td style="text-align: center;">{{member.first_name}}</td>
+        <td style="text-align: center;">{{member.last_name}}</td>
+        <td style="text-align: left;">{{member.member_id}}</td>
+        <td style="text-align: center;">{{member.role}}&nbsp{{member.role_name}}</td>
+        <td style="text-align: center;">
           <md-select placeholder="Select Role" ng-model="vm.userRole">
-            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
+            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.id}}&nbsp{{roles.role_name}}</md-option>
           </md-select>
+          <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member.member_id)">Submit</md-button>
         </td>
         <td>
           <md-button class="md-raised md-button">View</md-button>

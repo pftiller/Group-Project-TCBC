@@ -49,23 +49,10 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         return $http.put(`/rides/rideLeader/complete/${rideId}`)
             .then((response) => {
                 console.log('Ride marked complete!', response);
-                self.updateRiderMileage(rideId);
                 return response.data;
             })
             .catch((err) => {
                 swal('Error marking ride as complete, please try again later.', '', 'error');
-                // console.log('ERR updating ride to complete ', err);
-            })
-    }
-
-    self.updateRiderMileage = function (rideId) {
-        return $http.put(`/rides/rideLeader/complete/updateMiles/${rideId}`)
-            .then((response) => {
-                console.log('Ride marked complete!', response);
-                return response.data;
-            })
-            .catch((err) => {
-                swal('Error updating member mileage, please try again later.', '', 'error');
                 // console.log('ERR updating ride to complete ', err);
             })
     }
@@ -105,7 +92,21 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
             })
     }
 
-    self.memberRegisterModal = function(ride, ev) {
+
+    self.signUpPost = function (ride) {
+        console.log('Signing up member for ride ', ride);
+        return $http.post('/rides/ride-leader/sign-up-member', ride)
+            .then((response) => {
+                console.log('response from member add ', response);
+                return response;
+            })
+            .catch((err) => {
+                swal('Error signing up for ride, please try again later.', '', 'error');
+                // console.log('err on post ride sign up ', err);
+            })
+    }
+
+    self.memberRegisterModal = function (ride, ev) {
         $mdDialog.show({
             controller: MemberRegisterController,
             controllerAs: 'vm',
@@ -119,12 +120,44 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
     function MemberRegisterController($mdDialog, CheckInService, $routeParams) {
         const self = this;
         let rideId = $routeParams.rideId
-        
+        self.searchMembers = {
+            list: []
+        }
+        self.ride = CheckInService.ride;
+        self.searchMemberParams = {
+            first_name: '',
+            last_name: '',
+            member_id: ''
+        }
         self.addMemberRider = function (member) {
-            
+            self.ride.member = member;
+            CheckInService.signUpPost(self.ride);
         };
+
         self.searchForMember = function (member) {
-            console.log('member search for ', member);
+            console.log('member search for ', self.searchMemberParams);
+            if (member.first_name == '') {
+                member.first_name = 'first';
+            }
+            if (member.last_name == '') {
+                member.last_name = 'last';
+            }
+            if (member.member_id == '') {
+                member.member_id = 0;
+            }
+            return $http.get(`/rides/ride-leader/searchMembers/${member.first_name}/${member.last_name}/${member.member_id}`)
+                .then((response) => {
+                    console.log('search member response ', response);
+                    self.searchMembers.list = response.data;
+                    self.searchMemberParams = {
+                        first_name: '',
+                        last_name: '',
+                        member_id: ''
+                    }
+                })
+                .catch((err) => {
+                    console.log('search member err ', err);
+                })
         }
 
         self.cancel = function () {

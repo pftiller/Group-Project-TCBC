@@ -16,7 +16,7 @@
                 </md-input-container>
                     <md-input-container>
                         <label>Category</label>
-                        <md-select ng-model="vm.rideToEdit.ride_category">
+                        <md-select ng-model="vm.rideToEdit.rides_category">
                             <md-option ng-repeat="category in vm.categories.list" ng-value="category.id">
                                 {{category.type}}
                             </md-option>
@@ -32,8 +32,8 @@
                 </md-input-container>
                 <md-input-container>
                     <label for="distance-input">Distances</label>
-                    <!-- Use chips for distances -->
-                    <input name="distance-input" type="number" ng-model="vm.rideToEdit.distances" />
+                    <md-chips ng-model="vm.rideToEdit.ride_distance"></md-chips>
+                    
                 </md-input-container>
             </div>
             <div class="ride-detail-stuff" flex="40" layout="column" layout-align="center space-between">
@@ -44,10 +44,12 @@
                 </md-input-container>
                 <div>
                     <!-- style="margin-right:59px;" -->
-                    <md-button ng-click="vm.saveEditedRide(vm.rideToEdit)"> Save Edits</md-button>
+                    <md-button ng-click="vm.approveAndSave(vm.rideToEdit)">Approve and Save</md-button>
                     <md-button ng-click="vm.cancel()"> Cancel</md-button>
 
                 </div>
             </div>
         </div>
     </div>
+
+    

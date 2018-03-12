@@ -11,7 +11,7 @@ body, html {
 }
 
 .instructions {
-  background-color: #333333;
+  background-color:blue;
   color: #DDDDDD;
   padding: 15px;
 }
@@ -160,7 +160,18 @@ th {
   border-right: 3px solid black;
   border-collapse: collapse;
 }
-
+.mobile-member-cell{
+  text-align: center;
+  font-size: xx-large;
+  border-right: 3px solid black;
+  border-collapse: collapse;
+}
+.mobile-input{
+  width: 15vh;
+}
+.mobile-input-container{
+  font-size: x-large;
+}
 .mobile-rider-cell, .mobile-rider-checkbox{
   background-color: #f3f3f3;
 
@@ -184,4 +195,8 @@ th {
 .ride-details-description{
   max-width: 40vh;
   word-wrap: break-word;
+}
+.cancelled-ride{
+text-decoration: black;
+text-decoration-line: line-through;
 }
