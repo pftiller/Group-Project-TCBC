@@ -109,7 +109,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog', function 
                 self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
-                    if (!ride.cancelled) {
+                    if (!ride.cancelled && ride.completed === true) {
                         // let date = new Date(ride.rides_date)
                         // console.log('date ', date.toUTCString());
                         // if (date.toUTCString() >  timeStamp) {
