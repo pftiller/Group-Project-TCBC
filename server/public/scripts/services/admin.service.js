@@ -1,6 +1,7 @@
 myApp.service('AdminService', ['$http', '$location', function ($http, $location) {
     console.log('AdminService Loaded');
     let self = this;
+    self.pendingApprovedRides = { list: [] };
     self.getUserRoles = {
         list: []
     };
@@ -22,6 +23,7 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
         return $http.get('/rides/admin/pendingApprovedRides')
             .then((response) => {
                 console.log('Service, rides pending approval came back: ', response.data);
+                self.pendingApprovedRides.list = response.data;
                 return response.data;
             })
             .catch((err) => {

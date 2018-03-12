@@ -478,12 +478,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
             /**  Admin Edit Ride and Approval Modal Controller*/
 
-<<<<<<< HEAD
     function EditRideDetailsController($mdDialog,item, RideDetailService, AdminService) {
-=======
-
-    function EditRideDetailsController($mdDialog, item, RideDetailService) {
->>>>>>> dev
         const self = this;
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
@@ -497,11 +492,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             
             $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
-                    // RideDetailService.getMyRideDetails()
-                    //     .then((data) => {
-                    //         RideDetailService.checkRidesForLeader(self.myRides.list);
-                    //     });
-                    // console.log('response post ride ', response);
+                    swal('Successfully Approved', '','success');
+                    AdminService.getPendingApprovedRides();
+                    console.log('response post ride ', response);
                 })
                 .catch((err) => {
                     console.log('err post ride ', err);
