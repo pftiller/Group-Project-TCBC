@@ -503,6 +503,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 .then((response) => {
                     swal('Successfully Approved', '','success');
                     console.log('response post ride ', response);
+                    AdminService.getPendingApprovedRides();
                 })
                 .catch((err) => {
                     console.log('err post ride ', err);
