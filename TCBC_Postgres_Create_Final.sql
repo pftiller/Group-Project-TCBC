@@ -150,10 +150,6 @@ ALTER TABLE "public"."rides"
   ADD FOREIGN KEY ("rides_category") REFERENCES "public"."categories"("id");
 
 
-
-
-
-
 															-- TEST DATA --
 
 INSERT INTO "public"."users"("id", "password", "first_name", "last_name", "email", "role", "member_id") VALUES(2, '$2a$10$qpFIlkXr.0TJZinWkjIBW.X3tjCipOlSUb6YFWpvzOOeOyqy3OoFK', 'RideLeader', 'Skywalker', 'test.email@gmail.com', 2, 11111) RETURNING "id", "password", "first_name", "last_name", "phone_1", "email", "role", "member_id";

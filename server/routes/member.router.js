@@ -23,35 +23,11 @@ router.get('/viewProfile', isAuthenticated, function (req, res) {
     });
 });
 
-router.get('/searchMember', isAuthenticated, function (req, res) {
-  console.log('in search member event');
-  const queryText =
-    `SELECT 
-    member_id,
-    first_name,
-    last_name,
-    role
-    FROM
-    users
-    WHERE first_name = $1
-    OR last_name = $2
-    OR member_id = $3`;
-  pool.query(queryText, [req.user])
-    .then((result) => {
-      console.log('query results:', result.rows);
-      res.send(result.rows);
-    })
-    .catch((err) => {
-      console.log('error making query:', err);
-      res.sendStatus(500);
-    });
-});
-
 router.get('/userRole', isAuthenticated, function (req, res) {
   console.log('in get user role router');
   const queryText =
     `SELECT
-    role
+    role_name
     FROM 
     user_roles 
     ORDER BY 
@@ -66,6 +42,52 @@ router.get('/userRole', isAuthenticated, function (req, res) {
       res.sendStatus(500);
     });
 });
+
+router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
+  console.log('in find rider router');
+  console.log(req.body);
+  console.log(req.params); 
+  console.log('req.params for rider search ', req.params.member_id);
+  const queryText =
+    `SELECT 
+    first_name,
+    last_name,
+    member_id,
+    role_name
+    FROM
+    users
+    WHERE member_id = $1
+    OR first_name = $2
+    OR last_name = $3;`
+  pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
+    .then((result) => {
+      console.log('query results for rider search:', result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log('error making member search query:', err);
+      res.sendStatus(500);
+    });
+});
+
+router.put(`/changeRole/:member_id`, isAuthenticated, function (req,res) {
+  console.log('in change role router');
+  let memID = req.params.member_id;
+  console.log(req.body.role_name, memID);
+  const queryText =
+  `UPDATE users
+  SET role_name = $1
+  WHERE member_id = $2`
+  pool.query(queryText, [req.body.role_name, memID])
+  .then((result)=>{
+    console.log('query results for change user role ', result.rows);
+    res.send(201);
+  })
+  .catch((err)=> {
+    console.log('error changing user role:', err);
+    res.sendStatus(500);
+  })
+})
 
 
 module.exports = router;
