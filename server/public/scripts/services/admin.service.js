@@ -79,13 +79,13 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
     }
 
     self.changeRole = function (role_name, member_id) {
-        // console.log('role is ', role);
         console.log('role name', role_name);
         return $http.put(`/member/changeRole/${member_id}`, role_name)
             .then((response) => {
                 console.log('role response ', response);
                 self.roleChange.list = response;
                 return response;
+                self.userRole = '';
             })
             .catch((err) => {
                 console.log('role change failed: ', err);
