@@ -60,7 +60,7 @@
           <md-select placeholder="Select Role" ng-model="vm.userRole">
             <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
           </md-select>
-          <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member.member_id)">Submit</md-button>
+          <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member)">Submit</md-button>
         </td>
         <td>
           <md-button class="md-raised md-button" ng-click="vm.adminViewMemberPastRides(member_id)">View</md-button>

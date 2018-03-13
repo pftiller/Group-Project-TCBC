@@ -80,9 +80,9 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             })
     }
 
-    self.changeRole = function (role_name, member_id) {
+    self.changeRole = function (role_name, member) {
         console.log('role name', role_name);
-        return $http.put(`/member/changeRole/${member_id}`, role_name)
+        return $http.put(`/member/changeRole/${member.member_id}`, role_name)
             .then((response) => {
                 if (response) {
                     swal(`User role was successfully updated!`, {

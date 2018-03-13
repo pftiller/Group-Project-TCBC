@@ -15,7 +15,7 @@
                         <md-input-container class="md-icon-float">
                             <md-icon class="material-icons" md-font-icon>&#xE878;</md-icon>
                             <md-datepicker md-min-date="vm.minDate" md-hide-icons="calendar" style="padding-left:30px; width:200px;" flex="100" ng-model="date"
-                                md-placeholder="Ride date" filter-by="date" ng-change="allRidesActions.filter()">
+                                md-placeholder="Ride date" filter-by="dateFrom" ng-change="allRidesActions.filter()">
                             </md-datepicker>
                         </md-input-container>
                     </div>
@@ -43,7 +43,7 @@
             </div>
     
             <div flex="100">
-                <div grid-data grid-options="allRidesOptions" grid-actions="allRidesActions">
+                <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                     <div layout-gt-sm="row" layout-sm="column" layout-align="center">
     
                     </div>
