@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, AdminService, RideDetailService) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', '$mdDialog', function ($timeout, Upload, $http, AdminService, RideDetailService, $mdDialog) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
@@ -69,7 +69,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             .catch((err) => {
                 console.log('did not change role', err);
             })
-        // self.findRider();
     }
 
     self.submit = function (file) {
@@ -78,8 +77,10 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             data: {file: file}
         }).then(function (response) {
             console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-        }, function (resp) {
-            console.log('Error status: ' + response.status);
+        }
+        .catch((err)=>{console.log('err on submit upload ', err);
+        }), function (resp) {
+            console.log('Error status: ' + resp.status);
         });
     };
 }]);

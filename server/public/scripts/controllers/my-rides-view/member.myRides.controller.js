@@ -1,6 +1,9 @@
-myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', function(RideDetailService, $mdDialog) {
+myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', 'UserService', function(RideDetailService, $mdDialog, UserService) {
     console.log('MemberMyRidesController created');
     let self = this;
+
+    self.myRidesTable = true;
+    self.pastRidesTable = true;
 
     self.userObject = UserService.userObject;
     
@@ -21,6 +24,13 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     RideDetailService.getMyRideDetails();
     RideDetailService.getRideCategories();
     RideDetailService.getAllRideDetails();
+
+    self.collapseMyRides = function () {
+        self.myRidesTable = !self.myRidesTable;
+    }
+    self.collapsePastRides = function () {
+        self.pastRidesTable = !self.pastRidesTable;
+    }
   }]);
   
 

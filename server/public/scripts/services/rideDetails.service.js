@@ -23,6 +23,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     self.myMileage = {
         total: {}
     }
+
     let timeStamp = Date.now();
     // timeStamp = timeStamp.toUTCString();
 

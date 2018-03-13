@@ -127,6 +127,26 @@ router.get('/member/pastRideDetails', isAuthenticated, (req, res) => {
 
         })
 });
+
+//need to specify columns to get
+router.get('/admin/pastRideDetails/:member_id', isAuthenticated, (req, res) => {
+    const allRidesQuery = `
+    SELECT * FROM rides
+    JOIN rides_users on rides_users.ride_id = rides.id
+    WHERE rides_users.user_id = $1
+    AND rides.completed = true
+    AND rides.cancelled = false
+    AND rides.approved = true;`
+    pool.query(allRidesQuery, [req.params.member_id])
+        .then((result) => {
+            console.log(`member ${req.params.member_id} past rides `, result.rows);
+            res.send(result.rows);
+        })
+        .catch((err) => {
+            console.log('error getting all my past rides', err);
+
+        })
+});
 //get my mileage
 router.get('/member/mileage', isAuthenticated, (req, res) => {
     const queryText = `
