@@ -89,7 +89,8 @@
                                    
                                     <td style="text-align: center;">{{ride.type}}</td>
                                     <td style="text-align: center;">
-                                        <md-button class="md-raised md-primary" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
+                                        <md-button ng-if="ride.cancelled" class="md-raised md-primary" disabled>Cancelled</md-button>
+                                        <md-button class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
                                     </td>
                                 </tr>
                             </tbody>

@@ -2,6 +2,8 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
     console.log('MemberMyRidesController created');
     let self = this;
 
+    self.userObject = UserService.userObject;
+    
     self.rideDetailReveal = function(ride){
         RideDetailService.initMyRideDetailModal(ride);
     }
@@ -11,12 +13,14 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', f
         RideDetailService.initMyRideDetailModal(ride);
     }
     
-    self.rides = RideDetailService.rides;
+    self.allRides = RideDetailService.allRides;
     self.myRides = RideDetailService.myRides;
     self.myPastRides = RideDetailService.myPastRides;
 
-    RideDetailService.getMyRideDetails()
-
+    RideDetailService.getMyPastRideDetails();
+    RideDetailService.getMyRideDetails();
+    RideDetailService.getRideCategories();
+    RideDetailService.getAllRideDetails();
   }]);
   
 

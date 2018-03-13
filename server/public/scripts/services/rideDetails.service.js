@@ -1,7 +1,7 @@
 myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminService', function ($http, $location, $mdDialog, AdminService) {
     console.log('RideDetailService Loaded');
     let self = this;
-    self.rides = {
+    self.allRides = {
         list: []
     }
     self.categories = {
@@ -52,23 +52,23 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
-    self.checkRidesForLeader = function (rides) {
-        console.log('lead rides check ', rides);
-        // console.log('lead user', user);
-        self.myLeadRides.list = [];
-        rides.forEach((ride) => {
-            if (ride.ride_leader == ride.user_id) {
-                // console.log('ride', ride);
-                if (!ride.cancelled && ride.approved) {
-                    self.myLeadRides.list.push(ride);
-                } else {
-                    // console.log('this ride is cancelled', ride);
-                }
-            }
-        })
-        console.log('lead rides ', self.myLeadRides);
+    // self.checkRidesForLeader = function (rides) {
+    //     console.log('lead rides check ', rides);
+    //     // console.log('lead user', user);
+    //     self.myLeadRides.list = [];
+    //     rides.forEach((ride) => {
+    //         if (ride.ride_leader == ride.user_id) {
+    //             // console.log('ride', ride);
+    //             if (!ride.cancelled && ride.approved) {
+    //                 self.myLeadRides.list.push(ride);
+    //             } else {
+    //                 // console.log('this ride is cancelled', ride);
+    //             }
+    //         }
+    //     })
+    //     console.log('lead rides ', self.myLeadRides);
 
-    }
+    // }
 
     self.cancelThisRide = function (ride) {
         console.log('ride to cancel ', ride);
@@ -84,9 +84,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                     return $http.put(`/rides/rideLeader/cancelRide/${ride.ride_id}`)
                         .then((response) => {
                             self.getMyRideDetails()
-                                .then((data) => {
-                                    self.checkRidesForLeader(self.myRides.list)
-                                });
+                            self.getMyLeadRideDetails();
                             swal(`${ride.rides_name} was cancelled! You must submit a new ride for approval to create this ride again.`, {
                                 icon: "success",
                             });
@@ -105,34 +103,64 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
 
     // date.toUTCString();
-    function checkRideDate(rideDate, ride) {
-        if (rideDate > timeStamp) {
-            console.log('date new');
-            self.myRides.list.push(ride)
-            // self.ride.past_ride = false;
-        } else {
-            console.log('date old');
-            // self.ride.past_ride = true;
-            self.myPastRides.list.push(ride);
-        }
+    // function checkRideDate(rideDate, ride) {
+    //     if (rideDate > timeStamp) {
+    //         console.log('date new');
+    //         self.myRides.list.push(ride)
+    //         // self.ride.past_ride = false;
+    //     } else {
+    //         console.log('date old');
+    //         // self.ride.past_ride = true;
+    //         self.myPastRides.list.push(ride);
+    //     }
+    // }
+    self.getMyLeadRideDetails = function () {
+        return $http.get('/rides/rideLeader/leadRideDetails')
+            .then((response) => {
+                self.myLeadRides.list = [];
+                console.log('my lead ride results ', response.data);
+                response.data.forEach(ride => {
+                    let momentDate = moment(ride.rides_date);
+                    ride.date = momentDate.format('MM/DD/YYYY');
+                    ride.time = momentDate.format('hh:mm A');
+                    self.myLeadRides.list.push(ride);
+                })
+                return response.data;
+            })
+            .catch((err) => {
+                swal('Error getting member ride details, please try again later.', '', 'error');
+                // console.log(err);
+            })
     }
 
+    self.getMyPastRideDetails = function () {
+        return $http.get('/rides/member/pastRideDetails')
+            .then((response) => {
+                self.myPastRides.list = [];
+                console.log('my past ride results ', response.data);
+                response.data.forEach(ride => {
+                    let momentDate = moment(ride.rides_date);
+                    ride.date = momentDate.format('MM/DD/YYYY');
+                    ride.time = momentDate.format('hh:mm A');
+                    self.myPastRides.list.push(ride);
+                })
+                return response.data;
+            })
+            .catch((err) => {
+                swal('Error getting member ride details, please try again later.', '', 'error');
+                // console.log(err);
+            })
+    }
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
                 self.myRides.list = [];
-                self.myPastRides.list = [];
                 console.log('my ride results ', response.data);
                 response.data.forEach(ride => {
                     let momentDate = moment(ride.rides_date);
                     ride.date = momentDate.format('MM/DD/YYYY');
                     ride.time = momentDate.format('hh:mm A');
-                    if (!ride.cancelled && ride.approved) {
-                        let date = new Date(ride.rides_date)
-                        checkRideDate(date, ride);
-                    } else {
-                        // console.log('this ride is cancelled', ride);
-                    }
+                    self.myRides.list.push(ride)
                 })
                 return response.data;
             })
@@ -152,10 +180,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                         let momentDate = moment(response.data[i].rides_date);
                         response.data[i].date = momentDate.format('MM/DD/YYYY');
                         response.data[i].time = momentDate.format('hh:mm A');
-
                     }
                 }
-                self.rides.list = response.data;
+                self.allRides.list = response.data;
                 return response;
             })
             .catch((err) => {
@@ -195,7 +222,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
     function RideDetailController($mdDialog, item, RideDetailService, UserService) {
         const self = this;
-        self.rides = RideDetailService.rides;
+        self.allRides = RideDetailService.allRides;
         self.ride = item;
         self.user = UserService.userObject;
 
@@ -266,17 +293,17 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     }
 
 
-    self.currentRide = function (rides) {
-        rides.forEach(ride => {
-            if (ride.rides_date > '2018-03-03T06:00:00.000Z') {
-                //will check against todays date with real data
-                // ride.past_ride = false;
-            } else {
-                self.myPastRides.list.push(ride);
-                // ride.past_ride = true;
-            }
-        })
-    }
+    // self.currentRide = function (rides) {
+    //     rides.forEach(ride => {
+    //         if (ride.rides_date > '2018-03-03T06:00:00.000Z') {
+    //             //will check against todays date with real data
+    //             // ride.past_ride = false;
+    //         } else {
+    //             self.myPastRides.list.push(ride);
+    //             // ride.past_ride = true;
+    //         }
+    //     })
+    // }
 
     self.initMyRideDetailModal = function (ride) {
         console.log('ride ', ride);
@@ -343,7 +370,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
     function MyRideDetailsController($mdDialog, item, RideDetailService) {
         const self = this;
-        self.rides = RideDetailService.rides;
         self.ride = item;
         self.user = {
             loggedIn: true
@@ -387,10 +413,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         // console.log('unregister for ride ', ride);
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
-                self.getMyRideDetails()
-                    .then((data) => {
-                        self.checkRidesForLeader(self.myRides.list)
-                    });
+                self.getMyRideDetails();
+                self.getMyLeadRideDetails();
+
                 console.log('unregister ', response);
             })
             .catch((err) => {
@@ -434,10 +459,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             $http.post('/rides/rideLeader/submitRide', ride)
                 .then((response) => {
                     swal("Ride has been Submitted for Approval", '', "success");
-                    RideDetailService.getMyRideDetails()
-                        .then((data) => {
-                            RideDetailService.checkRidesForLeader(self.myRides.list);
-                        });
+                    RideDetailService.getMyRideDetails();
+                    RideDetailService.getMyLeadRideDetails();
+
                     console.log('response post ride ', response);
                 })
                 .catch((err) => {
@@ -470,8 +494,6 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             // $mdDialog.hide(answer);
         };
     }
-    self.getRideCategories();
-    self.getAllRideDetails();
     // self.getMyRideDetails()
     //     .then((data) => {            
     //         self.checkRidesForLeader(self.myRides.list);
