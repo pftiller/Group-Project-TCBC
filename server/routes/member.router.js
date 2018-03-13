@@ -50,12 +50,10 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
   console.log(req.params);
   console.log('req.params for rider search ', req.params.member_id);
   const queryText =
-    `SELECT 
-    first_name,
-    last_name,
-    member_id
-    FROM
-    users
+    `SELECT * 
+    FROM users 
+    JOIN user_roles 
+    ON users.role = user_roles.id
     WHERE member_id = $1
     OR first_name = $2
     OR last_name = $3;`
@@ -69,6 +67,7 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
       res.sendStatus(500);
     });
 });
+
 
 router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
   console.log('in change role router');
