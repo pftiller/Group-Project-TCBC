@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, AdminService, RideDetailService) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService','$mdDialog', function ($timeout, Upload, $http, AdminService, RideDetailService, $mdDialog) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
@@ -87,9 +87,11 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
 
 
 
-    self.openChangePasswordModal = function(ev, member){
+    self.openChangePasswordModal = function(member,ev){
         
         self.memberToChangePassword = member;
+        console.log('member to edit pass: ', self.memberToChangePassword);
+        
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',
@@ -98,29 +100,27 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             targetEvent: ev,
             clickOutsideToClose: false,
             resolve: 
-                { user: function(){ return 
-                        return 
-                        }
+                { user: 
+                    function(){ return self.memberToChangePassword; }
                 }
         })
     }
 
-    function ChangePasswordController($mdDialog, UserService) {
+    function ChangePasswordController($mdDialog, user, UserService) {
         const self = this;
+        self.editUser = user;
+        self.newPassword = {};
+        self.password = {};
+        self.submitForm = function(password){
+            console.log('password: ', password);
+            
 
 
-
+        }
+        
         
     }
-
-
-
-
-
-
-
-
-
+  
 
 
 
