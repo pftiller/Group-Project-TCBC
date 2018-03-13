@@ -1,4 +1,4 @@
-myApp.controller('MyProfileController', ['MyProfileService', function (MyProfileService) {
+myApp.controller('MyProfileController', ['MyProfileService', '$location', function (MyProfileService, $location) {
     // console.log('MyProfileController created');
     let self = this;
     self.viewProfile = {};
@@ -10,6 +10,9 @@ myApp.controller('MyProfileController', ['MyProfileService', function (MyProfile
       })
     }
     self.viewProfile();
+    self.statsView = function(){
+      $location.path('/stats')
+    }
   }]);
   
 

@@ -25,7 +25,12 @@ myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($htt
         return $http.get('/rides/admin/pendingApprovedRides')
             .then((response) => {
                 console.log('Service, rides pending approval came back: ', response.data);
-                self.pendingApprovedRides.list = response.data;
+                response.data.forEach(ride => {
+                    let momentDate = moment(ride.rides_date);
+                    ride.date = momentDate.format('MM/DD/YYYY');
+                    ride.time = momentDate.format('hh:mm A');
+                    self.pendingApprovedRides.list.push(ride);
+                });
                 return response.data;
             })
             .catch((err) => {

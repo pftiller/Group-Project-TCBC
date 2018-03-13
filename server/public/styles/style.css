@@ -12,7 +12,7 @@ html {
 }
 
 .instructions {
-  background-color: blue;
+  background-color: rgb(63, 81, 181);
   color: #DDDDDD;
   padding: 15px;
 }
@@ -144,11 +144,10 @@ th {
   margin-bottom: 5px;
 }
 
-.create-ride-button {}
+.create-ride-button {
+  box-shadow: 2px 2px black;
+}
 
-/* body{
-  background-color: #c5c5c5;
-} */
 
 .mobile-button {
   font-size: xx-large !important;
@@ -210,12 +209,6 @@ th {
 .add-guest-button {
   height: 10vh;
   font-size: x-large;
-}
-
-.create-ride-input {
-  /* background-color: #cfcfcf; */
-  /* border-radius: 10%; */
-  /* box-shadow: inset 0px 1px 1px 1px #a1a1a1; */
 }
 
 .ride-details-description {
