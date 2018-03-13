@@ -11,23 +11,6 @@
         </div>
         <br>
         <br>
-        <!-- <ul layout="column">
-            <li layout="row" layout-align="space-around center" style="font-weight:bold;">
-                <span flex>Ride Name</span>
-                <span flex>Ride Date/Time</span>
-                <span flex>Ride Details</span>
-            </li>
-            <li ng-repeat="ride in vm.myLeadRides.list" ng-if="!ride.past_ride" class="my-rides-items" layout="row" layout-align="space-between center">
-                {{ride.status}}
-                <span flex>{{ride.rides_name}}</span>
-                <span flex>{{ride.rides_date | date : 'short'}}</span>
-                <span flex layout="row" layout-align="center center">
-                    <md-button class="border ride-button" flex ng-click="vm.cancelRide(ride)">Cancel</md-button>
-                    <md-button class="border ride-button" flex ng-click="vm.checkRidersIn(ride)">Check-In</md-button>
-                    <md-button class="border ride-button" flex ng-click="vm.rideDetailReveal(ride)">Details</md-button>
-                </span>
-            </li>
-        </ul> -->
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.leadRidesTable">
             <thead>
                 <tr>
@@ -71,20 +54,6 @@
             <md-button ng-click="vm.collapseMyRides()" ng-if="!vm.myRidesTable"><i class="material-icons">keyboard_arrow_down</i></md-button>
             <md-button ng-click="vm.collapseMyRides()" ng-if="vm.myRidesTable"><i class="material-icons">keyboard_arrow_up</i></md-button>
         </h2>
-        <!-- <ul layout="column">
-            <li layout="row" layout-align="space-around center" style="font-weight:bold;">
-                <span flex>Ride Name</span>
-                <span flex>Ride Date/Time</span>
-                <span flex>Ride Details</span>
-            </li>
-            <li ng-repeat="ride in vm.myRides.list" ng-if="!ride.past_ride" class="my-rides-items" layout="row" layout-align="space-between center">
-                <span flex>{{ride.rides_name}}</span>
-                <span flex>{{ride.rides_date | date : 'short'}}</span>
-                <span flex>
-                    <md-button class="border ride-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
-                </span>
-            </li>
-        </ul> -->
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.myRidesTable">
             <thead>
                 <tr>
@@ -124,23 +93,6 @@
             <md-button ng-click="vm.collapsePastRides()" ng-if="!vm.pastRidesTable"><i class="material-icons">keyboard_arrow_down</i></md-button>
             <md-button ng-click="vm.collapsePastRides()" ng-if="vm.pastRidesTable"><i class="material-icons">keyboard_arrow_up</i></md-button>
         </h2>
-        <!-- <div layout="row" layout-align="space-around stretch"> -->
-        <!-- <ul layout="column">
-            <li layout="row" flex layout-align="space-between center" style="font-weight:bold;">
-                <span flex>Ride Name</span>
-                <span flex>Ride Date/Time</span>
-                <span flex>Distance Ridden</span>
-                <span flex>Ride Details</span>
-            </li>
-            <li ng-repeat="ride in vm.myPastRides.list" flex class="my-rides-items" layout="row" layout-align="space-between center">
-                <span flex>{{ride.rides_name}}</span>
-                <span flex>{{ride.rides_date | date : 'short'}}</span>
-                <span flex>{{ride.actual_distance}}</span>
-                <span flex>
-                    <md-button class="border ride-button" flex ng-click="vm.rideDetailRevealPast(ride)">Details</md-button>
-                </span>
-            </li>
-        </ul> -->
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.pastRidesTable">
             <thead>
                 <tr>
