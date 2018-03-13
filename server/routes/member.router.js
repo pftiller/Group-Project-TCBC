@@ -28,7 +28,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
   const queryText =
     `SELECT
     id,
-    role_name
+    role
     FROM 
     user_roles
     ORDER BY 
