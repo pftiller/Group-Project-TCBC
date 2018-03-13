@@ -35,7 +35,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     id ASC`;
   pool.query(queryText)
     .then((result) => {
-      console.log('query results:', result.rows);
+      console.log('query get user role results:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -53,7 +53,7 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     `SELECT 
     first_name,
     last_name,
-    member_id,
+    member_id
     FROM
     users
     WHERE member_id = $1
