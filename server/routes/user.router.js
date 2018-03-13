@@ -99,7 +99,7 @@ router.get('/logout', (req, res) => {
 router.post('/admin/changePassword', isAuthenticated, (req, res) =>{
   console.log(' IN CHANGE PASS req.body is: ', req.body);
   let newPassword = encryptLib.encryptPassword(req.body.newPassword);
-  let userId = req.body.id;
+  let userId = req.body.user_id;
 
   const changePasswordQuery = `
     UPDATE users

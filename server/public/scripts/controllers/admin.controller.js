@@ -104,6 +104,8 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
     function ChangePasswordController($mdDialog, user, AdminService) {
         const self = this;
         console.log('ChangePasswordController loaded');
+        console.log('change password for this User: ', user);
+        
         self.passwordFail = false;
         self.submitForm = function(password){
             if(password.newPassword !== password.confirm){
