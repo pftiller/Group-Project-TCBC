@@ -26,24 +26,6 @@ $scope.allRidesOptions = {
 $scope.allRidesActions = {
 
 }
-
-self.isIndeterminate = function() {
-  var selected = $filter('filter')(self.categories.list, {selected: true}).length;
-  return selected !== 0 && selected !== self.categories.list.length;
-};
-
-self.allChecked = function() {
- return $filter('filter')(self.categories.list, {selected: true}).length === self.categories.list.length;  
-};
-
-self.toggleAll = function() {
-  var selected = $filter('filter')(self.categories.list, {selected: true}).length;
-  var newSelected = selected < self.categories.list.length;
-  angular.forEach(self.categories.list, function(item) {
-    item.selected = newSelected;   
-  });
-};
-
   // GET categories on page load
   self.loadCategories = function(){
     RideDetailService.getRideCategories()
