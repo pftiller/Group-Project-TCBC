@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, AdminService, RideDetailService) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', '$mdDialog',  function ($timeout, Upload, $http, AdminService, RideDetailService, $mdDialog) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
@@ -81,4 +81,15 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             console.log('Error status: ' + response.status);
         });
     };
+
+    self.adminViewMemberPastRides = function(member) {
+        console.log('in controller for past rides modal', member);
+        AdminService.adminViewMemberPastRides(member).then((response)=>{
+            self.adminViewMemberPastRides = Admin.adminViewMemberPastRides;
+            console.log(self.adminViewMemberPastRides);
+        })
+        .catch((err)=>{
+            console.log('did not get past rides modal', err);
+        })
+    }
 }]);

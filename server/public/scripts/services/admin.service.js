@@ -88,7 +88,7 @@ myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($htt
     }
 
 
-    self.adminViewMemberPastRides = function (member_id, ev) {
+    self.adminViewMemberPastRides = function (member, ev) {
         $mdDialog.show({
             controller: MyPastRidesController,
             controllerAs: 'vm',
@@ -98,17 +98,14 @@ myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($htt
             clickOutsideToClose: true,
             resolve: {
                 item: function () {
-                    return ride;
+                    return member;
                 }
             }
         })
     }
 
-    function MyPastRidesController($mdDialog, item, RideDetailService, AdminService ) {
+    function MyPastRidesController($mdDialog, item, RideDetailService, AdminService) {
         const self = this;
-        self.rides = RideDetailService.rides;
-        self.pastRides = item;
-        self.user = AdminService.userObject;
 
         self.closeModal = function () {
             self.hide();
