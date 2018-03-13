@@ -1,9 +1,9 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService', '$mdDialog', function ($timeout, Upload, $http, AdminService, RideDetailService, $mdDialog) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, $mdDialog, AdminService, RideDetailService) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
     self.rider = AdminService.rider;
-
+    self.memberToChangePassword = {};
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {
             console.log('Controller, got the rides pending approval: ', response);
@@ -73,14 +73,69 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
 
     self.submit = function (file) {
         Upload.upload({
-            url: '/api/user',
+            url: '/upload',
             data: {file: file}
         }).then(function (response) {
+            swal("Member records updated", '', "success");
             console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-        }
+        })
         .catch((err)=>{console.log('err on submit upload ', err);
-        }), function (resp) {
+            swal('Error updating member records.', '', 'error');
             console.log('Error status: ' + resp.status);
         });
     };
+    self.openChangePasswordModal = function(ev, member){
+        
+        $mdDialog.show({
+            controller: ChangePasswordController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/changePassword-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            resolve: 
+                { user: function(){ 
+                        return member;
+                        }
+                }
+        })
+    }
+
+    function ChangePasswordController($mdDialog, user, AdminService) {
+        const self = this;
+        console.log('ChangePasswordController loaded');
+        self.passwordFail = false;
+        self.submitForm = function(password){
+            if(password.newPassword !== password.confirm){
+                self.passwordFail = true;
+            }else{
+                console.log('passwords match: ', password);
+                user.newPassword = password.newPassword;
+                console.log('user password will be: ', user);
+                AdminService.changePassword(user)
+                    .then((result)=>{
+                        swal(`Successfully changed password for ${user.first_name}`, '', 'success');
+                        console.log('result of password change: ', result);
+                        $mdDialog.hide();
+                    });
+            }
+    
+            
+
+        }
+        
+    }
+
+
+   
+  
+
+
+
+
+
 }]);
+
+
+
+
