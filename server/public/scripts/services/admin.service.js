@@ -46,7 +46,9 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
         return $http.get('/member/userRole')
             .then((response) => {
                 console.log('got user roles:', response.data);
-                self.getUserRoles.list = response.data;
+                let dropGuestRole = response.data;
+                dropGuestRole.pop();
+                self.getUserRoles.list = dropGuestRole;
                 return response.data;
             })
             .catch((err) => {
