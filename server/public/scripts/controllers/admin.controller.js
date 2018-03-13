@@ -82,43 +82,31 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
         });
     };
 
-
-
-
-
-
-    self.openChangePasswordModal = function(member,ev){
-        
-        console.log('member to edit pass: ', self.memberToChangePassword);
-        
+    self.openChangePasswordModal = function (member, ev) {
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',
             templateUrl: '../views/admin/templates/changePassword-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: false,
-            resolve: {
-                user: function(){ return member; }
-                    
-                }
+            clickOutsideToClose: true
+            
         })
     }
-
-    function ChangePasswordController($mdDialog, user, UserService) {
+        
+    function ChangePasswordController($mdDialog){
         const self = this;
-        self.editUser = user;
         self.newPassword = {};
-        self.password = {};
-        self.submitForm = function(password){
+
+        self.submitPassword = function(password){
             console.log('password: ', password);
             
-
-
         }
-        
-        
+
     }
+
+
+   
   
 
 
