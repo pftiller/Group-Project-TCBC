@@ -3,7 +3,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
     self.rider = AdminService.rider;
-
+    self.memberToChangePassword = {};
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {
             console.log('Controller, got the rides pending approval: ', response);
@@ -87,8 +87,9 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
 
 
 
-    self.openChangePasswordModal = function(ev){
-
+    self.openChangePasswordModal = function(ev, member){
+        
+        self.memberToChangePassword = member;
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',
