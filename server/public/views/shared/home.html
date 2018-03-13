@@ -117,21 +117,7 @@
                 </div>
     
         </md-content>
-            <md-list>
-                <md-item>
-                    <md-checkbox class="blue" aria-label="Select All" md-indeterminate="isIndeterminate()" ng-click="toggleAll()" ng-checked="allChecked()">
-                        <span ng-if="isChecked()">Un-</span>Select All
-                    </md-checkbox>
-                </md-item>
-                <md-item filter-by="type" filter-type="select" ng-model="type" ng-change="allRidesActions.refresh();allRidesActions.filter()">
-    
-                    <md-content ng-repeat="item in testCats track by item.type" value="{{item.type}}">
-                        <md-checkbox ng-model="item.selected">
-                            {{ item.type }} - {{item.name}}
-                        </md-checkbox>
-                    </md-content>
-                </md-item>
-            </md-list>
+
     
     
     </md-content>
