@@ -81,7 +81,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       }
     })
     .when('/register', {
-      templateUrl: '/views/user/templates/register.html',
+      templateUrl: '/views/shared/register.html',
       controller: 'LoginController as vm'
     })
     .when('/user', {

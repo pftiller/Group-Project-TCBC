@@ -18,7 +18,7 @@
 </div> -->
 
 
-<div layout="column" flex="50"  ng-cloak>
+<div layout="column" flex layout-align="center center" ng-cloak>
     <h1>Log In</h1>
     <h1 class="lead alert alert-danger" role="alert" ng-if="vm.message != ''">{{vm.message}}</h2>
     <form >
@@ -34,7 +34,7 @@
         </md-input-container>
         <div layout="row">
             <md-button class="md-primary  md-raised " ng-click="vm.login(vm.user)" type="submit"> Log In </md-button>
-            <md-button class="md-accent " ng-click="vm.cancel()" href="#!home"> Cancel </md-button>
+            <md-button class="md-accent " ng-click="vm.cancel()"> Cancel </md-button>
         </div>
     </form>
 </div>
