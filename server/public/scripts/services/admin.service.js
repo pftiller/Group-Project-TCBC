@@ -1,4 +1,4 @@
-myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($http, $location, $mdDialog) {
+myApp.service('AdminService',  ['$http', '$location', '$mdDialog', '$RideDetailService',  function ($http, $location, $mdDialog, $RideDetailService) {
     console.log('AdminService Loaded');
     let self = this;
     self.pendingApprovedRides = {
@@ -104,9 +104,9 @@ myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($htt
         })
     }
 
-    function MyPastRidesController($mdDialog, item, RideDetailService, AdminService) {
+    function MyPastRidesController($mdDialog, item, AdminService, RideDetailService) {
         const self = this;
-
+        self.member = item;
         self.closeModal = function () {
             self.hide();
         }

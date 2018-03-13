@@ -82,10 +82,14 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
         });
     };
 
+    // self.adminViewMemberPastRides = function(member){
+    //     AdminService.adminViewMemberPastRides(member);
+    // };
+
     self.adminViewMemberPastRides = function(member) {
         console.log('in controller for past rides modal', member);
         AdminService.adminViewMemberPastRides(member).then((response)=>{
-            self.adminViewMemberPastRides = Admin.adminViewMemberPastRides;
+            self.adminViewMemberPastRides = AdminService.adminViewMemberPastRides;
             console.log(self.adminViewMemberPastRides);
         })
         .catch((err)=>{
