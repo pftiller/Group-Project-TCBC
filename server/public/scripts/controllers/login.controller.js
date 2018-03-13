@@ -50,6 +50,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
       clickOutsideToClose: true,
     });
   }
+
   self.cancel = function () {
     $mdDialog.cancel();
   }
@@ -61,21 +62,54 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
   RideDetailService.getMileageForMember();
 
 
+  self.registerModal = function (ev) {
+    $mdDialog.show({
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      templateUrl: '../views/shared/register.html',
+      controller: RegisterController,
+      controllerAs: 'vm',
+      clickOutsideToClose: true,
+    });
+  }
+
+  function RegisterController($mdDialog, UserService){
+    const self = this;
+    self.passwordMatch = {
+      state: true
+    };
+    self.newUser = {
+      member_id: '',
+      password1: '',
+      password2: '',
+      password: ''
+    }
+    self.register = function(){
+      if (self.newUser.password1 != self.newUser.password2) {
+        self.passwordMatch.state = false;
+      } else {
+        // alert('register')
+        self.newUser.password = self.newUser.password1;
+        console.log('new user ', self.newUser);
+        UserService.registerUser(self.newUser);
+        self.passwordMatch.state = true;
+        self.newUser = {
+          member_id: '',
+          password1: '',
+          password2: '',
+          password: ''
+        }
+        $location
+      }
+    }
+
+    self.cancel = function () {
+      $mdDialog.cancel();
+    }
+  
+    self.close = function () {
+      $mdDialog.hide();
+    }
+  }
 }]);
 
-/* Not in use for now */
-// self.registerUser = function () {
-//   if (self.user.member_id === '' || self.user.password === '') {
-//     self.message = "Choose a username and password!";
-//   } else {
-//     console.log('sending to server...', self.user);
-//     $http.post('/api/user/register', self.user).then(function (response) {
-//       console.log('success');
-//       $location.path('/user');
-//     },
-//       function (response) {
-//         console.log('error');
-//         self.message = "Something went wrong. Please try again."
-//       });
-//   }
-// }

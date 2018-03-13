@@ -74,16 +74,6 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
   }
 
-
-
-
-
-
-
-
-
-
-
   self.login = function (user) {
     return $http.post('/api/user/login', user).then(
       function (response) {
@@ -116,7 +106,23 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
   }
 
 
-
+   self.registerUser = function (newUser) {
+      if (newUser.member_id === '' || newUser.password === '') {
+        console.log('NEED A PASSWROD');
+        // message = "Choose a username and password!";
+      } else {
+        console.log('sending to server...', newUser);
+        return $http.post('/api/user/register', newUser).then(function (response) {
+          console.log('success', response);
+          if (response.status === 500) {
+            swal('Error registering user, please try again later.', '', 'error');
+          } else {
+            swal(response.data, '')
+          }
+          // $location.path('/user');
+        })
+      }
+    }
 
 
 }]);
