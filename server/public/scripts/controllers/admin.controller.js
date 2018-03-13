@@ -73,13 +73,14 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
 
     self.submit = function (file) {
         Upload.upload({
-            url: '/api/user',
+            url: '/upload',
             data: {file: file}
         }).then(function (response) {
+            swal("Member records updated", '', "success");
             console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-        }
+        })
         .catch((err)=>{console.log('err on submit upload ', err);
-        }), function (resp) {
+            swal('Error updating member records.', '', 'error');
             console.log('Error status: ' + resp.status);
         });
     };
