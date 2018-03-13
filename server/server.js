@@ -29,7 +29,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/rides', ridesRouter);
 app.use('/member', memberRouter);
-app.use('/api/user', userUploader);
+app.use('/api/upload', userUploader);
 
 const PORT = process.env.PORT || 5000;
 

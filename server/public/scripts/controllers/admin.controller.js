@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminService', 'RideDetailService','$mdDialog', function ($timeout, Upload, $http, AdminService, RideDetailService, $mdDialog) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, $mdDialog, AdminService, RideDetailService) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
@@ -81,28 +81,46 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             console.log('Error status: ' + response.status);
         });
     };
-
-    self.openChangePasswordModal = function (member, ev) {
+    self.openChangePasswordModal = function(ev, member){
+        
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',
             templateUrl: '../views/admin/templates/changePassword-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose: true
-            
+            clickOutsideToClose: false,
+            resolve: 
+                { user: function(){ 
+                        return member;
+                        }
+                }
         })
     }
-        
-    function ChangePasswordController($mdDialog){
+
+    function ChangePasswordController($mdDialog, user, AdminService) {
         const self = this;
-        self.newPassword = {};
-
-        self.submitPassword = function(password){
-            console.log('password: ', password);
+        console.log('ChangePasswordController loaded');
+        self.passwordFail = false;
+        self.submitForm = function(password){
+            if(password.newPassword !== password.confirm){
+                self.passwordFail = true;
+            }else{
+                console.log('passwords match: ', password);
+                user.newPassword = password.newPassword;
+                console.log('user password will be: ', user);
+                AdminService.changePassword(user)
+                    .then((result)=>{
+                        swal(`Successfully changed password for ${user.first_name}`, '', 'success');
+                        console.log('result of password change: ', result);
+                        $mdDialog.hide();
+                    });
+            }
+    
             
-        }
 
+        }
+        
     }
 
 

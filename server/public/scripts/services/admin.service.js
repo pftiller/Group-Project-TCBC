@@ -116,4 +116,27 @@ myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($htt
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+    self.changePassword = function(user){
+
+        return $http.post('/api/user/admin/changePassword', user)
+            .then((result)=>{
+                return result;
+            })
+            .catch((err)=>{
+                console.log('error with password change API call ', err);
+                 
+            })
+    }
+
 }]);
