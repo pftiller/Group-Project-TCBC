@@ -53,7 +53,7 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     `SELECT 
     first_name,
     last_name,
-    member_id,
+    member_id
     FROM
     users
     WHERE member_id = $1
