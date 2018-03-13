@@ -1,4 +1,4 @@
-myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, $mdDialog, AdminService, RideDetailService) {
+myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog', 'AdminService', 'RideDetailService', function ($timeout, Upload, $http, $mdDialog, AdminService, RideDetailService) {
     console.log('AdminController created');
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
@@ -59,10 +59,12 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
             })
     }
 
-    self.changeRole = function (role_name, member_id) {
-        console.log('in change role ', role_name, member_id);
-        AdminService.changeRole(role_name, member_id).then((response) => {
+    self.changeRole = function (role_name, member) {
+        console.log('in change role ', role_name, member);
+        AdminService.changeRole(role_name, member)
+            .then((response) => {
                 self.roleChange = AdminService.roleChange;
+                AdminService.findRider(member);
                 console.log(self.roleChange);
                 self.userRole = '';
             })
@@ -73,19 +75,22 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
 
     self.submit = function (file) {
         Upload.upload({
-            url: '/upload',
-            data: {file: file}
-        }).then(function (response) {
-            swal("Member records updated", '', "success");
-            console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-        })
-        .catch((err)=>{console.log('err on submit upload ', err);
-            swal('Error updating member records.', '', 'error');
-            console.log('Error status: ' + resp.status);
-        });
+                url: '/upload',
+                data: {
+                    file: file
+                }
+            }).then(function (response) {
+                swal("Member records updated", '', "success");
+                console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
+            })
+            .catch((err) => {
+                console.log('err on submit upload ', err);
+                swal('Error updating member records.', '', 'error');
+                console.log('Error status: ' + resp.status);
+            });
     };
-    self.openChangePasswordModal = function(ev, member){
-        
+    self.openChangePasswordModal = function (ev, member) {
+
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',
@@ -93,11 +98,11 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: false,
-            resolve: 
-                { user: function(){ 
-                        return member;
-                        }
+            resolve: {
+                user: function () {
+                    return member;
                 }
+            }
         })
     }
 
@@ -105,39 +110,35 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
         const self = this;
         console.log('ChangePasswordController loaded');
         console.log('change password for this User: ', user);
-        
+
         self.passwordFail = false;
-        self.submitForm = function(password){
-            if(password.newPassword !== password.confirm){
+        self.submitForm = function (password) {
+            if (password.newPassword !== password.confirm) {
                 self.passwordFail = true;
-            }else{
+            } else {
                 console.log('passwords match: ', password);
                 user.newPassword = password.newPassword;
                 console.log('user password will be: ', user);
                 AdminService.changePassword(user)
-                    .then((result)=>{
+                    .then((result) => {
                         swal(`Successfully changed password for ${user.first_name}`, '', 'success');
                         console.log('result of password change: ', result);
                         $mdDialog.hide();
                     });
             }
-    
-            
+
+
 
         }
-        
+
     }
 
 
-   
-  
+
+
 
 
 
 
 
 }]);
-
-
-
-
