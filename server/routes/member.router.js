@@ -50,10 +50,12 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
   console.log(req.params);
   console.log('req.params for rider search ', req.params.member_id);
   const queryText =
-    `SELECT * 
-    FROM users 
-    JOIN user_roles 
-    ON users.role = user_roles.id
+    `SELECT 
+    first_name,
+    last_name,
+    member_id,
+    FROM
+    users
     WHERE member_id = $1
     OR first_name = $2
     OR last_name = $3;`
