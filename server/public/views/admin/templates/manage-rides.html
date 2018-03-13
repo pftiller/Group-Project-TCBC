@@ -16,8 +16,8 @@
                 <span flex>{{ride.rides_name}}</span>
                 <span flex>{{ride.rides_date | date: 'medium' : '-0600'}}</span>
                 <span flex layout="row" layout-align="center center">
-                    <md-button class="border ride-button" ng-click="vm.rideDetailReveal(ride)">View for Approval</md-button>
-                    <md-button class="border ride-button"  ng-click="">NULL/DELETE/Cancel(?)</md-button>
+                    <md-button class="md-primary md-raised" ng-click="vm.rideDetailReveal(ride)">View for Approval</md-button>
+                    
                 </span>
             </li>
         </ul>

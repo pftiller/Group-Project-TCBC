@@ -304,14 +304,11 @@ router.post('/rideLeader/submitRide', isAuthenticated, (req, res) => {
 
 
 
-
+/* Ride Approval and Sign up Ride Leader to ride with longest distance*/
 
 router.put('/admin/approveAndSave', isAuthenticated, (req,res)=>{
-
-    console.log('EDIT RIDE BODY ', req.body);
     
     const ride_id = req.body.ride_id;
-    console.log('ride ID is: ', ride_id);
     const rideLeaderId = req.body.ride_leader;
     const rideIsApproved = true;
     const editRideQuery = `
@@ -358,7 +355,7 @@ router.put('/admin/approveAndSave', isAuthenticated, (req,res)=>{
                                     })
                                     .catch((err)=>{
                                         console.log('error adding ride leader to their ride: ', err);
-                                        
+                                        res.sendStatus(500);
                                     })
                         })
                         .catch((err)=>{
@@ -370,11 +367,12 @@ router.put('/admin/approveAndSave', isAuthenticated, (req,res)=>{
                 .catch((err) => {
                     console.log('error making insert rides_distances query:', err);
                     res.sendStatus(500);
-                });
-                    
                 })
+                    
+            })
             .catch((err)=>{
                 console.log('error deleting ride distances: ', err);
+                res.sendStatus(500);
                    
             })
             

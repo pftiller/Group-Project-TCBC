@@ -1,6 +1,6 @@
 <header ng-include="'/views/shared/header.html'"></header>
 
-<div flex layout="row" layout-align="center center">
+<div layout="row" layout-align="center center" style="min-height: 200px">
   <md-input-container class="md-block" flex-gt-sm>
     <label>First Name</label>
     <input ng-model="vm.rider.first_name">
@@ -18,27 +18,47 @@
   </md-input-container>
 </div>
 <div layout="horizontal" layout-align="center center">
-  <table id="manageMemberTable">
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Member ID</th>
-        <th>Current Role</th>
-        <th>Update Role</th>
-        <th>Rides</th>
-        <th>Change Password</th>
+        <th class="sortable" sortable="date">
+          <span>First Name</span>
+          <span class="arrow"></span>
+        </th>
+        <th style="text-align: center;">
+          <span>Last Name</span>
+
+        </th>
+        <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
+          <span>Member ID</span>
+          <span class="arrow"></span>
+        </th>
+
+        <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+          <span>Current Role</span>
+          <span class="arrow"></span>
+        </th>
+        <th>
+          <span>Update Role</span>
+        </th>
+        <th>
+          <span>Rides</span>
+        </th>
+        <th>
+          <span>Change Password</span>
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="member in vm.riderInfo.list">
-        <td>{{member.first_name}}</td>
-        <td>{{member.last_name}}</td>
-        <td>{{member.member_id}}</td>
-        <td>{{member.role_name}}</td>
-        <td>
+        <!-- <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index"> -->
+        <td style="text-align: center;">{{member.first_name}}</td>
+        <td style="text-align: center;">{{member.last_name}}</td>
+        <td style="text-align: left;">{{member.member_id}}</td>
+        <td style="text-align: center;">{{member.role}}&nbsp{{member.role_name}}</td>
+        <td style="text-align: center;">
           <md-select placeholder="Select Role" ng-model="vm.userRole">
-            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role_name}}</md-option>
+            <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.id}}&nbsp{{roles.role_name}}</md-option>
           </md-select>
           <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member.member_id)">Submit</md-button>
         </td>
@@ -51,17 +71,29 @@
       </tr>
     </tbody>
   </table>
-  {{vm.riderInfo.list.role}}
-
 </div>
-<div class="csvUpload" layout-align="center center">
-  <label>
-    <md-button class="md-icon-button" aria-label="More">
-      <i class="material-icons md-24">add_circle_outline</i>
-    </md-button>
-    Upload Member Information - CSV File
-  </label>
-</div>
+<form name="myForm" class="csvUpload" layout-align="center center">
+    <md-button class="md-icon-button" aria-label="More"
+    type="file" 
+    ngf-select 
+    ng-model="vm.file" 
+    name="file" 
+    ngf-pattern="'.csv'"
+    accept=".csv" 
+    ngf-max-size="20MB"
+    ngf-model-invalid="errorFile">
+    <i class="material-icons md-24">add_circle_outline</i>
+  </md-button>
+  <label> Upload Member Information - CSV File</label>
+<i ng-show="myForm.file.$error.maxSize">File too large 
+    {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
+<img ng-show="myForm.file.$valid" ngf-thumbnail="file"> 
+<br>
+<md-button class="md-raised md-primary" ng-disabled="!myForm.$valid" 
+        ng-click="vm.submit(vm.file)">Submit</md-button>
+          <br>
+          <md-button class="md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
+                </form>
 <!-- <mdt-table class="home-table" paginated-rows="{isEnabled: true, rowsPerPageValues: [5,10,20,100]}" mdt-row="{
   data: filteredItems,
   'table-row-id-key': 'ride_id',

@@ -148,6 +148,7 @@ ALTER TABLE "rides_distances" ADD CONSTRAINT "rides_distances_fk0" FOREIGN KEY (
 ALTER TABLE "public"."rides"
   ADD COLUMN "rides_category" integer,
   ADD FOREIGN KEY ("rides_category") REFERENCES "public"."categories"("id");
+  
 
 
 															-- TEST DATA --

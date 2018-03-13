@@ -27,9 +27,10 @@ router.get('/userRole', isAuthenticated, function (req, res) {
   console.log('in get user role router');
   const queryText =
     `SELECT
+    id,
     role_name
     FROM 
-    user_roles 
+    user_roles
     ORDER BY 
     id ASC`;
   pool.query(queryText)
@@ -46,7 +47,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
 router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
   console.log('in find rider router');
   console.log(req.body);
-  console.log(req.params); 
+  console.log(req.params);
   console.log('req.params for rider search ', req.params.member_id);
   const queryText =
     `SELECT 
@@ -69,23 +70,23 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     });
 });
 
-router.put(`/changeRole/:member_id`, isAuthenticated, function (req,res) {
+router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
   console.log('in change role router');
   let memID = req.params.member_id;
-  console.log(req.body.role_name, memID);
   const queryText =
-  `UPDATE users
-  SET role_name = $1
-  WHERE member_id = $2`
-  pool.query(queryText, [req.body.role_name, memID])
-  .then((result)=>{
-    console.log('query results for change user role ', result.rows);
-    res.send(201);
-  })
-  .catch((err)=> {
-    console.log('error changing user role:', err);
-    res.sendStatus(500);
-  })
+    `UPDATE users
+  SET role = $1
+  WHERE member_id = $2;`
+  pool.query(queryText, [req.body.id, memID])
+    .then((result) => {
+      console.log('query results for change user role ', result.rows);
+      console.log('req.body.id', req.body.id);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('error changing user role:', err);
+      res.sendStatus(500);
+    })
 })
 
 

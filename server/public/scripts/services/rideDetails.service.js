@@ -193,7 +193,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     self.getRideCategories = function () {
         return $http.get('/rides/public/categories')
             .then((response) => {
+                for(let i = 0; i < response.data.length; i ++){
+                    response.data[i].selected = true;
+                }
                 self.categories.list = response.data;
+                console.log('adding selected property', self.categories.list)
                 return response.data;
             })
             .catch((err) => {
@@ -225,6 +229,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         self.allRides = RideDetailService.allRides;
         self.ride = item;
         self.user = UserService.userObject;
+        
 
         self.closeModal = function () {
             self.hide();
@@ -448,6 +453,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
         self.myRides = RideDetailService.myRides;
         self.submitRide = function (ride) {
+            console.log('');
+            
             if(!ride.rides_name || !ride.distances || !ride.description || !ride.ride_location || !ride.rides_category || !ride.rides_date){
                 console.log('ride failed to submit: ', ride);
                 
@@ -521,8 +528,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
                     swal('Successfully Approved', '','success');
-                    AdminService.getPendingApprovedRides();
                     console.log('response post ride ', response);
+                    AdminService.getPendingApprovedRides();
                 })
                 .catch((err) => {
                     console.log('err post ride ', err);
