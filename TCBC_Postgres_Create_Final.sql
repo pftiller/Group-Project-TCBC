@@ -181,9 +181,121 @@ GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;
 
  
  --  Adding more information in Categories table --
-
 ALTER TABLE categories
 ADD COLUMN 	category_description text,
 ADD COLUMN 	notes varchar(100),
 ADD COLUMN riders_must_have text,
+ADD COLUMN rest_stops varchar(50),
 ADD COLUMN ride_leader_notes varchar(50);
+
+UPDATE categories SET
+category_description = 'Fast Paced, most difficult terrain, or longer distance', 
+notes = '17+ mph',
+riders_must_have = 'Advanced cycling skills; spare tube, patch kit, pump',
+rest_stops = 'At leader’s discretion',
+ride_leader_notes = 'Anywhere'
+WHERE id = 1;
+
+UPDATE categories SET
+category_description = 'Swift, more difficult terrain, or long distance', 
+notes = '15-17 mph',
+riders_must_have = 'Intermediate to advanced cycling skills; spare tube, patch kit, pump',
+rest_stops = 'About every 20-30 miles',
+ride_leader_notes = 'Anywhere'
+WHERE id = 2;
+
+UPDATE categories SET
+category_description = 'Social, but emphasis is on riding - A good choice for experienced group riders - generally intermediate or greater pace, terrain and distance', 
+notes = '13-15 mph',
+riders_must_have = 'Intermediate to more advanced cycling skills; spare tube, patch kit, pump',
+rest_stops = 'About every 15-20 miles',
+ride_leader_notes = 'With group at the published pace'
+WHERE id = 3;
+
+UPDATE categories SET
+category_description = 'Social emphasis, but for those with riding experience - generally intermediate pace, terrain and distance', 
+notes = '11-13 mph',
+riders_must_have = 'Intermediate cycling skills; spare tube, patch kit, pump',
+rest_stops = 'About every 10-15 miles',
+ride_leader_notes = 'With group at the published pace'
+WHERE id = 4;
+
+UPDATE categories SET
+category_description = 'Easier, for a more “laid-back” time, perfect for newer riders, slower pace and flatter terrain, shorter distance', 
+notes = '9-11 mph',
+riders_must_have = 'Entry level to intermediate cycling skills; spare tube, patch kit, pump',
+rest_stops = 'About every 10-15 miles',
+ride_leader_notes = 'With group at the published pace'
+WHERE id = 5;
+
+UPDATE categories SET
+category_description = 'Very Strenuous, Safety stressed, advanced riding skills stressed.', 
+notes = '45 miles',
+riders_must_have = 'Expert level bike handling and group riding skills. Spare tube, patch kit, pump. Front and rear fully charged cycling lights, reflective clothing, and smartphone and/or GPS to aid navigation in case of being dropped from group.',
+rest_stops = 'At Leader’s Discretion',
+ride_leader_notes = '2 Ride Leaders Recommended Ride Anywhere'
+WHERE id = 6;
+
+UPDATE categories SET
+category_description = 'Strenouous, social, safety stressed, stay together ride.', 
+notes = '40 miles',
+riders_must_have = 'Advanced level bike handling and group riding skills. Spare tube, patch kit, pump. Front and rear fully charged cycling lights and reflective clothing.',
+rest_stops = 'About every 20 miles',
+ride_leader_notes = '2 Ride Leaders Required'
+WHERE id = 7;
+
+UPDATE categories SET
+category_description = 'Brisk, social, safety stressed, stay together ride.', 
+notes = '35 miles',
+riders_must_have = 'Intermediate to advanced level bike handling and group riding skills. Spare tube, patch kit, pump. Front and rear fully charged cycling lights and reflective clothing.',
+rest_stops = 'About every 15-20 miles',
+ride_leader_notes = '2 Ride Leaders Required'
+WHERE id = 8;
+
+UPDATE categories SET
+category_description = 'Moderate, social, safety stressed, stay together ride.', 
+notes = '30 miles',
+riders_must_have = 'Intermediate level bike handling and group riding skills. Spare tube, patch kit, pump. Front and rear fully charged cycling lights and reflective clothing.',
+rest_stops = 'About every 15 miles',
+ride_leader_notes = '2 Ride Leaders Required'
+WHERE id = 9;
+
+UPDATE categories SET
+category_description = 'Relaxed, social, safety stressed, stay together ride.', 
+notes = '25 miles',
+riders_must_have = 'Entry level to intermediate bike handling and group riding skills. Spare tube, patch kit, pump. Front and rear fully charged cycling lights and reflective clothing.',
+rest_stops = 'About every 10-15 miles',
+ride_leader_notes = '2 Ride Leaders Required'
+WHERE id = 10;
+
+UPDATE categories SET
+category_description = 'High Speed, no time limit', 
+notes = 'Difficult dirt trails, roots, rocks, many difficult hills, technically very difficult',
+riders_must_have = 'Advanced MB skills; spare tube, patch kit, pump, chain tool, water',
+rest_stops = 'At group or rider’s discretion',
+ride_leader_notes = 'Anywhere'
+WHERE id = 11;
+
+UPDATE categories SET
+category_description = 'Rapid, less than 6 hours', 
+notes = 'Challenging dirt trails or roads, roots, rocks, many hills, technically quite difficult',
+riders_must_have = 'Advanced MB skills; spare tube, patch kit, pump, water',
+rest_stops = 'At least 1 time each hour',
+ride_leader_notes = 'Anywhere'
+WHERE id = 12;
+
+UPDATE categories SET
+category_description = 'Moderate, less than 4 hours', 
+notes = 'Gravel or dirt trails or roads, some hills, technically moderate',
+riders_must_have = 'Intermediate MB skills; spare tube, patch kit, pump, water',
+rest_stops = 'At least 1 or 2 times each hour',
+ride_leader_notes = 'With the group - riders regroup occasionally'
+WHERE id = 13;
+
+UPDATE categories SET
+category_description = 'Slower, less than 2 hours', 
+notes = 'Gravel or dirt trails or roads, few hills, technically simple',
+riders_must_have = 'Beginner MB skills; spare tube, patch kit, water',
+rest_stops = '2 or more times each hour',
+ride_leader_notes = 'With the group - riders regroup occasionally'
+WHERE id = 14;
