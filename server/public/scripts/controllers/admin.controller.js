@@ -3,6 +3,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
     self.rider = AdminService.rider;
+    self.member = AdminService.member;
 
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {

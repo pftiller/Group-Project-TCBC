@@ -1,4 +1,4 @@
-myApp.service('AdminService',  ['$http', '$location', '$mdDialog',  function ($http, $location, $mdDialog) {
+myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
     console.log('AdminService Loaded');
     let self = this;
     self.pendingApprovedRides = {
@@ -18,6 +18,10 @@ myApp.service('AdminService',  ['$http', '$location', '$mdDialog',  function ($h
     };
 
     self.roleChange = {
+        list: {}
+    };
+
+    self.pastMemberRides = {
         list: {}
     };
 
@@ -85,6 +89,18 @@ myApp.service('AdminService',  ['$http', '$location', '$mdDialog',  function ($h
                 swal('Error updating user role.', '', 'error');
                 // console.log('role change failed: ', err);
             });
+    }
+
+    self.adminViewMemberPastRides = function (member_id) {
+        console.log('member is ', member_id);
+        return $http.put(`./member/adminViewMemberPastRides/${member_id}`)
+            .then((response) => {
+                self.pastMemberRides.list = response;
+                return response
+            })
+            .catch((err) => {
+                console.log('past ride data GET failed ', err);
+            })
     }
 
 
