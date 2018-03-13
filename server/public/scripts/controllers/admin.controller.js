@@ -89,7 +89,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
 
     self.openChangePasswordModal = function(member,ev){
         
-        self.memberToChangePassword = member;
         console.log('member to edit pass: ', self.memberToChangePassword);
         
         $mdDialog.show({
@@ -99,9 +98,9 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: false,
-            resolve: 
-                { user: 
-                    function(){ return self.memberToChangePassword; }
+            resolve: {
+                user: function(){ return member; }
+                    
                 }
         })
     }
