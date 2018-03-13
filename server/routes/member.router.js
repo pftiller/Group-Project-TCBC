@@ -28,7 +28,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
   const queryText =
     `SELECT
     id,
-    role_name
+    role
     FROM 
     user_roles
     ORDER BY 
@@ -50,7 +50,7 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
   console.log(req.params);
   console.log('req.params for rider search ', req.params.member_id);
   const queryText =
-    `SELECT * 
+    ` SELECT users.id AS user_id, users.first_name, users.last_name, users.member_id, user_roles.id AS role_id, user_roles.role
     FROM users 
     JOIN user_roles 
     ON users.role = user_roles.id

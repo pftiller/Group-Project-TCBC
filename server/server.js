@@ -11,6 +11,7 @@ const ridesRouter = require('./routes/rides.router');
 const memberRouter = require('./routes/member.router');
 const userUploader = require('./routes/upload.router');
 
+
 // Serve static files
 app.use(express.static('server/public'));
 
@@ -29,7 +30,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/rides', ridesRouter);
 app.use('/member', memberRouter);
-app.use('/api/user', userUploader);
+app.use('/upload', userUploader);
 
 const PORT = process.env.PORT || 5000;
 
