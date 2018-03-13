@@ -2,6 +2,7 @@ const express = require('express');
 const encryptLib = require('../modules/encryption');
 const Person = require('../models/Person');
 const userStrategy = require('../strategies/sql.localstrategy');
+const isAuthenticated = require('../modules/isAuthenticated');
 const pool = require('../modules/pool.js');
 const router = express.Router();
 
@@ -92,5 +93,32 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.sendStatus(200);
 });
+
+
+
+router.post('/admin/changePassword', isAuthenticated, (req, res) =>{
+  console.log(' IN CHANGE PASS req.body is: ', req.body);
+  let newPassword = encryptLib.encryptPassword(req.body.newPassword);
+  let userId = req.body.id;
+
+  const changePasswordQuery = `
+    UPDATE users
+    SET password = $1
+    WHERE id = $2`;
+  pool.query(changePasswordQuery,[newPassword,userId])
+    .then((result)=>{
+      res.sendStatus(201);
+    })
+    .catch((err)=>{
+      console.log('password change failed: ', err);
+      res.sendStatus(500);
+    })
+
+})
+
+
+
+
+
 
 module.exports = router;

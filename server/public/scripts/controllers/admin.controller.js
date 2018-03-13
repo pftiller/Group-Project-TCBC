@@ -3,7 +3,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
     let self = this;
     self.pendingApprovals = AdminService.pendingApprovedRides;
     self.rider = AdminService.rider;
-
+    self.memberToChangePassword = {};
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {
             console.log('Controller, got the rides pending approval: ', response);
@@ -84,12 +84,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
             console.log('Error status: ' + resp.status);
         });
     };
-
-
-
-
-
-
     self.openChangePasswordModal = function(ev, member){
         
         $mdDialog.show({
@@ -107,23 +101,34 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http','$mdDialog', 
         })
     }
 
-    function ChangePasswordController($mdDialog, user) {
+    function ChangePasswordController($mdDialog, user, AdminService) {
         const self = this;
-
-
         console.log('ChangePasswordController loaded');
-        
+        self.passwordFail = false;
+        self.submitForm = function(password){
+            if(password.newPassword !== password.confirm){
+                self.passwordFail = true;
+            }else{
+                console.log('passwords match: ', password);
+                user.newPassword = password.newPassword;
+                console.log('user password will be: ', user);
+                AdminService.changePassword(user)
+                    .then((result)=>{
+                        swal(`Successfully changed password for ${user.first_name}`, '', 'success');
+                        console.log('result of password change: ', result);
+                        $mdDialog.hide();
+                    });
+            }
+    
+            
+
+        }
         
     }
 
 
-
-
-
-
-
-
-
+   
+  
 
 
 
