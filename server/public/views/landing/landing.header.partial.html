@@ -5,6 +5,7 @@
                 </a>
                 <span flex></span>
                 <md-button ng-click="vm.loginModal()">Log In</md-button>
+                <md-button class="md-accent " ng-click="vm.registerModal()"> Register </md-button>
         </div>
         <div class="nav" ng-show="vm.user.first_name">
                 <div ng-if="vm.user.role === 1 || vm.user.role === 2" ng-include="'./views/user/partials/nav.html'"></div>

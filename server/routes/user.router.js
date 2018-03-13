@@ -30,15 +30,52 @@ router.post('/register', (req, res, next) => {
   };
   const role = 1;
   //console.log('new user:', saveUser);
-  pool.query('INSERT INTO users (member_id, password, role) VALUES ($1, $2, $3) RETURNING id',
-    [saveUser.member_id, saveUser.password, role], (err, result) => {
-      if (err) {
-        console.log("Error inserting data: ", err);
-        res.sendStatus(500);
+  const queryCheckMemberTable = `
+  SELECT * FROM member_info
+  WHERE member_id = $1;`
+  pool.query(queryCheckMemberTable, [member_id])
+    .then((result) => {
+      if (result.rows.length > 0) {
+        console.log('member found in member_info!', result.rows[0]);
+        saveUser.first_name = result.rows[0].first_name;
+        saveUser.last_name = result.rows[0].last_name;
+        saveUser.phone_1 = result.rows[0].phone_1;
+        saveUser.email = result.rows[0].email;
+        const queryUserTableForMember = `
+          SELECT * FROM users
+          WHERE member_id = $1;`
+        pool.query(queryUserTableForMember, [member_id])
+          .then((result) => {
+            if (result.rows.length > 0) {
+              console.log('member number found in users table!', result.rows);
+                res.send('Member number already has an account! If you need to reset your password contact a system administrator.')
+            } else {
+              console.log('No member number found in users table!');
+              pool.query('INSERT INTO users (member_id, password, role, first_name, last_name, phone_1, email) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
+              [saveUser.member_id, saveUser.password, role, saveUser.first_name, saveUser.last_name, saveUser.phone_1, saveUser.email], (err, result) => {
+                if (err) {
+                  console.log("Error inserting data: ", err);
+                  res.sendStatus(500);
+                } else {
+                  res.send('Registration succesful! You may now log in.');
+                }
+              });
+            }
+          })
+          .catch((err) => {
+            console.log('error finding users member info ', err);
+              res.sendStatus(500);
+          })
       } else {
-        res.sendStatus(201);
+        console.log('No member number found in member_info!');
+        res.send('No membership information found for this member number. To become a member of TCBC go here...')
       }
-    });
+      // res.send(result)
+    })
+    .catch((err) => {
+      console.log('error finding member_info member info ', err);
+      res.sendStatus(500);
+    })
 });
 
 // Handles login form authenticate/login POST
