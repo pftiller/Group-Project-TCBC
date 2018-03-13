@@ -6,7 +6,7 @@
         </div>
         <br>
         <br>
-        <ul layout="column">
+        <!-- <ul layout="column">
             <li layout="row" layout-align="space-around center" style="font-weight:bold;">
                 <span flex>Ride Name</span>
                 <span flex>Ride Date/Time</span>   
@@ -20,6 +20,39 @@
                     
                 </span>
             </li>
-        </ul>
+        </ul> -->
+
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th style="text-align: center;" class="sortable" sortable="date">
+                        <span>Date</span>
+                        <span class="arrow"></span>
+                    </th>
+                    <th style="text-align: center;">
+                        <span>Time</span>
+                    </th>
+                    <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
+                        <span>Name</span>
+                        <span class="arrow"></span>
+                    </th>
+                    <th style="text-align: center;">
+                        <span>Details</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ride in vm.pendingApprovals.list | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index"
+                    ng-class="{'cancelled-ride': ride.cancelled}">
+                    <td style="text-align: center;">{{ride.date | date : 'short'}} </td>
+                    <td style="text-align: center;">{{ride.time}}</td>
+                    <td style="text-align: left;">{{ride.rides_name}}</td>
+                    <td style="text-align: center;">
+                        <md-button class="md-primary md-raised" ng-click="vm.rideDetailReveal(ride)">View for Approval</md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </md-content>

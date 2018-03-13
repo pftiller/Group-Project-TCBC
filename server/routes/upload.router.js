@@ -96,6 +96,7 @@ router.post('/', upload.single('file'), function(req, res) {
                             console.log('error', err);
                         });
                 }).on("end", function() {
+                    res.sendStatus(200);
                     console.log("done");
                 })
 
