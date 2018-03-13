@@ -1,7 +1,9 @@
-myApp.service('AdminService', ['$http', '$location', function ($http, $location) {
+myApp.service('AdminService', ['$http', '$mdDialog', '$location', function ($http, $location, $mdDialog) {
     console.log('AdminService Loaded');
     let self = this;
-    self.pendingApprovedRides = { list: [] };
+    self.pendingApprovedRides = {
+        list: []
+    };
     self.getUserRoles = {
         list: []
     };
@@ -37,7 +39,6 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
                 console.log('got user roles:', response.data);
                 self.getUserRoles.list = response.data;
                 return response.data;
-
             })
             .catch((err) => {
                 console.log('getting user roles failed:', err);
@@ -72,14 +73,46 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
         console.log('role name', role_name);
         return $http.put(`/member/changeRole/${member_id}`, role_name)
             .then((response) => {
-                console.log('role response ', response);
-                self.roleChange.list = response;
-                return response;
+                if (response) {
+                    swal(`User role was successfully updated!`, {
+                        icon: "success",
+                    });
+                    self.roleChange.list = response;
+                    return response;
+                }
             })
             .catch((err) => {
-                console.log('role change failed: ', err);
+                swal('Error updating user role.', '', 'error');
+                // console.log('role change failed: ', err);
+            });
+    }
 
-            })
+
+    self.adminViewMemberPastRides = function (member_id, ev) {
+        $mdDialog.show({
+            controller: MyPastRidesController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/view-member-past-rides-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            resolve: {
+                item: function () {
+                    return ride;
+                }
+            }
+        })
+    }
+
+    function MyPastRidesController($mdDialog, item, RideDetailService, AdminService ) {
+        const self = this;
+        self.rides = RideDetailService.rides;
+        self.pastRides = item;
+        self.user = AdminService.userObject;
+
+        self.closeModal = function () {
+            self.hide();
+        }
     }
 
 
