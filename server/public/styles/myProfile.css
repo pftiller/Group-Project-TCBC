@@ -7,11 +7,12 @@
 }
 
 .profileInfo {
-    border: 1px solid #000;
+    border: 2px solid rgb(2, 51, 83);
     padding: 20px;
     width: 30%;
-    background-color: rgba(158, 158, 158, 0.26);
+    background-color: rgb(89, 149, 184);
     font-size: 20px;
+    color: #fff;
 }
 
 .profileLabel {

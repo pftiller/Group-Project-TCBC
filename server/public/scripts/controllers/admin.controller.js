@@ -69,7 +69,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             .catch((err) => {
                 console.log('did not change role', err);
             })
-        // self.findRider();
     }
 
     self.submit = function (file) {

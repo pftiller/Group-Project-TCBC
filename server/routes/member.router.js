@@ -35,7 +35,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     id ASC`;
   pool.query(queryText)
     .then((result) => {
-      console.log('query results:', result.rows);
+      console.log('query get user role results:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
