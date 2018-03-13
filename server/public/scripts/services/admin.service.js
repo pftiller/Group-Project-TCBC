@@ -94,5 +94,21 @@ myApp.service('AdminService', ['$http', '$location', function ($http, $location)
             })
     }
 
+    self.viewPastRides = function (member_id, ev) {
+        $mdDialog.show({
+            controller: MyPastRidesController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/editRide-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            resolve: {
+                item: function () {
+                    return ride;
+                }
+            }
+        })
+    }
+
 
 }]);

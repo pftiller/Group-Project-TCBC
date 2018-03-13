@@ -69,6 +69,5 @@ myApp.controller('AdminController', ['AdminService', 'RideDetailService', functi
             .catch((err) => {
                 console.log('did not change role', err);
             })
-        // self.findRider();
     }
 }]);
