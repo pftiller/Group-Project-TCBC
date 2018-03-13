@@ -179,5 +179,11 @@ JOIN rides_distances on rides.id = rides_distances.ride_id
 JOIN users on rides.ride_leader = users.id
 GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;
 
+ 
+ --  Adding more information in Categories table --
 
-
+ALTER TABLE categories
+ADD COLUMN 	category_description text,
+ADD COLUMN 	notes varchar(100),
+ADD COLUMN riders_must_have text,
+ADD COLUMN ride_leader_notes varchar(50);
