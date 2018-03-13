@@ -55,7 +55,7 @@
         <td style="text-align: center;">{{member.first_name}}</td>
         <td style="text-align: center;">{{member.last_name}}</td>
         <td style="text-align: left;">{{member.member_id}}</td>
-        <td style="text-align: center;">{{member.role}}&nbsp{{member.role}}</td>
+        <td style="text-align: center;">{{member.role}}</td>
         <td style="text-align: center;">
           <md-select placeholder="Select Role" ng-model="vm.userRole">
             <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
