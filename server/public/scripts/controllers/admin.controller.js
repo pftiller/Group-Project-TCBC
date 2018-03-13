@@ -82,4 +82,52 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', 'AdminServic
             console.log('Error status: ' + response.status);
         });
     };
+
+
+
+
+
+
+    self.openChangePasswordModal = function(ev){
+
+        $mdDialog.show({
+            controller: ChangePasswordController,
+            controllerAs: 'vm',
+            templateUrl: '../views/admin/templates/changePassword-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: false,
+            resolve: 
+                { user: function(){ return 
+                        return 
+                        }
+                }
+        })
+    }
+
+    function ChangePasswordController($mdDialog, UserService) {
+        const self = this;
+
+
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }]);
+
+
+
+
