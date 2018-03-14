@@ -105,7 +105,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 $mdDialog.show({
                     controller: MyPastRidesController,
                     controllerAs: 'vm',
-                    templateUrl: '../views/admin/templates/view-member-past-rides-modal.html',
+                    templateUrl: '../views/admin/partials/view-member-past-rides-modal.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
@@ -117,7 +117,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 })
                 self.pastMemberRides.list = response.data;
                 console.log(response.data);
-                return response
+                // return response
             })
             .catch((err) => {
                 console.log('past ride data GET failed ', err);
@@ -126,6 +126,9 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
 
     function MyPastRidesController($mdDialog, item, AdminService) {
         const self = this;
+        self.mode = {
+            edit: false
+        }
         self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
         self.closeModal = function () {
@@ -138,23 +141,22 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 member: self.member,
                 ride: ride
             }
-            $mdDialog.show({
-                controller: SinglePastRideEditController,
-                controllerAs: 'vm',
-                templateUrl: '../views/admin/partials/edit-ride-mileage.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                resolve: {
-                    item: function () {
-                        return pastRideInfo;
-                    }
-                }
-            })
-        }
-
-        function SinglePastRideEditController($mdDialog, item, AdminService) {
-            const self = this;
+            self.mode = {
+                edit: true
+            }
+            // $mdDialog.show({
+            //     controller: SinglePastRideEditController,
+            //     controllerAs: 'vm',
+            //     templateUrl: '../views/admin/partials/edit-ride-mileage.html',
+            //     parent: angular.element(document.body),
+            //     targetEvent: ev,
+            //     clickOutsideToClose: true,
+            //     resolve: {
+            //         item: function () {
+            //             return pastRideInfo;
+            //         }
+            //     }
+            // })
             self.pastRideInfo = item;
             self.member = self.pastRideInfo.member;
             self.ride = self.pastRideInfo.ride;
@@ -173,6 +175,11 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                     .then(()=>{self.closeModal()});
             }
         }
+        }
+
+        function SinglePastRideEditController($mdDialog, item, AdminService) {
+            const self = this;
+            
     }
 
     self.changePassword = function (user) {

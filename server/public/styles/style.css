@@ -175,7 +175,7 @@ th {
   /* height: 7vh;
   width: 30vh; */
   margin: 1px;
-  padding: 40px !important;
+  padding: 30px !important;
 }
 
 .mobile-table-head {
@@ -263,9 +263,9 @@ th {
   align-items: center;
   justify-content: center;
 }
-.mobile-text{
+/* .mobile-text{
   font-size: x
-}
+} */
 
 @media (orientation: landscape){
   .guest-register{
@@ -280,11 +280,10 @@ th {
 
   }
 }
-/* 
-body{
-  background-image: url('../images/bicycles.jpg');
-  z-index: 100;
-} */
+
+.mobile-button-holder{
+ margin: 25px !important;
+}
 
 /* body {
   background: radial-gradient(circle, hsla(120, 50%, 80%, .5), hsla(300, 50%, 80%, 1));
