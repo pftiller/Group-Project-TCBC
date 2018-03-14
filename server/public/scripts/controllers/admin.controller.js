@@ -92,11 +92,12 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
             });
     };
 
-    self.adminViewMemberPastRides = function(member){
+    self.adminViewMemberPastRides = function (member, ev) {
         AdminService.adminViewMemberPastRides(member);
-    };
-    
-    self.openChangePasswordModal = function(ev, member){
+        
+    }
+
+    self.openChangePasswordModal = function (ev, member) {
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',

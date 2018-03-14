@@ -95,37 +95,33 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             })
             .catch((err) => {
                 swal('Error updating user role.', '', 'error');
-                // console.log('role change failed: ', err);
             });
     }
 
-    self.adminViewMemberPastRides = function (member_id) {
-        console.log('member is ', member_id);
-        return $http.put(`./member/adminViewMemberPastRides/${member_id}`)
+    self.adminViewMemberPastRides = function (member, ev) {
+        console.log('user id ', member.user_id);
+        return $http.get(`/member/adminViewMemberPastRides/${member.user_id}`)
             .then((response) => {
-                self.pastMemberRides.list = response;
+                $mdDialog.show({
+                    controller: MyPastRidesController,
+                    controllerAs: 'vm',
+                    templateUrl: '../views/admin/templates/view-member-past-rides-modal.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    resolve: {
+                        item: function () {
+                            return member;
+                        }
+                    }
+                })
+                self.pastMemberRides.list = response.data;
+                console.log(response.data);
                 return response
             })
             .catch((err) => {
                 console.log('past ride data GET failed ', err);
             })
-    }
-
-
-    self.adminViewMemberPastRides = function (member, ev) {
-        $mdDialog.show({
-            controller: MyPastRidesController,
-            controllerAs: 'vm',
-            templateUrl: '../views/admin/templates/view-member-past-rides-modal.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: true,
-            resolve: {
-                item: function () {
-                    return member;
-                }
-            }
-        })
     }
 
     function MyPastRidesController($mdDialog, item, AdminService) {
@@ -143,8 +139,6 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             })
             .catch((err) => {
                 console.log('error with password change API call ', err);
-
             })
     }
-
 }]);

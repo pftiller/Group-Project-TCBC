@@ -1,14 +1,22 @@
 <div class="admin-view-past-rides-modal" layout="column">
     <header>
-        <div class="instructions"></div>
+        <div class="instructions"><h1>Past Rides</h1></div>
     </header>
     <div layout="row" layout-align="space-between strech">
         <div class="member_info">
-            <h1>Past Rides</h1>
-            <h2>{{vm.member.first_name}}{{vm.member.last_name}}</h2>
+            <div>
+                <h3>
+                    {{vm.member.user_id}}
+                </h3>
+            </div>
+            <div>
+                <h3>{{vm.member.first_name}}&nbsp{{vm.member.last_name}}</h3>
+            </div>
+            <div>
+                <md-button class="md-raised md-primary" ng-click="">Patrick's button</md-button>
+            </div>
         </div>
-        <div>
-            <md-button class="md-raised md-primary" ng-click="">Patrick's button</md-button>
-        </div>
+
+
     </div>
 </div>
