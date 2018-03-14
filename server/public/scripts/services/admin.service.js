@@ -126,6 +126,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
 
     function MyPastRidesController($mdDialog, item, AdminService) {
         const self = this;
+        self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
         self.closeModal = function () {
             self.hide();

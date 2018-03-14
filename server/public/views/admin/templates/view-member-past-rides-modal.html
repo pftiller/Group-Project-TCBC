@@ -1,16 +1,30 @@
 <div class="admin-view-past-rides-modal" layout="column">
     <header>
-        <div class="instructions"><h1>Past Rides</h1></div>
+        <div class="instructions">
+            <h1>Past Rides</h1>
+        </div>
     </header>
     <div layout="row" layout-align="space-between strech">
-        <div class="member_info">
-            <div>
-                <h3>
-                    {{vm.member.user_id}}
-                </h3>
+        <div class="member_info" ng-repeat="rides in vm.pastMemberRides.list" class="pastMemberModal">
+            <div layout="row">
+                <h2>Ride name</h2>
+                <p>
+                    {{rides.rides_name}}
+                </p>
+                <h2>Ride date</h2>
+                <p>
+                    {{rides.rides_date | date:'MM-dd-yyyy'}}
+                </p>
             </div>
-            <div>
-                <h3>{{vm.member.first_name}}&nbsp{{vm.member.last_name}}</h3>
+            <div layout="row">
+                <h2>Checked-in</h2>
+                <p>
+                    {{rides.checked_in}}
+                </p>
+                <h2>Waiver signed</h2>
+                <p>
+                    {{rides.waiver_signed}}
+                </p>
             </div>
             <div>
                 <md-button class="md-raised md-primary" ng-click="">Patrick's button</md-button>

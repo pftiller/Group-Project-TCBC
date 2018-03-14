@@ -91,10 +91,16 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 console.log('Error status: ' + resp.status);
             });
     };
+    
 
     self.adminViewMemberPastRides = function (member, ev) {
-        AdminService.adminViewMemberPastRides(member);
-        
+        AdminService.adminViewMemberPastRides(member)
+            .then((response) => {
+                console.log(self.pastMemberRides);
+            })
+            .catch((err) => {
+                console.log('did not get user past rides ', err);
+            })
     }
 
     self.openChangePasswordModal = function (ev, member) {
