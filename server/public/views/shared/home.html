@@ -49,8 +49,8 @@
                 </md-card>
 
 
-                <div ng-if="filtered.length > 0">
-                    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                <div ng-if="filtered.length > 0" layout="column">
+                    <table flex class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                         <thead>
                             <tr>
                                     <th style="text-align: center;" class="sortable" sortable="date">
@@ -90,7 +90,7 @@
                         </tbody>
                     </table>
 
-                    <div layout-xs="column" layout="row">
+                    <div flex layout-xs="column" layout="row">
                         <div flex="25" layout="row" layout-align="start center">
                             <span>{{filtered.length}} total upcoming rides</span>
                         </div>

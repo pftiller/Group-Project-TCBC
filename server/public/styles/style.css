@@ -172,9 +172,10 @@ th {
 
 .mobile-button {
   font-size: xx-large !important;
-  height: 7vh;
-  width: 30vh;
+  /* height: 7vh;
+  width: 30vh; */
   margin: 1px;
+  padding: 40px !important;
 }
 
 .mobile-table-head {
@@ -262,3 +263,25 @@ th {
   align-items: center;
   justify-content: center;
 }
+.mobile-text{
+  font-size: x
+}
+
+@media (orientation: landscape){
+  .guest-register{
+    width: 120vh;
+  }
+}
+
+@media (orientation: portrait){
+  .mdl-data-table{
+    width: 50%;
+    font-size: x-large;
+
+  }
+}
+
+/* body{
+  background-image: url('../images/bicycles.jpg');
+  z-index: 100;
+} */
