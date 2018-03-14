@@ -1,6 +1,7 @@
 <header ng-include="'/views/shared/header.html'"></header>
 <div layout = "row">
     <label> Current Goal: </label> <span>{{vm.goal.currentGoal}}</span>
+    <h2 ng-if="vm.goalMet"> Congratulations on Meeting Your Goal!</h2>
 </div>
 <br>
 <md-input-container>    
@@ -10,7 +11,11 @@
 <md-button class="md-primary md-raised" ng-click="vm.setGoal(vm.goal)">Confirm Goal</md-button>
 
 <br>
-
-
+<div id="chartZone" layout="row">
 
 <div id="bigfella"></div>
+
+</div>
+<div class="lineChart">
+<canvas id="lineChart"  ></canvas>
+</div>

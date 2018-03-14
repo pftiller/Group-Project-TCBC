@@ -599,4 +599,26 @@ router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthor
 
 
 
+/* Line Graph Data fetch */
+router.get('/stats', isAuthenticated, (req,res)=>{
+    const userId = req.user.id;
+    const milesDateQuery = `
+    SELECT rides_users.actual_distance as distance_biked, rides.rides_date as date
+    FROM rides_users
+    JOIN rides ON rides_users.ride_id = rides.id
+    WHERE rides_users.user_id = $1
+    ORDER BY date ASC`;
+    pool.query(milesDateQuery,[userId])
+        .then((result)=>{
+            res.send(result.rows)
+        })
+        .catch((err)=>{
+            console.log('failed to get miles/date data for line char: ', err);
+            
+        })
+})
+
+
+
+
 module.exports = router;
