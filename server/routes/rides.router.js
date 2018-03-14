@@ -5,6 +5,7 @@ const isAdminAuthorized = require('../modules/isAdminAuthorized');
 const isRideLeaderAuthorized = require('../modules/isRideLeaderAuthorized');
 const pool = require('../modules/pool');
 const ridePackager = require('../modules/ridePackager.module');
+const sortDataForCharts = require('../modules/lineChartDataSorter.module');
 
 
 
@@ -610,7 +611,8 @@ router.get('/stats', isAuthenticated, (req,res)=>{
     ORDER BY date ASC`;
     pool.query(milesDateQuery,[userId])
         .then((result)=>{
-            res.send(result.rows)
+            let sortedData = sortDataForCharts(result.rows);
+            res.send(sortedData);
         })
         .catch((err)=>{
             console.log('failed to get miles/date data for line char: ', err);
