@@ -97,7 +97,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     };
     
     self.openChangePasswordModal = function(ev, member){
-        
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',

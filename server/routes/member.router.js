@@ -111,27 +111,4 @@ router.get(`/adminViewMemberPastRides/:member_id`, isAuthenticated, function (re
 
 })
 
-
-
-
-
-
-// router.get('/member/pastRideDetails', isAuthenticated, (req, res) => {
-//   const allRidesQuery = `SELECT * FROM rides
-//   JOIN rides_users on rides_users.ride_id = rides.id
-//   WHERE rides_users.user_id = $1
-//   AND rides.completed = true
-//   AND rides.cancelled = false
-//   AND rides.approved = true;`
-//   pool.query(allRidesQuery, [req.user.id])
-//       .then((result) => {
-//           console.log('past rides ', result.rows);
-//           res.send(result.rows);
-//       })
-//       .catch((err) => {
-//           console.log('error getting all my past rides', err);
-
-//       })
-// });
-
 module.exports = router;
