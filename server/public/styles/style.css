@@ -227,3 +227,17 @@ th {
 .cancelled-button {
   cursor: none;
 }
+.swal-text {
+  text-align: center;
+  font-size: xx-large;
+}
+.swal-button{
+  margin: 0 auto;
+  font-size: x-large;
+}
+.swal-footer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
