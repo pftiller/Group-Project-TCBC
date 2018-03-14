@@ -34,10 +34,10 @@
           <span class="arrow"></span>
         </th>
 
-        <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+        <!-- <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
           <span>Current Role</span>
           <span class="arrow"></span>
-        </th>
+        </th> -->
         <th>
           <span>Update Role</span>
         </th>
@@ -55,12 +55,12 @@
         <td style="text-align: center;">{{member.first_name}}</td>
         <td style="text-align: center;">{{member.last_name}}</td>
         <td style="text-align: left;">{{member.member_id}}</td>
-        <td style="text-align: center;">{{member.role}}</td>
-        <td style="text-align: center;">
-          <md-select placeholder="Select Role" ng-model="vm.userRole">
+        <!-- <td style="text-align: center;">{{member.role}}</td> -->
+        <td style="text-align: center;"> 
+          <md-select placeholder="{{member.role}}" ng-model="member.role">
             <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
           </md-select>
-          <md-button class="md-raised md-button" ng-click="vm.changeRole(vm.userRole, member)">Submit</md-button>
+          <md-button class="md-raised md-button" ng-click="vm.changeRole(member)">Submit</md-button>
         </td>
         <td>
           <md-button class="md-raised md-button" ng-click="vm.adminViewMemberPastRides(member)">View</md-button>

@@ -53,7 +53,8 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     ON users.role = user_roles.id
     WHERE member_id = $1
     OR first_name = $2
-    OR last_name = $3;`
+    OR last_name = $3
+    ORDER BY member_id ASC;`
   pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
     .then((result) => {
       res.send(result.rows);
@@ -65,15 +66,14 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
 });
 
 
-router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
-  let memID = req.params.member_id;
+router.put(`/changeRole`, isAuthenticated, function (req, res) {
+  let memID = req.body.member_id;
   const queryText =
     `UPDATE users
   SET role = $1
   WHERE member_id = $2;`
-  pool.query(queryText, [req.body.id, memID])
+  pool.query(queryText, [req.body.role.id, memID])
     .then((result) => {
-      
       res.sendStatus(201);
     })
     .catch((err) => {
