@@ -264,6 +264,9 @@ th {
 }
 
 #bigfella{
-  width: 50%;
+  width: 25%;
   
+}
+.lineChart{
+  width: 500px;
 }

@@ -117,7 +117,7 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(12, 'N-B', 'Night
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(13, 'N-B/C', 'Night') RETURNING "id", "type", "name";
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(14, 'N-C', 'Night') RETURNING "id", "type", "name";
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(15, 'O', 'Outreach') RETURNING "id", "type", "name";
-INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special') RETURNING "id", "type", "name";
+
 
 
  -- ROLE DATA --
@@ -300,3 +300,7 @@ riders_must_have = 'Beginner MB skills; spare tube, patch kit, water',
 rest_stops = '2 or more times each hour',
 ride_leader_notes = 'With the group - riders regroup occasionally'
 WHERE id = 14;
+
+UPDATE categories
+SET category_description = 'These special category rides are non-TCBC rides that are eligible for TCBC mileage credit, but are not covered by TCBC insurance. Outreach rides are designed to increase our clubs visibility in and support of non-pledge biking events in the broader biking community. A TCBC ride leader will be present at qualifying Outreach Rides to allow members to sign up for mileage, but it is the sole responsibility of participating members to sign up for the event and pay the registration fee. The organizers of the event are solely responsible for its quality and safety. Members are strongly encouraged to wear their TCBC jerseys when participating in Outreach Rides and ride in a manner that reflects favorably upon TCBC.'
+WHERE id = 15;

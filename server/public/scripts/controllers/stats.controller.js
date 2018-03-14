@@ -50,30 +50,61 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
                 
             })
     }
+
+    /* Goal Trakcer Dial */
     var goalProgress = new JustGage({
         id: "bigfella",
         value: 0,
         min: 0,
         max: 100,
-        title: "Goal Progress",
+        label: "Miles Towards Goal",
         titlePosition: 'below',
         pointer: true,
-        gaugeWidthScale: 1,
+        gaugeWidthScale: .2,
         relativeGaugeSize: true,
         levelColors: [
             "#ff0000",
             "#ffff66",
             "#ccff99",
             "#33cc33"
-        ]
-    
-          
+        ] 
       });
    
     
+    /* Line Graph */
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+            label: "My First dataset",
+            backgroundColor: false,
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+    });
 
 
+    self.getLineChartData = function(){
+        $http.get('/rides/stats')
+            .then((response)=>{
+                console.log('response on getting linechart data: ', response.data);
+                
+            })
+            .catch((err)=>{
+                console.log('failed to get linechart data: ', err);
+                
+            })
+    }
+    self.getLineChartData();
     
-
 
 }]);
