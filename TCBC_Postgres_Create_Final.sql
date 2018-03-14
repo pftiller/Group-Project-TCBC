@@ -79,8 +79,8 @@ CREATE TABLE "member_info" (
   "state" varchar(50),
   "zip" varchar(50),
   "gender" varchar(10),
-  "phone_1" varchar(12),
-  "phone_2" varchar(12),
+  "phone_1" varchar(25),
+  "phone_2" varchar(25),
   "email" varchar(50),
   CONSTRAINT member_info_pk PRIMARY KEY ("member_id")
 ) WITH (
