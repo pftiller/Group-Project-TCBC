@@ -10,3 +10,8 @@
     /* display: inline-flex; */
     /* vertical-align: middle; */
   }
+
+  .pastMemberModal {
+    padding: 10px;
+    margin: 15px;
+  }

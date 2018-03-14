@@ -82,9 +82,9 @@ router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
     })
 })
 
-router.get(`/adminViewMemberPastRides/:member_id`, isAuthenticated, function (req, res) {
+router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req, res) {
   console.log('in past rides router');
-  let memberID = req.params.member_id;
+  let userID = req.params.user_id;
   const queryText = `
     SELECT * 
     FROM rides
@@ -93,10 +93,10 @@ router.get(`/adminViewMemberPastRides/:member_id`, isAuthenticated, function (re
     AND rides.completed = true
     AND rides.cancelled = false
     AND rides.approved = true;`
-  pool.query(queryText, [memberID])
+  pool.query(queryText, [userID])
     .then((result) => {
       console.log('query results for past rides ', result.rows);
-      res.sendStatus(201);
+      res.send(result.rows);
     })
     .catch((err) => {
       console.log('error getting user past rides ', err);
