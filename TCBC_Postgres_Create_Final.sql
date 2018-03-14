@@ -3,7 +3,7 @@ CREATE TABLE "users" (
   "password" varchar(255),
   "first_name" varchar(50) NOT NULL,
   "last_name" varchar(50) NOT NULL,
-  "phone_1" varchar(12),
+  "phone_1" varchar(25),
   "email" varchar(50),
   "role" int NOT NULL,
   "member_id" int,
@@ -79,8 +79,8 @@ CREATE TABLE "member_info" (
   "state" varchar(50),
   "zip" varchar(50),
   "gender" varchar(10),
-  "phone_1" varchar(12),
-  "phone_2" varchar(12),
+  "phone_1" varchar(25),
+  "phone_2" varchar(25),
   "email" varchar(50),
   CONSTRAINT member_info_pk PRIMARY KEY ("member_id")
 ) WITH (

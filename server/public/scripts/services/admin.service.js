@@ -47,6 +47,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             .then((response) => {
                 console.log('got user roles:', response.data);
                 let dropGuestRole = response.data;
+                //this fix to remove guest won't scale. just a quick fix.
                 dropGuestRole.pop();
                 self.getUserRoles.list = dropGuestRole;
                 return response.data;

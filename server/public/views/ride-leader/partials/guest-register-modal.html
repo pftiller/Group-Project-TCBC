@@ -22,6 +22,8 @@
                 <label for="email-input">Email</label>
                 <input name="email-input" type="email" ng-model="vm.newGuest.email" />
             </md-input-container>
+            <md-checkbox aria-label="check-in-guest-waiver" ng-model="vm.newGuest.waiver_signed" ng-checked="vm.newGuest.waiver_signed">
+                </md-checkbox>
         </div>
         <div>
             <md-button type="submit" class="add-guest-button" ng-click="vm.addGuestRider(vm.newGuest)">Add guest to ride!</md-button>
