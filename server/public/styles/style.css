@@ -1,9 +1,13 @@
+
 body,
 html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   font-size: 14px;
+}
+.bold {
+  font-weight: bold;
 }
 
 .instructions .container h1 {
@@ -123,6 +127,23 @@ th {
 .border {
   border: 1px solid #a1a1a1;
 }
+
+.md-accordion .dataContent {
+  background: #F2F2F2;
+  height:0px;
+  overflow:hidden;
+  -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+}
+.md-accordion .activeContent {
+  height:250px;
+  /* padding:0;
+  display:block; */
+}
+.md-accordion md-toolbar{
+  cursor:pointer;
+  border-bottom:1px solid rgb(63,107,181) 
+} 
 
 .ride-button {
   /* background-color: #cfcfcf; */

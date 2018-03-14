@@ -1,27 +1,24 @@
 <header ng-include="'/views/landing/landing.header.partial.html'"></header>
-<md-content layout="row" layout-wrap>
-       <h1>Upcoming Rides for the Twin Cities Bicycle Club</h1>
-       <md-content flex-xs="100" flex-sm="100" flex-md="100" flex="75" layout-padding>
-        <div layout="row" layout-align="stretch center" flex>
-          
-                <div layout="row" layout-align="center start" layout-padding>
+<md-content flex layout="row" layout-sm="column" layout-xs="column">
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="70" flex-order="1" layout-padding>
+        <h1>Upcoming Rides for the Twin Cities Bicycle Club</h1>
+       <div flex>
                     <md-input-container class="md-icon-float">
                         <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
                         <input ng-model="rides_name" ng-change="allRidesActions.filter()" placeholder="Ride name" filter-by="rides_name" filter-type="text"
                             aria-invalid="false">
                     </md-input-container>
-                </div>
 
-                <div layout="row" layout-align="start center" layout-padding>
+             
                     <md-input-container class="md-icon-float">
                         <md-icon class="material-icons" md-font-icon>&#xE878;</md-icon>
                         <md-datepicker md-min-date="vm.minDate" md-hide-icons="calendar" style="padding-left:30px; width:200px;" flex="100" ng-model="date"
                             md-placeholder="Ride date" filter-by="dateFrom" ng-change="allRidesActions.filter()">
                         </md-datepicker>
                     </md-input-container>
-                </div>
+
             
-                <div layout="row" layout-align="start center" layout-padding>
+              
                     <md-input-container class="md-icon-float">
                         <md-icon class="material-icons" md-font-icon>&#xE52F;</md-icon>
                         <md-select filter-by="type" filter-type="select" ng-model="type" placeholder="Ride category" ng-change="allRidesActions.refresh();allRidesActions.filter()">
@@ -30,20 +27,16 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                </div>
-                <div layout="row" layout-wrap layout-align="center center" layout-padding>
+
+            
                     <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
                     </md-button>
 
-                </div>
 
 
-        </div>
-        <div layout="row" layout-align="end start">
+
             <span class="cancelled-ride">Cancelled Rides</span>
-        </div>
 
-        <div flex="100">
             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                 <div layout-gt-sm="row" layout-sm="column" layout-align="center">
 
@@ -117,18 +110,28 @@
                 </div>
             </div>
 
-    </md-content>
-    <md-content layout="row" flex-gt-sm="20" layout-align="space-around" layout-wrap>
-        <span>Category Key</span>
-        <div ng-repeat="category in vm.categories.list">
-                <h3>{{category.type}} - {{category.name}}</h3>
-                <p><span class="bold">Description:</span> {{category.category_description}}</p>
-                <p><span class="bold">Min. Average Speed:</span>{{category.notes}}</p>
-                <p><span class="bold">Riders Must Have:</span>{{category.riders_must_have}}</p>
-                <p><span class="bold">Rest Stops:</span>{{category.rest_stops}}</p>
-                <p><span class="bold">Leader Rides:</span>{{category.ride_leader_notes}}</p>
-            </div>
-</md-content>
-
-
-</md-content>
+    </div>
+    </div>
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="25" flex-order="2" layout-padding>
+        <h2>Category Key</h2>
+      <md-content id="dynamic-content" class="f-clear-padding">
+            <div class="md-accordion" ng-repeat="category in vm.categories.list">
+              <md-toolbar ng-init="category.expanded = false" ng-click="vm.toggleView(vm.categories.list, category, $index)">
+              <div class="md-toolbar-tools">
+                <h2>{{category.type}} - {{category.name}}</h2>
+              <div ng-class="{expandCollapse:true, active:category.expanded}"></div>
+              </div>
+              </md-toolbar>
+              <div style="overflow:scroll" ng-class="{dataContent:true, activeContent:category.expanded}">
+                <div style="padding:10px">
+                        <p><span class="bold">Description:</span> {{category.category_description}}</p>
+                        <p><span class="bold">Min. Average Speed:</span>{{category.notes}}</p>
+                        <p><span class="bold">Riders Must Have:</span>{{category.riders_must_have}}</p>
+                        <p><span class="bold">Rest Stops:</span>{{category.rest_stops}}</p>
+                        <p><span class="bold">Leader Rides:</span>{{category.ride_leader_notes}}</p>
+                </div>
+              </div>
+            <div>
+          </md-content>
+        </md-content>
+        </md-content>
