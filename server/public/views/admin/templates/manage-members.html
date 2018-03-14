@@ -57,10 +57,11 @@
         <td style="text-align: left;">{{member.member_id}}</td>
         <!-- <td style="text-align: center;">{{member.role}}</td> -->
         <td style="text-align: center;"> 
-          <md-select placeholder="{{member.role}}" ng-model="member.role">
+          <md-select ng-if="member.role_id != 4" placeholder="{{member.role}}" ng-model="member.role">
             <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
           </md-select>
-          <md-button class="md-raised md-button" ng-click="vm.changeRole(member)">Submit</md-button>
+          <md-button ng-if="member.role_id != 4" class="md-raised md-button" ng-click="vm.changeRole(member)">Submit</md-button>
+          <span ng-if="member.role_id == 4">{{member.role}}</span>
         </td>
         <td>
           <md-button class="md-raised md-button" ng-click="vm.adminViewMemberPastRides(member)">View</md-button>
