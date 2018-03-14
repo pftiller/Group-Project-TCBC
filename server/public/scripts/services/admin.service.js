@@ -129,7 +129,49 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
         self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
         self.closeModal = function () {
-            self.hide();
+            $mdDialog.hide();
+        }
+        console.log('modal item ', item);
+
+        self.editSinglePastRide = function (ride, ev) {
+            let pastRideInfo = {
+                member: self.member,
+                ride: ride
+            }
+            $mdDialog.show({
+                controller: SinglePastRideEditController,
+                controllerAs: 'vm',
+                templateUrl: '../views/admin/partials/edit-ride-mileage.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                resolve: {
+                    item: function () {
+                        return pastRideInfo;
+                    }
+                }
+            })
+        }
+
+        function SinglePastRideEditController($mdDialog, item, AdminService) {
+            const self = this;
+            self.pastRideInfo = item;
+            self.member = self.pastRideInfo.member;
+            self.ride = self.pastRideInfo.ride;
+            self.closeModal = function () {
+                $mdDialog.hide();
+            }
+            console.log('modal modal item ', item);
+
+            self.editRideActualMileage = function (mileage) {
+                let mileUpdate = {
+                    ride_id: self.ride.ride_id,
+                    user_id: self.member.user_id,
+                    mileage: mileage
+                }
+                AdminService.editRideActualMileage(mileUpdate)
+                    .then(()=>{self.closeModal()});
+            }
         }
     }
 
@@ -142,4 +184,40 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 console.log('error with password change API call ', err);
             })
     }
+
+    self.editRideActualMileage = function (mileUpdate) {
+        return $http.put('/rides/admin/editRide/actualMileage', mileUpdate)
+            .then((response) => {
+                console.log('response from update actual mileage', response);
+                swal(`Successfully updated user mileage!`, '', 'success');
+            })
+            .catch((err) => {
+                console.log('error updating actual mileage ', err);
+                swal(`Could not update user mileage, please try again later.`, '', 'error');
+            })
+    }
+
 }]);
+
+
+// ride = {
+//     actual_distance: 16,
+//     approved: true,
+//     cancelled: false,
+//     checked_in: false,
+//     completed: true,
+//     date: "12/12/1931",
+//     description: "234",
+//     id: 32,
+//     ride_id: 28,
+//     ride_leader: 2,
+//     ride_location: "231",
+//     rides_category: 1,
+//     rides_date: "1931-12-12T06:00:00.000Z",
+//     rides_name: "qwe",
+//     selected_distance: 16,
+//     time: "12:00 AM",
+//     url: "234",
+//     user_id: 2,
+//     waiver_signed: null
+// }

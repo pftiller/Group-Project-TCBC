@@ -8,6 +8,17 @@ myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', fun
   self.minDate = new Date();
   self.selection = [];
 
+
+  self.toggleView = function(ary, data, index){
+    for(var i=0; i<ary.length; i++){
+      if(i!=index) { ary[i].expanded=false; }
+      else { data.expanded=!data.expanded; }
+    }
+  }
+
+
+
+
 $scope.gridOptions = {
     data: [],
     sort: {

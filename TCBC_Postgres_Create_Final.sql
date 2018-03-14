@@ -7,6 +7,7 @@ CREATE TABLE "users" (
   "email" varchar(50),
   "role" int NOT NULL,
   "member_id" int,
+  "goal" int,
   CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

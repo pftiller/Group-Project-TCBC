@@ -167,6 +167,8 @@ router.get('/member/mileage', isAuthenticated, (req, res) => {
 
 // get riders for check in view
 router.get(`/rideLeader/signedUpRiders/:rideId`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
+    console.log('get signed in users ', req.params.rideId);
+
     const queryText = `
     SELECT * FROM users
     JOIN rides_users on rides_users.user_id = users.id
@@ -247,22 +249,36 @@ router.post('/signUp', isAuthenticated, (req, res) => {
 
 
 router.post('/ride-leader/sign-up-member', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-        // console.log('req.body ', req.body);
-        let ride = req.body.current;
-        let member = req.body.member;
-        const query = `
-        INSERT INTO rides_users (ride_id, user_id, selected_distance) 
-        VALUES ($1, $2, $3)`;
-        pool.query(query, [ride.ride_id, member.id, ride.ride_distance_id[0]])
-            .then((result) => {
-                res.sendStatus(201);
-            })
-            // error handling
-            .catch((err) => {
-                console.log('error making insert query:', err);
-                res.sendStatus(500);
-            });
-    });
+    // console.log('req.body ', req.body);
+    let ride = req.body.current;
+    let member = req.body.member;
+    const getDistancesQuery = `
+        SELECT * FROM rides_distances 
+        WHERE ride_id = $1 
+        ORDER BY distance DESC`
+    pool.query(getDistancesQuery, [ride.ride_id])
+        .then((result) => {
+            console.log('results of distances ordered by DESC: ', result.rows);
+            let selectedMaxDistance = result.rows[0].id;
+            const query = `
+                INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+                VALUES ($1, $2, $3)`;
+            pool.query(query, [ride.ride_id, member.id, selectedMaxDistance])
+                .then((result) => {
+                    res.sendStatus(201);
+                })
+                // error handling
+                .catch((err) => {
+                    console.log('error making insert query:', err);
+                    res.sendStatus(500);
+                });
+        })
+        .catch((err) => {
+            console.log('error making insert query:', err);
+            res.sendStatus(500);
+        });
+})
+
 
 // unregsiter member for ride
 //delete rides_users row where userid and ride id are equal
@@ -291,7 +307,7 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
     // console.log('user ', req.user);
     // console.log('req.body ', req.body);
     // console.log('distances: ', req.body.distances);
-   
+
     const saveRideQuery = `
     INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) 
     VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -319,16 +335,33 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
         .catch((err) => {
             console.log('error making insert rides query:', err);
             res.sendStatus(500);
-      });
+        });
 
 });
 
+router.put('/admin/editRide/actualMileage', isAuthenticated, isAdminAuthorized, (req, res) => {
+    console.log('acutal mileage req body ', req.body);
+    const updateActualMileageQuery = `
+        UPDATE rides_users
+        SET actual_distance = $1 
+        WHERE ride_id = $2
+        AND user_id = $3;`;
+    pool.query(updateActualMileageQuery, [req.body.mileage, req.body.ride_id, req.body.user_id])
+        .then((result) => {
+            console.log('put query actual miles result', result);
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('put query actual miles err', err);
+            res.sendStatus(500);
+        })
 
+})
 
 /* Ride Approval and Sign up Ride Leader to ride with longest distance*/
 
-router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req,res)=>{
-    
+router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, res) => {
+
     const ride_id = req.body.ride_id;
     const rideLeaderId = req.body.ride_leader;
     const rideIsApproved = true;
@@ -343,16 +376,16 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req,res
         ride_location = $6, 
         approved = $7
         WHERE id = $8;`;
-    pool.query(editRideQuery, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.body.url, req.body.ride_location, rideIsApproved, ride_id ])
+    pool.query(editRideQuery, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.body.url, req.body.ride_location, rideIsApproved, ride_id])
         .then((result) => {
-            
+
             console.log('success EDIT on ride: ', result);
             const overwriteDistancesQuery = `
                 DELETE 
                 FROM rides_distances
                 WHERE ride_id = $1`;
             pool.query(overwriteDistancesQuery, [ride_id])
-                .then((result)=>{
+                .then((result) => {
                     console.log('success on removing old distances: ', result);
                     const saveDistancesQuery = `
                     INSERT INTO rides_distances (ride_id, distance) 
@@ -361,48 +394,48 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req,res
                     pool.query(saveDistancesQuery, [ride_id, req.body.ride_distance])
                         .then((result) => {
                             const getDistancesQuery = `SELECT * FROM rides_distances WHERE ride_id = $1 ORDER BY distance DESC`
-                            pool.query(getDistancesQuery,[ride_id])
-                            .then((result)=>{
-                                console.log('results of distances ordered by DESC: ', result.rows);
-                                let rideLeaderDistance = result.rows[0].id;
-                                const addRideLeaderToRideQuery = `
+                            pool.query(getDistancesQuery, [ride_id])
+                                .then((result) => {
+                                    console.log('results of distances ordered by DESC: ', result.rows);
+                                    let rideLeaderDistance = result.rows[0].id;
+                                    const addRideLeaderToRideQuery = `
                                 INSERT INTO rides_users (ride_id, user_id, selected_distance) 
                                 VALUES ($1, $2, $3);`;
-                                pool.query(addRideLeaderToRideQuery, [ride_id, rideLeaderId, rideLeaderDistance])
-                                    .then((result)=>{
-                                        console.log('success on adding ride leader to their ride.');
-                                        
-                                        res.sendStatus(201)
-                                    })
-                                    .catch((err)=>{
-                                        console.log('error adding ride leader to their ride: ', err);
-                                        res.sendStatus(500);
-                                    })
+                                    pool.query(addRideLeaderToRideQuery, [ride_id, rideLeaderId, rideLeaderDistance])
+                                        .then((result) => {
+                                            console.log('success on adding ride leader to their ride.');
+
+                                            res.sendStatus(201)
+                                        })
+                                        .catch((err) => {
+                                            console.log('error adding ride leader to their ride: ', err);
+                                            res.sendStatus(500);
+                                        })
+                                })
+                                .catch((err) => {
+                                    console.log('error getting distances ordered by DESC: ', err);
+
+                                    res.sendStatus(500);
+                                })
                         })
-                        .catch((err)=>{
-                            console.log('error getting distances ordered by DESC: ', err);
-                        
+                        .catch((err) => {
+                            console.log('error making insert rides_distances query:', err);
                             res.sendStatus(500);
                         })
+
                 })
                 .catch((err) => {
-                    console.log('error making insert rides_distances query:', err);
+                    console.log('error deleting ride distances: ', err);
                     res.sendStatus(500);
+
                 })
-                    
-            })
-            .catch((err)=>{
-                console.log('error deleting ride distances: ', err);
-                res.sendStatus(500);
-                   
-            })
-            
+
         })
         // error handling
         .catch((err) => {
             console.log('error making UPDATE rides query:', err);
             res.sendStatus(500);
-      });
+        });
 
 
 
@@ -416,16 +449,16 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req,res
 //Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
     const queryText = `
-    SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.ride_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
+    SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, rides.approved, rides.completed,rides. cancelled, rides.rides_category, users.first_name, users.last_name,users.phone_1,users.email, categories.type
     FROM rides 
     JOIN rides_distances on rides.id = rides_distances.ride_id
     JOIN users on rides.ride_leader = users.id
-    JOIN categories on rides.ride_category = categories.id
+    JOIN categories on rides.rides_category = categories.id
     WHERE rides.id = $1
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(queryText, [req.params.rideId])
         .then((response) => {
-            // console.log('get current ride info ', response.rows);
+            console.log('get current ride info ', response.rows);
             res.send(response.rows);
         })
         .catch((err) => {
@@ -507,10 +540,10 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
                         console.log('error making update completed query:', err);
                         res.sendStatus(500);
                     });
-            } else{
+            } else {
                 res.send('User is not the correct ride leader for ride');
             }
-         
+
         })
         // error handling
         .catch((err) => {
@@ -521,21 +554,47 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
 
 
 //Add Guest rider to db
-router.post(`/rideLeader/addGuest`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
+router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
     // console.log('req.body ', req.body);
-    const query = `
+    const guestInsertQuery = `
     INSERT INTO users (first_name, last_name, phone_1, email, role) 
-    VALUES ($1, $2, $3, $4, $5)`;
-    pool.query(query, [req.body.first_name, req.body.last_name, req.body.phone_1, req.body.email, 4])
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING id`;
+    pool.query(guestInsertQuery, [req.body.first_name, req.body.last_name, req.body.phone_1, req.body.email, 4])
         .then((result) => {
-            res.sendStatus(201);
+            console.log('user_id of new guest ', result.rows[0].id);
+            let user_id = result.rows[0].id;
+            const getDistancesQuery = `
+                    SELECT * FROM rides_distances 
+                    WHERE ride_id = $1 
+                    ORDER BY distance DESC`
+            pool.query(getDistancesQuery, [req.params.ride_id])
+                .then((result) => {
+                    console.log('results of distances ordered by DESC: ', result.rows);
+                    let selectedMaxDistance = result.rows[0].id;
+                    const query = `
+                            INSERT INTO rides_users (ride_id, user_id, selected_distance, checked_in, waiver_signed) 
+                            VALUES ($1, $2, $3, $4, $5)`;
+                    pool.query(query, [req.params.ride_id, user_id, selectedMaxDistance, true, req.body.waiver_signed])
+                        .then((result) => {
+                            console.log('Inserted guest to rides!');
+                            res.sendStatus(201);
+                        })
+                        .catch((err) => {
+                            console.log('error inserting rides_users guest query:', err);
+                            res.sendStatus(500);
+                        });
+
+                })
+                .catch((err) => {
+                    console.log('error getting rides_distances for getDistanceQuery:', err);
+                    res.sendStatus(500);
+                });
         })
-        // error handling
         .catch((err) => {
-            console.log('error making insert query:', err);
+            console.log('error inserting users for guestInsertQuery:', err);
             res.sendStatus(500);
         });
-
 });
 
 
