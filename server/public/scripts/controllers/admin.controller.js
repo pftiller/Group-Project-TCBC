@@ -141,10 +141,4 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
 
 
 
-
-
-
-
-
-
 }]);

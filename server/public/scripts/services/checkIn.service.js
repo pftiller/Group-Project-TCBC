@@ -12,7 +12,7 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         //get ride information for current ride 
         return $http.get(`/rides/rideLeader/currentRide/${rideId}`)
             .then((response) => {
-                console.log(response.data[0]);
+                console.log('current',response.data[0]);
                 self.ride.current = response.data[0];
             })
             .catch((err) => {
@@ -80,24 +80,12 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         self.guestRegisterModal();
     }
 
-    self.addGuestRider = function (guest) {
-        console.log('ADD GUEST TO THIS RIDE ');
-        return $http.post(`/rides/rideLeader/addGuest`, guest)
-            .then((response) => {
-                console.log('add guest to ride response ', response);
-            })
-            .catch((err) => {
-                swal('Error adding guest to ride, please try again later.', '', 'error');
-                // console.log('err adding guest to ride', err);
-            })
-    }
-
-
     self.signUpPost = function (ride) {
         console.log('Signing up member for ride ', ride);
         return $http.post('/rides/ride-leader/sign-up-member', ride)
             .then((response) => {
                 console.log('response from member add ', response);
+                self.getRidersForCurrentRide(ride.current.ride_id); 
                 return response;
             })
             .catch((err) => {
@@ -131,7 +119,8 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         }
         self.addMemberRider = function (member) {
             self.ride.member = member;
-            CheckInService.signUpPost(self.ride);
+            CheckInService.signUpPost(self.ride)
+                .then(()=>{$mdDialog.hide()});
         };
 
         self.searchForMember = function (member) {
@@ -180,6 +169,20 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         };
     }
 
+
+    self.addGuestRider = function (rideId, guest) {
+        console.log('ADD GUEST TO THIS RIDE ');
+        return $http.post(`/rides/rideLeader/addGuest/${rideId}`, guest)
+            .then((response) => {
+                console.log('add guest to ride response ', response);
+                self.getRidersForCurrentRide(rideId); 
+            })
+            .catch((err) => {
+                swal('Error adding guest to ride, please try again later.', '', 'error');
+                // console.log('err adding guest to ride', err);
+            })
+    }
+
     self.guestRegisterModal = function (ride, ev) {
         $mdDialog.show({
             controller: GuestRegisterController,
@@ -196,10 +199,10 @@ myApp.service('CheckInService', ['$http', '$location', '$mdDialog', 'RideDetailS
         let rideId = $routeParams.rideId
         self.addGuestRider = function () {
             console.log('guest ', self.newGuest);
-            CheckInService.addGuestRider(self.newGuest)
-            // .then(()=>{
-            //     self.hide();
-            // })
+            CheckInService.addGuestRider(rideId, self.newGuest)
+            .then(()=>{
+                self.hide();
+            })
         }
         self.hide = function () {
             $mdDialog.hide();

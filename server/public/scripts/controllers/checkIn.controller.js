@@ -12,7 +12,7 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
             .then(() => {
                 return $location.path('/ride-leader/my-rides');
             })
-            .catch((err)=>{
+            .catch((err) => {
                 alert('Error marking ride complete! ', err);
             })
             .finally(() => {
@@ -27,16 +27,35 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     };
     self.currentRide(rideId);
 
-    self.addRider = function(){
-        let answer = confirm('Is the rider a TCBC member?');
-        if (answer) {
-            CheckInService.addMemberToRide();
-        } else{
-            CheckInService.addGuestToRide();
-        };
+    self.addRider = function () {
+        swal("Would you like to add a guest or a member?", {
+                className: "add-rider-modal",
+                buttons: {
+                    guest: {
+                        text: "Guest",
+                        value: "guest"
+                    },
+                    member: {
+                        text: "Member",
+                        value: "member",
+                    },
+                }
+            })
+            .then((value) => {
+                switch (value) {
+                    case "guest":
+                        CheckInService.addGuestToRide();
+                        break;
+                    case "member":
+                        CheckInService.addMemberToRide();
+                        break;
+                    default:
+                        swal("Cancelled adding new rider.");
+                }
+            });
     }
 
-    self.toggleCheckedIn = function(rider){
+    self.toggleCheckedIn = function (rider) {
         CheckInService.toggleCheckedIn(rider);
     }
 
