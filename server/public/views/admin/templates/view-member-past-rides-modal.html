@@ -4,35 +4,38 @@
             <h1>Past Rides</h1>
         </div>
     </header>
-    <div layout="row" layout-align="space-between strech">
-        <div class="member_info" ng-repeat="rides in vm.pastMemberRides.list" class="pastMemberModal">
-            <div layout="row">
-                <h2>Ride name</h2>
-                <p>
-                    {{rides.rides_name}}
-                </p>
-                <h2>Ride date</h2>
-                <p>
-                    {{rides.rides_date | date:'MM-dd-yyyy'}}
-                </p>
-            </div>
-            <div layout="row">
-                <h2>Checked-in</h2>
-                <p>
-                    {{rides.checked_in}}
-                </p>
-                <h2>Waiver signed</h2>
-                <p>
-                    {{rides.waiver_signed}}
-                </p>
-            </div>
-            <div>
-                <md-button class="md-raised md-primary" ng-click="">Patrick's button</md-button>
-            </div>
-        <div>
-            <md-button class="md-raised md-primary" ng-click="vm.editSinglePastRide(ride)">Patrick's button</md-button>
-        </div>
+    <div layout="row" layout-align="center center">
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="sortable" sortable="date">
+                        <span>Ride Name</span>
+                        <span class="arrow"></span>
+                    </th>
+                    <th style="text-align: center;">
+                        <span>Ride Date</span>
 
-
+                    </th>
+                    <th sortable='type' class="sortable mdl-data-table__cell--non-numeric">
+                        <span>Checked In</span>
+                        <span class="arrow"></span>
+                    </th>
+                    <th>
+                        <span>Waiver Signed</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ride in vm.pastMemberRides.list">
+                    <!-- <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index"> -->
+                    <td style="text-align: center;">{{ride.rides_name}}</td>
+                    <td style="text-align: center;">{{ride.rides_date | date:'MM-dd-yyyy'}}</td>
+                    <td style="text-align: center;">{{ride.checked_in}}</td>
+                    <td style="text-align: center;">{{ride.waiver_signed}}</td>
+                    <td>
+                        <md-button class="md-raised md-primary" ng-click="vm.editSinglePastRide(ride)">Past Ride Details</md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
