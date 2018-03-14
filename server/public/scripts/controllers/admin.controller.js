@@ -61,9 +61,9 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
             })
     }
 
-    self.changeRole = function (role_name, member) {
-        console.log('in change role ', role_name, member);
-        AdminService.changeRole(role_name, member)
+    self.changeRole = function (member) {
+        console.log('in change role ', member);
+        AdminService.changeRole(member)
             .then((response) => {
                 self.roleChange = AdminService.roleChange;
                 AdminService.findRider(member);

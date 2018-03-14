@@ -61,10 +61,10 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             rider.member_id = 0
         }
         if (rider.first_name == '') {
-            rider.first_name = 'First';
+            rider.first_name = 'QWERTYPHONE';
         }
         if (rider.last_name == '') {
-            rider.last_name = 'Last';
+            rider.last_name = 'BANANAJAMMA';
         }
         return $http.get(`/member/findRider/riderInfo/${rider.first_name}/${rider.last_name}/${rider.member_id}`)
             .then((response) => {
@@ -81,9 +81,9 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             })
     }
 
-    self.changeRole = function (role_name, member) {
-        console.log('role name', role_name);
-        return $http.put(`/member/changeRole/${member.member_id}`, role_name)
+    self.changeRole = function (member) {
+        console.log('role member change', member);
+        return $http.put(`/member/changeRole`, member)
             .then((response) => {
                 if (response) {
                     swal(`User role was successfully updated!`, {
