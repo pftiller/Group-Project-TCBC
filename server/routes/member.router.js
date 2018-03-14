@@ -45,10 +45,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
 });
 
 router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
-  console.log('in find rider router');
-  console.log(req.body);
-  console.log(req.params);
-  console.log('req.params for rider search ', req.params.member_id);
+  
   const queryText =
     ` SELECT users.id AS user_id, users.first_name, users.last_name, users.member_id, user_roles.id AS role_id, user_roles.role
     FROM users 
@@ -59,7 +56,6 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     OR last_name = $3;`
   pool.query(queryText, [req.params.member_id, req.params.first_name, req.params.last_name])
     .then((result) => {
-      console.log('query results for rider search:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -70,7 +66,6 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
 
 
 router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
-  console.log('in change role router');
   let memID = req.params.member_id;
   const queryText =
     `UPDATE users
@@ -78,8 +73,7 @@ router.put(`/changeRole/:member_id`, isAuthenticated, function (req, res) {
   WHERE member_id = $2;`
   pool.query(queryText, [req.body.id, memID])
     .then((result) => {
-      console.log('query results for change user role ', result.rows);
-      console.log('req.body.id', req.body.id);
+      
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -110,5 +104,55 @@ router.get(`/adminViewMemberPastRides/:member_id`, isAuthenticated, function (re
     })
 
 })
+
+
+router.get('/stats/goal', isAuthenticated, (req, res)=>{
+  
+  const userId = req.user.id;
+  const getGoalQuery = `
+  SELECT goal, actual_distance
+  FROM users
+  JOIN rides_users ON users.id = rides_users.user_id
+  WHERE users.id = $1;`
+   pool.query(getGoalQuery,[userId])
+    .then((result)=>{
+      res.send(result.rows);
+    })
+    .catch((err)=>{
+      res.sendStatus(500);
+    })
+})
+
+router.put('/stats/goal', isAuthenticated, (req, res)=>{
+  
+  const userId = req.user.id;
+  const newGoal = req.body.setGoal;
+  const setGoalQuery = `
+    UPDATE users
+    SET goal = $1
+    WHERE id = $2`;
+  
+  pool.query(setGoalQuery,[newGoal, userId])
+    .then((result)=>{
+      res.sendStatus(201);
+    })
+    .catch((err)=>{
+      console.log('error updating goal: ', err);
+      res.sendStatus(500);
+    }) 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;

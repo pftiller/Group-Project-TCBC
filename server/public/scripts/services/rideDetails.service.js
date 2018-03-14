@@ -35,14 +35,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         this.date = moment(timeStamp).format('MM/DD/YYYY');
 
     }
-    console.log('Date.now()', timeStamp)
+    
 
 
     self.getMileageForMember = function () {
         return $http.get('/rides/member/mileage')
             .then((response) => {
-                console.log('get mileage response ', response.data);
                 self.myMileage.total = response.data;
+                return response.data;
             })
             .catch((err) => {
                 // console.log('get mileage err ', err);
