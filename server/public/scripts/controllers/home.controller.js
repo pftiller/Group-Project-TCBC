@@ -8,7 +8,7 @@ myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', fun
   self.minDate = new Date();
   self.selection = [];
 
-$scope.allRidesOptions = {
+$scope.gridOptions = {
     data: [],
     sort: {
       predicate: 'date',
@@ -23,7 +23,7 @@ $scope.allRidesOptions = {
     }
   };
 
-$scope.allRidesActions = {
+$scope.gridActions = {
 
 }
   // GET categories on page load
@@ -46,7 +46,7 @@ $scope.allRidesActions = {
         //       rid
         //     }
         // })
-        $scope.allRidesOptions.data = response.data;
+        $scope.gridOptions.data = response.data;
         // self.rides.list = response;
 
       })
