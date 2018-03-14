@@ -69,34 +69,42 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
             "#33cc33"
         ] 
       });
-   
+      trackDateArrayLength = [];
+      trackDateArrayLength = trackDateArrayLength.length;
     
     /* Line Graph */
     var ctx = document.getElementById('lineChart').getContext('2d');
     var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'line',
+        type: 'line',
 
-    // The data for our dataset
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            backgroundColor: false,
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    },
+        // The data for our dataset
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Miles Biked Per Ride",
+                backgroundColor: false,
+                borderColor: 'rgb(255, 99, 132)',
+                data: [],
+                fill: false
+            }]
+        },
 
-    // Configuration options go here
-    options: {}
+        // Configuration options go here
+        options: {}
     });
 
-
+    
     self.getLineChartData = function(){
         $http.get('/rides/stats')
             .then((response)=>{
                 console.log('response on getting linechart data: ', response.data);
+                
+                chart.chart.config.data.labels = response.data.datesArray;
+                chart.chart.config.data.datasets[0].data = response.data.mileageArray;
+                
+                chart.update();
+                console.log('chart!: ', chart.chart.config);
                 
             })
             .catch((err)=>{
@@ -106,5 +114,13 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
     }
     self.getLineChartData();
     
+    function formatDates(array){
+        let formattedArray = [];
+        for(let i=0;i<array.length;i++){
+            let date = moment('MMMM Do YYYY').format(array[i])
+            formattedArray.push(date);
+        }
+        return formattedArray;
+    }
 
 }]);
