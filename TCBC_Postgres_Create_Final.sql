@@ -117,7 +117,7 @@ INSERT INTO "public"."categories"("id", "type", "name") VALUES(12, 'N-B', 'Night
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(13, 'N-B/C', 'Night') RETURNING "id", "type", "name";
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(14, 'N-C', 'Night') RETURNING "id", "type", "name";
 INSERT INTO "public"."categories"("id", "type", "name") VALUES(15, 'O', 'Outreach') RETURNING "id", "type", "name";
-INSERT INTO "public"."categories"("id", "type", "name") VALUES(16, 'S', 'Special') RETURNING "id", "type", "name";
+
 
 
  -- ROLE DATA --
