@@ -91,12 +91,19 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 console.log('Error status: ' + resp.status);
             });
     };
-
-    self.adminViewMemberPastRides = function(member){
-        AdminService.adminViewMemberPastRides(member);
-    };
     
-    self.openChangePasswordModal = function(ev, member){
+
+    self.adminViewMemberPastRides = function (member, ev) {
+        AdminService.adminViewMemberPastRides(member)
+            .then((response) => {
+                console.log(self.pastMemberRides);
+            })
+            .catch((err) => {
+                console.log('did not get user past rides ', err);
+            })
+    }
+
+    self.openChangePasswordModal = function (ev, member) {
         $mdDialog.show({
             controller: ChangePasswordController,
             controllerAs: 'vm',

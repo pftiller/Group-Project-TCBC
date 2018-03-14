@@ -285,3 +285,11 @@ th {
   background-image: url('../images/bicycles.jpg');
   z-index: 100;
 } */
+
+#bigfella{
+  width: 25%;
+  
+}
+.lineChart{
+  width: 500px;
+}
