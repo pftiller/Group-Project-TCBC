@@ -1,7 +1,12 @@
 <div class="admin-view-past-rides-modal" layout="column" ng-animate-ref="edit-admin-modal">
     <header>
         <div class="instructions edit-rides-header">
-            <h1>Past Rides</h1>
+            <div layout="row" layout-align="end start" style="max-height:0px;">
+                <button ng-click="vm.closeModal()" style="background-color: inherit; color:honeydew; border:none;">
+                    <i class="material-icons">clear</i>
+                </button>
+            </div>
+            <h1 style="text-align:center;">Past Rides</h1>
         </div>
     </header>
     <div layout="row" layout-align="center center">

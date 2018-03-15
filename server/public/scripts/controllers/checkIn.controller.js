@@ -3,6 +3,8 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
     let self = this;
     let rideId = $routeParams.rideId;
 
+    self.onMobile = true;
+
     self.ride = CheckInService.ride;
 
     self.riders = CheckInService.riders;
