@@ -1,23 +1,24 @@
 <header>
     <div class="instructions" layout="row" layout-align="space-between center">
-        <h1 style="font-size:-webkit-xxx-large;">{{vm.ride.current.rides_name}}</h1>
-        <md-button class="mobile-button" ng-click="vm.closeCheckIn()">Close</md-button>
+        <h1 style="font-size: xx-large;">{{vm.ride.current.rides_name}}</h1>
+        <md-button class="md-primary md-raised" ng-click="vm.closeCheckIn()">Close</md-button>
     </div>
 </header>
-<div class="md-toolbar-tools mobile-middle-buttons mobile-button-holder" layout layout-align="space-around center">
-    <md-button class="mobile-button" ng-click="vm.markRideComplete()">
-            <i class="material-icons md-48">done</i>Ride Complete!</md-button>
-    <md-button class="mobile-button" ng-click="vm.addRider()">
-        <i class="material-icons md-48">person_add</i> Add Rider</md-button>
+<div class="md-toolbar-tools mobile-middle-buttons" layout layout-align="space-around center">
+    <md-button class="md-primary md-raised mobile-button-text" ng-click="vm.markRideComplete()" layout="column">
+            <i class="material-icons md-36">done</i><span >Ride Complete!</span></md-button>
+    <md-button class="md-primary md-raised mobile-button-text" ng-click="vm.addRider()" layout="column">
+        <i class="material-icons md-36">person_add</i><span >Add Rider</span></md-button>
 </div>
 
 <div layout="column" layout-align="center center">
-    <table>
+    {{vm.onMo}}
+    <table class="check-in-table">
         <thead>
             <tr>
-                <th class="mobile-table-head">Member ID</th>
-                <th class="mobile-table-head">Member Name</th>
-                <th class="mobile-table-head">Checked In</th>
+                <th class="">Member ID</th>
+                <th class="">Member Name</th>
+                <th class="">Checked In</th>
             </tr>
         </thead>
         <tbody>

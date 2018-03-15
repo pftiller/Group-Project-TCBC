@@ -17,8 +17,13 @@ html {
 
 .instructions {
   background-color: rgb(63, 81, 181);
-  color: #DDDDDD;
+  /* color: #DDDDDD; */
+  color: honeydew;
   padding: 15px;
+  text-align: center;
+}
+.instructions.slim{
+  padding: 1px;
 }
 
 #entryForm {
@@ -81,10 +86,16 @@ li a {
 /* Header */
 
 .md-toolbar-tools {
+  color: honeydew !important;
   height: 125px;
   max-height: 125px;
 }
-
+.md-primary.md-button{
+  color: honeydew !important;
+}
+.cancelled-button{
+  color: snow !important;
+}
 .logo {
   width: 100px;
   height: auto;
@@ -171,38 +182,31 @@ th {
   box-shadow: 2px 2px black;
 }
 
-.mobile-button {
+.mobile-button-text {
+  font-size: xx-small !important;
+  height: 105%;
+  width: 45%;
+}
+.desktop-button-text{
   font-size: xx-large !important;
-  /* height: 7vh;
-  width: 30vh; */
-  margin: 1px;
-  padding: 30px !important;
 }
+/* @media .mobile-button and  {
 
-.mobile-table-head {
-  font-size: xx-large;
-}
+} */
 
-.mobile-middle-buttons {
+/* .mobile-middle-buttons {
   min-height: 8vh;
-}
-
-.mobile-rider-checkbox {
-  /* min-height: 100px;
-  min-width: 100px; */
-}
+} */
 
 .mobile-rider-cell {
   text-align: center;
-  font-size: xx-large;
-  border-right: 3px solid black;
+  border-right: 1px solid #b5b5b5;
   border-collapse: collapse;
 }
 
 .mobile-member-cell {
   text-align: center;
-  font-size: xx-large;
-  border-right: 3px solid black;
+  border-right: 1px solid #b5b5b5;
   border-collapse: collapse;
 }
 
@@ -269,9 +273,9 @@ th {
   justify-content: center;
 }
 
-/* .mobile-text{
-  font-size: x
-} */
+.check-in-table{
+  width: -webkit-fill-available;
+}
 
 @media (orientation: landscape) {
   .guest-register {
@@ -286,8 +290,8 @@ th {
   }
 }
 
-.mobile-button-holder {
-  margin: 25px !important;
+.mobile-middle-buttons {
+  margin-top: 15px !important;
 }
 
 #bigfella {
@@ -306,6 +310,7 @@ th {
   width: 100%;
   position: absolute;
 }
+
 .slide-animation.ng-enter {
   animation: slideInLeft 0.3s;
 }
@@ -318,20 +323,30 @@ th {
   width: 100%;
   position: absolute;
 }
+
 .slide-animation-back.ng-enter {
-  animation: slideInRight  0.3s;
+  animation: slideInRight 0.3s;
 }
 
 .slide-animation-back.ng-leave {
   animation: slideOutRight 0.3s;
 }
 
-.slide-animation.ng-enter { display:none; }
-.slide-animation.ng-enter.ng-enter-active { display:block; }
+.slide-animation.ng-enter {
+  display: none;
+}
 
-.slide-animation.ng-enter { display:none; }
-.slide-animation.ng-enter.ng-enter-active { display:block; }
+.slide-animation.ng-enter.ng-enter-active {
+  display: block;
+}
 
+.slide-animation.ng-enter {
+  display: none;
+}
+
+.slide-animation.ng-enter.ng-enter-active {
+  display: block;
+}
 
 .past-rides-modal {
   height: 55vh;
@@ -347,12 +362,14 @@ th {
     transform: translateX(0);
   }
 }
+
 .slideInRight {
   -webkit-animation-name: slideInRight;
   -moz-animation-name: slideInRight;
   -o-animation-name: slideInRight;
   animation-name: slideInRight;
 }
+
 @keyframes slideOutLeft {
   0% {
     transform: translateX(0);
@@ -402,4 +419,17 @@ th {
   -moz-animation-name: slideInLeft;
   -o-animation-name: slideInLeft;
   animation-name: slideInLeft;
+}
+
+.modal-close-header {
+  background-color: inherit;
+  color: honeydew;
+  border: none;
+}
+.login-register-form{
+  padding: 25px;
+}
+
+.password-matcher, .alert{
+  color: rgba(255, 0, 87, 0.71);
 }

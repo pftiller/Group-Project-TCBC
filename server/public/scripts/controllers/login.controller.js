@@ -10,33 +10,33 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
   self.user = UserService.userObject;
 
   self.myMileage = RideDetailService.myMileage;
-    
-    self.login = function () {
-      if (self.user.member_id === '' || self.user.password === '') {
-        self.message = "Enter your username and password!";
-      }else{
-        console.log('sending to server...', self.user);
-        UserService.login(self.user).then(
-          (response)=>{
-            if(response.status == 401){
-              self.message = "Incorrect Member ID or Password"
-            }else if(response.status == 200){
-                UserService.getuser().then((response)=>{
-                  console.log('after login, user data: ', response);
-                  self.user = response;
-                  console.log('self.user after login: ', self.user);
-                  
-                  $location.path('/home');
-                })
-              $mdDialog.hide();
-            }
+
+  self.login = function () {
+    if (self.user.member_id === '' || self.user.password === '') {
+      self.message = "Enter your username and password!";
+    } else {
+      console.log('sending to server...', self.user);
+      UserService.login(self.user).then(
+        (response) => {
+          if (response.status == 401) {
+            self.message = "Incorrect Member ID or Password"
+          } else if (response.status == 200) {
+            UserService.getuser().then((response) => {
+              console.log('after login, user data: ', response);
+              self.user = response;
+              console.log('self.user after login: ', self.user);
+
+              $location.path('/home');
+            })
+            $mdDialog.hide();
           }
-        );   
-      }
+        }
+      );
     }
+  }
   self.logout = function () {
     UserService.logout()
-      .then(()=>{
+      .then(() => {
         $location.path('/landing')
       });
   }
@@ -73,8 +73,11 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
     });
   }
 
-  function RegisterController($mdDialog, UserService){
+  function RegisterController($mdDialog, UserService, $sce) {
     const self = this;
+    self.message = {
+      message: ''
+    };
     self.passwordMatch = {
       state: true
     };
@@ -84,14 +87,17 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
       password2: '',
       password: ''
     }
-    self.register = function(){
+    self.register = function () {
       if (self.newUser.password1 != self.newUser.password2) {
         self.passwordMatch.state = false;
       } else {
         // alert('register')
         self.newUser.password = self.newUser.password1;
         console.log('new user ', self.newUser);
-        UserService.registerUser(self.newUser);
+        UserService.registerUser(self.newUser)
+          .then((result) => {
+            self.message.message = $sce.trustAsHtml(result)
+          });
         self.passwordMatch.state = true;
         self.newUser = {
           member_id: '',
@@ -106,10 +112,9 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
     self.cancel = function () {
       $mdDialog.cancel();
     }
-  
+
     self.close = function () {
       $mdDialog.hide();
     }
   }
 }]);
-
