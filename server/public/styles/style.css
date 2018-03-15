@@ -464,3 +464,10 @@ th {
 .numbers-only{
   color: red;
 }
+
+.ride-leader-my-rides-container{
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-shadow: 0px 6px 10px #888888;
+}
