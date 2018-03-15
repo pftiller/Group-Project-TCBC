@@ -182,38 +182,31 @@ th {
   box-shadow: 2px 2px black;
 }
 
-.mobile-button {
+.mobile-button-text {
+  font-size: xx-small !important;
+  height: 105%;
+  width: 45%;
+}
+.desktop-button-text{
   font-size: xx-large !important;
-  /* height: 7vh;
-  width: 30vh; */
-  margin: 1px;
-  padding: 30px !important;
 }
+/* @media .mobile-button and  {
 
-.mobile-table-head {
-  font-size: xx-large;
-}
+} */
 
-.mobile-middle-buttons {
+/* .mobile-middle-buttons {
   min-height: 8vh;
-}
-
-.mobile-rider-checkbox {
-  /* min-height: 100px;
-  min-width: 100px; */
-}
+} */
 
 .mobile-rider-cell {
   text-align: center;
-  font-size: xx-large;
-  border-right: 3px solid black;
+  border-right: 1px solid #b5b5b5;
   border-collapse: collapse;
 }
 
 .mobile-member-cell {
   text-align: center;
-  font-size: xx-large;
-  border-right: 3px solid black;
+  border-right: 1px solid #b5b5b5;
   border-collapse: collapse;
 }
 
@@ -280,9 +273,9 @@ th {
   justify-content: center;
 }
 
-/* .mobile-text{
-  font-size: x
-} */
+.check-in-table{
+  width: -webkit-fill-available;
+}
 
 @media (orientation: landscape) {
   .guest-register {
@@ -297,8 +290,8 @@ th {
   }
 }
 
-.mobile-button-holder {
-  margin: 25px !important;
+.mobile-middle-buttons {
+  margin-top: 15px !important;
 }
 
 #bigfella {
