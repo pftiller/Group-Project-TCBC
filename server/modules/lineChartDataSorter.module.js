@@ -1,7 +1,6 @@
 const moment = require('moment');
 
 function sortDataForCharts(array){
-    console.log('array in module: ', array);
     let lineChartData = {};
     lineChartData.datesArray = [];
     lineChartData.mileageArray = [];

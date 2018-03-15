@@ -1,7 +1,7 @@
 <header ng-include="'/views/landing/landing.header.partial.html'"></header>
 <md-content flex layout="row" layout-sm="column" layout-xs="column">
     <div flex-xs="100" flex-sm="100" flex-gt-sm="70" flex-order="1" layout-padding>
-        <h1>Upcoming Rides for the Twin Cities Bicycle Club</h1>
+        <h1 style="text-align:center;">Upcoming Rides for the Twin Cities Bicycle Club</h1>
         <div flex>
             <md-input-container class="md-icon-float">
                 <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
@@ -29,7 +29,7 @@
 
             <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
             </md-button>
-            
+
             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                 <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
 
@@ -51,7 +51,7 @@
                                     <span>Time</span>
                                 </th>
                                 <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
-                                    <span>Name</span>
+                                    <span>Ride Name</span>
                                     <span class="arrow"></span>
                                 </th>
                                 <th sortable='type'>
@@ -70,7 +70,7 @@
                                 <td class="name">{{ride.rides_name}}</td>
                                 <td>{{ride.type}}</td>
                                 <td>
-                                    <md-button ng-if="ride.cancelled" class="md-raised" disabled>Cancelled</md-button>
+                                    <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
                                     <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
                                 </td>
                             </tr>
@@ -97,8 +97,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
     </div>
     <div flex-xs="100" flex-sm="100" flex-gt-sm="25" flex-order="2" layout-padding>
         <h2>Category Key</h2>

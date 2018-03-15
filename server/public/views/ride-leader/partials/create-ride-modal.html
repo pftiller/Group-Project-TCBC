@@ -2,12 +2,15 @@
     <header>
         <div class="instructions">
             <div layout="row" layout-align="end start">
+                <md-icon class="material-icons" md-font-icon>&#xE52F;</md-icon>
+                <span flex></span>
+                <p class="create-ride-header">Create a Ride</p>
+                <span flex></span>
                 <button ng-click="vm.closeModal()" style="background-color: inherit; color:honeydew; border:none;">
                     <i class="material-icons">clear</i>
                 </button>
             </div>
         </div>
-
     </header>
     <form class="simple-form">
         <div layout="row" layout-align="space-between strech">
@@ -37,8 +40,8 @@
                     <input class="create-ride-input" name="gps-link-input" ng-model="vm.newRide.url"/>
                 </md-input-container>
                 <md-content>
-                    <label>Add Distances: Numbers Only</label>
-                    <md-chips ng-model="vm.newRide.distances" placeholder="Add a Distance and Press Enter" md-max-chips="7"></md-chips>
+                    <label>Add Distances (miles): <span class="numbers-only">Numbers only</span></label>
+                    <md-chips ng-model="vm.newRide.distances" placeholder="type and press enter" md-max-chips="7"></md-chips>
                 </md-content>
                 
             </div>
@@ -49,9 +52,9 @@
                     <textarea name="description-input" ng-model="vm.newRide.description" rows="5" style="height:100px;" required></textarea>
                 </md-input-container>
             <div>
-                <!-- style="margin-right:59px;" -->
-                <md-button ng-click="vm.submitRide(vm.newRide)" type="submit"> Submit ride for approval</md-button>
-        </div>
+                <span flex></span>
+                <md-button ng-click="vm.submitRide(vm.newRide)" type="submit" class="md-raised md-warn" style="float:right"> Submit ride for approval</md-button>
+            </div>
     </form>
         </div>
         

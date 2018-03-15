@@ -1,4 +1,4 @@
-myApp.controller('MyProfileController', ['MyProfileService', '$location', function (MyProfileService, $location) {
+myApp.controller('MyProfileController', ['MyProfileService', '$location','$mdDialog', function (MyProfileService, $location, $mdDialog) {
     // console.log('MyProfileController created');
     let self = this;
     self.viewProfile = {};
@@ -13,7 +13,7 @@ myApp.controller('MyProfileController', ['MyProfileService', '$location', functi
     self.statsView = function(){
       $location.path('/stats')
     }
+    self.close = function(){
+      $mdDialog.cancel();
+    }
   }]);
-  
-
-  

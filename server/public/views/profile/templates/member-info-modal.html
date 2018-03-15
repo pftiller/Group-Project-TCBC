@@ -1,6 +1,5 @@
-<header ng-include="'/views/shared/header.html'"></header>
-    <div class="profileContainer" >
-        <div layout="column" class="profileLayout" layout-align="center center">
+<div class="profileContainer" layout="column" center >
+        <div layout="column" class="profileLayout" layout-align="center center"> 
             <md-content class="profileInfo">
                 <div layout-gt-sm="row">
                     <label class="profileLabel">
@@ -59,10 +58,12 @@
                 <div layout-gt-sm="row" class="profileLink">
                     <a ng-href=" http://www.biketcbc.org/index.php/current-members/manage-my-membership">Update contact information</a>
                 </div>
-
+                <div layout="row" flex>
+                    <span flex></span>
+                    <md-button class="md-raised" ng-click="vm.close()">close</md-button>
+                    <span flex></span>
+                </div>
             </md-content>
-        </div>
-        <div>
-            <md-button ng-click="vm.statsView()">My stats!</md-button>
+            
         </div>
     </div>
