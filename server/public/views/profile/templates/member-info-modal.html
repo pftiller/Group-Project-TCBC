@@ -1,6 +1,6 @@
 <div class="profileContainer" layout="column" center >
-        <div layout="column" class="profileLayout" layout-align="center center">
-            <md-content style="padding:10px"class="profileInfo">
+        <div layout="column" class="profileLayout" layout-align="center center"> 
+            <md-content class="profileInfo">
                 <div layout-gt-sm="row">
                     <label class="profileLabel">
                         Member id:
@@ -58,6 +58,12 @@
                 <div layout-gt-sm="row" class="profileLink">
                     <a ng-href=" http://www.biketcbc.org/index.php/current-members/manage-my-membership">Update contact information</a>
                 </div>
+                <div layout="row" flex>
+                    <span flex></span>
+                    <md-button class="md-raised" ng-click="vm.close()">close</md-button>
+                    <span flex></span>
+                </div>
             </md-content>
+            
         </div>
     </div>

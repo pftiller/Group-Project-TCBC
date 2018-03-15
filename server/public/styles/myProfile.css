@@ -6,19 +6,16 @@
     
 }
 
-.profileLayout {
-    margin-top: 20px;
-    
-}
+
 
 .profileInfo {
-    border: 2px solid rgb(2, 51, 83);
+    border: 5px solid rgb(2, 51, 83);
     padding: 20px;
     width: auto;
     background-color: rgb(89, 149, 184);
     font-size: 20px;
     color: #fff;
-    box-shadow: 5px 10px 18px #888888;
+    
 }
 
 .profileLabel {
@@ -33,3 +30,4 @@
 .profileUserDataLabel {
     margin-left: 10px;
 }
+

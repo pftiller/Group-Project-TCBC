@@ -30,7 +30,7 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
       }
     self.openMemberInfo = function(ev){
         $mdDialog.show({
-            controller: 'MyStatsController',
+            controller: 'MyProfileController',
             controllerAs: 'vm',
             templateUrl: '../views/profile/templates/member-info-modal.html',
             parent: angular.element(document.body),
