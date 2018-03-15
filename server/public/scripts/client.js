@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMessages', 'ngFileUpload', 'dataGrid', 'pagination']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMessages', 'ngFileUpload', 'dataGrid', 'pagination', 'wt.responsive']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -115,26 +115,4 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       template: '<h1>404</h1>'
     })
 
-    // myApp.animation('.slide', ['$animateCss', function($animateCss) {
-    //   return {
-    //     enter: function(element) {
-    //        // this will trigger `.slide.ng-enter` and `.slide.ng-enter-active`.
-    //       return $animateCss(element, {
-    //         event: 'enter',
-    //         structural: true
-    //       });
-    //     }
-    //   }
-    // }]);
-    // myApp.animation('.slideOut', ['$animateCss', function($animateCss) {
-    //   return {
-    //     enter: function(element) {
-    //        // this will trigger `.slide.ng-enter` and `.slide.ng-enter-active`.
-    //       return $animateCss(element, {
-    //         event: 'enter',
-    //         structural: true
-    //       });
-    //     }
-    //   }
-    // }]);
 }]);
