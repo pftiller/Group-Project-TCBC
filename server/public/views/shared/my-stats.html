@@ -1,84 +1,33 @@
 <header ng-include="'/views/shared/header.html'"></header>
-<div layout = "row">
-    <label> Current Goal: </label>&nbsp <span>{{vm.goal.currentGoal}} miles</span>
-    <h2 ng-if="vm.goalMet"> Congratulations on Meeting Your Goal!</h2>
+<div layout ="row" style="padding:10px">
+    
+    <span flex></span>
 </div>
-<br>
-<md-input-container>    
-    <label for=""> Set Goal: </label>
-    <input type="number" ng-model="vm.goal.setGoal" >
-</md-input-container>
-<md-button class="md-primary md-raised" ng-click="vm.setGoal(vm.goal)">Confirm Goal</md-button>
-
-<br>
-<div id="chartZone" layout="row">
-
-<div id="bigfella"></div>
-
-</div>
-<div class="lineChart">
-<canvas id="lineChart"  ></canvas>
-</div>
-<div class="profileContainer" >
-        <div layout="column" class="profileLayout" layout-align="center center">
-            <md-content class="profileInfo">
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Member id:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.member_id}}</label>
+<!-- <div layout="row" style="padding:20px">
+    
+        
+</div> -->
+<div class="profile-page-container" layout="column">
+    <div class="graph-container" layout="row">
+        <div class="goalChart" layout="column" flex=50>
+            <div id="bigfella" class="goal-dial"></div>
+            <div class="set-goal">
+                <div class="goal-container">          
+                    <md-input-container >    
+                        <label for=""> Set Goal: </label>
+                        <input type="number" ng-model="vm.goal.setGoal" >
+                    </md-input-container>
+                    <md-button class="md-primary md-raised" ng-click="vm.setGoal(vm.goal)">Confirm Goal</md-button>
                 </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        First name:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.first_name}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Last name:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.last_name}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        City:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.city}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        State:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.state}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Zip:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.zip}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Phone Number:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.phone_1}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Email:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.email}}</label>
-                </div>
-                <div layout-gt-sm="row">
-                    <label class="profileLabel">
-                        Membership expiration:
-                    </label>
-                    <label class="profileUserDataLabel" ng-disabled="true">{{vm.viewProfile.membership_expiration | date:'MM-dd-yyyy'}}</label>
-                </div>
-                <div layout-gt-sm="row" class="profileLink">
-                    <a ng-href=" http://www.biketcbc.org/index.php/current-members/manage-my-membership">Update contact information</a>
-                </div>
-
-            </md-content>
+            </div>     
+        </div>  
+        <div class="lineChart" flex=50>
+            <canvas id="lineChart"></canvas>            
         </div>
+    </div>
+    <div class="profile-btn" layout="row" layout-align="center" flex>
+        
+        <md-button class="md-warn md-raised" ng-click="vm.openMemberInfo()">View My Member Info</md-button>
+        
+    </div>
+</div>

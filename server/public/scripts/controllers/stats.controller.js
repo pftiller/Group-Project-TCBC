@@ -1,10 +1,11 @@
-myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','RideDetailService','MyProfileService', function (MyProfileService, $location, $http, RideDetailService, MyProfileService) {
+myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','RideDetailService','MyProfileService','$mdDialog', function (MyProfileService, $location, $http, RideDetailService, MyProfileService, $mdDialog) {
     // console.log('MyProfileController created');
     let self = this;
     self.viewProfile = {};
     self.goal = {};
     self.totalMiles = {};
     self.viewProfile = {};
+    self.viewProfile.expanded = false;
 
     self.viewProfile = function(){
       MyProfileService.viewProfile().then((res)=>{
@@ -21,8 +22,21 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
         })
     }
     self.viewProfile();
-    self.statsView = function (){
-        $location.path('/stats')
+    self.toggleView = function(){
+        console.log('toggle view: ', view);
+          !view.expanded  
+        console.log('view toggled: ', view);
+        
+      }
+    self.openMemberInfo = function(ev){
+        $mdDialog.show({
+            controller: 'MyStatsController',
+            controllerAs: 'vm',
+            templateUrl: '../views/profile/templates/member-info-modal.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+        })
     }
 
     self.getGoalData = function(){
@@ -92,16 +106,44 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
         data: {
             labels: [],
             datasets: [{
-                label: "Miles Biked Per Ride",
-                backgroundColor: false,
-                borderColor: 'rgb(255, 99, 132)',
+                label: "Miles Biked",
+                backgroundColor: 'rgb(255,0,0)',
+                borderColor: 'rgb(255, 0, 0)',
                 data: [],
                 fill: false
             }]
         },
 
         // Configuration options go here
-        options: {}
+        options: {
+            title: {
+                display: true,
+                text: 'My Rides',
+                position: 'top',
+                fontSize: 24,
+                fontColor: '#000000'
+            },
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Miles Biked',
+                        fontSize: 18
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Ride Date',
+                        fontSize: 18
+                    }
+                }]
+            },
+            legend:{
+                display: false,
+                position: 'bottom'
+            }
+        }
     });
 
     
