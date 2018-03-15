@@ -74,23 +74,33 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 console.log('did not change role', err);
             })
     }
-
     self.submit = function (file) {
-        Upload.upload({
-                url: '/upload',
-                data: {
-                    file: file
-                }
-            }).then(function (response) {
-                swal("Member records updated", '', "success");
-                console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
-            })
-            .catch((err) => {
-                console.log('err on submit upload ', err);
-                swal('Error updating member records.', '', 'error');
-                console.log('Error status: ' + resp.status);
+        self.csvUpload = true;
+        if (file != null) {
+          self.upload(file);
+        }
+      };
+    
+
+      self.upload = function (file) {
+        file.upload = Upload.http({
+            url: '/upload',
+            file: file
             });
-    };
+            file.upload.then(function (response) {
+                if (response.status === 200) {
+                    swal("Member records updated", '', "success");
+                    console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
+                } else {
+                    swal('Error updating member records.', '', 'error');
+                    console.log('Error on submit upload ', err  + resp.status);
+                }
+             
+            })
+            file.upload.progress(function (evt) {
+              file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+          }
 
     self.adminViewMemberPastRides = function(member){
         AdminService.adminViewMemberPastRides(member);
@@ -111,40 +121,4 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
             }
         })
     }
-
-    function ChangePasswordController($mdDialog, user, AdminService) {
-        const self = this;
-        console.log('ChangePasswordController loaded');
-        console.log('change password for this User: ', user);
-
-        self.passwordFail = false;
-        self.submitForm = function (password) {
-            if (password.newPassword !== password.confirm) {
-                self.passwordFail = true;
-            } else {
-                console.log('passwords match: ', password);
-                user.newPassword = password.newPassword;
-                console.log('user password will be: ', user);
-                AdminService.changePassword(user)
-                    .then((result) => {
-                        swal(`Successfully changed password for ${user.first_name}`, '', 'success');
-                        console.log('result of password change: ', result);
-                        $mdDialog.hide();
-                    });
-            }
-
-
-
-        }
-
-    }
-
-
-
-
-
-
-
-
-
 }]);

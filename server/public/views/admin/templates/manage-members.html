@@ -72,16 +72,63 @@
     </tbody>
   </table>
 </div>
-<form name="myForm" class="csvUpload" layout-align="center center">
-  <md-button class="md-icon-button" aria-label="More" type="file" ngf-select ng-model="vm.file" name="file" ngf-pattern="'.csv'"
-    accept=".csv" ngf-max-size="20MB" ngf-model-invalid="errorFile">
+<div layout-align="center center">
+
+
+
+
+  <!-- <md-button class="md-icon-button" aria-label="Upload" type="file" ngf-select ng-model="file" name="file" ngf-accept="'.csv'" ngf-pattern="'.csv'"
+  accept=".csv" ngf-max-size="20MB" ngf-model-invalid="errorFile">
+
+
     <i class="material-icons md-24">add_circle_outline</i>
   </md-button>
+
+
   <label> Upload Member Information - CSV File</label>
-  <i ng-show="myForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
-  <img ng-show="myForm.file.$valid" ngf-thumbnail="file">
+
+
+
+  <i ng-show="vm.csvUpload.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
+  <img ng-show="vm.csvUpload.file.$valid" ngf-thumbnail="file">
   <br>
-  <md-button class="md-raised md-primary" ng-disabled="!myForm.$valid" ng-click="vm.submit(vm.file)">Submit</md-button>
-  <br>
-  <md-button class="md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
-</form>
+
+
+
+  <div ng-show="file.length"> -->
+
+
+
+
+<div flex layout="row">
+  <md-button class="md-icon-button" id='upload' aria-label="Upload" ngf-select ng-model="oogieboogie" name="file" ngf-pattern="'/.png'"
+  ngf-accept="'/.png'" ngf-max-size="20MB" type="file" fileinput="file">
+
+<i class="material-icons md-24">add_circle_outline</i>
+  </md-button>
+  <label for="file"> Upload Member Information - CSV File</label>
+  <div ng-bind="oogieboogie"></div>
+</div>
+
+
+<!-- <button type="button" ngf-select ng-model="formdata.file" name="file">Select</button> -->
+
+
+
+<div flex layout="row"> 
+  <md-button ng-disabled="!file" type="submit" class="md-raised md-button md-primary" ng-click="vm.submit(file)">Submit</md-button>
+  <md-button class="md-raised md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
+</div>
+  
+  <div class="col-md-6">
+      <img ng-src="{{filepreview}}" class="img-responsive" ng-show="filepreview"/>
+   </div>
+
+
+
+
+
+
+
+    
+   
