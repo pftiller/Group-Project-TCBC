@@ -20,13 +20,11 @@
             <p class="ride-details-description">{{vm.ride.description}}</p>
 
             <h2>Distances Offered (Miles)</h2>
-            <!-- {{vm.ride.distanceSelction.ride_distance}} -->
-            <select ng-if="vm.user.member_id" ng-model="vm.selectedDistance">
-                <!-- distance selection not selction -->
-                <option ng-repeat="distance in vm.ride.distanceSelection" ng-value="distance.rides_distances_id">
+            <md-select ng-if="vm.user.member_id" ng-model="vm.selectedDistance">
+                <md-option ng-repeat="distance in vm.ride.distanceSelection" ng-value="distance.rides_distances_id">
                     {{distance.ride_distance}} mi
-                </option>
-            </select>
+                </md-option>
+            </md-select>
             <span ng-if="!vm.user.member_id">
                 <p ng-repeat="distance in vm.ride.distanceSelection">{{distance.ride_distance}} mi</p>
             </span>
