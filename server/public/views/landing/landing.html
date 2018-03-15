@@ -46,35 +46,35 @@
     
                     <div ng-if="filtered.length > 0">
                             <table wt-responsive-table>
-                                    <thead>
+                                    <thead style="text-align: center;">
                                        <tr>
-                                          <th class="sortable" sortable="date">
+                                          <th class="sortable" sortable="date" style="text-align: center;">
                                              <span>Date</span>
                                              <span class="arrow"></span>
                                           </th>
                                           <th>
                                              <span>Time</span>
                                           </th>
-                                          <th sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric" style="text-align:center">
-                                                <span >Ride Name</span>
+                                          <th style="text-align: center;" sortable="rides_name" class="sortable mdl-data-table__cell--non-numeric">
+                                                <span>Ride Name</span>
                                                 <span class="arrow"></span>
                                             </th>
-                                          <th sortable='type'>
+                                          <th sortable='type' style="text-align: center;">
                                              <span>Category</span>
                                              <span class="arrow"></span>
                                           </th>
-                                          <th>
+                                          <th style="text-align: center;">
                                              <span>Details</span>
                                           </th>
                                        </tr>
                                     </thead>
                                     <tbody>
                                        <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
-                                          <td>{{ride.date | date:'MM/DD/YYYY'}}</td>
-                                          <td>{{ride.time}}</td>
-                                          <td class="name" style="text-align:center">{{ride.rides_name}}</td>
-                                          <td>{{ride.type}}</td>
-                                          <td>
+                                          <td style="text-align: center;">{{ride.date | date:'MM/DD/YYYY'}}</td>
+                                          <td style="text-align: center;">{{ride.time}}</td>
+                                          <td style="text-align: center;" class="name" style="text-align:center">{{ride.rides_name}}</td>
+                                          <td style="text-align: center;">{{ride.type}}</td>
+                                          <td style="text-align: center;">
                                              <md-button ng-if="ride.cancelled" class="md-raised md-primary" disabled>Cancelled</md-button>
                                              <md-button class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
                                           </td>
