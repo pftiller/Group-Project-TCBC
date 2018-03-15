@@ -88,7 +88,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
             .catch((err) => {
                 console.log('err on submit upload ', err);
                 swal('Error updating member records.', '', 'error');
-                console.log('Error status: ' + resp.status);
+                console.log('Error status: ' + err.status);
             });
     };
     

@@ -105,7 +105,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 $mdDialog.show({
                     controller: MyPastRidesController,
                     controllerAs: 'vm',
-                    templateUrl: '../views/admin/partials/view-member-past-rides-modal.html',
+                    templateUrl: '../views/admin/partials/modal-template.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
@@ -127,21 +127,25 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
     function MyPastRidesController($mdDialog, item, AdminService) {
         const self = this;
         self.mode = {
+            show: true,
             edit: false
         }
+
         self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
-        self.closeModal = function () {
-            $mdDialog.hide();
+        self.backModal = function () {
+            self.mode.edit = false;
+            self.mode.show = true;
         }
         console.log('modal item ', item);
 
-        self.editSinglePastRide = function (ride, ev) {
-            let pastRideInfo = {
+        self.editSinglePastRide = function (ride) {
+            self.pastRideInfo = {
                 member: self.member,
                 ride: ride
             }
             self.mode = {
+                show: false,
                 edit: true
             }
             // $mdDialog.show({
@@ -157,13 +161,13 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             //         }
             //     }
             // })
-            self.pastRideInfo = item;
+            // self.pastRideInfo = item;
             self.member = self.pastRideInfo.member;
             self.ride = self.pastRideInfo.ride;
             self.closeModal = function () {
                 $mdDialog.hide();
             }
-            console.log('modal modal item ', item);
+            console.log('modal modal item ', self.pastRideInfo);
 
             self.editRideActualMileage = function (mileage) {
                 let mileUpdate = {
@@ -172,14 +176,16 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                     mileage: mileage
                 }
                 AdminService.editRideActualMileage(mileUpdate)
-                    .then(()=>{self.closeModal()});
+                    .then(() => {
+                        self.closeModal()
+                    });
             }
         }
-        }
+    }
 
-        function SinglePastRideEditController($mdDialog, item, AdminService) {
-            const self = this;
-            
+    function SinglePastRideEditController($mdDialog, item, AdminService) {
+        const self = this;
+
     }
 
     self.changePassword = function (user) {
