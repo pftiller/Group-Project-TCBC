@@ -91,7 +91,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 console.log('Error status: ' + err.status);
             });
     };
-    
+
 
     self.adminViewMemberPastRides = function (member, ev) {
         AdminService.adminViewMemberPastRides(member)
@@ -123,7 +123,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
         const self = this;
         console.log('ChangePasswordController loaded');
         console.log('change password for this User: ', user);
-
+        self.editUser = user;
         self.passwordFail = false;
         self.submitForm = function (password) {
             if (password.newPassword !== password.confirm) {
@@ -139,9 +139,10 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                         $mdDialog.hide();
                     });
             }
-
-
-
+        }
+        
+        self.closeModal = function () {
+            $mdDialog.hide();
         }
 
     }

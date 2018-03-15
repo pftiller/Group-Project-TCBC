@@ -49,7 +49,7 @@ router.post('/register', (req, res, next) => {
           .then((result) => {
             if (result.rows.length > 0) {
               console.log('member number found in users table!', result.rows);
-                res.send('Member number already has an account! If you need to reset your password contact a system administrator.')
+                res.send('Member number already has an account!<br> If you need to reset your password<br> contact a system administrator.')
             } else {
               console.log('No member number found in users table!');
               pool.query('INSERT INTO users (member_id, password, role, first_name, last_name, phone_1, email) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
@@ -69,7 +69,7 @@ router.post('/register', (req, res, next) => {
           })
       } else {
         console.log('No member number found in member_info!');
-        res.send('No membership information found for this member number. To become a member of TCBC go here...')
+        res.send('No membership information found<br> for this member number. To become <br> a member of TCBC go here...')
       }
       // res.send(result)
     })

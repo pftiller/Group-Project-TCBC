@@ -17,8 +17,13 @@ html {
 
 .instructions {
   background-color: rgb(63, 81, 181);
-  color: #DDDDDD;
+  /* color: #DDDDDD; */
+  color: honeydew;
   padding: 15px;
+  text-align: center;
+}
+.instructions.slim{
+  padding: 1px;
 }
 
 #entryForm {
@@ -81,10 +86,16 @@ li a {
 /* Header */
 
 .md-toolbar-tools {
+  color: honeydew !important;
   height: 125px;
   max-height: 125px;
 }
-
+.md-primary.md-button{
+  color: honeydew !important;
+}
+.cancelled-button{
+  color: snow !important;
+}
 .logo {
   width: 100px;
   height: auto;
@@ -306,6 +317,7 @@ th {
   width: 100%;
   position: absolute;
 }
+
 .slide-animation.ng-enter {
   animation: slideInLeft 0.3s;
 }
@@ -318,20 +330,30 @@ th {
   width: 100%;
   position: absolute;
 }
+
 .slide-animation-back.ng-enter {
-  animation: slideInRight  0.3s;
+  animation: slideInRight 0.3s;
 }
 
 .slide-animation-back.ng-leave {
   animation: slideOutRight 0.3s;
 }
 
-.slide-animation.ng-enter { display:none; }
-.slide-animation.ng-enter.ng-enter-active { display:block; }
+.slide-animation.ng-enter {
+  display: none;
+}
 
-.slide-animation.ng-enter { display:none; }
-.slide-animation.ng-enter.ng-enter-active { display:block; }
+.slide-animation.ng-enter.ng-enter-active {
+  display: block;
+}
 
+.slide-animation.ng-enter {
+  display: none;
+}
+
+.slide-animation.ng-enter.ng-enter-active {
+  display: block;
+}
 
 .past-rides-modal {
   height: 55vh;
@@ -347,12 +369,14 @@ th {
     transform: translateX(0);
   }
 }
+
 .slideInRight {
   -webkit-animation-name: slideInRight;
   -moz-animation-name: slideInRight;
   -o-animation-name: slideInRight;
   animation-name: slideInRight;
 }
+
 @keyframes slideOutLeft {
   0% {
     transform: translateX(0);
@@ -402,4 +426,20 @@ th {
   -moz-animation-name: slideInLeft;
   -o-animation-name: slideInLeft;
   animation-name: slideInLeft;
+}
+
+.modal-close-header {
+  background-color: inherit;
+  color: honeydew;
+  border: none;
+}
+
+.login-modal{
+}
+.login-register-form{
+  padding: 25px;
+}
+
+.password-matcher, .lead{
+  color: rgba(255, 0, 87, 0.71);
 }
