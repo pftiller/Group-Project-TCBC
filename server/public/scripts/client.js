@@ -53,8 +53,8 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       }
     })
     .when('/my-profile', {
-      templateUrl: '/views/profile/templates/my-profile.html',
-      controller: 'MyProfileController as vm',
+      templateUrl: '/views/shared/my-stats.html',
+      controller: 'MyStatsController as vm',
       activetab: 'my-profile',
       resolve: {
         getuser: function (UserService) {

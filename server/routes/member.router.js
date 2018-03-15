@@ -110,12 +110,13 @@ router.get('/stats/goal', isAuthenticated, (req, res)=>{
   
   const userId = req.user.id;
   const getGoalQuery = `
-  SELECT goal, actual_distance
+  SELECT goal
   FROM users
-  JOIN rides_users ON users.id = rides_users.user_id
   WHERE users.id = $1;`
    pool.query(getGoalQuery,[userId])
     .then((result)=>{
+      console.log('GET goal for User: ', result.rows);
+      
       res.send(result.rows);
     })
     .catch((err)=>{
@@ -124,6 +125,7 @@ router.get('/stats/goal', isAuthenticated, (req, res)=>{
 })
 
 router.put('/stats/goal', isAuthenticated, (req, res)=>{
+  console.log('SET stats Goal: ', req.body , 'for user: ', req.user);
   
   const userId = req.user.id;
   const newGoal = req.body.setGoal;

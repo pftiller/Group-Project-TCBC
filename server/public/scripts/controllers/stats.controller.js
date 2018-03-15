@@ -1,10 +1,19 @@
-myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','RideDetailService', function (MyProfileService, $location, $http, RideDetailService) {
+myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','RideDetailService','MyProfileService', function (MyProfileService, $location, $http, RideDetailService, MyProfileService) {
     // console.log('MyProfileController created');
     let self = this;
     self.viewProfile = {};
     self.goal = {};
     self.totalMiles = {};
+    self.viewProfile = {};
 
+    self.viewProfile = function(){
+      MyProfileService.viewProfile().then((res)=>{
+        // console.log('back from database', res);
+        self.viewProfile = res[0];
+      })
+    }
+    self.viewProfile();
+    
     self.viewProfile = function () {
         MyProfileService.viewProfile().then((res) => {
             // console.log('back from database', res);
@@ -19,6 +28,8 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
     self.getGoalData = function(){
         $http.get('/member/stats/goal')
             .then((response)=>{
+                console.log('reponse on get goal: ', response.data);
+                
                 self.goal.currentGoal = response.data[0].goal;
                 RideDetailService.getMileageForMember()
                     .then((res)=>{
@@ -26,8 +37,7 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
                         self.totalMiles = res.sum;
                     goalProgress.refresh(self.totalMiles,response.data[0].goal);
                         
-                    })
-                
+                    })  
             })
             .catch((err)=>{
                 console.log('error getting stats: ', err);   
