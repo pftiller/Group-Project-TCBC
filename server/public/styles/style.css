@@ -450,3 +450,17 @@ th {
   margin-top: 25px;
   align-content: center;
 }
+
+.create-ride-header{
+  font-size: 24px;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  text-align: center;
+
+
+}
+
+
+.numbers-only{
+  color: red;
+}
