@@ -105,7 +105,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 $mdDialog.show({
                     controller: MyPastRidesController,
                     controllerAs: 'vm',
-                    templateUrl: '../views/admin/templates/view-member-past-rides-modal.html',
+                    templateUrl: '../views/admin/partials/modal-template.html',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true,
@@ -117,7 +117,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 })
                 self.pastMemberRides.list = response.data;
                 console.log(response.data);
-                return response
+                // return response
             })
             .catch((err) => {
                 console.log('past ride data GET failed ', err);
@@ -126,42 +126,48 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
 
     function MyPastRidesController($mdDialog, item, AdminService) {
         const self = this;
+        self.mode = {
+            show: true,
+            edit: false
+        }
+
         self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
-        self.closeModal = function () {
-            $mdDialog.hide();
+        self.backModal = function () {
+            self.mode.edit = false;
+            self.mode.show = true;
         }
         console.log('modal item ', item);
 
-        self.editSinglePastRide = function (ride, ev) {
-            let pastRideInfo = {
+        self.editSinglePastRide = function (ride) {
+            self.pastRideInfo = {
                 member: self.member,
                 ride: ride
             }
-            $mdDialog.show({
-                controller: SinglePastRideEditController,
-                controllerAs: 'vm',
-                templateUrl: '../views/admin/partials/edit-ride-mileage.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                resolve: {
-                    item: function () {
-                        return pastRideInfo;
-                    }
-                }
-            })
-        }
-
-        function SinglePastRideEditController($mdDialog, item, AdminService) {
-            const self = this;
-            self.pastRideInfo = item;
+            self.mode = {
+                show: false,
+                edit: true
+            }
+            // $mdDialog.show({
+            //     controller: SinglePastRideEditController,
+            //     controllerAs: 'vm',
+            //     templateUrl: '../views/admin/partials/edit-ride-mileage.html',
+            //     parent: angular.element(document.body),
+            //     targetEvent: ev,
+            //     clickOutsideToClose: true,
+            //     resolve: {
+            //         item: function () {
+            //             return pastRideInfo;
+            //         }
+            //     }
+            // })
+            // self.pastRideInfo = item;
             self.member = self.pastRideInfo.member;
             self.ride = self.pastRideInfo.ride;
             self.closeModal = function () {
                 $mdDialog.hide();
             }
-            console.log('modal modal item ', item);
+            console.log('modal modal item ', self.pastRideInfo);
 
             self.editRideActualMileage = function (mileage) {
                 let mileUpdate = {
@@ -170,9 +176,16 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                     mileage: mileage
                 }
                 AdminService.editRideActualMileage(mileUpdate)
-                    .then(()=>{self.closeModal()});
+                    .then(() => {
+                        self.closeModal()
+                    });
             }
         }
+    }
+
+    function SinglePastRideEditController($mdDialog, item, AdminService) {
+        const self = this;
+
     }
 
     self.changePassword = function (user) {

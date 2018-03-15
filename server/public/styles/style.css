@@ -1,4 +1,3 @@
-
 body,
 html {
   margin: 0;
@@ -6,6 +5,7 @@ html {
   font-family: sans-serif;
   font-size: 14px;
 }
+
 .bold {
   font-weight: bold;
 }
@@ -130,20 +130,22 @@ th {
 
 .md-accordion .dataContent {
   background: #F2F2F2;
-  height:0px;
-  overflow:hidden;
+  height: 0px;
+  overflow: hidden;
   -webkit-transition: .3s all ease-out;
   transition: .3s all ease-out;
 }
+
 .md-accordion .activeContent {
-  height:250px;
+  height: 250px;
   /* padding:0;
   display:block; */
 }
-.md-accordion md-toolbar{
-  cursor:pointer;
-  border-bottom:1px solid rgb(63,107,181) 
-} 
+
+.md-accordion md-toolbar {
+  cursor: pointer;
+  border-bottom: 1px solid rgb(63, 107, 181)
+}
 
 .ride-button {
   /* background-color: #cfcfcf; */
@@ -169,13 +171,12 @@ th {
   box-shadow: 2px 2px black;
 }
 
-
 .mobile-button {
   font-size: xx-large !important;
   /* height: 7vh;
   width: 30vh; */
   margin: 1px;
-  padding: 40px !important;
+  padding: 30px !important;
 }
 
 .mobile-table-head {
@@ -242,58 +243,163 @@ th {
   text-decoration: black;
   text-decoration-line: line-through;
 }
-.cancelled-ride .md-details-button{
- display: none;
+
+.cancelled-ride .md-details-button {
+  display: none;
 }
 
 .cancelled-button {
   cursor: none;
 }
+
 .swal-text {
   text-align: center;
   font-size: xx-large;
 }
-.swal-button{
+
+.swal-button {
   margin: 0 auto;
   font-size: x-large;
 }
-.swal-footer{
+
+.swal-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.mobile-text{
-  font-size: x
-}
 
-@media (orientation: landscape){
-  .guest-register{
+/* .mobile-text{
+  font-size: x
+} */
+
+@media (orientation: landscape) {
+  .guest-register {
     width: 120vh;
   }
 }
 
-@media (orientation: portrait){
-  .mdl-data-table{
+@media (orientation: portrait) {
+  .mdl-data-table {
     width: 50%;
     font-size: x-large;
-
   }
 }
-/* 
-body{
-  background-image: url('../images/bicycles.jpg');
-  z-index: 100;
-} */
 
-/* body {
-  background: radial-gradient(circle, hsla(120, 50%, 80%, .5), hsla(300, 50%, 80%, 1));
-} */
-
-#bigfella{
-  width: 25%;
-  
+.mobile-button-holder {
+  margin: 25px !important;
 }
-.lineChart{
+
+#bigfella {
+  width: 25%;
+}
+
+.lineChart {
   width: 500px;
+}
+
+.edit-rides-header {
+  max-height: 100px;
+}
+
+.slide-animation {
+  width: 100%;
+  position: absolute;
+}
+.slide-animation.ng-enter {
+  animation: slideInLeft 0.3s;
+}
+
+.slide-animation.ng-leave {
+  animation: slideOutLeft 0.3s;
+}
+
+.slide-animation-back {
+  width: 100%;
+  position: absolute;
+}
+.slide-animation-back.ng-enter {
+  animation: slideInRight  0.3s;
+}
+
+.slide-animation-back.ng-leave {
+  animation: slideOutRight 0.3s;
+}
+
+.slide-animation.ng-enter { display:none; }
+.slide-animation.ng-enter.ng-enter-active { display:block; }
+
+.slide-animation.ng-enter { display:none; }
+.slide-animation.ng-enter.ng-enter-active { display:block; }
+
+
+.past-rides-modal {
+  height: 55vh;
+  width: 97vh;
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(1000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.slideInRight {
+  -webkit-animation-name: slideInRight;
+  -moz-animation-name: slideInRight;
+  -o-animation-name: slideInRight;
+  animation-name: slideInRight;
+}
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-1000px);
+  }
+}
+
+.slideOutLeft {
+  -webkit-animation-name: slideOutLeft;
+  -moz-animation-name: slideOutLeft;
+  -o-animation-name: slideOutLeft;
+  animation-name: slideOutLeft;
+}
+
+@keyframes slideOutRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(1000px);
+  }
+}
+
+.slideOutRight {
+  -webkit-animation-name: slideOutRight;
+  -moz-animation-name: slideOutRight;
+  -o-animation-name: slideOutRight;
+  animation-name: slideOutRight;
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-1000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.slideInLeft {
+  -webkit-animation-name: slideInLeft;
+  -moz-animation-name: slideInLeft;
+  -o-animation-name: slideInLeft;
+  animation-name: slideInLeft;
 }
