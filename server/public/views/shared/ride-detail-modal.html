@@ -1,8 +1,8 @@
 <md-dialog flex="50">
 
-    <div class="ride-detail-modal" layout="column">
-        <header ng-include="'/views/shared/ride-detail-header.html'"></header>
-        <div layout="row" layout-align="space-between strech">
+    <div class="ride-detail-modal" layout="column" style="height:100%; width:100%;">
+        <header ng-include="'/views/shared/ride-detail-header.html'" ></header>
+        <div layout="row" layout-align="space-between strech" style="padding:20px;">
             <div class="ride-detail-stuff">
                 <h2>Category</h2>
                 <!-- need to grab category info -->
@@ -17,7 +17,7 @@
                     <a ng-href="{{vm.ride.url}}">{{vm.ride.url}}</a>
                 </p>
             </div>
-            <div class="ride-detail-stuff">
+            <div class="ride-detail-stuff" >
                 <h2>Description</h2>
                 <p class="ride-details-description">{{vm.ride.description}}</p>
 

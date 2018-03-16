@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideDetailService', '$mdDialog', function ($http, $location, UserService, RideDetailService, $mdDialog) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideDetailService', '$mdDialog', '$route', function ($http, $location, UserService, RideDetailService, $mdDialog, $route) {
   console.log('LoginController created');
   var self = this;
   self.showNav = UserService.showNav;
