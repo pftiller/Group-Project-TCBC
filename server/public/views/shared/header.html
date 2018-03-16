@@ -4,8 +4,8 @@
                         <img src="/assets/img/tcbc-logo.png" class="logo" alt="Logo">
                 </a>
                 <span layout="column" layout-align="center start">
-                <p style="margin:0;"ng-show='vm.user.first_name'>{{vm.user.first_name}}</p>
-                <p style="margin:0;"ng-show='vm.user.first_name'>Total Mileage: {{vm.myMileage.total.sum}} miles</p>
+                <p class="memberHeaderInfo" style="margin:0;"ng-show='vm.user.first_name'>{{vm.user.first_name}}</p>
+                <p class="memberHeaderInfo"  style="margin:0;"ng-show='vm.user.first_name'>Total Mileage: {{vm.myMileage.total.sum}} miles</p>
                 </span>
                 <span flex></span>
                 <md-button class="login" ng-click="vm.logout()">Log Out</md-button>    
