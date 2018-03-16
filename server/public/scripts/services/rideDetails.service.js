@@ -77,7 +77,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 title: `Do you want to cancel ${ride.rides_name}?`,
                 text: `If you cancel ${ride.rides_name}, you cannot undo this action.`,
                 icon: "warning",
-                buttons: true,
+                buttons: ["Nevermind", "Yes, cancel ride"],
                 dangerMode: true,
             })
             .then((willDelete) => {
