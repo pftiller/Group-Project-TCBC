@@ -533,6 +533,16 @@ th {
   padding-left: 10px;
   
 }
+.category-key-description h2 {
+  margin-top: 25px;
+  margin-bottom: 0;
+  padding: 0;
+}
+.category-key-description p {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 0;
+}
 .category-open{
   background-color: dodgerblue !important;
 }
