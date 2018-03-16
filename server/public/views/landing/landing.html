@@ -103,8 +103,8 @@
     </div>
     </div>
     <div flex-xs="100" flex-sm="100" flex-gt-sm="20" flex-order="2" layout-padding>
-        <h2 style="text-align:center;">Category Key</h2>
-        <p style="text-align:center;">Click on a Category to Learn More!</p>
+        <h2 style="text-align:center;" class="category-key-description">Category Key</h2>
+        <p style="text-align:center;" class="category-key-description">Click on a Category to Learn More!</p>
         <md-content id="dynamic-content" class="f-clear-padding">
             <div class="md-accordion" ng-repeat="category in vm.categories.list">
                 <md-toolbar ng-init="category.expanded = false" ng-click="vm.toggleView(vm.categories.list, category, $index)">
