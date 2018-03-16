@@ -99,8 +99,14 @@ li a {
   font-size: 20px;
 }
 
+.logoutButton {
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+
 .md-primary.md-button {
   color: honeydew !important;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+
 }
 
 .cancelled-button {
