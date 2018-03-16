@@ -3,6 +3,8 @@
     <div flex-xs="100" flex-sm="100" flex-gt-sm="80" flex-order="1" layout-padding>
         <h1 style="text-align:center">Upcoming Rides for the Twin Cities Bicycle Club</h1>
         <div flex class="landing-table-container">
+            <div layout="row" flex layout-align="space-between center">
+
             <md-input-container class="md-icon-float">
                 <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
                 <input ng-model="rides_name" ng-change="allRidesActions.filter()" placeholder="Ride name" filter-by="rides_name" filter-type="text"
@@ -29,7 +31,7 @@
 
             <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
             </md-button>
-
+        </div>
             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                 <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
 
