@@ -2,6 +2,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
   console.log('UserService Loaded');
   var self = this;
   self.userObject = {};
+  self.selectedIndex ={};
 
   self.getuser = function () {
     console.log('UserService -- getuser');
@@ -13,6 +14,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         self.userObject.first_name = response.data.first_name;
         self.userObject.role = response.data.role;
         self.userObject.user_id = response.data.id
+        self.selectedIndex = current.locals;
         return self.userObject;
       } else {
         console.log('UserService -- getuser -- failure');
@@ -48,7 +50,6 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
     });
 
   }
-
 
   self.getRideAdmin = function(){
     console.log('UserService -- getRideAdmin');

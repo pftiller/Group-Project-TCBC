@@ -1,15 +1,87 @@
-<md-content>
-    <md-nav-bar aria-label="member-nav-bar" md-selected-nav-item="currentNavItem">
-  <div flex layout="row" layout-align="space-around center">
-    <md-nav-item  aria-label="member-nav-item-home" md-nav-href="#!/home" name="home">
-      Home
-    </md-nav-item>
-    <md-nav-item  aria-label="member-nav-item-my-rides" md-nav-href="#!/my-rides" name="my-rides">
-      My Rides
-    </md-nav-item>
-    <md-nav-item  aria-label="member-nav-item-my-profile" md-nav-href="#!/my-profile" name="my-profile">
-      My Profile
-    </md-nav-item>
-  </div>
-</md-nav-bar>
+<!-- <div layout="column" layout-fill style="width:100%">
+    <md-content style="width:100%;">
+      <div layout-fill layout="row">
+        <md-content flex="100" layout="column" style="overflow:hidden;" ng-controller="NavController as vm">
+          <md-tabs md-stretch-tabs="always" md-border-bottom flex layout-fill>
+            <md-tab layout-fill>
+               Home
+              </md-tab>
+              <md-tab md-on-select="vm.tabMyRides()">
+                My Rides
+              </md-tab>
+              <md-tab md-on-select="vm.tabMyProfile()">
+                <label>My Profile</label>
+              </md-tab>
+          </md-tabs>
+        </md-content>
+      </div>
+    </md-content>
+  </div> -->
+
+ <!-- <md-tabs class="md-primary" md-autoselect="false" md-no-pagination="false" md-center-tabs="false">
+      <md-tab label="Home" ng-click="vm.go('/home')" md-active="vm.state == '/home'"></md-tab>
+      <md-tab label="My Rides" md-on-select="vm.go('/my-rides')" md-active="vm.state == '/my-rides'"></md-tab>
+      <md-tab label="My Profile" md-on-select="vm.go('/my-profile')" md-active="vm.state == '/my-profile'"></md-tab>
+    </md-tabs>
+     -->
+  
+    <!-- <md-tabs md-stretch-tabs md-selected="vm.selectedIndex">
+        <md-tab><a ng-href="/#!/home">Home</a></md-tab>
+        <md-tab><a ng-href="/#!/my-rides">My Rides</a></md-tab>
+        <md-tab ng-href="/#!/my-profile">My Profile</a></md-tab>
+      </md-tabs> -->
+
+      <!-- <md-content ng-controller="NavController as vm" flex>
+          <md-tabs md-selected="vm.selectedIndex.tabIndex">
+            <md-tab a ng-href="/#!/home">Home</a></md-tab>
+            <md-tab a ng-href="/#!/my-rides">My Rides</a></md-tab>
+            <md-tab ng-href="/#!/my-profile">My Profile</md-tab>
+          </md-tabs>
+</md-content> -->
+
+
+<md-content ng-controller="NavController as vm">
+  <md-tabs class="md-primary" md-autoselect="false" md-no-pagination="false" md-center-tabs="false">
+    <md-tab label="Home" ng-click="vm.go('/home')" md-active="vm.state == '/home'"></md-tab>
+    <md-tab label="My Rides" md-on-select="vm.go('/my-rides')" md-active="vm.state == '/my-rides'"></md-tab>
+    <md-tab label="My Profile" md-on-select="vm.go('/my-profile')" md-active="vm.state == '/my-profile'"></md-tab>
+  </md-tabs>
 </md-content>
+
+          <!-- <md-nav-bar md-selected-nav-item="vm.selectedIndex.tabIndex" aria-label="nav">
+              <md-nav-item label="Home" name="home"><a ng-href="/home">Home</a></md-nav-item>
+              <md-nav-item label="My Rides" name="my-rides"><a ng-href="/my-rides">My Rides</a></md-nav-item>
+              <md-nav-item label="My Profile" name="my-profile"><a ng-href="/my-profile">My Profile</a></md-nav-item>
+          </md-nav-bar> -->
+
+
+  <!-- <md-content ng-controller="NavController as vm">    
+    <md-nav-bar md-selected-nav-item="vm.getTabName()" aria-label="nav">
+        <md-nav-item md-nav-href="home" label="Home" name="home">Home</md-nav-item>
+        <md-nav-item md-nav-href="my-rides" label="My Rides" name="my-rides">My Rides</md-nav-item>
+        <md-nav-item md-nav-href="my-profile" label="My Profile" name="my-profile">My Profile</md-nav-item>
+    </md-nav-bar>
+  </md-content>  -->
+<!-- 
+
+     <md-content flex="100" layout="column" style="overflow:hidden;" ng-controller="NavController as vm">
+     <md-tabs md-stretch-tabs md-selected="vm.selectedIndex">
+        <md-tab ng-click="vm.tabHome()" md-se>
+            Home
+        </md-tab>
+        <md-tab ng-click="vm.tabMyRides()">
+           My Rides
+        </md-tab>
+        <md-tab ng-click="vm.tabMyProfile()">
+           My Profile
+        </md-tab>
+      </md-tabs>
+      </md-content> -->
+
+<!-- <div ng-controller="NavController">
+          <md-tabs md-selected="selectedIndex" md-border-bottom="" md-autoselect="">
+            <md-tab class="tab{{$index%4}}" label="Home">
+              Home
+            </md-tab>
+          </md-tabs>
+  </div> -->

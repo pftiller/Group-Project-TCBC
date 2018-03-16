@@ -9,7 +9,10 @@ html {
 .bold {
   font-weight: bold;
 }
-
+.md-button > a:-webkit-any-link {
+  text-decoration: none;
+  color: rgba(0,0,0,0.87);
+}
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
@@ -88,6 +91,14 @@ li a {
 .logo {
   width: 100px;
   height: auto;
+}
+/* Navigation */
+
+nav a {
+  text-decoration: none !important;
+  color: white;
+  height:100%;
+  width:100%;
 }
 
 /* Change the link color to #111 (black) on hover */

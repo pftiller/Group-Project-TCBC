@@ -75,13 +75,20 @@
 
    <!-- Responsive Tables -->
    <script src="vendors/responsive-tables/responsive-tables.js"></script>
+   <script type="text/ng-template" id="/views/shared/home.html">Home</script>
+   <script type="text/ng-template" id="/views/user/templates/member.myRides.html">My Rides</script>
+   <script type="text/ng-template" id="/views/profile/templates/my-profile.html">My Profile</script>
 
 
   
 </head>
 
 <body ng-app="myApp">
-
+        <pre>$location.path() = {{$location.path()}}</pre>
+        <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+        <pre>$route.current.params = {{$route.current.params}}</pre>
+        <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
+        <pre>$routeParams = {{$routeParams}}</pre>
     <main ng-view></main>
 
 </body>

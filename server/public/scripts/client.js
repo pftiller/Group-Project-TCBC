@@ -1,8 +1,8 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'ngFileUpload', 'dataGrid', 'pagination', 'wt.responsive']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  console.log('myApp -- config')
+myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
+  console.log('myApp -- config');
   $routeProvider
     .when('/', {
       redirectTo: '/landing'
@@ -18,6 +18,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 0;
         }
       }
     })
@@ -31,6 +34,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 1;
         }
       }
     })
@@ -39,7 +45,10 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'CheckInController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getRideLeader();
+          return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 0;
         }
       }
     })
@@ -48,7 +57,10 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'RideLeaderController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getRideLeader();
+          return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 1;
         }
       }
     })
@@ -59,6 +71,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 2;
         }
       }
     })
@@ -68,6 +83,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 2;
         }
       }
     })
@@ -76,7 +94,10 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'AdminController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getRideAdmin();
+          return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 3;
         }
       }
     })
@@ -85,7 +106,10 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       controller: 'AdminController as vm',
       resolve: {
         getuser: function (UserService) {
-          return UserService.getRideAdmin();
+          return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 3;
         }
       }
     })
@@ -99,6 +123,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 0;
         }
       }
     })
@@ -108,10 +135,51 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
+        },
+        tabIndex: function() {
+          return 0;
         }
       }
     })
     .otherwise({
       template: '<h1>404</h1>'
-    })
+    });
+    $mdThemingProvider.definePalette('tcbc', {
+      '50': 'ffffff',
+      '100': 'bfe3f7',
+      '200': '8dcdf1',
+      '300': '4eb1e9',
+      '400': '32a5e5',
+      '500': '1c98dd',
+      '600': '1985c2',
+      '700': '1573a7',
+      '800': '12608c',
+      '900': '0e4d70',
+      'A100': 'f9fdff',
+      'A200': '93d8ff',
+      'A400': '35b2f7',
+      'A700': '28a5ea',
+      'contrastDefaultColor': 'light',
+      'contrastDarkColors': [
+        '50',
+        '100',
+        '200',
+        '300',
+        '400',
+        'A100',
+        'A200',
+        'A400',
+        'A700'
+      ],
+      'contrastLightColors': [
+        '500',
+        '600',
+        '700',
+        '800',
+        '900'
+      ]
+    });
+    $mdThemingProvider.theme('tcbc')
+    .primaryPalette('tcbc')
+
 }]);
