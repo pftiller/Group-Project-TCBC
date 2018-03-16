@@ -68,7 +68,7 @@
                                           <td style="text-align: center;">{{ride.date | date:'MM/DD/YYYY'}}</td>
                                           <td style="text-align: center;">{{ride.time}}</td>
                                           <td class="name">{{ride.rides_name}}</td>
-                                          <td style="text-align: center;">{{ride.type}}</td>
+                                          <td style="text-align: left;">{{ride.type}}</td>
                                           <td style="text-align: center;">
                                              <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
                                              <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
