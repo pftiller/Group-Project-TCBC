@@ -157,6 +157,11 @@ th {
   -webkit-transition: .3s all ease-out;
   transition: .3s all ease-out;
 }
+.md-accordion md-toolbar {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  min-height:0px;
+}
 
 .md-accordion .activeContent {
   height: 250px;
