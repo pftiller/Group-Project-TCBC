@@ -94,19 +94,16 @@ li a {
   color: honeydew !important;
   height: 25% !important;
   max-height: 25% !important;
-  background-color: rgb(31, 80, 187);
-  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+  /* background-color: rgb(31, 80, 187); */
   font-size: 20px;
-}
-
-.logoutButton {
-  text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
 
 .md-primary.md-button {
   color: honeydew !important;
-  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
 
+.md-button.login {
+  border: 2px solid white;
 }
 
 .cancelled-button {
@@ -201,9 +198,11 @@ th {
   height: 105%;
   width: 45%;
 }
-.mobile-button{
-  margin:0 !important;
+
+.mobile-button {
+  margin: 0 !important;
 }
+
 .desktop-button-text {
   font-size: xx-large !important;
 }
