@@ -27,6 +27,14 @@ h1 {
   text-align: center;
 
 }
+#login {
+  border:2px solid white;
+  margin-left:10px;
+}
+
+#register {
+  margin-right:10px;
+}
 
 .instructions {
   background-color: rgb(63, 81, 181);
@@ -471,10 +479,12 @@ th {
 
 .tcbc-join {
   font-size: 12px;
-  text-decoration: underline;
-  margin-left: 10px;
+  margin-right:2.75rem;
+  margin-top:20px;
 }
-
+.tcbc-join:hover {
+  text-decoration: underline;
+}
 .memberHeaderInfo {
   margin-left: 10px !important;
 }
