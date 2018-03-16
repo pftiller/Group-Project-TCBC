@@ -460,6 +460,10 @@ th {
   margin-left: 10px;
 }
 
+.memberHeaderInfo {
+  margin-left: 10px !important;
+}
+
 .goal-dial {
   padding-left: 5px;
   margin-bottom: 5px;
