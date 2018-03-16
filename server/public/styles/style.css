@@ -99,12 +99,19 @@ li a {
   font-size: 20px;
 }
 
+.logoutButton {
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+
 .md-primary.md-button {
   color: honeydew !important;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+
 }
 
 .cancelled-button {
-  color: snow !important;
+  background-color: inherit !important;
+  color: #c50000 !important;
 }
 
 .logo {
@@ -194,7 +201,9 @@ th {
   height: 105%;
   width: 45%;
 }
-
+.mobile-button{
+  margin:0 !important;
+}
 .desktop-button-text {
   font-size: xx-large !important;
 }
@@ -219,13 +228,13 @@ th {
   border-collapse: collapse;
 }
 
-.mobile-input {
+/* .mobile-input {
   width: 15vh;
-}
+} */
 
-.mobile-input-container {
+/* .mobile-input-container {
   font-size: x-large;
-}
+} */
 
 .mobile-rider-cell,
 .mobile-rider-checkbox {
@@ -236,10 +245,8 @@ th {
   font-size: 48px;
 }
 
-.guest-register-modal {
-  font-size: x-large;
-  width: 15vh;
-  padding: 25px;
+.guest-register {
+  padding: 10px;
 }
 
 .add-guest-button {

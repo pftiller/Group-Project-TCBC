@@ -181,6 +181,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                         let momentDate = moment(response.data[i].rides_date);
                         response.data[i].date = momentDate.format('MM/DD/YYYY');
                         response.data[i].time = momentDate.format('hh:mm A');
+                    } else {
+                        response.data[i].date = 'Past Ride';
                     }
                 }
                 self.allRides.list = response.data;
