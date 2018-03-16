@@ -67,7 +67,7 @@
                                        <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
                                           <td style="text-align: center;">{{ride.date | date:'MM/DD/YYYY'}}</td>
                                           <td style="text-align: center;">{{ride.time}}</td>
-                                          <td style="text-align: center;" class="name" style="text-align:center">{{ride.rides_name}}</td>
+                                          <td  class="name">{{ride.rides_name}}</td>
                                           <td style="text-align: center;">{{ride.type}}</td>
                                           <td style="text-align: center;">
                                              <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
