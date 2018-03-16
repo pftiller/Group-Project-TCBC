@@ -29,12 +29,7 @@
     
                 <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
                 </md-button>
-    
-    
-    
-    
-                <span class="cancelled-ride">Cancelled Rides</span>
-    
+        
                 <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                     <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
     
@@ -75,8 +70,8 @@
                                           <td style="text-align: center;" class="name" style="text-align:center">{{ride.rides_name}}</td>
                                           <td style="text-align: center;">{{ride.type}}</td>
                                           <td style="text-align: center;">
-                                             <md-button ng-if="ride.cancelled" class="md-raised md-primary" disabled>Cancelled</md-button>
-                                             <md-button class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
+                                             <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
+                                             <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
                                           </td>
                                        </tr>
                                     </tbody>

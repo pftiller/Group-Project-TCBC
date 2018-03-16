@@ -11,7 +11,7 @@
         </div>
         <br>
         <br>
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.leadRidesTable">
+        <table wt-responsive-table ng-show="vm.leadRidesTable">
             <thead>
                 <tr>
                     <th style="text-align: center;" class="sortable" sortable="date">
@@ -54,7 +54,8 @@
             <md-button ng-click="vm.collapseMyRides()" ng-if="!vm.myRidesTable"><i class="material-icons">keyboard_arrow_down</i></md-button>
             <md-button ng-click="vm.collapseMyRides()" ng-if="vm.myRidesTable"><i class="material-icons">keyboard_arrow_up</i></md-button>
         </h2>
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.myRidesTable">
+        <table wt-responsive-table  ng-show="vm.myRidesTable">
+                <!-- class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" -->
             <thead>
                 <tr>
                     <th style="text-align: center;" class="sortable" sortable="date">
@@ -93,7 +94,8 @@
             <md-button ng-click="vm.collapsePastRides()" ng-if="!vm.pastRidesTable"><i class="material-icons">keyboard_arrow_down</i></md-button>
             <md-button ng-click="vm.collapsePastRides()" ng-if="vm.pastRidesTable"><i class="material-icons">keyboard_arrow_up</i></md-button>
         </h2>
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" ng-show="vm.pastRidesTable">
+        <table wt-responsive-table ng-show="vm.pastRidesTable">
+                <!-- class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" -->
             <thead>
                 <tr>
                     <th style="text-align: center;" class="sortable" sortable="date">
