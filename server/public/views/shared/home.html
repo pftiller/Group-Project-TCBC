@@ -68,8 +68,8 @@
                             <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
                                 <td>{{ride.date | date:'MM/DD/YYYY'}}</td>
                                 <td>{{ride.time}}</td>
-                                <td class="name" style="text-align:center;">{{ride.rides_name}}</td>
-                                <td>{{ride.type}}</td>
+                                <td class="name">{{ride.rides_name}}</td>
+                                <td style="text-align:left;">{{ride.type}}</td>
                                 <td>
                                     <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
                                     <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
@@ -109,7 +109,7 @@
             <div class="md-accordion" ng-repeat="category in vm.categories.list">
                 <md-toolbar ng-init="category.expanded = false" ng-click="vm.toggleView(vm.categories.list, category, $index)">
                     <div class="md-toolbar-tools">
-                        <h2>{{category.type}} - {{category.name}}</h2>
+                        <h2 style="font-size:16px;">{{category.type}} - {{category.name}}</h2>
                         <div ng-class="{expandCollapse:true, active:category.expanded}"></div>
                     </div>
                 </md-toolbar>
