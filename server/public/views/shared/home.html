@@ -67,8 +67,8 @@
                             <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
                                 <td>{{ride.date | date:'MM/DD/YYYY'}}</td>
                                 <td>{{ride.time}}</td>
-                                <td class="name" style="text-align:center;">{{ride.rides_name}}</td>
-                                <td>{{ride.type}}</td>
+                                <td class="name">{{ride.rides_name}}</td>
+                                <td style="text-align:left;">{{ride.type}}</td>
                                 <td>
                                     <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
                                     <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
@@ -101,14 +101,14 @@
 
     </div>
     </div>
-    <div flex-xs="100" flex-sm="100" flex-gt-sm="25" flex-order="2" layout-padding>
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="20" flex-order="2" layout-padding>
         <h2 style="text-align:center;" class="category-key-description">Category Key</h2>
-        <span style="text-align:center;" class="category-key-description">Click on a Category to Learn More!</span>
+        <p style="text-align:center;" class="category-key-description">Click on a Category to Learn More!</p>
         <md-content id="dynamic-content" class="f-clear-padding">
             <div class="md-accordion" ng-repeat="category in vm.categories.list">
                 <md-toolbar ng-init="category.expanded = false" ng-click="vm.toggleView(vm.categories.list, category, $index)">
                     <div class="md-toolbar-tools">
-                        <h2>{{category.type}} - {{category.name}}</h2>
+                        <h2 style="font-size:16px;">{{category.type}} - {{category.name}}</h2>
                         <div ng-class="{expandCollapse:true, active:category.expanded}"></div>
                     </div>
                 </md-toolbar>
