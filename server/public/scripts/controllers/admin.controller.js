@@ -8,6 +8,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     self.memberToChangePassword = {};
     self.loadRidesForApproval = function () {
         AdminService.getPendingApprovedRides().then((response) => {
+            self.pendingApprovals.list = [];
             console.log('Controller, got the rides pending approval: ', response);
             self.pendingApprovals.list = response;
         })

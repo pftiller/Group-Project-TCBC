@@ -94,7 +94,7 @@ li a {
   color: honeydew !important;
   height: 25% !important;
   max-height: 25% !important;
-  background-color: rgb(31, 80, 187);
+  /* background-color: rgb(31, 80, 187); */
   text-shadow: 2px 2px 2px rgb(0, 0, 0);
   font-size: 20px;
 }

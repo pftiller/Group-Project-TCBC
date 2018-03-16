@@ -15,10 +15,10 @@ myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'Chec
                 return $location.path('/ride-leader/my-rides');
             })
             .catch((err) => {
-                alert('Error marking ride complete! ', err);
+                swal('Error marking ride complete! ', '', 'error');
             })
             .finally(() => {
-                alert('Ride Complete! All riders will receive their mileage automatically.')
+                swal('Ride Complete! All riders will receive their mileage automatically.', '', 'success')
             });
     }
 

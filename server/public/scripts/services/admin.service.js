@@ -22,12 +22,13 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
     };
 
     self.pastMemberRides = {
-        list: {}
+        list: []
     };
 
     self.getPendingApprovedRides = function () {
         return $http.get('/rides/admin/pendingApprovedRides')
             .then((response) => {
+                self.pendingApprovedRides.list = [];
                 console.log('Service, rides pending approval came back: ', response.data);
                 response.data.forEach(ride => {
                     let momentDate = moment(ride.rides_date);
@@ -56,6 +57,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 console.log('getting user roles failed:', err);
             })
     }
+
     self.findRider = function (rider) {
         if (rider.member_id == '') {
             rider.member_id = 0
@@ -130,7 +132,9 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             show: true,
             edit: false
         }
-
+        self.closeModal = function () {
+            $mdDialog.hide();
+        }
         self.pastMemberRides = AdminService.pastMemberRides;
         self.member = item;
         self.backModal = function () {
@@ -164,9 +168,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             // self.pastRideInfo = item;
             self.member = self.pastRideInfo.member;
             self.ride = self.pastRideInfo.ride;
-            self.closeModal = function () {
-                $mdDialog.hide();
-            }
+          
             console.log('modal modal item ', self.pastRideInfo);
 
             self.editRideActualMileage = function (mileage) {
