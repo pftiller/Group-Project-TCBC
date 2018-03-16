@@ -6,15 +6,12 @@
     
 }
 
-
-
 .profileInfo {
-    border: 5px solid rgb(2, 51, 83);
+    border: 3px solid #3F53AF;
     padding: 20px;
-    width: auto;
-    background-color: rgb(89, 149, 184);
+    width: 100%;
     font-size: 20px;
-    color: #fff;
+    color: #000;
     
 }
 
