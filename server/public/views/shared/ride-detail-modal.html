@@ -30,7 +30,7 @@
                 <span ng-if="!vm.user.member_id">
                     <p ng-repeat="distance in vm.ride.distanceSelection">{{distance.ride_distance}} mi</p>
                 </span>
-                <md-button ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
+                <md-button class="md-primary md-raised" ng-click="vm.rideSignUp(vm.ride)">Sign Up for ride!</md-button>
             </div>
         </div>
     </div>

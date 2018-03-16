@@ -27,7 +27,7 @@
 
         <div layout layout-align="center center">
             <div>
-                <md-button ng-if="!vm.ride.past_ride" ng-click="vm.rideUnregister(vm.ride)" class="md-primary md-raised">Remove me from this ride</md-button>
+                <md-button ng-if="!vm.ride.past_ride && !vm.ride.leadingRide" ng-click="vm.rideUnregister(vm.ride)" class="md-primary md-raised">Remove me from this ride</md-button>
             </div>
         </div>
     </div>
