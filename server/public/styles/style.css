@@ -113,6 +113,8 @@ li a {
 }
 
 .logo {
+  padding-top:5px;
+  padding-bottom: 10px;
   width: 100px;
   height: auto;
 }
