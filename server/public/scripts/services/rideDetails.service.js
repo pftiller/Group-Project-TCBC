@@ -121,6 +121,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 self.myLeadRides.list = [];
                 console.log('my lead ride results ', response.data);
                 response.data.forEach(ride => {
+                    ride.leadingRide = true;
                     let momentDate = moment(ride.rides_date);
                     ride.date = momentDate.format('MM/DD/YYYY');
                     ride.time = momentDate.format('hh:mm A');
@@ -318,7 +319,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         if (ride.past_ride) {
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
-                    console.log('response modal', response.data[0]);
+                    console.log('response modal with past', response.data[0]);
                     let newRide = response.data[0];
                     newRide.past_ride = true;
                     self.myRideDetailModal(newRide)
@@ -328,7 +329,20 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                     swal('Error loading ride details, please try again later.', '', 'error');
                     // console.log(err);
                 })
-        } else {
+        } else if(ride.leadingRide){
+            return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
+                .then((response) => {
+                    console.log('response modal with lead', response);
+                    let newRide = response.data[0];
+                    newRide.leadingRide = true;
+                    self.myRideDetailModal(newRide)
+                    return response.data;
+                })
+                .catch((err) => {
+                    swal('Error loading ride details, please try again later.', '', 'error');
+                    // console.log(err);
+                })
+        } else{
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
                     console.log('response modal', response);
