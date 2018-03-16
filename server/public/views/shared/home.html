@@ -51,11 +51,11 @@
                                 <th>
                                     <span>Time</span>
                                 </th>
-                                <th sortable="rides_name" style="text-align:center;" class="sortable mdl-data-table__cell--non-numeric">
+                                <th sortable="rides_name" class="name sortable mdl-data-table__cell--non-numeric">
                                     <span>Ride Name</span>
                                     <span class="arrow"></span>
                                 </th>
-                                <th sortable='type'>
+                                <th class="name" sortable='type'>
                                     <span>Category</span>
                                     <span class="arrow"></span>
                                 </th>
@@ -69,7 +69,7 @@
                                 <td>{{ride.date | date:'MM/DD/YYYY'}}</td>
                                 <td>{{ride.time}}</td>
                                 <td class="name">{{ride.rides_name}}</td>
-                                <td style="text-align:left;">{{ride.type}}</td>
+                                <td class="name">{{ride.type}}</td>
                                 <td>
                                     <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
                                     <md-button ng-if="!ride.cancelled" class="md-raised md-primary md-details-button" ng-click="vm.rideDetailReveal(ride)">Details</md-button>
