@@ -113,6 +113,7 @@ li a {
 
 .md-button.login {
   border: 2px solid white;
+  margin:0 !important;
 }
 
 .cancelled-button {
