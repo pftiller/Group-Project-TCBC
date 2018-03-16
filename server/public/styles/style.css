@@ -522,7 +522,8 @@ th {
 
 .category-key-description{
   margin: 0 auto;
-  padding-top: 0 auto;
-  padding-bottom: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
   
 }
