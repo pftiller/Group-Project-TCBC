@@ -9,7 +9,8 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
     })
     .when('/landing', {
       templateUrl: '/views/landing/landing.html',
-      controller: 'HomeController as vm'
+      controller: 'HomeController as vm',
+      activetab: 'landing',
 
     })
     .when('/home', {
