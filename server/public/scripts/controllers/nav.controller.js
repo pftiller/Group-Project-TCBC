@@ -1,4 +1,4 @@
-myApp.controller('NavController', ['UserService', '$mdDialog', function(UserService, $mdDialog) {
+myApp.controller('NavController', ['UserService', '$mdDialog', '$route', function(UserService, $mdDialog, $route) {
     console.log('NavController created');
     var self = this;
     self.userService = UserService;
@@ -8,5 +8,9 @@ myApp.controller('NavController', ['UserService', '$mdDialog', function(UserServ
       originatorEv = ev;
       $mdMenu.open(ev);
     };
+    self.activetab = $route.current.$$route.activetab;
+    console.log('$route ', $route.current.$$route.activetab);
+    self.currentNavItem = UserService.currentNavItem;
+    console.log('current nav', self.currentNavItem);
 
   }]);

@@ -15,6 +15,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
     .when('/home', {
       templateUrl: '/views/shared/home.html',
       controller: 'HomeController as vm',
+      activetab: 'home',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
