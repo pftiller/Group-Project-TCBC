@@ -6,7 +6,7 @@
                 <a href="http://www.biketcbc.org/index.php/join-us/become-a-member" target="_blank" ><p class="tcbc-join">Become a TCBC Member</p></a>
                 <span flex></span>
                 <md-button class="md-accent " ng-click="vm.registerModal()"> Register </md-button>
-                <md-button ng-click="vm.loginModal()">Log In</md-button>
+                <md-button class="login" ng-click="vm.loginModal()">Log In</md-button>
         </div>
         <div class="nav" ng-show="vm.user.first_name">
                 <div ng-if="vm.user.role === 1 || vm.user.role === 2" ng-include="'./views/user/partials/nav.html'"></div>
