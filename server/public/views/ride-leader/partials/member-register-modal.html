@@ -1,23 +1,24 @@
-<header>
-    <div class="instructions"></div>
-</header>
-<div class="ride-detail-modal" layout="column" layout-align="center center">
-    <div layout="row" layout-align="space-between center">
-        <md-input-container class="mobile-input-container">
-            <label for="mobile-input-label">Search by first name</label>
-            <input name="mobile-input" ng-model="vm.searchMemberParams.first_name" />
-        </md-input-container>
-        <md-input-container class="mobile-input-container">
-            <label for="mobile-input-label">Search by last name</label>
-            <input name="mobile-input" ng-model="vm.searchMemberParams.last_name" />
-        </md-input-container>
-        <md-input-container class="mobile-input-container">
-            <label for="mobile-input-label">Search by member ID</label>
-            <input name="mobile-input" ng-model="vm.searchMemberParams.member_id" />
-        </md-input-container>
-    </div>
-    <md-button type="submit" class="mobile-button" ng-click="vm.searchForMember(vm.searchMemberParams)">Search For Member</md-button>
-    <table ng-if="vm.searchMembers.list.length > 0">
+<md-dialog flex="50">
+    <header>
+        <div class="instructions"></div>
+    </header>
+    <div class="ride-detail-modal" layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between center">
+            <md-input-container class="mobile-input-container">
+                <label for="mobile-input-label">Search by first name</label>
+                <input name="mobile-input" ng-model="vm.searchMemberParams.first_name" />
+            </md-input-container>
+            <md-input-container class="mobile-input-container">
+                <label for="mobile-input-label">Search by last name</label>
+                <input name="mobile-input" ng-model="vm.searchMemberParams.last_name" />
+            </md-input-container>
+            <md-input-container class="mobile-input-container">
+                <label for="mobile-input-label">Search by member ID</label>
+                <input name="mobile-input" ng-model="vm.searchMemberParams.member_id" />
+            </md-input-container>
+        </div>
+        <md-button type="submit" class="mobile-button" ng-click="vm.searchForMember(vm.searchMemberParams)">Search For Member</md-button>
+        <table ng-if="vm.searchMembers.list.length > 0">
             <thead>
                 <tr>
                     <th class="mobile-table-head">Member ID</th>
@@ -29,11 +30,11 @@
                 <tr ng-repeat="member in vm.searchMembers.list">
                     <td class="mobile-member-cell mobile-input">{{member.member_id}}</td>
                     <td class="mobile-member-cell mobile-input">{{member.first_name}} {{member.last_name}}</td>
-                    <td class="mobile-member-cell mobile-input" layout="column" layout-align="center center"> 
+                    <td class="mobile-member-cell mobile-input" layout="column" layout-align="center center">
                         <md-button class="mobile-button" ng-click="vm.addMemberRider(member)">Add</md-button>
                     </td>
                 </tr>
             </tbody>
         </table>
-</div>
-</div>
+    </div>
+</md-dialog>
