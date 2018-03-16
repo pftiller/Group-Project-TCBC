@@ -22,7 +22,7 @@ CREATE TABLE "rides" (
   "description" text NOT NULL,
   "ride_leader" int NOT NULL,
   "ride_location" text NOT NULL,
-  "url" varchar(255) NOT NULL,
+  "url" varchar(255),
   "approved" BOOLEAN NOT NULL DEFAULT 'false',
   "completed" BOOLEAN NOT NULL DEFAULT 'false',
   "cancelled" BOOLEAN NOT NULL DEFAULT 'false',
