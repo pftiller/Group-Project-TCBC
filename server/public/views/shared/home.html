@@ -2,7 +2,7 @@
 <md-content flex layout="row" layout-sm="column" layout-xs="column">
     <div flex-xs="100" flex-sm="100" flex-gt-sm="80" flex-order="1" layout-padding>
         <h1 style="text-align:center;">Upcoming Rides for the Twin Cities Bicycle Club</h1>
-        <div flex>
+        <div flex class="landing-table-container">
             <md-input-container class="md-icon-float">
                 <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
                 <input ng-model="rides_name" ng-change="allRidesActions.filter()" placeholder="Ride name" filter-by="rides_name" filter-type="text"
@@ -67,7 +67,7 @@
                             <tr ng-repeat="ride in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
                                 <td>{{ride.date | date:'MM/DD/YYYY'}}</td>
                                 <td>{{ride.time}}</td>
-                                <td class="name">{{ride.rides_name}}</td>
+                                <td class="name" style="text-align:center;">{{ride.rides_name}}</td>
                                 <td>{{ride.type}}</td>
                                 <td>
                                     <md-button ng-if="ride.cancelled" class="md-raised cancelled-button" disabled>Cancelled</md-button>
@@ -101,8 +101,9 @@
 
     </div>
     </div>
-    <div flex-xs="100" flex-sm="100" flex-gt-sm="20" flex-order="2" layout-padding>
-        <h2>Category Key</h2>
+    <div flex-xs="100" flex-sm="100" flex-gt-sm="25" flex-order="2" layout-padding>
+        <h2 style="text-align:center;" class="category-key-description">Category Key</h2>
+        <span style="text-align:center;" class="category-key-description">Click on a Category to Learn More!</span>
         <md-content id="dynamic-content" class="f-clear-padding">
             <div class="md-accordion" ng-repeat="category in vm.categories.list">
                 <md-toolbar ng-init="category.expanded = false" ng-click="vm.toggleView(vm.categories.list, category, $index)">
