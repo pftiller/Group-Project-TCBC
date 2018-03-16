@@ -531,3 +531,6 @@ th {
   padding-left: 10px;
   
 }
+.category-open{
+  background-color: dodgerblue !important;
+}
