@@ -20,12 +20,21 @@ h1 {
   font-weight: 600;
 }
 
+#profileInfo {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+
+}
+
 .instructions {
   background-color: rgb(63, 81, 181);
   /* color: #DDDDDD; */
   color: honeydew;
   padding: 15px;
   text-align: center;
+
 }
 
 .instructions.slim {
