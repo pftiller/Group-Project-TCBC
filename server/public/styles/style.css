@@ -485,6 +485,11 @@ th {
 .tcbc-join:hover {
   text-decoration: underline;
 }
+
+.md-button.md-accent {
+  color: rgb(63,81,181);
+
+}
 .memberHeaderInfo {
   margin-left: 10px !important;
 }
