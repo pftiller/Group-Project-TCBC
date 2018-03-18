@@ -169,6 +169,25 @@ th {
 .border {
   border: 1px solid #a1a1a1;
 }
+.category-key-description{
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+  
+}
+.category-key-description h2 {
+  margin-top: 25px;
+  margin-bottom: 0;
+  padding: 0;
+  text-align:center;
+}
+.category-key-description p {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding: 0;
+  text-align:center;
+}
 
 .md-accordion .dataContent {
   background: #F2F2F2;
@@ -184,7 +203,7 @@ th {
 }
 
 .md-accordion .activeContent {
-  height: 250px;
+  height: 175px;
   /* padding:0;
   display:block; */
 }
@@ -193,7 +212,18 @@ th {
   cursor: pointer;
   border-bottom: 1px solid rgb(63, 107, 181)
 }
+.md-accordion h2 {
+  text-align:left;
+  font-size:16px;
+}
 
+.md-accordion p {
+  text-align:left;
+}
+
+.category-open{
+  background-color: dodgerblue !important;
+}
 .ride-button {
   /* background-color: #cfcfcf; */
   border-radius: 10%;
@@ -554,23 +584,13 @@ th {
   padding: 10px 10px 10px 10px;
 }
 
-.category-key-description{
-  margin: 0 auto;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 10px;
+@media screen and (min-width: 761px) {
+  .md-accordion .activeContent {
+    height: 250px;
+    /* padding:0;
+    display:block; */
+  }
   
 }
-.category-key-description h2 {
-  margin-top: 25px;
-  margin-bottom: 0;
-  padding: 0;
-}
-.category-key-description p {
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding: 0;
-}
-.category-open{
-  background-color: dodgerblue !important;
-}
+
+
