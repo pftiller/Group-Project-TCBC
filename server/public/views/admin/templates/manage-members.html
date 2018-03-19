@@ -59,14 +59,14 @@
           <md-select ng-if="member.role_id != 4" placeholder="{{member.role}}" ng-model="member.role">
             <md-option ng-repeat="roles in vm.getUserRoles.list" ng-value="roles">{{roles.role}}</md-option>
           </md-select>
-          <md-button ng-if="member.role_id != 4" class="md-raised md-button" ng-click="vm.changeRole(member)">Submit</md-button>
+          <md-button ng-if="member.role_id != 4" class="md-raised md-primary" ng-click="vm.changeRole(member)">Submit</md-button>
           <span ng-if="member.role_id == 4">{{member.role}}</span>
         </td>
         <td style="text-align: center;">
-          <md-button class="md-raised md-button" ng-click="vm.adminViewMemberPastRides(member)">View</md-button>
+          <md-button class="md-raised md-primary" ng-click="vm.adminViewMemberPastRides(member)">View</md-button>
         </td>
         <td style="text-align: center;">
-          <md-button class="md-raised md-button" ng-click="vm.openChangePasswordModal(ev,member)">Change Password</md-button>
+          <md-button class="md-raised md-primary" ng-click="vm.openChangePasswordModal(ev,member)">Change Password</md-button>
         </td>
       </tr>
     </tbody>
