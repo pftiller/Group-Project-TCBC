@@ -16,9 +16,6 @@ myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', fun
     }
   }
 
-
-
-
 $scope.gridOptions = {
     data: [],
     sort: {
@@ -74,6 +71,7 @@ self.clearFilters = function () {
   $scope.date = '';
   $scope.type = '';
   $scope.rides_name ='';
+  $scope.gridActions.refresh();
 }
 
 
