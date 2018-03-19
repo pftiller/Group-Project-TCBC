@@ -52,8 +52,8 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     JOIN user_roles 
     ON users.role = user_roles.id
     WHERE member_id = $1
-    OR first_name LIKE $2
-    OR last_name LIKE $3
+    OR first_name ILIKE $2
+    OR last_name ILIKE $3
     ORDER BY member_id ASC;`
   pool.query(queryText, [req.params.member_id, '%' + req.params.first_name + '%' , '%' + req.params.last_name + '%'])
     .then((result) => {
