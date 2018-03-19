@@ -10,8 +10,36 @@ h1 {
     text-align: center
 }
 
+md-menu-content a:visited {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+md-nav-bar md-nav-ink-bar {
+    background: none;
+}
+
+.md-nav-bar {
+    border-style: none;
+    border-width: 0;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.md-active span {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #3f51b5;
+}
+
+.md-button._md-nav-button {
+    font-size: 14px;
+}
+
+.md-button._md-nav-button:hover {
+    background-color: rgba(158, 158, 158, 0.2);
+}
+
 .bold {
-    font-weight: bold
+    font-weight: bold;
 }
 
 .instructions .container h1 {
@@ -76,12 +104,6 @@ h1 {
 
 .btn-danger {
     margin-left: 10px
-}
-
-.navbar {
-    background-color: #333;
-    width: 100%;
-    border-radius: 0
 }
 
 ul {
@@ -559,7 +581,10 @@ th {
         height: 250px
     }
 }
-
+.responsive .ride-leader-header {
+    color: rgba(0, 0, 0, .54);
+    font-weight: 700;
+}
 .md-errors-spacer {
     display: none
 }
@@ -696,10 +721,10 @@ th {
         margin-left: 0;
         margin-right: 0
     }
-    .responsive>tbody>tr>td {
+    .responsive > tbody > tr >td {
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50% !important;
+        padding-left: 50%;
         white-space: normal;
         text-align: left;
         display: block;
@@ -707,6 +732,16 @@ th {
         -moz-box-sizing: content-box;
         box-sizing: content-box;
         min-height: 1em
+    }
+    .responsive > tbody > tr > .ride-leader-span {
+        padding-left: 0 !important;
+    }
+
+    .repsonsive .md-button {
+        font-size: 11px;
+    }
+    .responsive .name {
+        text-align: center;
     }
     .responsive>tbody>tr>td::before {
         position: absolute;
@@ -916,14 +951,6 @@ th {
 
 .edit-ride-modal {
     padding: 15px;
-}
-
-@media only screen and (max-width:760px),
-(min-device-width:768px) and (max-device-width:1024px) {
-    .ride-leader-check-in-buttons {
-        padding: 0 !important;
-        font-size: 10px;
-    }
 }
 .md-container.md-ink-ripple .md-icon{
     background-color: dodgerblue;
