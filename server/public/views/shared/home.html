@@ -4,6 +4,7 @@
         <h1 style="text-align:center;">Upcoming Rides for the Twin Cities Bicycle Club</h1>
         
         <div flex class="landing-table-container">
+                <div layout="row" flex layout-align="space-between center">
             <md-input-container class="md-icon-float">
                 <md-icon class="material-icons" md-font-icon>&#xE8B6;</md-icon>
                 <input ng-model="rides_name" ng-change="allRidesActions.filter()" placeholder="Ride name" filter-by="rides_name" filter-type="text"
@@ -30,7 +31,7 @@
 
             <md-button ng-show="date || type || rides_name" class="md-raised md-primary" ng-click="vm.clearFilters(); allRidesActions.refresh();">Clear Filters
             </md-button>
-
+</div>
             <div grid-data grid-options="gridOptions" grid-actions="gridActions">
                 <md-card layout-align="stretch center" ng-if="filtered.length === 0" layout-align="center">
 
@@ -102,15 +103,22 @@
 
     </div>
     </div>
-    <div flex-xs="100" flex-sm="100" flex-gt-sm="20" flex-order="2" layout-padding class="category-key-description">
-        <h2 style="text-align:center;">Category Key</h2>
-        <p style="text-align:center;">Click on a Category to Learn More!</p>
-        <md-content id="dynamic-content" class="f-clear-padding">
+    <div class="category-key-description" flex-xs="100" flex-sm="100" flex-gt-sm="20" flex-order="2" layout-padding>
+        <h2>Category Key</h2>
+        <p>Click on a Category to Learn More!</p>
+        <md-content>
             <div class="md-accordion" ng-repeat="category in vm.categories.list">
                 <md-toolbar ng-init="category.expanded = false" class="category-open" ng-click="vm.toggleView(vm.categories.list, category, $index)">
                     <div class="md-toolbar-tools">
-                        <h2 style="font-size:16px;">{{category.type}} - {{category.name}}</h2>
+                        <h2>{{category.type}} - {{category.name}}</h2>
                         <div ng-class="{expandCollapse:true, active:category.expanded}"></div>
+                        <span flex></span>
+                        <!-- <div ng-if="category.expanded = false">     -->
+                            <i ng-show="!category.expanded" class="material-icons">keyboard_arrow_down</i>
+                            <!-- </div> -->
+                        <!-- <div ng-if="category.expanded = true"> -->
+                            <i ng-show="category.expanded" class="material-icons">keyboard_arrow_up</i>
+                            <!-- </div> -->
                     </div>
                 </md-toolbar>
                 <div style="overflow:scroll" ng-class="{dataContent:true, activeContent:category.expanded}">
@@ -118,13 +126,13 @@
                         <p>
                             <span class="bold">Description:</span> {{category.category_description}}</p>
                         <p>
-                            <span class="bold">Min. Average Speed:</span>{{category.notes}}</p>
+                            <span class="bold">Min. Average Speed:</span> {{category.notes}}</p>
                         <p>
-                            <span class="bold">Riders Must Have:</span>{{category.riders_must_have}}</p>
+                            <span class="bold">Riders Must Have:</span> {{category.riders_must_have}}</p>
                         <p>
-                            <span class="bold">Rest Stops:</span>{{category.rest_stops}}</p>
+                            <span class="bold">Rest Stops:</span> {{category.rest_stops}}</p>
                         <p>
-                            <span class="bold">Leader Rides:</span>{{category.ride_leader_notes}}</p>
+                            <span class="bold">Leader Rides:</span> {{category.ride_leader_notes}}</p>
                     </div>
                 </div>
                 <div>
