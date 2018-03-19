@@ -148,6 +148,9 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
 
     }
 
+    self.upload = function () {
+    angular.element(document.querySelector('#fileInput')).click();
+  };
 
 
 }]);
