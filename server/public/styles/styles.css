@@ -580,7 +580,10 @@ th {
         height: 250px
     }
 }
-
+.responsive .ride-leader-header {
+    color: rgba(0, 0, 0, .54);
+    font-weight: 700;
+}
 .md-errors-spacer {
     display: none
 }
@@ -717,10 +720,10 @@ th {
         margin-left: 0;
         margin-right: 0
     }
-    .responsive>tbody>tr>td {
+    .responsive > tbody > tr >td {
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50% !important;
+        padding-left: 50%;
         white-space: normal;
         text-align: left;
         display: block;
@@ -728,6 +731,16 @@ th {
         -moz-box-sizing: content-box;
         box-sizing: content-box;
         min-height: 1em
+    }
+    .responsive > tbody > tr > .ride-leader-span {
+        padding-left: 0 !important;
+    }
+
+    .repsonsive .md-button {
+        font-size: 11px;
+    }
+    .responsive .name {
+        text-align: center;
     }
     .responsive>tbody>tr>td::before {
         position: absolute;
