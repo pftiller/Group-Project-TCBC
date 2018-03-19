@@ -661,6 +661,15 @@ th {
     border: 1px solid rgba(0, 0, 0, .12)
 }
 
+.bring-forward {
+    z-index: 10;
+    width: 175px;
+}
+
+input[type="file"]:focus {
+    outline: none;
+}
+
 .responsive .sortable .arrow {
     position: relative;
     width: 0;
@@ -959,4 +968,19 @@ md-checkbox.md-checked .md-icon {
 
 md-checkbox.md-checked .md-ink-ripple {
     color: dodgerblue;
+}
+
+@media screen and (min-width:545px) {
+    .file-input-hide {
+        position: relative;
+        left: -6.75em;
+    }
+}
+
+@media screen and (max-width:544px) {
+    .file-input-hide {
+        position: relative;
+        left: 3em;
+        bottom: 2.15em;
+    }
 }
