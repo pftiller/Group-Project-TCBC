@@ -19,7 +19,9 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     }
 
     self.cancelRide = function (ride) {
-        RideDetailService.cancelThisRide(ride);
+        RideDetailService.cancelThisRide(ride).then(()=>{
+            RideDetailService.getMyLeadRideDetails();
+        })
     }
 
     self.createNewRide = function () {

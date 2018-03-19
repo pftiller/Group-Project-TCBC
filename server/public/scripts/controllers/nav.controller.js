@@ -1,4 +1,4 @@
-myApp.controller('NavController', ['UserService', '$mdDialog', '$route', function(UserService, $mdDialog, $route) {
+myApp.controller('NavController', ['UserService', '$mdDialog', '$route', '$mdMenu', function(UserService, $mdDialog, $route, $mdMenu) {
     console.log('NavController created');
     var self = this;
     self.userService = UserService;
