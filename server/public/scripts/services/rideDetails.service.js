@@ -249,6 +249,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                     RideDetailService.signUpPost(ride)
                         .then(() => {
                             self.hide();
+                            swal(`You signed up for ${ride.rides_name}`, '', 'success');
                         });;
                 } else {
                     swal('Please select a mileage for this ride before signing up.', '', 'warning');
@@ -436,9 +437,8 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
                 self.getMyRideDetails();
-                self.getMyLeadRideDetails();
-
                 console.log('unregister ', response);
+                swal(`You were removed from the ride: ${ride.rides_name}`, '', 'success');
             })
             .catch((err) => {
                 swal('Error removing member from ride sign up, please try again later.', '', 'error');
