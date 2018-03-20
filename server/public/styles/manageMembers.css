@@ -1,0 +1,19 @@
+  .csvUpload {
+    margin: 20px 0px 0px 5%;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .csvUpload i {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  .pastMemberModal {
+    padding: 10px;
+    margin: 15px;
+  }
+
+  th {
+    font-weight: 700;
+  }
