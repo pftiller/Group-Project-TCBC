@@ -973,7 +973,7 @@ md-checkbox.md-checked .md-ink-ripple {
 @media screen and (min-width:545px) {
     .file-input-hide {
         position: relative;
-        left: -6.75em;
+        left: -5em;
     }
 }
 
