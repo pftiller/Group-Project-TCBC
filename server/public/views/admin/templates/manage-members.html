@@ -73,7 +73,7 @@
   </div>
 </div> 
 
-<form name="myForm" class="csvUpload" layout-align="center center">
+<!-- <form name="myForm" class="csvUpload" layout-align="center center">
   <label> Upload Member Information - CSV File</label>
 <br>
   <label class="md-raised md-primary md-button bring-forward" md-ink-ripple for="file">
@@ -86,4 +86,20 @@
  <br>
   <md-button class="md-raised md-primary" ng-disabled="!file" ng-click="vm.submit(vm.file)">Submit</md-button>
   <md-button class="md-raised md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
+</form> -->
+
+
+
+<form name="myForm" class="csvUpload" layout-align="center center">
+  <md-button class="md-icon-button" aria-label="More" type="file" ngf-select ng-model="vm.file" name="file" ngf-pattern="'.csv'"
+    accept=".csv" ngf-max-size="20MB" ngf-model-invalid="errorFile">
+    <i class="material-icons md-24">add_circle_outline</i>
+  </md-button>
+  <label> Upload Member Information - CSV File</label>
+  <i ng-show="myForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
+  <img ng-show="myForm.file.$valid" ngf-thumbnail="file">
+  <br>
+  <md-button class="md-raised md-primary" ng-disabled="!myForm.$valid" ng-click="vm.submit(vm.file)">Submit</md-button>
+  <br>
+  <md-button class="md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
 </form>
