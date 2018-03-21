@@ -22,10 +22,8 @@ PostgreSQL
 ## Getting Started
 
 - Fork the Repo to your GitHub and Clone it to your local work environment.  
-- Navigate to the project directory and run npm install to install all dependencies.
-- Create a database called tcbc in postgreSQL.
-- Follow the TCBC_Postgres_Create_Final.sql file for a list of all SQL scripts to run in order to build out the database tables.
-- Once the tables are built, you will need to populate some of the tables with information. These are also found in the TCBC_Postgres_Create_Final.sql file. 
+- Install all prerequisites.
+
 ### Prerequisites
 
 The following software will be required in order to get this project to work.
@@ -37,15 +35,12 @@ The following software will be required in order to get this project to work.
 
 ### Installing
 
-Steps to get the development environment running.
+- Navigate to the project directory and run npm install to install all dependencies.
+- Create a database called tcbc in postgreSQL.
+- Follow the TCBC_Postgres_Create_Final.sql file for a list of all SQL scripts to run in order to build out the database tables.
+- Once the tables are built, you will need to populate some of the tables with information. These are also found in the TCBC_Postgres_Create_Final.sql file. 
 
-```sql
-CREATE TABLE "users" (
-  "id" serial primary key,
-  "username" varchar(80) not null UNIQUE,
-  "password" varchar(240) not null
-);
-```
+
 
 ## Screen Shot
 
