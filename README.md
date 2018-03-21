@@ -29,7 +29,7 @@ PostgreSQL
 The following software will be required in order to get this project to work.
 
 - [Node.js](https://nodejs.org/en/)
-- [postgreSQL] (https://www.postgresql.org/download/)
+- [postgreSQL](https://www.postgresql.org/download/)
 
 
 
