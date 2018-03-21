@@ -1,5 +1,5 @@
 myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', function (RideDetailService, UserService, CheckInService, $mdDialog, $location) {
-    console.log('RideLeaderController created');
+       ('RideLeaderController created');
     let self = this;
 
     self.leadRidesTable = true;

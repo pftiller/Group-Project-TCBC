@@ -7949,14 +7949,14 @@ function $TemplateCacheProvider() {
  * ```js
  * function linkingFn(scope, elm, attrs, ctrl) {
  *   // get the attribute value
- *   console.log(attrs.ngModel);
+ *      (attrs.ngModel);
  *
  *   // change the attribute
  *   attrs.$set('ngModel', 'new value');
  *
  *   // observe changes to interpolated attribute
  *   attrs.$observe('ngModel', function(value) {
- *     console.log('ngModel has changed value to ' + value);
+ *        ('ngModel has changed value to ' + value);
  *   });
  * }
  * ```
@@ -14787,7 +14787,7 @@ function $LogProvider() {
 
     function consoleLog(type) {
       var console = $window.console || {},
-          logFn = console[type] || console.log || noop;
+          logFn = console[type] ||     || noop;
 
       return function() {
         var args = [];
@@ -17997,7 +17997,7 @@ function $RootScopeProvider() {
        *    ```js
        *
        *    $scope.$watchGroup(['v1', 'v2'], function(newValues, oldValues) {
-       *      console.log(newValues, oldValues);
+       *         (newValues, oldValues);
        *    });
        *
        *    // newValues, oldValues initially
@@ -27348,7 +27348,7 @@ var ngControllerDirective = [function() {
         getAndClearSevereErrors().then(function(filteredLog) {
           expect(filteredLog.length).toEqual(0);
           if (filteredLog.length) {
-            console.log('browser console errors: ' + util.inspect(filteredLog));
+               ('browser console errors: ' + util.inspect(filteredLog));
           }
         });
       }
@@ -34196,7 +34196,7 @@ var minlengthDirective = function() {
 if (window.angular.bootstrap) {
   // AngularJS is already loaded, so we can return here...
   if (window.console) {
-    console.log('WARNING: Tried to load AngularJS more than once.');
+       ('WARNING: Tried to load AngularJS more than once.');
   }
   return;
 }

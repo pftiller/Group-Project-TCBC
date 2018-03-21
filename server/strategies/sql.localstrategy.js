@@ -8,11 +8,11 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  // console.log('called deserializeUser - pg');
+  //    ('called deserializeUser - pg');
 
   pool.connect(function (err, client, release) {
     if(err) {
-      console.log('connection err ', err);
+         ('connection err ', err);
       release();
       done(err);
     }
@@ -23,7 +23,7 @@ passport.deserializeUser(function(id, done) {
 
       // Handle Errors
       if(err) {
-        console.log('query err ', err);
+           ('query err ', err);
         done(err);
         release();
       }
@@ -36,7 +36,7 @@ passport.deserializeUser(function(id, done) {
           return done(null, false, {message: 'Incorrect credentials.'});
       } else {
         // user found
-        //console.log('User row ', user);
+        //   ('User row ', user);
         done(null, user);
       }
 
@@ -50,18 +50,18 @@ passport.use('local', new localStrategy({
     usernameField: 'member_id'
     }, function(req, member_id, password, done) {
 	    pool.connect(function (err, client, release) {
-	    	console.log('called local - pg');
+	    	   ('called local - pg');
 
         // assumes the username will be unique, thus returning 1 or 0 results
         client.query("SELECT * FROM users WHERE member_id = $1", [member_id],
           function(err, result) {
             var user = {};
 
-            console.log('here');
+               ('here');
 
             // Handle Errors
             if (err) {
-              console.log('connection err ', err);
+                 ('connection err ', err);
               done(null, user);
             }
 
@@ -69,18 +69,18 @@ passport.use('local', new localStrategy({
 
             if(result.rows[0] != undefined) {
               user = result.rows[0];
-              //console.log('User obj', user);
+              //   ('User obj', user);
               // Hash and compare
               if(encryptLib.comparePassword(password, user.password)) {
                 // all good!
-                console.log('passwords match');
+                   ('passwords match');
                 done(null, user);
               } else {
-                console.log('password does not match');
+                   ('password does not match');
                 done(null, false, {message: 'Incorrect credentials.'});
               }
             } else {
-              console.log('no user');
+                 ('no user');
               done(null, false);
             }
 

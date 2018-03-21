@@ -1,5 +1,5 @@
 myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', function (RideDetailService, $scope, $filter) {
-  console.log('HomeController created');
+     ('HomeController created');
   let self = this;
   self.rides = {};
   self.test = RideDetailService.rides;
@@ -39,8 +39,8 @@ $scope.gridActions = {
     RideDetailService.getRideCategories()
       .then((response)=>{
         self.categories.list = response;
-        console.log('here is self.categories.list', self.categories.list);
-        console.log('here is the length of self.categories.list', self.categories.list.length);
+           ('here is self.categories.list', self.categories.list);
+           ('here is the length of self.categories.list', self.categories.list.length);
       })
   }
   self.loadCategories();

@@ -1,5 +1,5 @@
 myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideDetailService', '$mdDialog', '$route', function ($http, $location, UserService, RideDetailService, $mdDialog, $route) {
-  console.log('LoginController created');
+     ('LoginController created');
   var self = this;
   self.showNav = UserService.showNav;
   self.user = {
@@ -15,16 +15,16 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
     if (self.user.member_id === '' || self.user.password === '') {
       self.message = "Enter your username and password!";
     } else {
-      console.log('sending to server...', self.user);
+         ('sending to server...', self.user);
       UserService.login(self.user).then(
         (response) => {
           if (response.status == 401) {
             self.message = "Incorrect Member ID or Password"
           } else if (response.status == 200) {
             UserService.getuser().then((response) => {
-              console.log('after login, user data: ', response);
+                 ('after login, user data: ', response);
               self.user = response;
-              console.log('self.user after login: ', self.user);
+                 ('self.user after login: ', self.user);
 
               $location.path('/home');
             })
@@ -93,7 +93,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
       } else {
         // alert('register')
         self.newUser.password = self.newUser.password1;
-        console.log('new user ', self.newUser);
+           ('new user ', self.newUser);
         UserService.registerUser(self.newUser)
           .then((result) => {
             self.message.message = $sce.trustAsHtml(result)

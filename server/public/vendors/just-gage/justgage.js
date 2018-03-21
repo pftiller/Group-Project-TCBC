@@ -4,7 +4,7 @@
  * Licensed under MIT.
  * @author Bojan Djuricic (@Toorshia)
  **/
-console.log('JustGage Loaded');
+   ('JustGage Loaded');
 
 JustGage = function(config) {
 
@@ -12,7 +12,7 @@ JustGage = function(config) {
 
   // Helps in case developer wants to debug it. unobtrusive
   if (config === null || config === undefined) {
-    console.log('* justgage: Make sure to pass options to the constructor!');
+       ('* justgage: Make sure to pass options to the constructor!');
     return false;
   }
 
@@ -21,13 +21,13 @@ JustGage = function(config) {
   if (config.id !== null && config.id !== undefined) {
     node = document.getElementById(config.id);
     if (!node) {
-      console.log('* justgage: No element with id : %s found', config.id);
+         ('* justgage: No element with id : %s found', config.id);
       return false;
     }
   } else if (config.parentNode !== null && config.parentNode !== undefined) {
     node = config.parentNode;
   } else {
-    console.log('* justgage: Make sure to pass the existing element id or parentNode to the constructor.');
+       ('* justgage: Make sure to pass the existing element id or parentNode to the constructor.');
     return false;
   }
 

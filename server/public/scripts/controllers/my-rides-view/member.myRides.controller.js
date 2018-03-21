@@ -1,5 +1,5 @@
 myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', 'UserService', function(RideDetailService, $mdDialog, UserService) {
-    console.log('MemberMyRidesController created');
+       ('MemberMyRidesController created');
     let self = this;
 
     self.myRidesTable = true;

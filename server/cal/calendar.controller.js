@@ -30,6 +30,6 @@ myApp.controller('CalendarController', ['UserService', function(UserService) {
         }
       };
   
-      console.log('cal ', y, m, d);
+         ('cal ', y, m, d);
   }]);
   

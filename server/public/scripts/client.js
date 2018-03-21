@@ -2,7 +2,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMe
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  console.log('myApp -- config')
+     ('myApp -- config')
   $routeProvider
     .when('/', {
       redirectTo: '/landing'

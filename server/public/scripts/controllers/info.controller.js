@@ -1,5 +1,5 @@
 myApp.controller('InfoController', ['UserService', function(UserService) {
-  console.log('InfoController created');
+     ('InfoController created');
   var self = this;
   self.userService = UserService;
 }]);

@@ -1,5 +1,5 @@
 myApp.service('UserService', ['$http', '$location', function ($http, $location) {
-  console.log('UserService Loaded');
+     ('UserService Loaded');
   var self = this;
   self.userObject = {};
   self.currentNavItem = {
@@ -7,29 +7,29 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
   };
 
   self.getuser = function () {
-    console.log('UserService -- getuser');
+       ('UserService -- getuser');
     return $http.get('/api/user').then(function (response) {
       if (response.data.member_id) {
         // user has a curret session on the server
-        console.log('user service: ', response.data);
+           ('user service: ', response.data);
         self.userObject.member_id = response.data.member_id;
         self.userObject.first_name = response.data.first_name;
         self.userObject.role = response.data.role;
         self.userObject.user_id = response.data.id
         return self.userObject;
       } else {
-        console.log('UserService -- getuser -- failure');
+           ('UserService -- getuser -- failure');
         // user has no session, bounce them back to the landing page
         $location.path("/landing");
       }
     }, function (response) {
-      console.log('UserService -- getuser -- failure: ', response);
+         ('UserService -- getuser -- failure: ', response);
       $location.path("/landing");
     });
   }
 
   self.getRideLeader = function(){
-    console.log('UserService -- getRideLeader');
+       ('UserService -- getRideLeader');
     return $http.get('/api/user').then(function (response) {
       if (response.data.member_id) {
         // user has a curret session on the server
@@ -37,16 +37,16 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
           if(response.data.role === 2 || response.data.role === 3 ){
             return self.userObject
           }else{
-            console.log('permission failed, not a ride leader or admin');
+               ('permission failed, not a ride leader or admin');
             $location.path('/home');
           }
       } else {
-        console.log('UserService -- getRideLeader -- failure');
+           ('UserService -- getRideLeader -- failure');
         // user has no session, bounce them back to the landing page
         $location.path("/landing");
       }
     }, function (response) {
-      console.log('UserService -- getRideLeader -- failure: ', response);
+         ('UserService -- getRideLeader -- failure: ', response);
       $location.path("/landing");
     });
 
@@ -54,7 +54,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
 
   self.getRideAdmin = function(){
-    console.log('UserService -- getRideAdmin');
+       ('UserService -- getRideAdmin');
     return $http.get('/api/user').then(function (response) {
       if (response.data.member_id) {
         // user has a curret session on the server
@@ -62,16 +62,16 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
           if(response.data.role === 3){
             return self.userObject
           }else{
-            console.log('permission failed, not a ride Admin');
+               ('permission failed, not a ride Admin');
             $location.path('/home');
           }
       } else {
-        console.log('UserService -- getRideAdmin -- failure');
+           ('UserService -- getRideAdmin -- failure');
         // user has no session, bounce them back to the landing page
         $location.path("/landing");
       }
     }, function (response) {
-      console.log('UserService -- getRideAdmin -- failure: ', response);
+         ('UserService -- getRideAdmin -- failure: ', response);
       $location.path("/landing");
     });
 
@@ -100,10 +100,10 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
 
   self.logout = function () {
-    console.log('UserService -- logout');
+       ('UserService -- logout');
     return $http.get('/api/user/logout')
       .then(function (response) {
-        console.log('UserService -- logout -- logged out');
+           ('UserService -- logout -- logged out');
         self.userObject = {};
       });
   }
@@ -111,16 +111,16 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
 
    self.registerUser = function (newUser) {
       if (newUser.member_id === '' || newUser.password === '') {
-        console.log('NEED A PASSWROD');
+           ('NEED A PASSWROD');
         // message = "Choose a username and password!";
       } else {
-        console.log('sending to server...', newUser);
+           ('sending to server...', newUser);
         return $http.post('/api/user/register', newUser).then(function (response) {
-          console.log('success', response);
+             ('success', response);
           if (response.status === 500) {
             swal('Error registering user, please try again later.', '', 'error');
           } else {
-            console.log('response.data ', response.data);
+               ('response.data ', response.data);
             
             return response.data
           }
