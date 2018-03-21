@@ -6,24 +6,33 @@ Twin Cities Bicycle Club
 
 HTML/CSS
 AngularJS
+AngularJS Material
+Angular-route
+Chart.js
+justGage
+Moment.js
+responsive-tables
+SweetAlert
 Express.js
 Node.js
 Passport
-Angular-UI
-FullCalendar
 Moment.js
 PostgreSQL
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
+- Fork the Repo to your GitHub and Clone it to your local work environment.  
+- Navigate to the project directory and run npm install to install all dependencies.
+- Create a database called tcbc in postgreSQL.
+- Follow the TCBC_Postgres_Create_Final.sql file for a list of all SQL scripts to run in order to build out the database tables.
+- Once the tables are built, you will need to populate some of the tables with information. These are also found in the TCBC_Postgres_Create_Final.sql file. 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
+The following software will be required in order to get this project to work.
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- [postgreSQL] (https://www.postgresql.org/download/)
+
 
 
 ### Installing
@@ -71,3 +80,5 @@ Add additional notes about how to deploy this on a live system
 ## Acknowledgments
 
 * Hat tip to anyone who's code was used
+
+
