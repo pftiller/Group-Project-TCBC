@@ -1,5 +1,5 @@
 myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($http, $location, $mdDialog) {
-    console.log('AdminService Loaded');
+       ('AdminService Loaded');
     let self = this;
     self.pendingApprovedRides = {
         list: []
@@ -29,7 +29,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
         return $http.get('/rides/admin/pendingApprovedRides')
             .then((response) => {
                 self.pendingApprovedRides.list = [];
-                console.log('Service, rides pending approval came back: ', response.data);
+                   ('Service, rides pending approval came back: ', response.data);
                 response.data.forEach(ride => {
                     let momentDate = moment(ride.rides_date);
                     ride.date = momentDate.format('MM/DD/YYYY');
@@ -39,14 +39,14 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 return response.data;
             })
             .catch((err) => {
-                console.log('Error getting rides pending approval: ', err);
+                   ('Error getting rides pending approval: ', err);
             })
     }
 
     self.getRoles = function () {
         return $http.get('/member/userRole')
             .then((response) => {
-                console.log('got user roles:', response.data);
+                   ('got user roles:', response.data);
                 let dropGuestRole = response.data;
                 //this fix to remove guest won't scale. just a quick fix.
                 dropGuestRole.pop();
@@ -54,7 +54,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 return response.data;
             })
             .catch((err) => {
-                console.log('getting user roles failed:', err);
+                   ('getting user roles failed:', err);
             })
     }
 
@@ -70,7 +70,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
         }
         return $http.get(`/member/findRider/riderInfo/${rider.first_name}/${rider.last_name}/${rider.member_id}`)
             .then((response) => {
-                console.log('search member response ', response);
+                   ('search member response ', response);
                 self.riderInfo.list = response.data;
                 self.rider = {
                     first_name: '',
@@ -79,12 +79,12 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 }
             })
             .catch((err) => {
-                console.log('getting role failed:', err);
+                   ('getting role failed:', err);
             })
     }
 
     self.changeRole = function (member) {
-        console.log('role member change', member);
+           ('role member change', member);
         return $http.put(`/member/changeRole`, member)
             .then((response) => {
                 if (response) {
@@ -101,7 +101,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
     }
 
     self.adminViewMemberPastRides = function (member, ev) {
-        console.log('user id ', member.user_id);
+           ('user id ', member.user_id);
         return $http.get(`/member/adminViewMemberPastRides/${member.user_id}`)
             .then((response) => {
                 $mdDialog.show({
@@ -118,11 +118,11 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                     }
                 })
                 self.pastMemberRides.list = response.data;
-                console.log(response.data);
+                   (response.data);
                 // return response
             })
             .catch((err) => {
-                console.log('past ride data GET failed ', err);
+                   ('past ride data GET failed ', err);
             })
     }
 
@@ -141,7 +141,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             self.mode.edit = false;
             self.mode.show = true;
         }
-        console.log('modal item ', item);
+           ('modal item ', item);
 
         self.editSinglePastRide = function (ride) {
             self.pastRideInfo = {
@@ -169,7 +169,7 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
             self.member = self.pastRideInfo.member;
             self.ride = self.pastRideInfo.ride;
           
-            console.log('modal modal item ', self.pastRideInfo);
+               ('modal modal item ', self.pastRideInfo);
 
             self.editRideActualMileage = function (mileage) {
                 let mileUpdate = {
@@ -196,18 +196,18 @@ myApp.service('AdminService', ['$http', '$location', '$mdDialog', function ($htt
                 return result;
             })
             .catch((err) => {
-                console.log('error with password change API call ', err);
+                   ('error with password change API call ', err);
             })
     }
 
     self.editRideActualMileage = function (mileUpdate) {
         return $http.put('/rides/admin/editRide/actualMileage', mileUpdate)
             .then((response) => {
-                console.log('response from update actual mileage', response);
+                   ('response from update actual mileage', response);
                 swal(`Successfully updated user mileage!`, '', 'success');
             })
             .catch((err) => {
-                console.log('error updating actual mileage ', err);
+                   ('error updating actual mileage ', err);
                 swal(`Could not update user mileage, please try again later.`, '', 'error');
             })
     }

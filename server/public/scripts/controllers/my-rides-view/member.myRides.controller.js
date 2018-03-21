@@ -1,5 +1,8 @@
 myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', 'UserService', function(RideDetailService, $mdDialog, UserService) {
-    console.log('MemberMyRidesController created');
+<<<<<<< HEAD
+       ('MemberMyRidesController created');
+=======
+>>>>>>> 6307b5aec85ae800210ad8cbe29886bbfd896648
     let self = this;
 
     self.myRidesTable = true;

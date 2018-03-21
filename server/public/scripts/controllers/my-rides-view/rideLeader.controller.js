@@ -1,5 +1,8 @@
 myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', function (RideDetailService, UserService, CheckInService, $mdDialog, $location) {
-    console.log('RideLeaderController created');
+<<<<<<< HEAD
+       ('RideLeaderController created');
+=======
+>>>>>>> 6307b5aec85ae800210ad8cbe29886bbfd896648
     let self = this;
 
     self.leadRidesTable = true;
@@ -7,7 +10,6 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
     self.pastRidesTable = true;
 
     self.userObject = UserService.userObject;
-    // self.user_id = self.userObject.user_id;
 
     self.rideDetailReveal = function (ride) {
         RideDetailService.initMyRideDetailModal(ride);
@@ -37,7 +39,6 @@ myApp.controller('RideLeaderController', ['RideDetailService', 'UserService', 'C
         $location.path(`/check-in/${ride.ride_id}`)
     }
 
-    // RideDetailService.getRideCategories();
     RideDetailService.getMyLeadRideDetails();
     RideDetailService.getMyPastRideDetails();
     RideDetailService.getMyRideDetails();

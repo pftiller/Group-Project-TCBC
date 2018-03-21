@@ -6,25 +6,25 @@ const pool = require('../modules/pool.js');
 const router = express.Router();
 
 router.get('/viewProfile', isAuthenticated, function (req, res) {
-  console.log('in viewProfile event');
-  console.log('this is the user', req.user);
+     ('in viewProfile event');
+     ('this is the user', req.user);
   const queryText =
     `SELECT *
       FROM member_info
       WHERE member_id = $1`;
   pool.query(queryText, [req.user.member_id])
     .then((result) => {
-      console.log('query results:', result.rows);
+         ('query results:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('error making query:', err);
+         ('error making query:', err);
       res.sendStatus(500);
     });
 });
 
 router.get('/userRole', isAuthenticated, function (req, res) {
-  console.log('in get user role router');
+     ('in get user role router');
   const queryText =
     `SELECT
     id,
@@ -35,11 +35,11 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     id ASC`;
   pool.query(queryText)
     .then((result) => {
-      console.log('query get user role results:', result.rows);
+         ('query get user role results:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('error making query:', err);
+         ('error making query:', err);
       res.sendStatus(500);
     });
 });
@@ -62,12 +62,12 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     ORDER BY member_id ASC;`
   pool.query(queryText, [req.params.member_id, '%' + req.params.first_name + '%' , '%' + req.params.last_name + '%'])
     .then((result) => {
-      console.log('result of search for person: ', result.rows);
+         ('result of search for person: ', result.rows);
       
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('error making member search query:', err);
+         ('error making member search query:', err);
       res.sendStatus(500);
     });
 });
@@ -84,13 +84,13 @@ router.put(`/changeRole`, isAuthenticated, function (req, res) {
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.log('error changing user role:', err);
+         ('error changing user role:', err);
       res.sendStatus(500);
     })
 })
 
 router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req, res) {
-  console.log('in past rides router');
+     ('in past rides router');
   let userID = req.params.user_id;
   const queryText = `
     SELECT * 
@@ -102,11 +102,11 @@ router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req,
     AND rides.approved = true;`
   pool.query(queryText, [userID])
     .then((result) => {
-      console.log('query results for past rides ', result.rows);
+         ('query results for past rides ', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
-      console.log('error getting user past rides ', err);
+         ('error getting user past rides ', err);
       res.sendStatus(500);
     })
 
@@ -122,7 +122,7 @@ router.get('/stats/goal', isAuthenticated, (req, res)=>{
   WHERE users.id = $1;`
    pool.query(getGoalQuery,[userId])
     .then((result)=>{
-      console.log('GET goal for User: ', result.rows);
+         ('GET goal for User: ', result.rows);
       
       res.send(result.rows);
     })
@@ -132,7 +132,7 @@ router.get('/stats/goal', isAuthenticated, (req, res)=>{
 })
 
 router.put('/stats/goal', isAuthenticated, (req, res)=>{
-  console.log('SET stats Goal: ', req.body , 'for user: ', req.user);
+     ('SET stats Goal: ', req.body , 'for user: ', req.user);
   
   const userId = req.user.id;
   const newGoal = req.body.setGoal;
@@ -146,7 +146,7 @@ router.put('/stats/goal', isAuthenticated, (req, res)=>{
       res.sendStatus(201);
     })
     .catch((err)=>{
-      console.log('error updating goal: ', err);
+         ('error updating goal: ', err);
       res.sendStatus(500);
     }) 
 })

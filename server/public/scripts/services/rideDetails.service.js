@@ -1,5 +1,5 @@
 myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminService', function ($http, $location, $mdDialog, AdminService) {
-    console.log('RideDetailService Loaded');
+       ('RideDetailService Loaded');
     let self = this;
     self.allRides = {
         list: []
@@ -45,7 +45,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 return response.data;
             })
             .catch((err) => {
-                // console.log('get mileage err ', err);
+                //    ('get mileage err ', err);
                 swal('Error getting mileage for member', '', 'error');
             })
     }
@@ -54,25 +54,25 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     // Let's run our comparison logic off of the User ID instead of a names string.  Two identical users could cause a bug with this.
     //for sure jsut used that for testing, thanks for making a note so we dont forget
     // self.checkRidesForLeader = function (rides) {
-    //     console.log('lead rides check ', rides);
-    //     // console.log('lead user', user);
+    //        ('lead rides check ', rides);
+    //     //    ('lead user', user);
     //     self.myLeadRides.list = [];
     //     rides.forEach((ride) => {
     //         if (ride.ride_leader == ride.user_id) {
-    //             // console.log('ride', ride);
+    //             //    ('ride', ride);
     //             if (!ride.cancelled && ride.approved) {
     //                 self.myLeadRides.list.push(ride);
     //             } else {
-    //                 // console.log('this ride is cancelled', ride);
+    //                 //    ('this ride is cancelled', ride);
     //             }
     //         }
     //     })
-    //     console.log('lead rides ', self.myLeadRides);
+    //        ('lead rides ', self.myLeadRides);
 
     // }
 
     self.cancelThisRide = function (ride) {
-        console.log('ride to cancel ', ride);
+           ('ride to cancel ', ride);
         swal({
                 title: `Do you want to cancel ${ride.rides_name}?`,
                 text: `If you cancel ${ride.rides_name}, you cannot undo this action.`,
@@ -92,7 +92,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                         })
                         .catch((err) => {
                             swal('Error cancelling ride, please try again later.', '', 'error');
-                            // console.log('cancel ride put err ', err);
+                            //    ('cancel ride put err ', err);
                         });
                 } else {
                     swal(`${ride.rides_name} was not cancelled!`);
@@ -106,11 +106,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     // date.toUTCString();
     // function checkRideDate(rideDate, ride) {
     //     if (rideDate > timeStamp) {
-    //         console.log('date new');
+    //            ('date new');
     //         self.myRides.list.push(ride)
     //         // self.ride.past_ride = false;
     //     } else {
-    //         console.log('date old');
+    //            ('date old');
     //         // self.ride.past_ride = true;
     //         self.myPastRides.list.push(ride);
     //     }
@@ -119,7 +119,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         return $http.get('/rides/rideLeader/leadRideDetails')
             .then((response) => {
                 self.myLeadRides.list = [];
-                console.log('my lead ride results ', response.data);
+                   ('my lead ride results ', response.data);
                 response.data.forEach(ride => {
                     ride.leadingRide = true;
                     let momentDate = moment(ride.rides_date);
@@ -131,7 +131,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             })
             .catch((err) => {
                 swal('Error getting member ride details, please try again later.', '', 'error');
-                // console.log(err);
+                //    (err);
             })
     }
 
@@ -139,7 +139,7 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         return $http.get('/rides/member/pastRideDetails')
             .then((response) => {
                 self.myPastRides.list = [];
-                console.log('my past ride results ', response.data);
+                   ('my past ride results ', response.data);
                 response.data.forEach(ride => {
                     let momentDate = moment(ride.rides_date);
                     ride.date = momentDate.format('MM/DD/YYYY');
@@ -150,14 +150,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             })
             .catch((err) => {
                 swal('Error getting member ride details, please try again later.', '', 'error');
-                // console.log(err);
+                //    (err);
             })
     }
     self.getMyRideDetails = function () {
         return $http.get('/rides/member/rideDetails')
             .then((response) => {
                 self.myRides.list = [];
-                console.log('my ride results ', response.data);
+                   ('my ride results ', response.data);
                 response.data.forEach(ride => {
                     let momentDate = moment(ride.rides_date);
                     ride.date = momentDate.format('MM/DD/YYYY');
@@ -168,14 +168,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
             })
             .catch((err) => {
                 swal('Error getting member ride details, please try again later.', '', 'error');
-                // console.log(err);
+                //    (err);
             })
     }
 
     self.getAllRideDetails = function () {
         return $http.get('/rides/public/details')
             .then((response) => {
-                console.log('all rides ', response.data);
+                   ('all rides ', response.data);
                 for (let i = 0; i < response.data.length; i++) {
                     let dateOfRide = new Date(response.data[i].rides_date)
                     if (dateOfRide > timeStamp) {
@@ -201,17 +201,17 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                     response.data[i].selected = true;
                 }
                 self.categories.list = response.data;
-                console.log('adding selected property', self.categories.list)
+                   ('adding selected property', self.categories.list)
                 return response.data;
             })
             .catch((err) => {
                 swal('Error getting ride categories, please try again later.', '', 'error');
-                // console.log('error getting categories: ', err);
+                //    ('error getting categories: ', err);
             })
     }
 
     self.rideDetailModal = function (ride, ev) {
-        console.log('ride here ', ride);
+           ('ride here ', ride);
         
         $mdDialog.show({
             controller: RideDetailController,
@@ -242,9 +242,9 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         self.rideSignUp = function (ride) {
             if (self.user.member_id) {
                 if (self.selectedDistance) {
-                    console.log('SIGN ME UP FOR ', ride.rides_name);
+                       ('SIGN ME UP FOR ', ride.rides_name);
                     self.selectedDistance;
-                    console.log('distance ', self.selectedDistance);
+                       ('distance ', self.selectedDistance);
                     ride.selected_distance = self.selectedDistance;
                     RideDetailService.signUpPost(ride)
                         .then(() => {
@@ -269,14 +269,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         };
 
         self.success = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', {
                 className: "success-alert",
             });
             // $mdDialog.hide(answer);
         };
         self.error = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', 'error', {
                 className: "error-alert",
             });
@@ -285,20 +285,20 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     }
 
     self.signUpPost = function (ride) {
-        console.log('Signing up for ride ', ride);
+           ('Signing up for ride ', ride);
         return $http.post('/rides/signUp', ride)
             .then((response) => {
                 if (response.data == "Must be logged in to add items!") {
-                    console.log(response);
+                       (response);
                     swal('Please log in to sign up for rides.', '', 'warning');
                 } else {
-                    console.log('post ride signup ', response);
+                       ('post ride signup ', response);
                     return response;
                 }
             })
             .catch((err) => {
                 swal('You have already signed up for this ride. Please check your rides page', '', 'error');
-                // console.log('err on post ride sign up ', err);
+                //    ('err on post ride sign up ', err);
             })
     }
 
@@ -316,11 +316,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
     // }
 
     self.initMyRideDetailModal = function (ride) {
-        console.log('ride ', ride);
+           ('ride ', ride);
         if (ride.past_ride) {
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
-                    console.log('response modal with past', response.data[0]);
+                       ('response modal with past', response.data[0]);
                     let newRide = response.data[0];
                     newRide.past_ride = true;
                     self.myRideDetailModal(newRide)
@@ -328,12 +328,12 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 })
                 .catch((err) => {
                     swal('Error loading ride details, please try again later.', '', 'error');
-                    // console.log(err);
+                    //    (err);
                 })
         } else if(ride.leadingRide){
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
-                    console.log('response modal with lead', response);
+                       ('response modal with lead', response);
                     let newRide = response.data[0];
                     newRide.leadingRide = true;
                     self.myRideDetailModal(newRide)
@@ -341,19 +341,19 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                 })
                 .catch((err) => {
                     swal('Error loading ride details, please try again later.', '', 'error');
-                    // console.log(err);
+                    //    (err);
                 })
         } else{
             return $http.get(`/rides/member/rideDetails/complete/${ride.ride_id}`)
                 .then((response) => {
-                    console.log('response modal', response);
+                       ('response modal', response);
                     let newRide = response.data[0];
                     self.myRideDetailModal(newRide)
                     return response.data;
                 })
                 .catch((err) => {
                     swal('Error loading ride details, please try again later.', '', 'error');
-                    // console.log(err);
+                    //    (err);
                 })
         }
     }
@@ -418,14 +418,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         };
 
         self.success = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', {
                 className: "success-alert",
             });
             // $mdDialog.hide(answer);
         };
         self.error = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', 'error', {
                 className: "error-alert",
             });
@@ -433,16 +433,16 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         };
     }
     self.rideUnregister = function (ride) {
-        // console.log('unregister for ride ', ride);
+        //    ('unregister for ride ', ride);
         return $http.delete(`/rides/unregister/${ride.ride_id}`)
             .then((response) => {
                 self.getMyRideDetails();
-                console.log('unregister ', response);
+                   ('unregister ', response);
                 swal(`You were removed from the ride: ${ride.rides_name}`, '', 'success');
             })
             .catch((err) => {
                 swal('Error removing member from ride sign up, please try again later.', '', 'error');
-                // console.log('err on post ride sign up ', err);
+                //    ('err on post ride sign up ', err);
 
             })
     }
@@ -470,14 +470,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
 
         self.myRides = RideDetailService.myRides;
         self.submitRide = function (ride) {
-            console.log('');
+               ('');
             
             if(!ride.rides_name || !ride.distances || !ride.description || !ride.ride_location || !ride.rides_category || !ride.rides_date){
-                console.log('ride failed to submit: ', ride);
+                   ('ride failed to submit: ', ride);
                 
                 swal("All fields, except GPS Link, are required.", '', "warning");
             }else{
-            console.log('new ride', ride);
+               ('new ride', ride);
             self.hide();
 
             $http.post('/rides/rideLeader/submitRide', ride)
@@ -486,11 +486,11 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
                     RideDetailService.getMyRideDetails();
                     RideDetailService.getMyLeadRideDetails();
 
-                    console.log('response post ride ', response);
+                       ('response post ride ', response);
                 })
                 .catch((err) => {
                     swal('Error submitting new ride, please try again later.', '', 'error');
-                    // console.log('err post ride ', err);
+                    //    ('err post ride ', err);
                 });
             }
         }
@@ -504,14 +504,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         };
 
         self.success = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', {
                 className: "success-alert",
             });
             // $mdDialog.hide(answer);
         };
         self.error = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', 'error', {
                 className: "error-alert",
             });
@@ -535,21 +535,21 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         self.categories = RideDetailService.categories;
         self.rideToEdit = item;
         self.rideToEdit.rides_date = new Date(item.rides_date);
-        console.log('rideToEdit: ', self.rideToEdit);
+           ('rideToEdit: ', self.rideToEdit);
         
         self.approveAndSave = function (ride) {
-            // console.log('new ride', ride);
+            //    ('new ride', ride);
             self.hide();
-            console.log('ride to be submitted: ', ride);
+               ('ride to be submitted: ', ride);
             
             $http.put('/rides/admin/approveAndSave', ride)
                 .then((response) => {
                     swal('Successfully Approved', '','success');
-                    console.log('response post ride ', response);
+                       ('response post ride ', response);
                     AdminService.getPendingApprovedRides();
                 })
                 .catch((err) => {
-                    console.log('err post ride ', err);
+                       ('err post ride ', err);
                 });
         }
 
@@ -562,14 +562,14 @@ myApp.service('RideDetailService', ['$http', '$location', '$mdDialog','AdminServ
         };
 
         self.success = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', {
                 className: "success-alert",
             });
             // $mdDialog.hide(answer);
         };
         self.error = function (answer) {
-            // console.log('answer', answer);
+            //    ('answer', answer);
             swal(answer, '', 'error', {
                 className: "error-alert",
             });

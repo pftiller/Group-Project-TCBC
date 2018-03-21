@@ -30,14 +30,14 @@ router.post('/register', (req, res, next) => {
     password: encryptLib.encryptPassword(req.body.password)
   };
   const role = 1;
-  //console.log('new user:', saveUser);
+  //   ('new user:', saveUser);
   const queryCheckMemberTable = `
   SELECT * FROM member_info
   WHERE member_id = $1;`
   pool.query(queryCheckMemberTable, [member_id])
     .then((result) => {
       if (result.rows.length > 0) {
-        console.log('member found in member_info!', result.rows[0]);
+           ('member found in member_info!', result.rows[0]);
         saveUser.first_name = result.rows[0].first_name;
         saveUser.last_name = result.rows[0].last_name;
         saveUser.phone_1 = result.rows[0].phone_1;
@@ -48,14 +48,14 @@ router.post('/register', (req, res, next) => {
         pool.query(queryUserTableForMember, [member_id])
           .then((result) => {
             if (result.rows.length > 0) {
-              console.log('member number found in users table!', result.rows);
+                 ('member number found in users table!', result.rows);
                 res.send('Member number already has an account!<br> If you need to reset your password<br> contact a system administrator.')
             } else {
-              console.log('No member number found in users table!');
+                 ('No member number found in users table!');
               pool.query('INSERT INTO users (member_id, password, role, first_name, last_name, phone_1, email) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id',
               [saveUser.member_id, saveUser.password, role, saveUser.first_name, saveUser.last_name, saveUser.phone_1, saveUser.email], (err, result) => {
                 if (err) {
-                  console.log("Error inserting data: ", err);
+                     ("Error inserting data: ", err);
                   res.sendStatus(500);
                 } else {
                   res.send('Registration succesful! You may now log in.');
@@ -64,17 +64,17 @@ router.post('/register', (req, res, next) => {
             }
           })
           .catch((err) => {
-            console.log('error finding users member info ', err);
+               ('error finding users member info ', err);
               res.sendStatus(500);
           })
       } else {
-        console.log('No member number found in member_info!');
+           ('No member number found in member_info!');
         res.send('No membership information found<br> for this member number. To become <br> a member of TCBC go here...')
       }
       // res.send(result)
     })
     .catch((err) => {
-      console.log('error finding member_info member info ', err);
+         ('error finding member_info member info ', err);
       res.sendStatus(500);
     })
 });
@@ -97,7 +97,7 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/admin/changePassword', isAuthenticated, (req, res) =>{
-  console.log(' IN CHANGE PASS req.body is: ', req.body);
+     (' IN CHANGE PASS req.body is: ', req.body);
   let newPassword = encryptLib.encryptPassword(req.body.newPassword);
   let userId = req.body.user_id;
 
@@ -110,7 +110,7 @@ router.post('/admin/changePassword', isAuthenticated, (req, res) =>{
       res.sendStatus(201);
     })
     .catch((err)=>{
-      console.log('password change failed: ', err);
+         ('password change failed: ', err);
       res.sendStatus(500);
     })
 

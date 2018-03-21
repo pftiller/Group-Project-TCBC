@@ -90,14 +90,14 @@ router.post('/', upload.single('file'), function(req, res) {
                             data.email
                         ])
                         .then((result) => {
-                            console.log('success', result);
+                               ('success', result);
                         })
                         .catch((err) => {
-                            console.log('error', err);
+                               ('error', err);
                         });
                 }).on("end", function() {
                     res.sendStatus(200);
-                    console.log("done");
+                       ("done");
                 })
 
         });
