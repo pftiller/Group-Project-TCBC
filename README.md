@@ -4,20 +4,20 @@ Twin Cities Bicycle Club
 
 ## Built With
 
-HTML/CSS
-AngularJS
-AngularJS Material
-Angular-route
-Chart.js
-justGage
-Moment.js
-responsive-tables
-SweetAlert
-Express.js
-Node.js
-Passport
-Moment.js
-PostgreSQL
+- HTML/CSS
+- AngularJS
+- AngularJS Material
+- Angular-route
+- Chart.js
+- justGage
+- Moment.js
+- responsive-tables
+- SweetAlert
+- Express.js
+- Node.js
+- Passport
+- Moment.js
+- PostgreSQL
 
 ## Getting Started
 
