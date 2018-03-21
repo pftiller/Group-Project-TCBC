@@ -1,5 +1,4 @@
 myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', function (RideDetailService, $scope, $filter) {
-  console.log('HomeController created');
   let self = this;
   self.rides = {};
   self.test = RideDetailService.rides;
@@ -39,8 +38,9 @@ $scope.gridActions = {
     RideDetailService.getRideCategories()
       .then((response)=>{
         self.categories.list = response;
-        console.log('here is self.categories.list', self.categories.list);
-        console.log('here is the length of self.categories.list', self.categories.list.length);
+      })
+      .catch((err)=>{
+        swal('Error loading category information. Please try again later.', '', 'error');
       })
   }
   self.loadCategories();
@@ -49,14 +49,10 @@ $scope.gridActions = {
   self.getAllRides = function(){
     RideDetailService.getAllRideDetails()
       .then((response)=>{
-        // self.rides.list.foreach(ride=>{
-        //     if (ride.cancelled) {
-        //       rid
-        //     }
-        // })
         $scope.gridOptions.data = response.data;
-        // self.rides.list = response;
-
+      })
+      .catch((err)=>{
+        swal('Error getting all rides information. Please try again later.', '', 'error');
       })
   }
   // self.getAllRides();

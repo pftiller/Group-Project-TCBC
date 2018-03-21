@@ -1,5 +1,4 @@
 myApp.controller('NavController', ['UserService', '$mdDialog', '$route', '$mdMenu', function(UserService, $mdDialog, $route, $mdMenu) {
-    console.log('NavController created');
     var self = this;
     self.userService = UserService;
     self.userObject = UserService.userObject;
@@ -8,9 +7,7 @@ myApp.controller('NavController', ['UserService', '$mdDialog', '$route', '$mdMen
       originatorEv = ev;
       $mdMenu.open(ev);
     };
+    //Getting the current open page to be displayed as active
     self.activetab = $route.current.$$route.activetab;
-    console.log('$route ', $route.current.$$route.activetab);
     self.currentNavItem = UserService.currentNavItem;
-    console.log('current nav', self.currentNavItem);
-
   }]);

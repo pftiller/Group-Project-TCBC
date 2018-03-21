@@ -1,5 +1,5 @@
 myApp.service('MyProfileService', ['$http', '$location', function ($http, $location) {
-    console.log('MyProfileService Loaded');
+       ('MyProfileService Loaded');
     let self = this;
     // self.viewProfile = {};
 
@@ -7,11 +7,11 @@ myApp.service('MyProfileService', ['$http', '$location', function ($http, $locat
     self.viewProfile = function() {
         return $http.get('/member/viewProfile')
             .then(function (response) {
-                // console.log("back from dB",response);
+                //    ("back from dB",response);
                 return response.data;
             })
             .catch(function (response) {
-                // console.log('error on get request');
+                //    ('error on get request');
             });
     } //end getting table data
 }]);
