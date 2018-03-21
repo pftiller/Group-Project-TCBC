@@ -65,9 +65,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Lukas Nord
+* Darren Rector
+* Patrick Connelly
+* Paul Tiller
 
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used

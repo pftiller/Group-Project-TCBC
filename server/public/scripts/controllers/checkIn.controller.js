@@ -1,5 +1,4 @@
 myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', '$routeParams', function (RideDetailService, UserService, CheckInService, $mdDialog, $location, $routeParams) {
-    console.log('CheckInController created');
     let self = this;
     let rideId = $routeParams.rideId;
 
