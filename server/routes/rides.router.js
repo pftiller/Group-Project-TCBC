@@ -37,15 +37,14 @@ router.get('/admin/pendingApprovedRides', isAuthenticated, isAdminAuthorized, (r
     JOIN users on rides.ride_leader = users.id
     WHERE approved = false
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email`;
-
     pool.query(allRidesQuery)
         .then((result) => {
             let formattedRides = ridePackager(result.rows);
-            // console.log('formatted rides: ', formattedRides);
             res.send(formattedRides);
         })
         .catch((err) => {
             console.log('error getting all rides');
+            res.sendStatus(500);
         })
 });
 router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) => {
@@ -60,17 +59,14 @@ router.get('/member/rideDetails/complete/:rideId', isAuthenticated, (req, res) =
     AND rides_users.user_id = $2;`
     pool.query(allRidesQuery, [req.params.rideId, req.user.id])
         .then((result) => {
-            // console.log('rides ', result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting all my rides', err);
-
+            res.sendStatus(500);
         })
 });
 
-//get my rides only
-//need to specify columns to get
 router.get('/member/rideDetails', isAuthenticated, (req, res) => {
     const allRidesQuery = `SELECT * FROM rides
     JOIN rides_users on rides_users.ride_id = rides.id
@@ -81,17 +77,14 @@ router.get('/member/rideDetails', isAuthenticated, (req, res) => {
     AND rides.ride_leader != $1;`
     pool.query(allRidesQuery, [req.user.id])
         .then((result) => {
-            // console.log('rides ', result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting all my rides', err);
-
+            res.sendStatus(500);
         })
 });
 
-//get my lead rides only
-//need to specify columns to get
 router.get('/rideLeader/leadRideDetails', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
     const allRidesQuery = `SELECT * FROM rides
     JOIN rides_users on rides_users.ride_id = rides.id
@@ -102,16 +95,14 @@ router.get('/rideLeader/leadRideDetails', isAuthenticated, isRideLeaderAuthorize
     AND rides.completed = false;`
     pool.query(allRidesQuery, [req.user.id])
         .then((result) => {
-            // console.log('leading rides ', result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting all my leading rides', err);
-
+            res.sendStatus(500);
         })
 });
-//get my past rides only
-//need to specify columns to get
+
 router.get('/member/pastRideDetails', isAuthenticated, (req, res) => {
     const allRidesQuery = `SELECT * FROM rides
     JOIN rides_users on rides_users.ride_id = rides.id
@@ -121,16 +112,14 @@ router.get('/member/pastRideDetails', isAuthenticated, (req, res) => {
     AND rides.approved = true;`
     pool.query(allRidesQuery, [req.user.id])
         .then((result) => {
-            // console.log('past rides ', result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting all my past rides', err);
-
+            res.sendStatus(500);
         })
 });
 
-//need to specify columns to get
 router.get('/admin/pastRideDetails/:member_id', isAuthenticated, isAdminAuthorized, (req, res) => {
     const allRidesQuery = `
     SELECT * FROM rides
@@ -141,15 +130,13 @@ router.get('/admin/pastRideDetails/:member_id', isAuthenticated, isAdminAuthoriz
     AND rides.approved = true;`
     pool.query(allRidesQuery, [req.params.member_id])
         .then((result) => {
-            // console.log(`member ${req.params.member_id} past rides `, result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting all my past rides', err);
-
+            res.sendStatus(500);
         })
 });
-//get my mileage
 router.get('/member/mileage', isAuthenticated, (req, res) => {
     const queryText = `
     SELECT SUM( actual_distance ) 
@@ -158,43 +145,33 @@ router.get('/member/mileage', isAuthenticated, (req, res) => {
     WHERE rides_users.user_id = $1;`
     pool.query(queryText, [req.user.id])
         .then((result) => {
-            // console.log('user mileage ', result.rows);
             res.send(result.rows[0]);
         })
         .catch((err) => {
             console.log('error getting user mileage', err);
+            res.sendStatus(500);
         })
 });
 
-// get riders for check in view
 router.get(`/rideLeader/signedUpRiders/:rideId`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    console.log('get signed in users ', req.params.rideId);
-
     const queryText = `
     SELECT * FROM users
     JOIN rides_users on rides_users.user_id = users.id
     WHERE rides_users.ride_id = $1;`
     pool.query(queryText, [req.params.rideId])
         .then((result) => {
-            // console.log('user infos ', result.rows);
             res.send(result.rows);
         })
         .catch((err) => {
             console.log('error getting users for ride check in', err);
-
+            res.sendStatus(500);
         })
 
 });
 
-
-
 /* GET search for member */
 router.get('/ride-leader/searchMembers/:first_name/:last_name/:member_id', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    //res.send(categories);
-    // console.log('req.body for search ', req.body);
-    // console.log('req.params for search ', req.params); +
     req.params.member_id;
-    // console.log('req.params for search ', req.params.member_id);
     const queryText = `
     SELECT first_name, last_name, member_id, id 
     FROM users 
@@ -211,11 +188,8 @@ router.get('/ride-leader/searchMembers/:first_name/:last_name/:member_id', isAut
         })
 });
 
-
-
 /* GET All Categories */
 router.get('/public/categories', (req, res) => {
-    //res.send(categories);
     const CategoryQuery = `SELECT * FROM categories`;
     pool.query(CategoryQuery)
         .then((result) => {
@@ -227,12 +201,7 @@ router.get('/public/categories', (req, res) => {
         })
 });
 
-//ride post to sign up
-//add validation if user has already signed up?
-//primary key was finickey
 router.post('/signUp', isAuthenticated, (req, res) => {
-    // console.log('user ', req.user);
-    // console.log('req.body ', req.body);
     const query = `
     INSERT INTO rides_users (ride_id, user_id, selected_distance) 
     VALUES ($1, $2, $3)`;
@@ -240,17 +209,13 @@ router.post('/signUp', isAuthenticated, (req, res) => {
         .then((result) => {
             res.sendStatus(201);
         })
-        // error handling
         .catch((err) => {
             console.log('error making insert query:', err);
             res.sendStatus(500);
         });
 });
 
-
-
 router.post('/ride-leader/sign-up-member', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('req.body ', req.body);
     let ride = req.body.current;
     let member = req.body.member;
     const getDistancesQuery = `
@@ -259,7 +224,6 @@ router.post('/ride-leader/sign-up-member', isAuthenticated, isRideLeaderAuthoriz
         ORDER BY distance DESC`
     pool.query(getDistancesQuery, [ride.ride_id])
         .then((result) => {
-            console.log('results of distances ordered by DESC: ', result.rows);
             let selectedMaxDistance = result.rows[0].id;
             const query = `
                 INSERT INTO rides_users (ride_id, user_id, selected_distance) 
@@ -275,27 +239,20 @@ router.post('/ride-leader/sign-up-member', isAuthenticated, isRideLeaderAuthoriz
                 });
         })
         .catch((err) => {
-            console.log('error making insert query:', err);
+            console.log('error making select ride for sign up insert query:', err);
             res.sendStatus(500);
         });
 })
 
-
-// unregsiter member for ride
-//delete rides_users row where userid and ride id are equal
 router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
-    // console.log('user ', req.user);
-    // console.log('ride_id ', req.params.ride_id);
     const queryText = `
     DELETE FROM rides_users
     WHERE ride_id = $1
     AND user_id = $2`;
     pool.query(queryText, [req.params.ride_id, req.user.id])
         .then((result) => {
-            // console.log('delete rides_users ', result);
             res.sendStatus(201);
         })
-        // error handling
         .catch((err) => {
             console.log('error making update completed query:', err);
             res.sendStatus(500);
@@ -303,20 +260,13 @@ router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
 });
 
 /* RideLeader Submit Ride for Approval */
-
 router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('user ', req.user);
-    // console.log('req.body ', req.body);
-    // console.log('distances: ', req.body.distances);
-
     const saveRideQuery = `
     INSERT INTO rides (rides_name, rides_category, rides_date, description, ride_leader, url, ride_location) 
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING id;`;
     pool.query(saveRideQuery, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.user.id, req.body.url, req.body.ride_location])
         .then((result) => {
-            // console.log('resulting post id', result.rows);
-            console.log('Ride Insert Complete back with ID', result.rows[0].id);
             let ride_id = result.rows[0].id;
             const saveDistancesQuery = `
             INSERT INTO rides_distances (ride_id, distance) 
@@ -324,7 +274,6 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
             RETURNING id, distance;`
             pool.query(saveDistancesQuery, [ride_id, req.body.distances])
                 .then((result) => {
-                    console.log('Distances saved against ride Id: ', ride_id);
                     res.sendStatus(201);
                 })
                 .catch((err) => {
@@ -332,7 +281,6 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
                     res.sendStatus(500);
                 });
         })
-        // error handling
         .catch((err) => {
             console.log('error making insert rides query:', err);
             res.sendStatus(500);
@@ -341,7 +289,6 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
 });
 
 router.put('/admin/editRide/actualMileage', isAuthenticated, isAdminAuthorized, (req, res) => {
-    console.log('acutal mileage req body ', req.body);
     const updateActualMileageQuery = `
         UPDATE rides_users
         SET actual_distance = $1 
@@ -349,7 +296,6 @@ router.put('/admin/editRide/actualMileage', isAuthenticated, isAdminAuthorized, 
         AND user_id = $3;`;
     pool.query(updateActualMileageQuery, [req.body.mileage, req.body.ride_id, req.body.user_id])
         .then((result) => {
-            console.log('put query actual miles result', result);
             res.sendStatus(200);
         })
         .catch((err) => {
@@ -360,9 +306,7 @@ router.put('/admin/editRide/actualMileage', isAuthenticated, isAdminAuthorized, 
 })
 
 /* Ride Approval and Sign up Ride Leader to ride with longest distance*/
-
 router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, res) => {
-
     const ride_id = req.body.ride_id;
     const rideLeaderId = req.body.ride_leader;
     const rideIsApproved = true;
@@ -379,15 +323,12 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
         WHERE id = $8;`;
     pool.query(editRideQuery, [req.body.rides_name, req.body.rides_category, req.body.rides_date, req.body.description, req.body.url, req.body.ride_location, rideIsApproved, ride_id])
         .then((result) => {
-
-            console.log('success EDIT on ride: ', result);
             const overwriteDistancesQuery = `
                 DELETE 
                 FROM rides_distances
                 WHERE ride_id = $1`;
             pool.query(overwriteDistancesQuery, [ride_id])
                 .then((result) => {
-                    console.log('success on removing old distances: ', result);
                     const saveDistancesQuery = `
                     INSERT INTO rides_distances (ride_id, distance) 
                     VALUES($1, unnest($2::int[]))
@@ -397,15 +338,12 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                             const getDistancesQuery = `SELECT * FROM rides_distances WHERE ride_id = $1 ORDER BY distance DESC`
                             pool.query(getDistancesQuery, [ride_id])
                                 .then((result) => {
-                                    console.log('results of distances ordered by DESC: ', result.rows);
                                     let rideLeaderDistance = result.rows[0].id;
                                     const addRideLeaderToRideQuery = `
                                 INSERT INTO rides_users (ride_id, user_id, selected_distance) 
                                 VALUES ($1, $2, $3);`;
                                     pool.query(addRideLeaderToRideQuery, [ride_id, rideLeaderId, rideLeaderDistance])
                                         .then((result) => {
-                                            console.log('success on adding ride leader to their ride.');
-
                                             res.sendStatus(201)
                                         })
                                         .catch((err) => {
@@ -415,7 +353,6 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                                 })
                                 .catch((err) => {
                                     console.log('error getting distances ordered by DESC: ', err);
-
                                     res.sendStatus(500);
                                 })
                         })
@@ -430,22 +367,13 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                     res.sendStatus(500);
 
                 })
-
         })
         // error handling
         .catch((err) => {
             console.log('error making UPDATE rides query:', err);
             res.sendStatus(500);
         });
-
-
-
 })
-
-
-
-
-
 
 //Ride leader get info for check in view
 router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
@@ -459,39 +387,31 @@ router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, isRideLeaderAutho
     GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email, categories.type`;
     pool.query(queryText, [req.params.rideId])
         .then((response) => {
-            console.log('get current ride info ', response.rows);
             res.send(response.rows);
         })
         .catch((err) => {
             console.log('get current ride err ', err);
         });
-    // res.send(list);
 });
 
 // Ride Leader Mark Ride as cancelled
 router.put('/rideLeader/cancelRide/:rideId', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('ride id to cancel ', req.params.rideId);
     const queryText = `
     UPDATE rides
     SET cancelled = $1
     WHERE id = $2`;
     pool.query(queryText, [true, req.params.rideId])
         .then((result) => {
-            // console.log('result update cancel ride ', result);
             res.sendStatus(201);
         })
-        // error handling
         .catch((err) => {
             console.log('error making update cancel query:', err);
             res.sendStatus(500);
         });
 });
 
-
 // Ride Leader Mark toggle member check in
 router.put('/rideLeader/toggleCheckIn', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('ride id to cancel ', req.params.rideId);
-    // console.log('req.body ', req.body);
     const queryText = `
     UPDATE rides_users
     SET checked_in = $1
@@ -499,10 +419,8 @@ router.put('/rideLeader/toggleCheckIn', isAuthenticated, isRideLeaderAuthorized,
     AND ride_id = $3;`;
     pool.query(queryText, [req.body.checked_in, req.body.user_id, req.body.ride_id])
         .then((result) => {
-            // console.log('result update check in user ', result);
             res.sendStatus(201);
         })
-        // error handling
         .catch((err) => {
             console.log('error making update check in user:', err);
             res.sendStatus(500);
@@ -511,7 +429,6 @@ router.put('/rideLeader/toggleCheckIn', isAuthenticated, isRideLeaderAuthorized,
 
 // Ride Leader Mark Ride as Complete
 router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('ride id to mark complete ', req.params.rideId);
     const queryText = `
     UPDATE rides
     SET completed = true
@@ -521,8 +438,6 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
     pool.query(queryText, [req.params.rideId, req.user.id])
         .then((result) => {
             let updateReturn = result.rows[0]
-            // console.log('result update comeplete ride ', updateReturn);
-            // console.log('ride id to mark complete ', req.params.rideId);
             if (updateReturn.ride_leader === req.user.id) {
                 const queryText = `
                 UPDATE rides_users
@@ -533,10 +448,8 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
                 AND checked_in = true;`;
                 pool.query(queryText, [updateReturn.id])
                     .then((result) => {
-                        // console.log('result update comeplete ride ', result);
                         res.sendStatus(201);
                     })
-                    // error handling
                     .catch((err) => {
                         console.log('error making update completed query:', err);
                         res.sendStatus(500);
@@ -546,24 +459,20 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
             }
 
         })
-        // error handling
         .catch((err) => {
             console.log('error making update completed query:', err);
             res.sendStatus(500);
         });
 });
 
-
 //Add Guest rider to db
 router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthorized, (req, res) => {
-    // console.log('req.body ', req.body);
     const guestInsertQuery = `
     INSERT INTO users (first_name, last_name, phone_1, email, role) 
     VALUES ($1, $2, $3, $4, $5)
     RETURNING id`;
     pool.query(guestInsertQuery, [req.body.first_name, req.body.last_name, req.body.phone_1, req.body.email, 4])
         .then((result) => {
-            console.log('user_id of new guest ', result.rows[0].id);
             let user_id = result.rows[0].id;
             const getDistancesQuery = `
                     SELECT * FROM rides_distances 
@@ -571,14 +480,12 @@ router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthor
                     ORDER BY distance DESC`
             pool.query(getDistancesQuery, [req.params.ride_id])
                 .then((result) => {
-                    console.log('results of distances ordered by DESC: ', result.rows);
                     let selectedMaxDistance = result.rows[0].id;
                     const query = `
                             INSERT INTO rides_users (ride_id, user_id, selected_distance, checked_in, waiver_signed) 
                             VALUES ($1, $2, $3, $4, $5)`;
                     pool.query(query, [req.params.ride_id, user_id, selectedMaxDistance, true, req.body.waiver_signed])
                         .then((result) => {
-                            console.log('Inserted guest to rides!');
                             res.sendStatus(201);
                         })
                         .catch((err) => {
@@ -601,7 +508,7 @@ router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthor
 
 
 /* Line Graph Data fetch */
-router.get('/stats', isAuthenticated, (req,res)=>{
+router.get('/stats', isAuthenticated, (req, res) => {
     const userId = req.user.id;
     const milesDateQuery = `
     SELECT rides_users.actual_distance as distance_biked, rides.rides_date as date
@@ -609,18 +516,15 @@ router.get('/stats', isAuthenticated, (req,res)=>{
     JOIN rides ON rides_users.ride_id = rides.id
     WHERE rides_users.user_id = $1
     ORDER BY date ASC`;
-    pool.query(milesDateQuery,[userId])
-        .then((result)=>{
+    pool.query(milesDateQuery, [userId])
+        .then((result) => {
             let sortedData = sortDataForCharts(result.rows);
             res.send(sortedData);
         })
-        .catch((err)=>{
+        .catch((err) => {
             console.log('failed to get miles/date data for line char: ', err);
-            
+            res.sendStatus(500);
         })
 })
-
-
-
 
 module.exports = router;

@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const destination = 'server/public/uploads/'
 const upload = multer({
-  dest: destination
+    dest: destination
 })
 var csv = require('fast-csv')
 var parse = require('csv-parse');
@@ -11,30 +11,30 @@ var fs = require('fs');
 var lineReader = require('readline');
 const pool = require('../modules/pool');
 
-router.post('/', upload.single('file'), function(req, res) {
+router.post('/', upload.single('file'), function (req, res) {
     var file = req.file;
     var stream = fs.createReadStream(file.path);
-            csv.fromStream(stream, {
-                    headers: [
-                        "member_id",
-                        "first_name",
-                        "middle_name",
-                        "last_name",
-                        'city',
-                        'state',
-                        'zip',
-                        'gender', ,
-                        'phone_1',
-                        'phone_2', ,
-                        'membership_start',
-                        'membership_expiration', ,
-                        'email'
+    csv.fromStream(stream, {
+            headers: [
+                "member_id",
+                "first_name",
+                "middle_name",
+                "last_name",
+                'city',
+                'state',
+                'zip',
+                'gender', ,
+                'phone_1',
+                'phone_2', ,
+                'membership_start',
+                'membership_expiration', ,
+                'email'
 
-                    ]
-                })
-                .on('data', function(data, callback) {
-                    let queryText = 
-                    `INSERT INTO "member_info"
+            ]
+        })
+        .on('data', function (data, callback) {
+            let queryText =
+                `INSERT INTO "member_info"
                     (member_id, 
                     membership_start,
                     membership_expiration, 
@@ -74,31 +74,32 @@ router.post('/', upload.single('file'), function(req, res) {
                             phone_1 = excluded.phone_1,
                             phone_2 = excluded.phone_2,
                             email = excluded.email;`;
-                    pool.query(queryText, [
-                            data.member_id,
-                            data.membership_start,
-                            data.membership_expiration,
-                            data.first_name,
-                            data.middle_name,
-                            data.last_name,
-                            data.city,
-                            data.state,
-                            data.zip,
-                            data.gender,
-                            data.phone_1,
-                            data.phone_2,
-                            data.email
-                        ])
-                        .then((result) => {
-                            console.log('success', result);
-                        })
-                        .catch((err) => {
-                            console.log('error', err);
-                        });
-                }).on("end", function() {
-                    res.sendStatus(200);
-                    console.log("done");
+            pool.query(queryText, [
+                    data.member_id,
+                    data.membership_start,
+                    data.membership_expiration,
+                    data.first_name,
+                    data.middle_name,
+                    data.last_name,
+                    data.city,
+                    data.state,
+                    data.zip,
+                    data.gender,
+                    data.phone_1,
+                    data.phone_2,
+                    data.email
+                ])
+                .then((result) => {
+                    console.log('success', result);
+                    res.sendStatus(201);
                 })
-
-        });
+                .catch((err) => {
+                    console.log('error', err);
+                    res.sendStatus(500);
+                });
+        }).on("end", function () {
+            res.sendStatus(200);
+            console.log("done");
+        })
+});
 module.exports = router;
