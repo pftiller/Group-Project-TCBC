@@ -13,6 +13,10 @@ router.get('/viewProfile', isAuthenticated, function (req, res) {
   pool.query(queryText, [req.user.member_id])
     .then((result) => {
       res.send(result.rows);
+    })
+    .catch((err)=>{
+      console.log('error viewing profile', err);
+      res.sendStatus(500);
     });
 });
 
@@ -30,7 +34,6 @@ router.get('/userRole', isAuthenticated, function (req, res) {
       res.send(result.rows);
     })
     .catch((err) => {
-         ('error making query:', err);
       res.sendStatus(500);
     });
 });
@@ -56,7 +59,6 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
       res.send(result.rows);
     })
     .catch((err) => {
-         ('error making member search query:', err);
       res.sendStatus(500);
     });
 });
@@ -73,7 +75,6 @@ router.put(`/changeRole`, isAuthenticated, function (req, res) {
       res.sendStatus(201);
     })
     .catch((err) => {
-         ('error changing user role:', err);
       res.sendStatus(500);
     })
 })
@@ -93,7 +94,6 @@ router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req,
       res.send(result.rows);
     })
     .catch((err) => {
-         ('error getting user past rides ', err);
       res.sendStatus(500);
     })
 
