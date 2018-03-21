@@ -13,7 +13,6 @@ CREATE TABLE "users" (
   OIDS=FALSE
 );
 
-
 CREATE TABLE "rides" (
   "id" serial NOT NULL,
   "rides_name" varchar(50) NOT NULL,
@@ -31,8 +30,6 @@ CREATE TABLE "rides" (
   OIDS=FALSE
 );
 
-
-
 CREATE TABLE "user_roles" (
   "id" serial NOT NULL,
   "role" varchar(25) NOT NULL,
@@ -40,8 +37,6 @@ CREATE TABLE "user_roles" (
 ) WITH (
   OIDS=FALSE
 );
-
-
 
 CREATE TABLE "rides_users" (
   "id" serial NOT NULL,
@@ -56,8 +51,6 @@ CREATE TABLE "rides_users" (
   OIDS=FALSE
 );
 
-
-
 CREATE TABLE "rides_distances" (
   "id" serial NOT NULL,
   "ride_id" int NOT NULL,
@@ -66,8 +59,6 @@ CREATE TABLE "rides_distances" (
 ) WITH (
   OIDS=FALSE
 );
-
-
 
 CREATE TABLE "member_info" (
   "member_id" int NOT NULL,
@@ -94,11 +85,12 @@ CREATE TABLE "categories" (
 	"name" text
 	);
 
-
-
-
-
-
+ALTER TABLE categories
+ADD COLUMN 	category_description text,
+ADD COLUMN 	notes varchar(100),
+ADD COLUMN riders_must_have text,
+ADD COLUMN rest_stops varchar(50),
+ADD COLUMN ride_leader_notes varchar(50);
 
 												-- Category Data --
 												
@@ -127,14 +119,6 @@ INSERT INTO "public"."user_roles"("id", "role") VALUES(3, 'Ride Admin') RETURNIN
 INSERT INTO "public"."user_roles"("id", "role") VALUES(4, 'Guest') RETURNING "id", "role";
 
 
-
-
-
-
-
-
-
-
 											-- Foreign Key Restraints --
 
 ALTER TABLE "rides_users" ADD UNIQUE ("ride_id", "user_id");
@@ -152,43 +136,7 @@ ALTER TABLE "public"."rides"
   
 
 
-															-- TEST DATA --
-
-INSERT INTO "public"."users"("id", "password", "first_name", "last_name", "email", "role", "member_id") VALUES(2, '$2a$10$qpFIlkXr.0TJZinWkjIBW.X3tjCipOlSUb6YFWpvzOOeOyqy3OoFK', 'RideLeader', 'Skywalker', 'test.email@gmail.com', 2, 11111) RETURNING "id", "password", "first_name", "last_name", "phone_1", "email", "role", "member_id";
-
-
-SELECT * FROM categories;
-
-SELECT * FROM rides;
-
-
-SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distance.id) AS ride_distance_id,
-rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, users.first_name,users.last_name,users.email,users.phone_1,categories.type,categories.name
-FROM rides
-JOIN rides_distances on rides.id = rides_distances.ride_id
-JOIN users on rides.ride_leader = users.id
-JOIN categories on rides.rides_category = categories.id
-GROUP BY rides.id;
-
-
-
- --  Get all Rides and associated Data --
-
-SELECT rides.id AS ride_id, array_agg(rides_distances.distance) AS ride_distance, array_agg(rides_distances.id) AS ride_distance_id, rides.rides_name,rides.rides_date,rides.description,rides.url,rides.ride_location, rides.ride_leader, users.first_name, users.last_name,users.phone_1,users.email
-FROM rides 
-JOIN rides_distances on rides.id = rides_distances.ride_id
-JOIN users on rides.ride_leader = users.id
-GROUP BY rides.id, users.first_name, users.last_name, users.phone_1,users.email;
-
- 
- --  Adding more information in Categories table --
-ALTER TABLE categories
-ADD COLUMN 	category_description text,
-ADD COLUMN 	notes varchar(100),
-ADD COLUMN riders_must_have text,
-ADD COLUMN rest_stops varchar(50),
-ADD COLUMN ride_leader_notes varchar(50);
-
+	--  Adding more information in Categories table --
 UPDATE categories SET
 category_description = 'Fast Paced, most difficult terrain, or longer distance', 
 notes = '17+ mph',
