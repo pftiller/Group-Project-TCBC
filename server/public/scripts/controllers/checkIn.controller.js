@@ -1,5 +1,8 @@
 myApp.controller('CheckInController', ['RideDetailService', 'UserService', 'CheckInService', '$mdDialog', '$location', '$routeParams', function (RideDetailService, UserService, CheckInService, $mdDialog, $location, $routeParams) {
+<<<<<<< HEAD
        ('CheckInController created');
+=======
+>>>>>>> 6307b5aec85ae800210ad8cbe29886bbfd896648
     let self = this;
     let rideId = $routeParams.rideId;
 
