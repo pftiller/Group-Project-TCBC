@@ -34,7 +34,7 @@ passport.deserializeUser(function (id, done) {
         });
       } else {
         // user found
-        //console.log('User row ', user);
+        //   ('User row ', user);
         done(null, user);
       }
 

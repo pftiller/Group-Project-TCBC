@@ -71,7 +71,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 }
             }).then(function (response) {
                 swal("Member records updated", '', "success");
-                console.log('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
+                   ('Success ' + response.config.data.file.name + 'uploaded. Response: ' + response.data);
             })
             .catch((err) => {
                 swal('Error updating member records. Please try again later.', '', 'error');
@@ -82,7 +82,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     self.adminViewMemberPastRides = function (member, ev) {
         AdminService.adminViewMemberPastRides(member)
             .then((response) => {
-                console.log(self.pastMemberRides);
+                   (self.pastMemberRides);
             })
             .catch((err) => {
                 swal('Error getting rider past rides. Please try again later.', '', 'error');

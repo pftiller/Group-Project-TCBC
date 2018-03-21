@@ -25,7 +25,7 @@ router.get('/public/details', (req, res) => {
             res.send(formattedRides);
         })
         .catch((err) => {
-            console.log('error getting all rides');
+            ('error getting all rides');
         })
 });
 
@@ -183,7 +183,7 @@ router.get('/ride-leader/searchMembers/:first_name/:last_name/:member_id', isAut
             res.send(result.rows);
         })
         .catch((err) => {
-            console.log('Error getting categories');
+            ('Error getting categories');
             res.sendStatus(500);
         })
 });
@@ -196,7 +196,7 @@ router.get('/public/categories', (req, res) => {
             res.send(result.rows);
         })
         .catch((err) => {
-            console.log('Error getting categories');
+            ('Error getting categories');
             res.sendStatus(500);
         })
 });
@@ -210,7 +210,7 @@ router.post('/signUp', isAuthenticated, (req, res) => {
             res.sendStatus(201);
         })
         .catch((err) => {
-            console.log('error making insert query:', err);
+            ('error making insert query:', err);
             res.sendStatus(500);
         });
 });
@@ -234,7 +234,7 @@ router.post('/ride-leader/sign-up-member', isAuthenticated, isRideLeaderAuthoriz
                 })
                 // error handling
                 .catch((err) => {
-                    console.log('error making insert query:', err);
+                    ('error making insert query:', err);
                     res.sendStatus(500);
                 });
         })
@@ -254,7 +254,7 @@ router.delete('/unregister/:ride_id/', isAuthenticated, (req, res) => {
             res.sendStatus(201);
         })
         .catch((err) => {
-            console.log('error making update completed query:', err);
+            ('error making update completed query:', err);
             res.sendStatus(500);
         });
 });
@@ -277,12 +277,12 @@ router.post('/rideLeader/submitRide', isAuthenticated, isRideLeaderAuthorized, (
                     res.sendStatus(201);
                 })
                 .catch((err) => {
-                    console.log('error making insert rides_distances query:', err);
+                    ('error making insert rides_distances query:', err);
                     res.sendStatus(500);
                 });
         })
         .catch((err) => {
-            console.log('error making insert rides query:', err);
+            ('error making insert rides query:', err);
             res.sendStatus(500);
         });
 
@@ -299,7 +299,7 @@ router.put('/admin/editRide/actualMileage', isAuthenticated, isAdminAuthorized, 
             res.sendStatus(200);
         })
         .catch((err) => {
-            console.log('put query actual miles err', err);
+            ('put query actual miles err', err);
             res.sendStatus(500);
         })
 
@@ -338,16 +338,12 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                             const getDistancesQuery = `SELECT * FROM rides_distances WHERE ride_id = $1 ORDER BY distance DESC`
                             pool.query(getDistancesQuery, [ride_id])
                                 .then((result) => {
-                                    let rideLeaderDistance = result.rows[0].id;
-                                    const addRideLeaderToRideQuery = `
-                                INSERT INTO rides_users (ride_id, user_id, selected_distance) 
-                                VALUES ($1, $2, $3);`;
                                     pool.query(addRideLeaderToRideQuery, [ride_id, rideLeaderId, rideLeaderDistance])
                                         .then((result) => {
                                             res.sendStatus(201)
                                         })
                                         .catch((err) => {
-                                            console.log('error adding ride leader to their ride: ', err);
+                                            ('error adding ride leader to their ride: ', err);
                                             res.sendStatus(500);
                                         })
                                 })
@@ -357,20 +353,20 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                                 })
                         })
                         .catch((err) => {
-                            console.log('error making insert rides_distances query:', err);
+                            ('error making insert rides_distances query:', err);
                             res.sendStatus(500);
                         })
 
                 })
                 .catch((err) => {
-                    console.log('error deleting ride distances: ', err);
+                    ('error deleting ride distances: ', err);
                     res.sendStatus(500);
 
                 })
         })
         // error handling
         .catch((err) => {
-            console.log('error making UPDATE rides query:', err);
+            ('error making UPDATE rides query:', err);
             res.sendStatus(500);
         });
 })
@@ -390,7 +386,7 @@ router.get(`/rideLeader/currentRide/:rideId`, isAuthenticated, isRideLeaderAutho
             res.send(response.rows);
         })
         .catch((err) => {
-            console.log('get current ride err ', err);
+            res.sendStatus(500);
         });
 });
 
@@ -405,7 +401,7 @@ router.put('/rideLeader/cancelRide/:rideId', isAuthenticated, isRideLeaderAuthor
             res.sendStatus(201);
         })
         .catch((err) => {
-            console.log('error making update cancel query:', err);
+            ('error making update cancel query:', err);
             res.sendStatus(500);
         });
 });
@@ -422,7 +418,7 @@ router.put('/rideLeader/toggleCheckIn', isAuthenticated, isRideLeaderAuthorized,
             res.sendStatus(201);
         })
         .catch((err) => {
-            console.log('error making update check in user:', err);
+            ('error making update check in user:', err);
             res.sendStatus(500);
         });
 });
@@ -451,7 +447,7 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
                         res.sendStatus(201);
                     })
                     .catch((err) => {
-                        console.log('error making update completed query:', err);
+                        ('error making update completed query:', err);
                         res.sendStatus(500);
                     });
             } else {
@@ -460,7 +456,7 @@ router.put('/rideLeader/complete/:rideId', isAuthenticated, isRideLeaderAuthoriz
 
         })
         .catch((err) => {
-            console.log('error making update completed query:', err);
+            ('error making update completed query:', err);
             res.sendStatus(500);
         });
 });
@@ -489,18 +485,18 @@ router.post(`/rideLeader/addGuest/:ride_id`, isAuthenticated, isRideLeaderAuthor
                             res.sendStatus(201);
                         })
                         .catch((err) => {
-                            console.log('error inserting rides_users guest query:', err);
+                            ('error inserting rides_users guest query:', err);
                             res.sendStatus(500);
                         });
 
                 })
                 .catch((err) => {
-                    console.log('error getting rides_distances for getDistanceQuery:', err);
+                    ('error getting rides_distances for getDistanceQuery:', err);
                     res.sendStatus(500);
                 });
         })
         .catch((err) => {
-            console.log('error inserting users for guestInsertQuery:', err);
+            ('error inserting users for guestInsertQuery:', err);
             res.sendStatus(500);
         });
 });

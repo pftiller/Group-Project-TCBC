@@ -53,12 +53,12 @@ router.post('/register', (req, res, next) => {
             res.sendStatus(500);
           })
       } else {
-        console.log('No member number found in member_info!');
+           ('No member number found in member_info!');
         res.send('No membership information found<br> for this member number. To become <br> a member of TCBC go here...')
       }
     })
     .catch((err) => {
-      console.log('error finding member_info member info ', err);
+         ('error finding member_info member info ', err);
       res.sendStatus(500);
     })
 });
