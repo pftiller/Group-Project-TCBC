@@ -1,3 +1,5 @@
+CREATE DATABASE "tcbc";
+
 CREATE TABLE "users" (
   "id" serial NOT NULL,
   "password" varchar(255),
