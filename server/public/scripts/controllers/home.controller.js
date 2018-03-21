@@ -41,6 +41,7 @@ myApp.controller('HomeController', ['RideDetailService', '$scope', '$filter', fu
     RideDetailService.getRideCategories()
       .then((response) => {
         self.categories.list = response;
+        return response;
       })
       .catch((err) => {
         swal('Error loading category information. Please try again later.', '', 'error');

@@ -140,7 +140,6 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location', '$http',
                 chart.chart.config.data.labels = response.data.datesArray;
                 chart.chart.config.data.datasets[0].data = response.data.mileageArray;
                 chart.update();
-
             })
             .catch((err) => {
                 swal('Error getting chart information. Please try again later.', '', 'error');
