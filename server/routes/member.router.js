@@ -6,25 +6,17 @@ const pool = require('../modules/pool.js');
 const router = express.Router();
 
 router.get('/viewProfile', isAuthenticated, function (req, res) {
-     ('in viewProfile event');
-     ('this is the user', req.user);
   const queryText =
     `SELECT *
       FROM member_info
       WHERE member_id = $1`;
   pool.query(queryText, [req.user.member_id])
     .then((result) => {
-         ('query results:', result.rows);
       res.send(result.rows);
-    })
-    .catch((err) => {
-         ('error making query:', err);
-      res.sendStatus(500);
     });
 });
 
 router.get('/userRole', isAuthenticated, function (req, res) {
-     ('in get user role router');
   const queryText =
     `SELECT
     id,
@@ -35,7 +27,6 @@ router.get('/userRole', isAuthenticated, function (req, res) {
     id ASC`;
   pool.query(queryText)
     .then((result) => {
-         ('query get user role results:', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -45,7 +36,7 @@ router.get('/userRole', isAuthenticated, function (req, res) {
 });
 
 router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthenticated, function (req, res) {
-  
+
   const queryText =
     ` SELECT users.id AS user_id, 
     users.first_name, 
@@ -60,10 +51,8 @@ router.get('/findRider/riderInfo/:first_name/:last_name/:member_id', isAuthentic
     OR first_name ILIKE $2
     OR last_name ILIKE $3
     ORDER BY member_id ASC;`
-  pool.query(queryText, [req.params.member_id, '%' + req.params.first_name + '%' , '%' + req.params.last_name + '%'])
+  pool.query(queryText, [req.params.member_id, '%' + req.params.first_name + '%', '%' + req.params.last_name + '%'])
     .then((result) => {
-         ('result of search for person: ', result.rows);
-      
       res.send(result.rows);
     })
     .catch((err) => {
@@ -90,7 +79,6 @@ router.put(`/changeRole`, isAuthenticated, function (req, res) {
 })
 
 router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req, res) {
-     ('in past rides router');
   let userID = req.params.user_id;
   const queryText = `
     SELECT * 
@@ -102,7 +90,6 @@ router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req,
     AND rides.approved = true;`
   pool.query(queryText, [userID])
     .then((result) => {
-         ('query results for past rides ', result.rows);
       res.send(result.rows);
     })
     .catch((err) => {
@@ -113,55 +100,37 @@ router.get(`/adminViewMemberPastRides/:user_id`, isAuthenticated, function (req,
 })
 
 
-router.get('/stats/goal', isAuthenticated, (req, res)=>{
-  
+router.get('/stats/goal', isAuthenticated, (req, res) => {
+
   const userId = req.user.id;
   const getGoalQuery = `
   SELECT goal
   FROM users
   WHERE users.id = $1;`
-   pool.query(getGoalQuery,[userId])
-    .then((result)=>{
-         ('GET goal for User: ', result.rows);
-      
+  pool.query(getGoalQuery, [userId])
+    .then((result) => {
       res.send(result.rows);
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.sendStatus(500);
     })
 })
 
-router.put('/stats/goal', isAuthenticated, (req, res)=>{
-     ('SET stats Goal: ', req.body , 'for user: ', req.user);
-  
+router.put('/stats/goal', isAuthenticated, (req, res) => {
   const userId = req.user.id;
   const newGoal = req.body.setGoal;
   const setGoalQuery = `
     UPDATE users
     SET goal = $1
     WHERE id = $2`;
-  
-  pool.query(setGoalQuery,[newGoal, userId])
-    .then((result)=>{
+
+  pool.query(setGoalQuery, [newGoal, userId])
+    .then((result) => {
       res.sendStatus(201);
     })
-    .catch((err)=>{
-         ('error updating goal: ', err);
+    .catch((err) => {
+      console.log('error updating goal: ', err);
       res.sendStatus(500);
-    }) 
+    })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;

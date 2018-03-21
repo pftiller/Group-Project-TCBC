@@ -2,7 +2,6 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMe
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-     ('myApp -- config')
   $routeProvider
     .when('/', {
       redirectTo: '/landing'
@@ -91,30 +90,9 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
         }
       }
     })
-    .when('/register', {
-      templateUrl: '/views/shared/register.html',
-      controller: 'LoginController as vm'
-    })
-    .when('/user', {
-      templateUrl: '/views/user/templates/user.html',
-      controller: 'UserController as vm',
-      resolve: {
-        getuser: function (UserService) {
-          return UserService.getuser();
-        }
-      }
-    })
-    .when('/info', {
-      templateUrl: '/views/user/templates/info.html',
-      controller: 'InfoController as vm',
-      resolve: {
-        getuser: function (UserService) {
-          return UserService.getuser();
-        }
-      }
-    })
     .otherwise({
-      template: '<h1>404</h1>'
+      template: `<h1 style="text-align:center;">404 </h1><br><p style="text-align:center;">Page not found. Please try again later.</p><br>
+                <p style="text-align:center;">Please go to the <a href="/#!/landing">Main</a> page for more information</p>`
     })
 
 }]);

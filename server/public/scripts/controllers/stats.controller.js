@@ -1,4 +1,4 @@
-myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','RideDetailService','MyProfileService','$mdDialog', function (MyProfileService, $location, $http, RideDetailService, MyProfileService, $mdDialog) {
+myApp.controller('MyStatsController', ['MyProfileService', '$location', '$http', 'RideDetailService', 'MyProfileService', '$mdDialog', function (MyProfileService, $location, $http, RideDetailService, MyProfileService, $mdDialog) {
     let self = this;
     self.viewProfile = {};
     self.goal = {};
@@ -6,24 +6,21 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
     self.viewProfile = {};
     self.viewProfile.expanded = false;
 
-    self.viewProfile = function(){
-      MyProfileService.viewProfile().then((res)=>{
-        self.viewProfile = res[0];
-      })
-    }
-    self.viewProfile();
-    
     self.viewProfile = function () {
-        MyProfileService.viewProfile().then((res) => {
-            self.viewProfile = res[0];
-        })
+        MyProfileService.viewProfile()
+            .then((res) => {
+                self.viewProfile = res[0];
+            })
+            .catch((err) => {
+                swal('Error getting rider information. Please try again later.', '', 'error');
+            })
     }
     self.viewProfile();
-    self.toggleView = function(){
-          !view.expanded  
-        
-      }
-    self.openMemberInfo = function(ev){
+
+    self.toggleView = function () {
+        !view.expanded
+    }
+    self.openMemberInfo = function (ev) {
         $mdDialog.show({
             controller: 'MyProfileController',
             controllerAs: 'vm',
@@ -33,34 +30,35 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
             clickOutsideToClose: true,
         })
     }
-
-    self.getGoalData = function(){
+    self.getGoalData = function () {
         $http.get('/member/stats/goal')
-            .then((response)=>{
-                
+            .then((response) => {
                 self.goal.currentGoal = response.data[0].goal;
                 RideDetailService.getMileageForMember()
-                    .then((res)=>{
+                    .then((res) => {
                         self.totalMiles = res.sum;
-                    goalProgress.refresh(self.totalMiles,response.data[0].goal);
-                        
-                    })  
+                        goalProgress.refresh(self.totalMiles, response.data[0].goal);
+                    })
+                    .catch((err) => {
+                        swal('Error getting rider mileage for goal. Please try again later.', '', 'error');
+                    })
             })
-            .catch((err)=>{
+            .catch((err) => {
+                swal('Error getting goal information. Please try again later.', '', 'error');
             })
 
     }
     self.getGoalData();
 
-    self.setGoal = function(newGoal){
+    self.setGoal = function (newGoal) {
         $http.put('/member/stats/goal', newGoal)
-            .then((response)=>{
+            .then((response) => {
                 self.getGoalData();
-                swal('Goal Updated!','', 'success')
+                swal('Goal Updated!', '', 'success')
                 self.goal.setGoal = '';
             })
-            .catch((err)=>{
-                
+            .catch((err) => {
+                swal('Error setting new goal! Please try again later.', '', 'error');
             })
     }
 
@@ -80,15 +78,15 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
             "#ffff66",
             "#ccff99",
             "#33cc33"
-        ] 
-      });
-      trackDateArrayLength = [];
-      trackDateArrayLength = trackDateArrayLength.length;
-    
+        ]
+    });
+    trackDateArrayLength = [];
+    trackDateArrayLength = trackDateArrayLength.length;
+
     /* Line Graph */
     var ctx = document.getElementById('lineChart').getContext('2d');
     var chart = new Chart(ctx, {
-    // The type of chart we want to create
+        // The type of chart we want to create
         type: 'line',
 
         // The data for our dataset
@@ -128,33 +126,31 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location','$http','
                     }
                 }]
             },
-            legend:{
+            legend: {
                 display: false,
                 position: 'bottom'
             }
         }
     });
 
-    
-    self.getLineChartData = function(){
+
+    self.getLineChartData = function () {
         $http.get('/rides/stats')
-            .then((response)=>{
-                
+            .then((response) => {
                 chart.chart.config.data.labels = response.data.datesArray;
                 chart.chart.config.data.datasets[0].data = response.data.mileageArray;
-                
                 chart.update();
-                
+
             })
-            .catch((err)=>{
-                
+            .catch((err) => {
+                swal('Error getting chart information. Please try again later.', '', 'error');
             })
     }
     self.getLineChartData();
-    
-    function formatDates(array){
+
+    function formatDates(array) {
         let formattedArray = [];
-        for(let i=0;i<array.length;i++){
+        for (let i = 0; i < array.length; i++) {
             let date = moment('MMMM Do YYYY').format(array[i])
             formattedArray.push(date);
         }

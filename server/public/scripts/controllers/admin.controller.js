@@ -119,12 +119,12 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                         swal(`Successfully changed password for ${user.first_name}`, '', 'success');
                         $mdDialog.hide();
                     })
-                    .catch((err)=>{
+                    .catch((err) => {
                         swal('Error changing member information. Please try again later.', '', 'error');
                     });
             }
         }
-        
+
         self.closeModal = function () {
             $mdDialog.hide();
         }
@@ -132,8 +132,8 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     }
 
     self.upload = function () {
-    angular.element(document.querySelector('#fileInput')).click();
-  };
+        angular.element(document.querySelector('#fileInput')).click();
+    };
 
 
 }]);
