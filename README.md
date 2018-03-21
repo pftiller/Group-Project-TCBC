@@ -42,14 +42,6 @@ The following software will be required in order to get this project to work.
 
 
 
-## Screen Shot
-
-
-
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
-
 ### Completed Features
 
 High level list of items completed.
@@ -77,6 +69,10 @@ Features that you would like to add at some point in the future.
 ## Deployment
 
 Master branch will be deployed on Heroku.  Future deployments can follow the same practice. 
+
+## Usage
+
+This is intended to be used by the Twin Cities Bicycle Club. User registration and login was built specifically to accomodate the need for member IDs that are managed by the Twin Cities Bicycle Club.
 
 ## Authors
 * Darren Rector
