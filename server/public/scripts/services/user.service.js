@@ -97,6 +97,7 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
         if (response.status === 500) {
           swal('Error registering user, please try again later.', '', 'error');
         } else {
+          console.log('response data ', response.data);
           return response.data
         }
       })
