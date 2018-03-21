@@ -2,7 +2,6 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngMe
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  console.log('myApp -- config')
   $routeProvider
     .when('/', {
       redirectTo: '/landing'
@@ -114,7 +113,7 @@ myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $
       }
     })
     .otherwise({
-      template: '<h1>404</h1>'
+      template: '<h1 style="text-align:center;">404 </h1><br><p style="text-align:center;">Page not found. Please try again later.</p>'
     })
 
 }]);

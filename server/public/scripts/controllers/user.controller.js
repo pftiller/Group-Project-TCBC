@@ -1,5 +1,4 @@
-myApp.controller('UserController', ['UserService', function(UserService) {
-  console.log('UserController created');
+myApp.controller('UserController', ['UserService', function (UserService) {
   var self = this;
   self.userService = UserService;
   self.userObject = UserService.userObject;

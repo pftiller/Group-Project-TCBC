@@ -11,33 +11,4 @@ function getLargestDistance(distanceArray){
     return largest;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = getLargestDistance;
-

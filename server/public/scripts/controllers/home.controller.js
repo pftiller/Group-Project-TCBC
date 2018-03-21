@@ -1,4 +1,4 @@
-myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', function (RideDetailService, $scope, $filter) {
+myApp.controller('HomeController', ['RideDetailService', '$scope', '$filter', function (RideDetailService, $scope, $filter) {
   let self = this;
   self.rides = {};
   self.test = RideDetailService.rides;
@@ -8,14 +8,17 @@ myApp.controller('HomeController', ['RideDetailService','$scope', '$filter', fun
   self.selection = [];
 
 
-  self.toggleView = function(ary, data, index){
-    for(var i=0; i<ary.length; i++){
-      if(i!=index) { ary[i].expanded=false; }
-      else { data.expanded=!data.expanded; }
+  self.toggleView = function (ary, data, index) {
+    for (var i = 0; i < ary.length; i++) {
+      if (i != index) {
+        ary[i].expanded = false;
+      } else {
+        data.expanded = !data.expanded;
+      }
     }
   }
 
-$scope.gridOptions = {
+  $scope.gridOptions = {
     data: [],
     sort: {
       predicate: 'date',
@@ -23,58 +26,58 @@ $scope.gridOptions = {
     },
     customFilters: {
       date: function (items, value, predicate) {
-          return items.filter(function (item) {
-              return value && item[predicate] ? !item[predicate].indexOf(moment(value).format('MM/DD/YYYY')) : true;
-          });
+        return items.filter(function (item) {
+          return value && item[predicate] ? !item[predicate].indexOf(moment(value).format('MM/DD/YYYY')) : true;
+        });
       },
     }
   };
 
-$scope.gridActions = {
+  $scope.gridActions = {
 
-}
+  }
   // GET categories on page load
-  self.loadCategories = function(){
+  self.loadCategories = function () {
     RideDetailService.getRideCategories()
-      .then((response)=>{
+      .then((response) => {
         self.categories.list = response;
       })
-      .catch((err)=>{
+      .catch((err) => {
         swal('Error loading category information. Please try again later.', '', 'error');
       })
   }
   self.loadCategories();
-  
+
   //GET all rides for display
-  self.getAllRides = function(){
+  self.getAllRides = function () {
     RideDetailService.getAllRideDetails()
-      .then((response)=>{
+      .then((response) => {
         $scope.gridOptions.data = response.data;
       })
-      .catch((err)=>{
+      .catch((err) => {
         swal('Error getting all rides information. Please try again later.', '', 'error');
       })
   }
   // self.getAllRides();
-  
-// Ride Details
-self.rideDetailReveal = function (id) {
-  RideDetailService.rideDetailModal(id);
-}
 
-// Clear Filters
-self.clearFilters = function () {
-  $scope.date = '';
-  $scope.type = '';
-  $scope.rides_name ='';
-  $scope.gridActions.refresh();
-}
+  // Ride Details
+  self.rideDetailReveal = function (id) {
+    RideDetailService.rideDetailModal(id);
+  }
+
+  // Clear Filters
+  self.clearFilters = function () {
+    $scope.date = '';
+    $scope.type = '';
+    $scope.rides_name = '';
+    $scope.gridActions.refresh();
+  }
 
 
-let init = function () {
-  self.getAllRides();
+  let init = function () {
+    self.getAllRides();
 
-};
-init();
+  };
+  init();
 
 }])

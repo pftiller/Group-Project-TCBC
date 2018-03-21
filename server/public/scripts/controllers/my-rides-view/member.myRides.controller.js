@@ -1,20 +1,20 @@
-myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', 'UserService', function(RideDetailService, $mdDialog, UserService) {
+myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', 'UserService', function (RideDetailService, $mdDialog, UserService) {
     let self = this;
 
     self.myRidesTable = true;
     self.pastRidesTable = true;
 
     self.userObject = UserService.userObject;
-    
-    self.rideDetailReveal = function(ride){
+
+    self.rideDetailReveal = function (ride) {
         RideDetailService.initMyRideDetailModal(ride);
     }
 
-    self.rideDetailRevealPast = function(ride){
+    self.rideDetailRevealPast = function (ride) {
         ride.past_ride = true;
         RideDetailService.initMyRideDetailModal(ride);
     }
-    
+
     self.allRides = RideDetailService.allRides;
     self.myRides = RideDetailService.myRides;
     self.myPastRides = RideDetailService.myPastRides;
@@ -30,6 +30,4 @@ myApp.controller('MemberMyRidesController', ['RideDetailService', '$mdDialog', '
     self.collapsePastRides = function () {
         self.pastRidesTable = !self.pastRidesTable;
     }
-  }]);
-  
-
+}]);

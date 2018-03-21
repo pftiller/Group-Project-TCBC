@@ -1,6 +1,6 @@
 const express = require('express');
 const encryptLib = require('../modules/encryption');
-const Person = require('../models/Person');
+// const Person = require('../models/Person');
 const userStrategy = require('../strategies/sql.localstrategy');
 const isAuthenticated = require('../modules/isAuthenticated');
 const pool = require('../modules/pool.js');
