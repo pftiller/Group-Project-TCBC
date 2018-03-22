@@ -90,11 +90,11 @@ router.post('/', upload.single('file'), function (req, res) {
                     data.email
                 ])
                 .then((result) => {
-                    console.log('success, ', result)
+                    console.log('success, ', result.rows)
                 })
                 .catch((err) => {
                     console.log('error uploading csv', err);
-                    res.sendStatus(500);
+            
                 });
         }).on("end", function () {
             res.sendStatus(200);
