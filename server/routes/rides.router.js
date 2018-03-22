@@ -25,7 +25,7 @@ router.get('/public/details', (req, res) => {
             res.send(formattedRides);
         })
         .catch((err) => {
-           console.log('error getting all rides');
+            console.log('error getting all rides');
         })
 });
 
@@ -338,6 +338,10 @@ router.put('/admin/approveAndSave', isAuthenticated, isAdminAuthorized, (req, re
                             const getDistancesQuery = `SELECT * FROM rides_distances WHERE ride_id = $1 ORDER BY distance DESC`
                             pool.query(getDistancesQuery, [ride_id])
                                 .then((result) => {
+                                    let rideLeaderDistance = result.rows[0].id;
+                                    const addRideLeaderToRideQuery = `
+                                INSERT INTO rides_users (ride_id, user_id, selected_distance) 
+                                VALUES ($1, $2, $3);`;
                                     pool.query(addRideLeaderToRideQuery, [ride_id, rideLeaderId, rideLeaderDistance])
                                         .then((result) => {
                                             res.sendStatus(201)
