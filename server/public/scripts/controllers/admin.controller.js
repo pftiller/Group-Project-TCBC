@@ -71,9 +71,11 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
                 }
             }).then(function (response) {
                 swal("Member records updated", '', "success");
+                self.file = null;
             })
             .catch((err) => {
                 swal('Error updating member records. Please try again later.', '', 'error');
+                self.file = null;
             });
     };
 

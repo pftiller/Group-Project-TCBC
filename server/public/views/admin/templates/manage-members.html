@@ -71,12 +71,8 @@
       </tbody>
     </table>
   </div>
-<<<<<<< HEAD
 </div> 
 
-=======
-</div>
->>>>>>> f9015b3b0dac5e1c71def64a087a3c6212ac4608
 
 <form name="myForm" class="csvUpload" layout-align="center center">
   <label> Upload Member Information - CSV File</label>
@@ -84,16 +80,11 @@
   <label class="md-raised md-primary md-button bring-forward" md-ink-ripple for="file">
     <span>Select File</span>
   </label>
-  <input type="file" ngf-select ng-model="file" name="file" id="file" class="file-input-hide" ngf-pattern="'.csv'" accept=".csv"
+  <input type="file" ngf-select ng-model="vm.file" name="file" id="file" class="file-input-hide" ngf-pattern="'.csv'" accept=".csv"
     ngf-max-size="20MB" ngf-model-invalid="errorFile">
   <i ng-show="myForm.file.$error.maxSize">File too large {{errorFile.size / 1000000|number:1}}MB: max 20MB</i>
-  <img ng-show="myForm.file.$valid" ngf-thumbnail="file">
+  <img ng-show="myForm.file.$valid" ngf-thumbnail="vm.file">
   <br>
-<<<<<<< HEAD
   <md-button class="md-raised md-primary" ng-disabled="!vm.file" ng-click="vm.submit(vm.file)">Submit</md-button>
   <md-button class="md-raised md-warn" ng-click="vm.file = null" ng-show="vm.file">Remove</md-button>
-=======
-  <md-button class="md-raised md-primary" ng-disabled="!file" ng-click="vm.submit(vm.file)">Submit</md-button>
-  <md-button class="md-raised md-warn" ng-click="file = null" ng-show="file">Remove</md-button>
->>>>>>> f9015b3b0dac5e1c71def64a087a3c6212ac4608
 </form>
