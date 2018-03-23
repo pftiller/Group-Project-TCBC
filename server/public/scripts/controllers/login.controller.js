@@ -89,20 +89,14 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'RideD
         self.newUser.password = self.newUser.password1;
         UserService.registerUser(self.newUser)
           .then((result) => {
-            self.message.message = $sce.trustAsHtml(result);
             if (result == 'Registration succesful! You may now log in.') {
                 self.close();
                 swal('Registration successful!', '', 'success')
+            } else {
+              self.message.message = $sce.trustAsHtml(result);
             }
           });
         self.passwordMatch.state = true;
-        self.newUser = {
-          member_id: '',
-          password1: '',
-          password2: '',
-          password: ''
-        }
-        $location
       }
     }
 
