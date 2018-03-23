@@ -83,7 +83,7 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     self.adminViewMemberPastRides = function (member, ev) {
         AdminService.adminViewMemberPastRides(member)
             .then((response) => {
-                return respoonse;
+                return response;
             })
             .catch((err) => {
                 swal('Error getting rider past rides. Please try again later.', '', 'error');
