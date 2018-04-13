@@ -8,6 +8,7 @@ myApp.controller('MyProfileController', ['MyProfileService', '$location', '$mdDi
     })
   }
   self.viewProfile();
+  
   self.statsView = function () {
     $location.path('/stats')
   }

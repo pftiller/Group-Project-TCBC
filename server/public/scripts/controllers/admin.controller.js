@@ -29,7 +29,6 @@ myApp.controller('AdminController', ['$timeout', 'Upload', '$http', '$mdDialog',
     self.getRoles = function () {
         AdminService.getRoles().then((response) => {
                 self.getUserRoles = AdminService.getUserRoles;
-
             })
             .catch((err) => {
                 swal('Error getting roles from server. Please try again later.', '', 'error');

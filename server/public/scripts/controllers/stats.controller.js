@@ -62,7 +62,7 @@ myApp.controller('MyStatsController', ['MyProfileService', '$location', '$http',
             })
     }
 
-    /* Goal Trakcer Dial */
+    /* Goal Tracker Dial */
     var goalProgress = new JustGage({
         id: "bigfella",
         value: 0,
