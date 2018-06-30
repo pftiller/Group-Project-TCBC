@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
+var pg = require('pg');
 const passport = require('./strategies/sql.localstrategy');
 const sessionConfig = require('./modules/session-middleware');
 
@@ -32,14 +32,24 @@ app.use('/rides', ridesRouter);
 app.use('/member', memberRouter);
 app.use('/upload', userUploader);
 
-const PORT = process.env.PORT || 5000;
-
+var connection = mysql.createConnection({
+    host     : process.env.RDS_HOSTNAME,
+    user     : process.env.RDS_USERNAME,
+    password : process.env.RDS_PASSWORD,
+    port     : process.env.RDS_PORT
+  });
+  
 /** Listen * */
-app.listen(PORT, () => {
-       console.log(`Listening on port: ${PORT}`);
-});
-
-
+connection.connect(function(err) {
+    if (err) {
+      console.error('Database connection failed: ' + err.stack);
+      return;
+    }
+  
+    console.log('Connected to database.');
+  });
+  
+  connection.end();
 
 
 
